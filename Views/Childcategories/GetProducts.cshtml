@@ -22,11 +22,121 @@
 
 <h1 class="display-4">@childcategory</h1>
 
+<div class="sticky-top">
+    <ul class="list-group list-group-horizontal">
+
+        <li class="list-group-item">
+            Знайдено @Model.Count() товарів
+        </li>
+        @if (!string.IsNullOrEmpty(Context.Session.GetString("SelectedBrands")) || !string.IsNullOrEmpty(Context.Session.GetString("StartPrice")) || !string.IsNullOrEmpty(Context.Session.GetString("EndPrice")))
+        {
+            <li class="list-group-item">
+                <form asp-action="FullDeleteFilters" method="post">
+                    <button type="submit" class="btn btn-danger">
+                        Скинути
+                    </button>
+                </form>
+            </li>
+            @if (!string.IsNullOrEmpty(Context.Session.GetString("SelectedBrands")))
+            {
+                <li class="list-group-item">
+                    Бренды: @Context.Session.GetString("SelectedBrands")
+                    <form asp-action="DeleteFilterBrand" method="post">
+                        <button type="submit" class="btn-close" aria-label="Close"></button>
+                    </form>
+                </li>
+            }
+            @if (!string.IsNullOrEmpty(Context.Session.GetString("StartPrice")))
+            {
+                <li class="list-group-item">
+                    @Context.Session.GetString("StartPrice") - @Context.Session.GetString("EndPrice") грн
+                    <form asp-action="DeleteFilterPrice" method="post">
+                        <button type="submit" class="btn-close" aria-label="Close"></button>
+                    </form>
+                </li>
+            }
+        }
+
+    </ul>
+
+
+
+
+
+    @* @if (filferBrand.Any() || filferPrice.Any())
+    {
+    <ul class="list-group list-group-horizontal">
+    Фільтри:
+    @foreach (var filter in Model.Filters)
+    {
+    if (filter.StartPrace != null)
+    {
+    <li class="list-group-item">
+    від @filter.StartPrace, до @filter.EndPrace
+    <button type="button" class="btn-close" aria-label="Close" onclick="deleteFilter('@filter.Id')"></button>
+    </li>
+    }
+    if (filter.Brends != null)
+    {
+    <li class="list-group-item">
+    Бренд:
+    @foreach (var brend in filter.Brends)
+    {
+    <span> @brend.Name; </span>
+    }
+    <button type="button" class="btn-close" aria-label="Close" onclick="deleteFilter('@filter.Id')"></button>
+    </li>
+    }
+    if (filter.Types != null)
+    {
+    <li class="list-group-item">
+    Тип:
+    @foreach (var type in filter.Types)
+    {
+    <span> @type.Name; </span>
+    }
+    <button type="button" class="btn-close" aria-label="Close" onclick="deleteFilter('@filter.Id')"></button>
+    </li>
+    }
+
+    }
+
+    </ul>
+    } *@
+</div>
+
 <div class="row">
     <div class="col-sm-3 text-start border-end border-2" style="min-width: 300px">
         @if (Model.Any())
         {
-            <div class="accordion" id="accordionPanelsStayOpenExample">              
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+                @* <div class="accordion-item">
+            <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+            Тип товару
+            </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+            <form method="post" asp-action="FilterType">
+            <ul class="list-group list-group-flush">
+            @foreach (var product in Model)
+            {
+            <li class="list-group-item">
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="@product.Brand.Title" id="flexCheckDefault_@product.Brand.Title" name="selectedTypes">
+            <label class="form-check-label" for="flexCheckDefault_@product.Brand.Title">
+            @product.Brand.Title
+            </label>
+            </div>
+            </li>
+            }
+            </ul>
+            <button type="submit" class="btn btn-primary">Ok</button>
+            </form>
+            </div>
+            </div>
+            </div> *@
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
@@ -35,7 +145,7 @@
                     </h2>
                     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
                         <div class="accordion-body">
-                            <form method="post" asp-action="FilterBrend">
+                            <form method="post" asp-action="AddFilter">
                                 <ul class="list-group list-group-flush">
                                     @foreach (var product in Model)
                                     {
@@ -63,7 +173,7 @@
                     </h2>
                     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">
                         <div class="accordion-body">
-                            <form method="post" class="row g-3" asp-action="FilterPrace">
+                            <form method="post" class="row g-3" asp-action="AddFilter">
                                 <!-- Добавляем скрытое поле для передачи параметра category -->
 
                                 <div class="col-md-5">

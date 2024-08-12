@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 
 var builder = WebApplication.CreateBuilder(args);
-int TimeBeforeLogout = 5;
+int TimeBeforeLogout = 60;
 // Додавання  MVC
 builder.Services.AddControllersWithViews();
 

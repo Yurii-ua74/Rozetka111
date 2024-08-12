@@ -7,6 +7,7 @@ using Rozetka.Data;
 using Microsoft.EntityFrameworkCore;
 using Rozetka.Models.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Rozetka.Migrations;
 
 
 namespace Rozetka.Controllers
@@ -28,7 +29,7 @@ namespace Rozetka.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var products = await _context.Products.Include(p => p.Brand).Include(p => p.Childcategory).ToListAsync();
+            var products = await _context.Products.Include(p => p.Brand).Include(p => p.ProductType).Include(p => p.Childcategory).ToListAsync();
             return View(products);           
         }
         //Відображає список усіх продуктів.
@@ -59,11 +60,13 @@ namespace Rozetka.Controllers
 
         public async Task<IActionResult> Create()
         {
+            var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
 
             var viewModel = new CreateProductVM
             {
+                ProductTypes = new SelectList(type, "Id", "Title"),
                 Brands = new SelectList(brands, "Id", "Title"),
                 Childcategories = new SelectList(childcategories, "Id", "Name")
                 //Product = new Product()
@@ -86,9 +89,11 @@ namespace Rozetka.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
 
+            viewModel.ProductTypes = new SelectList(type, "Id", "Title");
             viewModel.Brands = new SelectList(brands, "Id", "Title");
             viewModel.Childcategories = new SelectList(childcategories, "Id", "Name");
 
@@ -109,12 +114,14 @@ namespace Rozetka.Controllers
                 return NotFound();
             }
 
+            var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
             var viewModel = new CreateProductVM
             {
                 Product = product,
-                Brands = new SelectList(brands, "Id", "Title"),
+                ProductTypes = new SelectList(type, "Id", "Title"),
+                Brands = new SelectList(brands, "Id", "Title"),                
                 Childcategories = new SelectList(childcategories, "Id", "Name")
             };
             //ViewData["ChildcategoryId"] = new SelectList(_context.Childcategories, "Id", "Id", product.ChildcategoryId);
@@ -156,9 +163,11 @@ namespace Rozetka.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
 
+            viewModel.ProductTypes = new SelectList(type, "Id", "Title");
             viewModel.Brands = new SelectList(brands, "Id", "Title");
             viewModel.Childcategories = new SelectList(childcategories, "Id", "Name");
 
@@ -251,6 +260,7 @@ namespace Rozetka.Controllers
             }
             // Найти продукт по Id и загрузить связанные данные
             var product = await _context.Products
+                                        .Include(p => p.ProductType)
                                         .Include(p => p.Brand)
                                         .Include(p => p.Childcategory)
                                         .Include(p => p.ProductImages)

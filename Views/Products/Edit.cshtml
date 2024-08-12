@@ -28,6 +28,11 @@
                 <span asp-validation-for="Product.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Product.ProductTypeId" class="control-label">Type</label>
+                <select asp-for="Product.ProductTypeId" class="form-control" asp-items="Model.ProductTypes"></select>
+                <span asp-validation-for="Product.ProductTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Product.BrandId" class="control-label">Brand</label>
                 <select asp-for="Product.BrandId" class="form-control" asp-items="Model.Brands"></select>
                 <span asp-validation-for="Product.BrandId" class="text-danger"></span>
