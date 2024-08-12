@@ -230,6 +230,7 @@ namespace Rozetka.Controllers
             // Отримати товари для знайденої підкатегорії з усіма відповідними даними
             var productsQuery = _context.Products
                 .Where(p => p.Childcategory.Name == childcategory)
+                .Include(p => p.ProductType)
                 .Include(p => p.Brand)
                 .Include(p => p.ProductImages)
                 .Include(p => p.Reviews)
