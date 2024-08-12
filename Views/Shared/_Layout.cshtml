@@ -1,0 +1,441 @@
+﻿@using System.Security.Claims;
+@* @model Rozetka.Models.ViewModels.Account.LoginViewModel *@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @* <title>@ViewData["Title"] - Rozetka</title> *@
+    <title>Rozetka - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Rozetka.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="icon" href="~/logo/hello_smile_icon.png" />
+</head>
+
+<body>
+    <header>         
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom fixed-top">
+           
+            <div class="container-xxl bd-gutter flex-wrap flex-lg-nowrap">    
+                @* hamburger menu *@
+                <a class="nav-link text-white btn-lg"
+                   data-bs-toggle="offcanvas" 
+                    href="#offcanvasExample" 
+                    role="button" 
+                    aria-controls="offcanvasExample">
+                    <i class="bi bi-list" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Бокова панель"></i>
+                </a>
+                @* розгортання або згортання навігаційної панелі на мобільних пристроях. *@
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" style="color: white"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="bi bi-list"></span>
+                </button>
+               
+                @* Логотип ROZETKA - Переходить на головну сторінку (метод Index в HomeController) *@
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <a class="navbar-brand fs-2 ms-5" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="\logo\hello_smile_icon.png" alt="ROZETKA" width="40" height="40">ROZETKA
+                    </a>
+
+                    <!-- Button trigger modal -->
+                   @*  Відкриває модальне вікно з каталогом товарів (catalogModal) *@
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#catalogModal">
+                        <i class="bi bi-boxes"></i> 
+                        Каталог
+                    </button>                                        
+                </div>   
+                @* пошукова форма, запит буде оброблятися методом Searching у ProductsController *@
+                <form class="d-flex mx-3 p-2 flex-fill" role="search" asp-controller="Products" asp-action="Searching">
+                    <input class="form-control" type="search" placeholder="Я шукаю..." aria-label="Search" name="inputSearching">
+                    <button class="btn btn-success" type="submit">Знайти</button>
+                </form>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (Context.User.Identity?.IsAuthenticated ?? false)
+                        {
+                            if (@Context.User.IsInRole("admin"))
+                            @* if (@Context.User.Claims.First(c => c.Type == ClaimTypes.Role).Value == "admin")  *@
+                            {                               
+                                    @* Переходить на сторінку для додавання нового товару (метод NewProduct в ProductController) *@
+                                <li class="nav-item">
+                                    <a class="nav-link text-white btn-lg"
+                                       asp-action="NewProduct" asp-controller="Product"
+                                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Додати товар">
+                                        <i class="bi bi-plus-circle"></i>
+                                    </a>
+                                </li>
+                                @* Переходить на сторінку з таблицею товарів(метод ProductDB в ProductController) *@
+                                <li class="nav-item">
+                                    <a class="nav-link text-white btn-lg"
+                                       asp-action="ProductDB" asp-controller="Product"
+                                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Таблиця товарів">
+                                        <i class="bi bi-table"></i>
+                                    </a>
+                                </li>
+                            }
+                            @* Переходить на сторінку з покупками користувача(метод Purchase в HomeController) *@
+                            <li class="nav-item">
+                                <a class="nav-link text-white btn-lg"
+                                   asp-area="" asp-controller="Home" asp-action="Purchase"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
+                                    <i class="bi bi-card-list"></i>
+                                </a>
+                            </li>
+                           @*  Переходить на сторінку з акціями(метод Shares в HomeController) *@
+                            <li class="nav-item">
+                                <a class="nav-link text-white btn-lg"
+                                   asp-area="" asp-controller="Home" asp-action="Shares"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">
+                                    <i class="bi bi-bell"></i>
+                                </a>
+                            </li>
+                            @* Переходить на сторінку з порівняннями(метод Compare в HomeController) *@
+                            <li class="nav-item">                                
+                                <a type="button" class="nav-link text-white btn-lg"
+                                   asp-area="" asp-controller="Home" asp-action="Compare"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Список порівнянь">
+                                    <img src="~/icons/balance_icon.png" alt="Balance Icon" class="icon-img-white">
+                                </a>
+                            </li>
+                           @*  Переходить на сторінку зі списком бажань(метод WishList в HomeController) *@
+                            <li class="nav-item">
+                                <a class="nav-link text-white btn-lg"
+                                   asp-area="" asp-controller="Home" asp-action="WishList"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Список бажань">
+                                    <i class="bi bi-heart"></i>                                  
+                                </a>
+                            </li>
+                            @* вихід з акаунту *@                          
+                            <li class="nav-item">
+                                <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout">
+                                    <button type="submit" class="nav-link text-white btn-lg" id="auth-signout-button-nav"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Вихід"
+                                            style="background-color: black; color: white; border: none;">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                    </button>
+                                    @Html.AntiForgeryToken()
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            @* Відкриває модальне вікно для авторизації(модальне вікно з ID authModal) *@
+                            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Вхід">
+                                <!-- Button trigger modal -->
+                                <a type="button" href="" class="nav-link text-white btn-lg"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#authModal">
+                                    <i class="bi bi-person"></i>                                    
+                                </a>
+                            </li>                          
+                        }  
+                        <li class="nav-item">
+                            <a class="nav-link text-white btn-lg"
+                               asp-action="AdminPage" asp-controller="Home"
+                               data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Сторінка адміністратора">
+                                <i class="bi bi-file-earmark-break-fill"></i>
+                            </a>
+                        </li>
+                    </ul>                    
+                </div>
+                
+                <!-- Button trigger modal -->
+                @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
+                 <a class="nav-link text-white position-relative btn-lg"
+                   asp-area="" asp-controller="Cart" asp-action="Index"
+                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик">
+                    <i class="bi bi-cart2"></i>                        
+                </a> 
+               
+            </div>
+        </nav>   
+    </header>
+
+    @* бічне вікно кошика *@
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-sidebar-content">
+            <h3>Ваш кошик</h3>
+            
+            <div class="cart-items">
+                <!-- Продукти будуть додані тут динамічно -->
+                <!-- Приклад -->
+                @* <div class="cart-item">
+                    <div class="item-header">
+                        <h4>Product Name</h4>
+                    </div>
+                    <div class="item-details">
+                        <p><strong>#:</strong> 1</p>
+                        <p><strong>Photo:</strong> <img src="photo_url" alt="Product Photo" width="50"></p>
+                        <p><strong>Product Name:</strong> Product Name</p>
+                        <p><strong>Product Price, UAH:</strong> 100 UAH</p>
+                        <p><strong>Count:</strong> 1</p>
+                        <p><strong>Total Price, UAH:</strong> 100 UAH</p>
+                        <button class="btn btn-danger btn-sm">Видалити</button>
+                    </div>
+                </div> *@
+            </div>
+            <button class="btn btn-primary" onclick="window.location.href='/Cart/Index'">Перейти в кошик</button>
+            <div class="closebtn">
+                <button  onclick="closeCartSidebar()">&times;</button>
+            </div>
+        </div>
+    </div>
+
+
+    @* бічне меню, яке відкривається по кліку на іконку *@
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header" style="background-color:black">
+            <a class="navbar-brand fs-2 ms-5" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="\logo\hello_smile_icon.png" alt="ROZETKA" width="40" height="40">ROZETKA
+            </a>
+            <button type="button" class="btn-close btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+        </div>
+        <div class="offcanvas-body" style="background-color:white">
+
+            @if (Context.User.Identity?.IsAuthenticated ?? false)
+            {
+                <div class="catalog text-center text-capitalize">
+                    <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" asp-controller="User" asp-action="PersonalData">
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">@Context.User.Identity?.Name</h5>                       
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#authModal">
+                            Вхід
+                        </button>
+                    </div>                  
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <img src="~/icons/person_icon.png" alt="Person Icon">
+
+                    </div>
+                    <diV class="col-8">
+                        <label>Авторизуйтесь для отримання розширених можливостей</label>
+                    </diV>
+                </div>
+            }
+
+            <div class="d-grid gap-2">
+                <hr>
+                <button type="button" class="btn btn-lg text-success text-start" data-bs-toggle="modal" data-bs-target="#catalogModal">
+                    <i class="bi bi-boxes"></i>
+                    Каталог товарів
+                </button>
+                <hr>
+                <button type="button" class="btn btn-lg text-success text-start"
+                        data-bs-toggle="modal"
+                        data-bs-target="#infoModal">
+                    <i class="bi bi-question-circle"></i>
+                    Довідковий центр
+                </button>
+                <hr>
+                <a class="btn btn-lg text-success text-start" asp-controller="Cart" asp-action="Index">  
+                    <i class="bi bi-cart2"></i>
+                    Кошик                                       
+                </a>
+                @if (Context.User.Identity?.IsAuthenticated ?? false)
+                {
+                    <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="Purchase">
+                        <i class="bi bi-card-list"></i>
+                        Мої замовлення
+                    </a>
+                    <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="Shares">
+                        <i class="bi bi-bell"></i>
+                        Персональні пропозиції
+                    </a>
+
+                    <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="WishList">
+                        <i class="bi bi-heart"></i>
+                        Список бажань                                             
+                    </a>
+
+                    <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="Compare">
+                        <img src="~/icons/balance_icon2.png" alt="Balance Icon" class="icon-img-green">
+                        Порівняння                      
+                    </a>
+                    <hr>
+                   
+                    <form id="logoutFormOffcanvas" method="post" asp-controller="Account" asp-action="Logout">
+                        <button type="submit" class="btn btn-lg text-danger text-start" id="auth-signout-button-offcanvas">
+                            <i class="bi bi-box-arrow-right"></i>
+                            Вихід
+                        </button>
+                        @Html.AntiForgeryToken()
+                    </form>
+                }                
+            </div>            
+        </div>
+    </div> 
+
+    @* основний контент сторінки, що буде динамічно вставлений в шаблон за допомогою @RenderBody(). *@
+    <div class="container">
+        <br />
+        <br />
+        <br />
+        <br />
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div> 
+
+
+     <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Rozetka - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer> 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+<!-- Модальне вікно для авторизації -->
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="authModalLabel">Авторизація</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="auth-form" method="post" action="/Account/Login">
+                    @Html.AntiForgeryToken() <!-- Токен захисту від підробки запитів -->
+                    <div class="mb-3">
+                        <label for="auth-email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="auth-email" name="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="auth-password" class="form-label">Пароль:</label>
+                        <input type="password" class="form-control" id="auth-password" name="Password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="auth-remember" class="form-label">Запам'ятати мене</label>
+                        <input type="checkbox" id="auth-remember" name="RememberMe">
+                    </div>
+                    <div class="modal-footer">
+                        <div id="auth-message" class="alert alert-danger visually-hidden" role="alert"></div>
+                        <a asp-controller="Account" asp-action="Register" class="btn btn-info">Реєстрація</a>
+                        <button type="submit" class="btn btn-primary">Увійти</button>
+                    </div>                  
+                </form>
+            </div>          
+            <div class="mb-3">
+                <span>&nbsp;</span>
+                <a asp-action="GoogleLogin" asp-controller="Account">Login with Google</a>
+                <span>&nbsp;</span>
+                <a asp-action="GitHubLogin" asp-controller="Account">Login with GitHub</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Модальне вікно для каталогу -->
+<div class="modal fade" id="catalogModal" tabindex="-1" aria-labelledby="catalogModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="catalogModalLabel">Каталог товарів</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Вміст модального вікна для каталогу -->
+                <div class="row">
+                    <div class="col-md-4 text-start border-end border-2" style="min-width: 320px">
+                        <ul class="catalog">
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Ноутбуки та комп'ютери"><i class="bi bi-laptop"></i> Ноутбуки та комп'ютери</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Смартфони, ТВ і електроніка"><i class="bi bi-phone"></i> Смартфони, ТВ і електроніка</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Товари для геймерів"><i class="bi bi-controller"></i> Товари для геймерів</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Побутова техніка"><i class="bi bi-boombox"></i> Побутова техніка</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Товари для дому"><i class="bi bi-easel"></i> Товари для дому</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Інструменти та автотовари"><i class="bi bi-hammer"></i> Інструменти та автотовари</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Сантехніка та ремонт"><i class="bi bi-paint-bucket"></i> Сантехніка та ремонт</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Дача, сад і город"><i class="bi bi-house"></i> Дача, сад і город</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Спорт і захоплення"><i class="bi bi-bicycle"></i> Спорт і захоплення</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Одяг, взуття та прикраси"><i class="bi bi-gem"></i> Одяг, взуття та прикраси</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Краса та здоров'я"><i class="bi bi-emoji-sunglasses"></i> Краса та здоров'я</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Дитячі товари"><i class="bi bi-balloon-heart"></i> Дитячі товари</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Зоотовари"><i class="bi bi-tencent-qq"></i> Зоотовари</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Офіс, школа, книги"><i class="bi bi-pen"></i> Офіс, школа, книги</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Алкогольні напої та продукти"><i class="bi bi-cup-straw"></i> Алкогольні напої та продукти</a>
+                            </li>
+
+                            <li style="list-style-type: none;">
+                                <a href="/Categories/GetChildCategories?category=Побутова хімія"><i class="bi bi-eyedropper"></i> Побутова хімія</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            @* перевірки на автентифікацію (Context.User.Identity?.IsAuthenticated ?? false) 
+            якщо потрібно перевірити роль користувача, краще використовувати методи 
+            ASP.NET Identity замість доступу до claims напряму. *@

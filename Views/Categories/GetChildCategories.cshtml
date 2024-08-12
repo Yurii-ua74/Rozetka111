@@ -1,0 +1,33 @@
+﻿@using Rozetka.Data.Entity
+@model IEnumerable<Childcategory>
+
+
+@{
+    //string category = ViewData["Category"] as string;
+    string? category = Context.Session.GetString("Category");
+}
+@{
+    ViewData["Title"] = category;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href=".."><i class="bi bi-house"></i></a></li>
+        <li class="breadcrumb-item active" aria-current="page">@category</li>
+    </ol>
+</nav>
+<h1 class="display-4">@category</h1>
+
+
+@* <h1 class="centered-container">@ViewData["CategoryName"]</h1>
+<h2>Тут має бути виведений список підкатегорій з бази даних</h2> *@
+
+<ul>
+    @foreach (var childcategory in Model)
+    {
+        //<li>@subcategory.Name</li>
+        <li style="list-style-type: none;">
+            <a href="/Childcategories/GetProducts?childcategory=@childcategory.Name"> @childcategory.Name</a>
+        </li>
+    }
+</ul>

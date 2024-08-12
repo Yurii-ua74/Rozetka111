@@ -1,0 +1,145 @@
+﻿@using Rozetka.Models.ViewModels.Cart
+@using Rozetka.Data.Entity
+@model CartIndexVM
+@{
+    ViewData["Title"] = "Index";
+    int index = 0;
+}
+<br />
+<br />
+<br />
+<h1 class="display-4 text-center">К О Ш И К</h1>
+<h1>Index</h1>
+<div class="col-3">
+</div>
+<div class="col">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Photo</th>
+                <th>Product Name</th>
+                <th>Product Price, UAH</th>
+                <th>
+                    Count
+                </th>
+                <th>Total Price, UAH</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CartItem cartItem in Model.CartItems)
+            {
+                <tr>
+                    <td>@(++index)</td>
+                    <td>
+                        @if (cartItem.Product.ProductImages!.Any())
+                        {
+                            <img src="data:image/*;base64,@(Convert.ToBase64String(cartItem.Product.ProductImages!.FirstOrDefault()!.ImageData!))" class="card-img-top" alt="@cartItem.Product.Title"
+                                 style="height: 100px;width: auto;object-fit: contain;">
+                        }
+                        else
+                        {
+                            <img src="~/images/No-Image-Placeholder.svg.png" alt="no-image"
+                                 style="height: 100px;width: auto;object-fit: contain;" />
+                        }
+                    </td>
+                    <td>@cartItem.Product.Title</td>
+                    <td>@cartItem.Product.Price</td>
+                    <td class="item-count" data-row-id="@cartItem.Product.Id">
+                        <div class="d-flex text-center">
+                            <span class="flex-fill rounded-start border p-2"
+                                  onclick="decCount(event, @cartItem.Product.Id)">-</span>
+                            <span class="flex-fill border p-2">@cartItem.Count</span>
+                            <span class="flex-fill rounded-end border p-2" onclick="incCount(event, @cartItem.Product.Id)">+</span>
+                        </div>
+                    </td>
+                    <td>@(cartItem.Count * cartItem.Product.Price) </td>
+                    <td>
+                        <form asp-action="RemoveFromCart" asp-controller="Cart"
+                              method="post">
+                            <input type="hidden" name="id" value="@cartItem.Product.Id" />
+                            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                            <button type="submit" class="btn btn-outline-dark">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="5"></td>
+                <td id="totalPrice">@Model.TotalPrice UAH</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="@Model.ReturnUrl" class="btn btn-outline-secondary">Back</a>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        async function incCount(e, productId) {
+            let resp = await fetch(`/cart/IncCount/${productId}`,
+                {
+                    method: "post",
+                    headers: {
+                        "accept": "application/json"
+                    }
+                }
+            );
+            if (resp.ok === true) {
+                let info = await resp.json();
+                console.log(info);
+                console.log(`Products count: ${info.count}`);
+                let currentSpan = e.target;
+                currentSpan.previousElementSibling.innerText = info.count;
+                let div = document.createElement("div");
+                currentSpan.parentElement.parentElement.nextElementSibling.innerText =
+                    info.totalPrice;
+                await getTotalPrice();
+            }
+        }
+
+        async function decCount(e, productId) {
+            try {
+                let resp = await fetch(`/cart/decCount/${productId}`,
+                    {
+                        method: "post",
+                        headers: {
+                            "accept": "application/json"
+                        }
+                    }
+                );
+                if (resp.ok === true) {
+                    let info = await resp.json();
+                    console.log(info);
+                    console.log(`Products count: ${info.count}`);
+                    let currentSpan = e.target;
+                    if (info.count == 0) {
+                        let currentTd = currentSpan.parentElement.parentElement.parentElement;
+                        currentTd.remove();
+                    }
+                    else {
+                        currentSpan.nextElementSibling.innerText = info.count;
+                        currentSpan.parentElement.parentElement.nextElementSibling.innerText =
+                            info.totalPrice;
+                    }
+                    await getTotalPrice();
+                }
+            }
+            catch {
+
+            }
+        }
+        async function getTotalPrice() {
+            let resp = await fetch("/cart/getTotalPrice", {
+                method: "post",
+                headers: {
+                    "accept": "application/json"
+                }
+            });
+            if (resp.ok === true) {
+                let resData = await resp.json();
+                let totalPriceTd = document.getElementById("totalPrice");
+                totalPriceTd.innerText = resData.totalPrice;
+            }
+        }
+    </script>
+}

@@ -1,0 +1,51 @@
+﻿@using Rozetka.Data.Entity
+@model IEnumerable<Brand>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Brand</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                Image
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @if (item.ImageData != null)
+                    {
+                        <img src="data:image;base64,@Convert.ToBase64String(item.ImageData)" alt="Brand Image" style="max-width: 100px;" />
+                    }
+                    else
+                    {
+                        <p>No Image Available</p>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

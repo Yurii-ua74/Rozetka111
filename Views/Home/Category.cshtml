@@ -1,0 +1,15 @@
+﻿@using Rozetka.Data.Entity
+@model IEnumerable<Childcategory>
+
+<h1 class="centered-container">@ViewData["CategoryName"]</h1>
+<h2>список підкатегорій з бази даних</h2>
+
+<ul>
+    @foreach (var subcategory in Model)
+    {
+        <li>@subcategory.Name</li>
+    }
+</ul> 
+
+
+@* для видалення *@

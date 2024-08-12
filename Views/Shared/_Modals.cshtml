@@ -1,0 +1,330 @@
+﻿@namespace Rozetka.Views.Shared._Modals.cshtml
+@using System.Security.Claims
+
+
+<!-- Modal -->
+<form id="feedbackForm" asp-controller="Home" asp-action="NewFeedback" method="post">
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="feedbackModalLabel">Написати відгук</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="feedback-advantages" class="form-label">Переваги</label>
+                        <input type="text" class="form-control" id="feedback-advantages" name="feedback-advantages" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="feedback-disadvantages" class="form-label">Недоліки</label>
+                        <input type="text" class="form-control" id="feedback-disadvantages" name="feedback-disadvantages" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="feedback-text" class="form-label">Коментарі</label>
+                        <textarea class="form-control" id="feedback-text" rows="3" name="feedback-text"></textarea>
+                    </div>
+                    <div class="row border-top">
+                        <div class="col-md-6">
+                            <label for="feedback-user" class="form-label">Ваше ім'я та прізвище</label>
+                            <input type="text" class="form-control" id="feedback-user" name="feedback-user" 
+                                   value="@((Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value) ?? "") @((Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value) ?? "")" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="feedback-contact" class="form-label">Електронна пошта</label>
+                            <input type="text" class="form-control" id="feedback-contact" name="feedback-contact"
+                                   value="@((Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value) ?? "")" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Відміна</button>
+                    <button type="submit" class="btn btn-primary" id="feedback-button">Залишити відгук</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Modal -->
+<form method="post" enctype="multipart/form-data" asp-action="UpdataProductForm" asp-controller="Product">
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Внести зміни</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="up-product-name" class="form-label">Назва</label>
+                                <input type="text" minlength="2" maxlength="30" class="form-control" id="up-product-name" placeholder="Назва товару" name="product-name" required>
+                                
+                            </div>                            
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="up-product-brend" class="form-label">Бренд</label>
+                                <input type="text" minlength="2" maxlength="20" class="form-control" id="up-product-brend" placeholder="Бренд товару" name="product-brand">
+                            </div>                            
+                        </div>
+                        <div class="col-md-6">
+                            <label for="up-product-category" class="form-label">Категорія</label>
+                            <div class="input-group mb-3">
+                                <select class="form-select" aria-label="Default select example" name="product-category" id="up-product-category">
+                                    <option selected>Оберіть категорію товару</option>
+                                    <option value="Ноутбуки та комп'ютери">Ноутбуки та комп'ютери</option>
+                                    <option value="Смартфони, ТВ і електроніка">Смартфони, ТВ і електроніка</option>
+                                    <option value="Товари для геймерів">Товари для геймерів</option>
+                                    <option value="Побутова техніка">Побутова техніка</option>
+                                    <option value="Товари для дому">Товари для дому</option>
+                                    <option value="Інструменти та автотовари">Інструменти та автотовари</option>
+                                    <option value="Сантехніка та ремонт">Сантехніка та ремонт</option>
+                                    <option value="Дача, сад і город">Дача, сад і город</option>
+                                    <option value="Спорт і захоплення">Спорт і захоплення</option>
+                                    <option value="Одяг, взуття та прикраси">Одяг, взуття та прикраси</option>
+                                    <option value="Краса та здоров'я">Краса та здоров'я</option>
+                                    <option value="Дитячі товари">Дитячі товари</option>
+                                    <option value="Зоотовари">Зоотовари</option>
+                                    <option value="Офіс, школа, книги">Офіс, школа, книги</option>
+                                    <option value="Алкогольні напої та продукти">Алкогольні напої та продукти</option>
+                                    <option value="Побутова хімія">Побутова хімія</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">                            
+                            <div class="mb-3">
+                                <label for="up-product-type" class="form-label">Вид</label>
+                                <input type="text" minlength="2" maxlength="20" class="form-control" id="up-product-type" placeholder="Вид товару" name="product-type">
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="up-product-description" class="form-label">Опис та характеристика товару</label>
+                                <textarea class="form-control" id="up-product-description" rows="5" name="product-description"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="up-product-prace" class="form-label">Ціна продукту</label>
+                                <input type="text" class="form-control" id="up-product-prace" placeholder="Ціна" name="product-prace" required>                                
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="up-product-balance" class="form-label">Кількість</label>
+                                <input type="text" class="form-control" id="up-product-balance" placeholder="Кількість" name="product-balance" required>                                
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="up-product-id" class="form-label">Id товару</label>
+                                <input type="text" class="form-control" id="up-product-id" placeholder="id" name="product-id" readonly>
+                            </div>                             
+                        </div>
+                        <div class="col-md-6">                            
+                            <div class="mb-3">
+                                <label for="up-oldPhoto" class="form-label">Теперішній файл фото</label>
+                                <input class="form-control" type="text" id="up-oldPhoto" name="up-oldPhoto" readonly>                                
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="up-newPhoto" class="form-label">Оберіть новий файл фото, якщо необхідно</label>
+                                <input class="form-control" type="file" id="up-newPhoto" name="product-photo">                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Відміна</button>
+                    <button type="submit" name="submitUpProduct" value="UpProduct" class="btn btn-primary">Зберігти</button>
+                </div>
+
+           
+
+
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<!-- Modal -->
+<div class="modal fade" id="catalogModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @* <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div> *@
+            <div class="modal-body">
+                <ul class="catalog">
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Ноутбуки та комп'ютери"><i class="bi bi-laptop"></i> Ноутбуки та комп'ютери</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Смартфони, ТВ і електроніка"><i class="bi bi-phone"></i> Смартфони, ТВ і електроніка</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Товари для геймерів"><i class="bi bi-controller"></i> Товари для геймерів</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Побутова техніка"><i class="bi bi-boombox"></i> Побутова техніка</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Товари для дому"><i class="bi bi-easel"></i> Товари для дому</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Інструменти та автотовари"><i class="bi bi-hammer"></i> Інструменти та автотовари</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Сантехніка та ремонт"><i class="bi bi-paint-bucket"></i> Сантехніка та ремонт</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Дача, сад і город"><i class="bi bi-house"></i> Дача, сад і город</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Спорт і захоплення"><i class="bi bi-bicycle"></i> Спорт і захоплення</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Одяг, взуття та прикраси"><i class="bi bi-gem"></i> Одяг, взуття та прикраси</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Краса та здоров'я"><i class="bi bi-emoji-sunglasses"></i> Краса та здоров'я</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Дитячі товари"><i class="bi bi-balloon-heart"></i> Дитячі товари</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Зоотовари"><i class="bi bi-tencent-qq"></i> Зоотовари</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Офіс, школа, книги"><i class="bi bi-pen"></i> Офіс, школа, книги</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Алкогольні напої та продукти"><i class="bi bi-cup-straw"></i> Алкогольні напої та продукти</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="/Home/Category?category=Побутова хімія"><i class="bi bi-eyedropper"></i> Побутова хімія</a>
+                    </li>
+                </ul>
+            </div>
+           @*  <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div> *@
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="infoModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Інформаційна довідка</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Даний сайт створено в рамках навчальної програми в IT Step Academy. Він є лише 
+                    імітацією інтернет магазину та не наділений здатністю виконувати його функції.
+                </p>
+                <p>
+                    Сайт створено на платформі ASP.net з використанням хмарної платформи Azure.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Зміна паролю</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="change-oldPassword" class="form-label">Поточний або тимчасовий пароль</label>
+                    <input type="password" minlength="6" maxlength="30" class="form-control" id="change-oldPassword" name="oldPassword" required>
+                </div>
+                <div class="mb-3">
+                    <label for="change-newPassword" class="form-label">Новий пароль</label>
+                    <input type="password" minlength="6" maxlength="30" class="form-control" id="change-newPassword" name="newPassword" required>
+                </div>
+                <div class="mb-3">
+                    <label for="change-repeatPassword" class="form-label">Новий пароль ще раз</label>
+                    <input type="password" class="form-control" id="change-repeatPassword" name="repeatPassword" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="changePassword-message" class="alert alert-danger visually-hidden" role="alert"></div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Відміна</button>
+                <button type="button" class="btn btn-success" id="changePassword-button">Змінити</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal" id="userDeleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Видалення аккаунту</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="userDeleteCheckDefault">
+                    <label class="form-check-label" for="userDeleteCheckDefault">
+                        Я усвідомлено видаляю свій обліковий запис, списки бажань та історію замовлень.
+                        Відмовляюся від можливості отримувати листи про знижки та відповіді на мої коментарі.
+                    </label>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger disabled" id="profile-delete-button">Видалити аккаунт</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Відміна</button> 
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <script>
+        // Получаем ссылки на чекбокс и кнопку
+        const deleteCheckbox = document.getElementById('userDeleteCheckDefault');
+        const deleteButton = document.getElementById('profile-delete-button');
+
+        // Слушаем изменения состояния чекбокса
+        deleteCheckbox.addEventListener('change', function () {
+            // Если чекбокс выбран, делаем кнопку активной, иначе - неактивной
+            if (deleteCheckbox.checked) {
+                deleteButton.classList.remove('disabled');
+            } else {
+                deleteButton.classList.add('disabled');
+            }
+        });
+    </script>
+
+
+
+

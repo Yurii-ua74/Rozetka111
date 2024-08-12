@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Реєстрація";
+}
+<br />
+<br />
+<br />
+<h1 class="display-4">Реєстрація нового користувача</h1>
+
+<form method="post" asp-controller="User" asp-action="SignupForm">
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text"
+                      id="firstname-addon"><i class="bi bi-person"></i></span>
+                <input type="text" minlength="2" maxlength="20" class="form-control"
+                       placeholder="Ім'я" aria-label="Ім'я"
+                       name="signup-firstname"
+                       aria-describedby="firstname-addon" value="@(Model.FormModel?.FirstName ?? "")">
+            </div>
+            <div class="form-text text-danger">@Model.FormValidation?.FirstNameErrorMessage</div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text"
+                      id="name-addon"><i class="bi bi-person-vcard"></i></span>
+                <input type="text" minlength="2" maxlength="20" class="form-control"
+                       placeholder="Прізвище" aria-label="Прізвище"
+                       name="signup-lastname"
+                       aria-describedby="name-addon" value="@(Model.FormModel?.LastName ?? "")">
+            </div>
+            <div class="form-text text-danger">@Model.FormValidation?.LastNameErrorMessage</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text"
+                      id="phone-addon"><i class="bi bi-phone"></i></span>
+                <span class="input-group-text bg-white">+38</span>
+                <input type="tel" inputmode="tel" minlength="10" maxlength="20" class="form-control"
+                       placeholder="Телефон" aria-label="Телефон"
+                       name="signup-phone"
+                       aria-describedby="phone-addon" value="@(Model.FormModel?.Phone ?? "")">
+            </div>
+            <div class="form-text text-danger">@Model.FormValidation?.PhoneErrorMessage</div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text"
+                      id="email-addon"><i class="bi bi-envelope-at"></i></span>
+                <input type="email" minlength="8" maxlength="30" inputmode="email" class="form-control"
+                       placeholder="Е-пошта" aria-label="Е-пошта"
+                       name="signup-email"
+                       aria-describedby="email-addon" value="@(Model.FormModel?.Email ?? "")">
+            </div>
+            <div class="form-text text-danger">@Model.FormValidation?.EmailErrorMessage</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text"
+                      id="password-addon"><i class="bi bi-lock"></i></span>
+                <input type="password" minlength="6" maxlength="30" inputmode="verbatim" class="form-control"
+                       placeholder="Пароль" aria-label="Пароль"
+                       name="signup-password"
+                       aria-describedby="password-addon">
+            </div>
+            <div class="form-text text-danger">@Model.FormValidation?.PasswordErrorMessage</div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text"
+                      id="repeat-addon"><i class="bi bi-unlock"></i></span>
+                <input type="password" class="form-control"
+                       placeholder="Повторіть пароль" aria-label="Повторіть пароль"
+                       name="signup-repeat"
+                       aria-describedby="repeat-addon">
+            </div>
+            <div class="form-text text-danger">@Model.FormValidation?.RepeatErrorMessage</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div id="signup-message" class="alert alert-danger visually-hidden" role="alert"></div>
+            <button class="btn btn-success" type="submit">Реєстрація</button>
+        </div>
+    </div>
+</form>
+

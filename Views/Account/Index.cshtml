@@ -1,0 +1,30 @@
+﻿@using Rozetka.Data.Entity
+@model IEnumerable<User> 
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div class="col">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(t=>t.First().Id)</th>
+                <th>@Html.DisplayNameFor(t => t.First().UserName)</th>
+                <th>@Html.DisplayNameFor(t => t.First().Email)</th> 
+                @* <th>@Html.DisplayNameFor(t => t.First().DateOfBirth)</th> *@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(User user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    @* <td>@user.DateOfBirth</td> *@ 
+                </tr>
+            } 
+        </tbody>
+    </table>
+</div> 

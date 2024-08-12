@@ -1,0 +1,298 @@
+﻿@using Rozetka.Data.Entity
+@model User
+@{
+    ViewData["Title"] = "Особисті дані";
+}
+<br />
+<br />
+<br />
+<h1 class="display-4 text-center">Особисті дані</h1>
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <i class="bi bi-person-circle"></i> <h3>&nbsp;&nbsp;&nbsp; Особисті дані</h3> <!-- Используйте &nbsp; для пробела -->
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body" id="personalData">
+                <div class="row">
+                    <div class="col">
+                        <label>Прізвище</label>
+                        <strong>@Model.LastName</strong>
+                    </div>
+                    <div class="col">
+                        <label>Ім'я</label>
+                        <strong>@Model.FirstName</strong>
+                    </div>
+                    <div class="d-grid gap-2 d-md-block">
+                        <br />
+                        <button class="btn btn-success" type="button" onclick="showEditForm()">Редагувати</button>
+                    </div>    
+                </div>                
+            </div>
+            <div class="accordion-body" id="editForm" style="display: none;">
+                <!-- Форма редактирования данных -->
+                <form id="userDataForm">
+
+                    <div class="row">
+                        <div class="col">
+                            <label for="lastNameInput" class="form-label">Прізвище</label>
+                            <input type="text" minlength="2" maxlength="20" id="lastNameInput" name="lastNameInput" value="@Model.LastName" />
+                        </div>
+                        <div class="col">
+                            <label for="firstNameInput" class="form-label">Ім'я</label>
+                            <input type="text" minlength="2" maxlength="20" id="firstNameInput" name="firstNameInput" value="@Model.FirstName" />
+                        </div>
+                    </div>
+                    <button class="btn btn-success" type="submit">Зберегти</button>
+                    <button class="btn" type="button" onclick="showPersonalData()">Відміна</button>
+
+                </form>
+            </div>
+        </div>        
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <i class="bi bi-box2"></i> <h3>&nbsp;&nbsp;&nbsp; Мої одержувачі замовлень</h3>
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <strong>@Model.LastName @Model.FirstName</strong>
+                <label>+38 @Model.PhoneNumber</label>
+                </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <i class="bi bi-envelope-open"></i> <h3>&nbsp;&nbsp;&nbsp; Контакти</h3>
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body" id="contactData">
+                <div class="row">
+                    <div class="col">
+                        <label>Телефон</label>
+                        <strong>+38 @Model.PhoneNumber</strong>
+                    </div>
+                    <div class="col">
+                        <label>Електронна пошта</label>
+                        <strong>@Model.Email</strong>
+                    </div>
+                    <div class="d-grid gap-2 d-md-block">
+                        <br />
+                        <button class="btn btn-success" type="button" onclick="showContactForm()">Редагувати</button>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-body" id="contactForm" style="display: none;">
+                <!-- Форма редактирования данных -->
+                <form id="contactDataForm">
+                    <div class="row">
+                        <div class="col">                           
+                            <div class="input-group">  
+                                <label for="inputPhone" class="form-label">Телефон</label>
+                                <span class="input-group-text bg-white">+38</span>
+                                <input type="tel" minlength="2" maxlength="20" id="inputPhone" name="PhoneInput" value="@Model.PhoneNumber" />
+                            </div>                            
+                        </div>
+                        <div class="col">
+                            <label for="inputEmail" class="form-label">Електронна пошта</label>
+                            <input type="email" minlength="2" maxlength="20" id="inputEmail" name="EmailInput" value="@Model.Email" />
+                        </div>
+                    </div>
+                    <button class="btn btn-success" type="submit">Зберегти</button>
+                    <button class="btn" type="button" onclick="showContactData()">Відміна</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                <i class="bi bi-backpack2"></i> <h3>&nbsp;&nbsp;&nbsp; Захоплення</h3>
+            </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="fishingCheckDefault">
+                            <label class="form-check-label" for="fishingCheckDefault">
+                                Риболовля
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="fitnessCheckDefault">
+                            <label class="form-check-label" for="fitnessCheckDefault">
+                                Фітнес
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="bikeCheckDefault">
+                            <label class="form-check-label" for="bikeCheckDefault">
+                                Велосипед
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="tourismCheckDefault">
+                            <label class="form-check-label" for="tourismCheckDefault">
+                                Туризм
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="huntingCheckDefault">
+                            <label class="form-check-label" for="huntingCheckDefault">
+                                Полювання
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="yogaCheckDefault">
+                            <label class="form-check-label" for="yogaCheckDefault">
+                                Йога
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="handmadeCheckDefault">
+                            <label class="form-check-label" for="handmadeCheckDefault">
+                                Hand made
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="cybersportsCheckDefault">
+                            <label class="form-check-label" for="cybersportsCheckDefault">
+                                Кібер спорт
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="gardeningCheckDefault">
+                            <label class="form-check-label" for="gardeningCheckDefault">
+                                Садівництво
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="runCheckDefault">
+                            <label class="form-check-label" for="runCheckDefault">
+                                Біг
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="musicCheckDefault">
+                            <label class="form-check-label" for="musicCheckDefault">
+                                Музика
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-block">
+                        <br />
+                        <button class="btn btn-success" type="button">Зберігти</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container catalog">
+    <div class="row mt-3">
+        <div class="col-6">
+            <!-- Кнопка 1 -->
+            <a type="button" href=""
+               data-bs-toggle="modal"
+               data-bs-target="#changePasswordModal">Зміна паролю</a>
+        </div>
+        <div class="col-6 text-end">
+            <!-- Кнопка 2 -->
+            <a type="button" href=""
+               data-bs-toggle="modal"
+               data-bs-target="#userDeleteModal">Видалення аккаунту</a>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-6">
+            <!-- Кнопка 3 -->
+            <a type="button" href="" id="auth-signout-button-personal">Вихід</a>
+            
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('userDataForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+        var formData = new FormData(this);
+        fetch(`/User/UpdateUserData`, { method: 'POST', body: formData })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Помилка сервера: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Обработка успешного ответа от сервера
+                console.log('Данные успешно обновлены:', data);
+
+                showPersonalData(); // Обновление данных на странице, если необходимо
+                window.location.reload();
+                confirm(data.message); // Отображение сообщения из ответа сервера
+                // Нажимаем кнопку для открытия содержимого аккордеона
+                var accordionButton = document.querySelector('[data-bs-target="#collapseOne"]');
+                if (accordionButton) {
+                    accordionButton.click();
+                }
+            });
+
+    });
+    function showEditForm() {
+        document.getElementById('editForm').style.display = 'block';
+        document.getElementById('personalData').style.display = 'none';
+    }
+    function showPersonalData() {
+        document.getElementById('personalData').style.display = 'block';
+        document.getElementById('editForm').style.display = 'none';
+    }
+</script>
+<script>
+    document.getElementById('contactDataForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+        var formData = new FormData(this);
+        fetch(`/User/UpdateUserData`, { method: 'POST', body: formData })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Помилка сервера: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Обработка успешного ответа от сервера
+                console.log('Данные успешно обновлены:', data);
+                confirm(data.message);
+                showPersonalData(); // Обновление данных на странице, если необходимо
+                window.location.reload();
+                //showAuthMessage(data.message); // Отображение сообщения из ответа сервера
+                // Найти родительский элемент кнопки и добавить ему класс 'show'
+                var parentAccordion = document.querySelector('.accordion-collapse.collapse');
+                if (parentAccordion) {
+                    parentAccordion.classList.add('show');
+                }
+            });      
+        
+    });   
+    function showContactForm() {
+        document.getElementById('contactForm').style.display = 'block';
+        document.getElementById('contactData').style.display = 'none';
+    }
+    function showContactData() {
+        document.getElementById('contactData').style.display = 'block';
+        document.getElementById('contactForm').style.display = 'none';
+    }
+</script>
