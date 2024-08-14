@@ -49,6 +49,7 @@ namespace Rozetka.Controllers
             var product = await _context.Products
                 .Include(p => p.Childcategory)
                 .Include(p => p.Brand)
+                .Include(p => p.ProductType)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
