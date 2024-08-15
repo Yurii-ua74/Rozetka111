@@ -81,3 +81,39 @@ function updateCartSidebar(cartData) {
 
     sidebarContent.innerHTML = html;
 }
+
+
+// додавання кількості товару над кошиком
+$(document).ready(function() {
+    // Handle 'Add to Cart' button click
+    $('.btn-add-to-cart').on('click', function (event) {
+        event.preventDefault();
+        var $button = $(this);
+        var url = $button.attr('href');
+        $.ajax({
+            url: url,
+            type: 'POST',
+            success: function (response) {
+                if (response.success) {
+                    // Update cart count
+                    $('#cart-count').text(response.cartCount).show();
+                }
+            },
+            error: function () {
+                alert('Error adding item to cart.');
+            }
+        });
+    });
+});
+
+
+// для оновлення лічильника
+function updateCartCount() {
+    fetch('/Cart/GetCartCount')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('cart-count').innerText = data.cartCount;
+            document.getElementById('cart-count').style.display = data.cartCount > 0 ? 'block' : 'none';
+        });
+}
+document.addEventListener('DOMContentLoaded', updateCartCount);

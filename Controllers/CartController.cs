@@ -60,9 +60,12 @@ namespace Rozetka.Controllers
             cart.AddToCart(new CartItem { Product = product, Count = 1 });
 
             SetCart(cart);  // додавання кошика в сесію
-            //return Redirect(returnUrl);
-                              
-            return Redirect(returnUrl ?? Url.Action("Index", "Cart"));
+            //return Redirect(returnUrl);                              
+            //return Redirect(returnUrl ?? Url.Action("Index", "Cart"));
+            var cartCount = cart.GetTotalCount();
+            HttpContext.Session.SetInt32("CartItemCount", cartCount);
+
+            return Json(new { success = true, cartCount });
         }
         //Додає товар до кошика.
         //Викликається при додаванні товару до кошика за URL Cart/AddToCart/{ id}.
@@ -111,12 +114,20 @@ namespace Rozetka.Controllers
                 cartItems = new List<CartItem>();
                 //HttpContext.Session.Set(sessionKey, cartItems);
             }
-            return new Cart(cartItems);
+            Cart cart = new Cart(cartItems);
 
+            // Збереження кількості товарів у сесії
+            int totalItemsCount = cartItems.Sum(item => item.Count);
+            HttpContext.Session.SetInt32("CartItemCount", totalItemsCount);
+
+            return cart;
+
+            //return new Cart(cartItems);
         }
         //Отримує кошик з сесії.
         //Викликається всередині контролера.
         //Отримує елементи кошика з сесії.Якщо кошик порожній, створює новий і зберігає його у сесії.
+
 
 
         public void SetCart(Cart cart)
@@ -164,6 +175,13 @@ namespace Rozetka.Controllers
         //Отримує загальну ціну товарів у кошику.
         //Викликається при запиті загальної ціни товарів у кошику (метод POST) за URL Cart/getTotalPrice.
         //Отримує загальну ціну товарів у кошику та повертає її.
-       
+
+        // отримувати кількість товарів у кошику з сесії
+        [HttpGet]
+        public IActionResult GetCartCount()
+        {
+            int? cartCount = HttpContext.Session.GetInt32("CartItemCount");
+            return Json(new { cartCount = cartCount ?? 0 });
+        }
     }
 }

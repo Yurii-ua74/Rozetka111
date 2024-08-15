@@ -149,9 +149,11 @@
                  <a class="nav-link text-white position-relative btn-lg"
                    asp-area="" asp-controller="Cart" asp-action="Index"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик">
-                    <i class="bi bi-cart2"></i>                        
-                </a> 
-               
+                    <i class="bi bi-cart2"></i> 
+                    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
+                        0
+                    </span>
+                </a>               
             </div>
         </nav>   
     </header>

@@ -65,9 +65,16 @@
     </button>
 </div> *@
 
-<div class="mt-3">
+@* <div class="mt-3">
     <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" class="btn btn-primary">
         <i class="bi bi-cart-plus"></i> Додати в кошик
+    </a>
+</div> *@
+
+<div class="mt-3">
+    <a href="@Url.Action("AddToCart", "Cart", new { id = Model.Id })" class="btn btn-primary btn-add-to-cart">
+        @* <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" class="btn btn-primary"> *@
+        <i class="bi bi-cart-plus"></i>
     </a>
 </div>
 

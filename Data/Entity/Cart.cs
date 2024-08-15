@@ -72,6 +72,12 @@ namespace Rozetka.Data.Entity
                 items.Add(item);
         }
 
+        // Метод для підрахунку загальної кількості товарів
+        public int GetTotalCount()
+        {
+            return items.Sum(i => i.Count);
+        }
+
         // Зменшення кількості продукту   // станом на 12,08,2024 не використовується
         public void DecCount(int id)
         {
