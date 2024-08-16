@@ -12,6 +12,8 @@ using Rozetka.Data.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.Facebook;
+
 
 var builder = WebApplication.CreateBuilder(args);
 int TimeBeforeLogout = 60;
@@ -69,7 +71,14 @@ builder.Services.AddAuthentication()
     {
         googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
         googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    });
+
+    })
+
+     .AddFacebook(facebookOptions =>
+     {
+         facebookOptions.AppId = builder.Configuration["Facebook:AppId"];
+         facebookOptions.AppSecret = builder.Configuration["Facebook:AppSecret"];
+     });
 
 
 

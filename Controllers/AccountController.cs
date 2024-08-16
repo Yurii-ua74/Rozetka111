@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -276,6 +277,63 @@ namespace Rozetka.Controllers
         //Викликається автоматично після аутентифікації через Google.
         //Отримує інформацію про користувача від Google, виконує вхід або реєстрацію користувача в системі і
         //перенаправляє його на відповідну сторінку.
+
+
+
+
+        // Метод для начала процесса аутентификации через Facebook
+        [AllowAnonymous]
+        public IActionResult FacebookLogin()
+        {
+            string? returnUrl = Url.Action("FacebookResponse");
+            var authProperties = _signInManager.ConfigureExternalAuthenticationProperties(FacebookDefaults.AuthenticationScheme, returnUrl);
+            return new ChallengeResult(FacebookDefaults.AuthenticationScheme, authProperties);
+        }
+
+        // Метод для обработки ответа от Facebook
+        [AllowAnonymous]
+        public async Task<IActionResult> FacebookResponse(string? returnUrl = null)
+        {
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+                return RedirectToAction("Login");
+
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+            if (result.Succeeded)
+            {
+                return RedirectToLocal(returnUrl);
+            }
+
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                // Создаем нового пользователя, если его нет
+                user = new User
+                {
+                    UserName = email,
+                    Email = email
+                };
+                var createResult = await _userManager.CreateAsync(user);
+                if (!createResult.Succeeded)
+                {
+                    // Обработка ошибок создания пользователя
+                    return RedirectToAction("AccessDenied");
+                }
+            }
+
+            // Добавляем внешний логин к пользователю
+            var loginResult = await _userManager.AddLoginAsync(user, info);
+            if (loginResult.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToLocal(returnUrl);
+            }
+
+            return RedirectToAction("AccessDenied");
+        }
+
+       
 
     }
 }
