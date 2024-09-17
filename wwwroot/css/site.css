@@ -18,26 +18,55 @@ html {
 }
 
 body {
+    font-family: 'Inter', sans-serif;
     margin-bottom: 60px;
 }
-*/
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
+
+/* Определение стиля для кнопки с классом btn-purple */
+.btn-purple {
+    background-color: #9C12FF; /* Цвет фона фиолетовый */
+    color: #FFFFFF; /* Цвет текста белый */
+    border-radius: 10px;
+}
+.btn-purple:hover {
+    background-color: #FFFFFF; /* При наведении фон меняется на белый */
+    color: #9C12FF; /* Текст меняется на фиолетовый */
+    border: 1px solid #9C12FF; /* Добавляем фиолетовую границу */
+}
+
+.btn-outline-purple {
+    background-color: #f0b0e2;
+    color: #9C12FF;
+    border-radius: 10px;
+}
+.btn-outline-purple:hover {
+   background-color: #9C12FF; /* Цвет фона фиолетовый */
+    color: #FFFFFF; /* Цвет текста белый */
+}
+
+.rating {
+    color: #ffcc00;
+}
+a {
+    color: #7A7A7A; /* Цвет текста по умолчанию - серый */
+    text-decoration: none; /* Убираем подчеркивание */
+}
+a:hover{
+    color: #9C12FF; /* Цвет текста при наведении - фиолетовый */
+    text-decoration: underline; /* Добавляем подчеркивание при наведении */
 }
 /* список */
 .catalog a {
-    color: blue; /* Цвет текста по умолчанию - синий */
-    text-decoration: none; /* Убираем подчеркивание */
+    /*color: black;*/ /* Цвет текста по умолчанию - синий */
+    /*text-decoration: none;*/ /* Убираем подчеркивание */
     font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif; /* Замените "Arial, sans-serif" на ваш предпочитаемый шрифт */
     font-size: 20px; /* Увеличиваем размер текста */
 }
 
-    .catalog a:hover {
-        color: red; /* Цвет текста при наведении - красный */
-        text-decoration: underline; /* Добавляем подчеркивание при наведении */
-    }
+/*.catalog a:hover {
+    color: #9C12FF;*/ /* Цвет текста при наведении - фиолетовый */
+    /*text-decoration: underline;*/ /* Добавляем подчеркивание при наведении */
+/*}*/
 
 .catalog i.bi {
     color: gray; /* Цвет иконки - серый */
