@@ -1,4 +1,4 @@
-html {
+/*html {
     font-size: 14px;
 }
 
@@ -20,7 +20,12 @@ html {
 body {
     margin-bottom: 60px;
 }
-
+*/
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
 /* список */
 .catalog a {
     color: blue; /* Цвет текста по умолчанию - синий */
@@ -125,3 +130,29 @@ body {
     .closebtn:hover {
         color: red; 
     }
+
+    /*<-- FOOTER -->*/
+.icon-up {
+    display: inline-block;
+    position: relative;
+    top: -8px;
+}
+
+/*<-- Слайдер на всю ширину хедера -->*/
+.carousel {
+    width: 100%;
+}
+
+.slider-img {
+    width: 100%;
+    height: auto; /* Це дозволяє зображенням залишатися пропорційними */
+    max-height: 500px; /* Опційно: можна задати максимальну висоту */
+    object-fit: cover; /* Масштабує зображення, зберігаючи пропорції */
+}
+
+/*<-- Layout головна частина екрану -->*/
+.slider-container {
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
