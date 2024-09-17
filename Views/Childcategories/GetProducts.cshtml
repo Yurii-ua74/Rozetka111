@@ -244,7 +244,7 @@
                                 <a class="a-card" href="/Products/GetProduct?id=@product.Id">
                                     <p class="card-text">@product.ProductType.Title @product.Brand.Title @product.Title</p>
                                 </a>
-                                <h5 class="card-title">@product.Price ₴</h5>
+                                <h5 class="card-title">@product.Price.ToString("0") ₴</h5>
                             </div>
                           
                             <div class="product-item">

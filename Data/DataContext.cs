@@ -16,8 +16,14 @@ namespace Rozetka.Data
         {
             base.OnModelCreating(builder);
 
+            // Настройка для таблицы ProductImages
             builder.Entity<ProductImage>()
-        .ToTable("ProductImages");
+                .ToTable("ProductImages");
+
+            // Настройка типа данных для поля Price в таблице Product
+            builder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18, 0)"); // Устанавливаем тип данных decimal(18, 0)
 
             //////////////////////////////////////
         }
