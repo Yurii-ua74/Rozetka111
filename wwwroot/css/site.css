@@ -185,3 +185,424 @@ a:hover{
     padding-right: 200px;
 }
 
+
+/* ///////// ///////// */
+
+/*<-- header -->*/
+.header-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 1440px;
+    height: 91px;
+    padding-right: 37px;
+    padding-left: 36px;
+    background: white;
+    border-bottom: 0.7000000000000001px solid #cecece;
+}
+
+.quick-buy-section {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    color: #d2d2d2;
+}
+
+.rapid-purchase-style1 {
+    font: 700 57px Soyuz Grotesk;
+    color: #9c12ff;
+}
+
+.rapid-purchase-style {
+    font: 700 57px Soyuz Grotesk;
+    color: #2f2f2f;
+}
+
+.quick-search-container2 {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 18.5px;
+}
+
+.quick-find-button {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 9px;
+    align-items: center;
+    justify-content: center;
+    width: 133px;
+    min-width: 133px;
+    height: 44px;
+    font: 500 16px Inter, sans-serif;
+    color: white;
+    cursor: pointer;
+    background: #9c12ff;
+    border: none;
+    border-radius: 12px;
+}
+
+.svg-container {
+    display: flex;
+    width: 24px;
+    height: 24px;
+}
+
+.quick-search-container {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 17px;
+    margin-left: 20px;
+    background: #fbfbfb;
+    border: 1px solid #9c12ff;
+    border-radius: 12px;
+}
+
+.quick-search-label {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    font: 400 16px Inter, sans-serif;
+    color: #959595;
+}
+
+.quick-search-container1 {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 14.5px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.vertical-divider {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 1px;
+    height: 20px;
+    border-left: 1px solid #cecece;
+}
+
+.svg-container1 {
+    display: flex;
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    color: #959595;
+}
+
+.purple-box-with-text {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 43px;
+    padding-right: 26px;
+    padding-left: 26px;
+    background: #9c12ff;
+    border-radius: 0px 12px 12px 0px;
+}
+
+.svg-container2 {
+    display: flex;
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+}
+
+.navigation-links-container {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 28px;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 29px;
+}
+
+.vertical-text-container {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 2.75px;
+}
+
+.svg-container3 {
+    display: flex;
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    color: #3f3f3f;
+}
+
+.menu-link-text-style {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    margin-top: 7.75px;
+    font: 400 14px Inter, sans-serif;
+    color: #3f3f3f;
+}
+
+.vertical-menu-nav-item {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/*<-- швидкоbuy логотип -->*/
+.logo-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.logo-image {
+    width: 350px;
+    height: 70px;
+}
+
+
+
+/*<-- каталог -->*/
+.quick-find-button {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 9px;
+    align-items: center;
+    justify-content: center;
+    width: 133px;
+    min-width: 133px;
+    height: 44px;
+    font: 500 16px Inter, sans-serif;
+    color: white;
+    cursor: pointer;
+    background: #9c12ff;
+    border: none;
+    border-radius: 12px;
+}
+
+.svg-container {
+    display: flex;
+    width: 24px;
+    height: 24px;
+}
+
+/*<-- Знайти на швидкоbuy -->*/
+.logo-link {
+    margin-right: 1rem; /* Зменшити значення, щоб зменшити відстань між логотипом та кнопкою */
+}
+
+.quick-find-button {
+    margin-left: 0.5rem; /* Зменшити значення, якщо потрібно налаштувати відстань */
+}
+
+.quick-search-container {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 17px;
+    margin-left: 20px;
+    background: #fbfbfb;
+    border: 1px solid #9c12ff;
+    border-radius: 12px;
+    width: auto;
+}
+
+.quick-search-label {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    font: 400 16px Inter, sans-serif;
+    color: #959595;
+}
+
+.quick-search-container1 {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 14.5px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.vertical-divider {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 1px;
+    height: 20px;
+    border-left: 1px solid #cecece;
+}
+
+.svg-container1 {
+    display: flex;
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    color: #959595;
+}
+
+.purple-box-with-text {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 43px;
+    padding-right: 26px;
+    padding-left: 26px;
+    background: #9c12ff;
+    border-radius: 0px 12px 12px 0px;
+}
+
+/*<-- навигатор лінк -->*/
+.navigation-links-container {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 28px;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 29px;
+}
+
+.vertical-text-container {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 2.75px;
+}
+
+.svg-container3 {
+    display: flex;
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    color: #3f3f3f;
+}
+
+.menu-link-text-style {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    margin-top: 7.75px;
+    font: 400 14px Inter, sans-serif;
+    color: #3f3f3f;
+}
+
+.vertical-menu-nav-item {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.svg-container2 {
+    display: flex;
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+}
+
+/*<-- модальне вікно КАТАЛОГ-->*/
+#catalogModal .modal-dialog {
+    max-width: 90%; /* Ширина модального вікна 90% від ширини екрану */
+    margin-top: 5%; /* Відступ від верху (під хедером) */
+    margin-bottom: 1rem; /* Невеликий відступ знизу */
+}
+
+#catalogModal .modal-content {
+    height: auto; /* Висота модального вікна по вмісту */
+    max-height: calc(100vh - 10%); /* Висота модального вікна не більше 90% від висоти екрану */
+    overflow-y: auto; /* прокручування, якщо вміст перевищує висоту екрану */
+}
+
+#catalogModal .modal-body {
+    padding: 20px;
+    display: flex;
+    /*justify-content: flex-start;*/
+    flex-direction: column; /* Щоб вміст відображався у стовпчику */
+}
+
+.catalog {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+    .catalog li {
+        margin-bottom: 10px;
+    }
+
+    .catalog a {
+        text-decoration: none;
+        font-size: 20px;
+    }
+
+        .catalog a:hover {
+            color: #9c12ff;
+            text-decoration: underline;
+        }
+
+.modal-header,
+.modal-footer {
+    border: none;
+}
+
+/*Вирівнювання іконок*/
+.category-title-wrapper {
+    display: flex;
+    align-items: center;
+    /*justify-content: space-between;*/ /* Pushes the chevron icon to the far right */
+    padding: 0.5em 0; /* padding to the top and bottom */
+}
+
+.category-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* To remove underline from links */
+    width: 100%;
+}
+
+    .category-link i {
+        margin-right: 0.5em; /* Space between icon and text */
+        font-size: 1.25rem; /*розмір іконок*/
+    }
+
+    .category-link .bi-chevron-right {
+        margin-left: auto; /* Pushes the chevron icon to the far right */
+        margin-right: 5px;
+    }
+
+.catalog a, .category-link {
+    color: black; /* Чорний колір тексту та іконок */
+}
+
+    .catalog a:hover, .category-link:hover {
+        color: #9c12ff; /* Фіолетовий колір при наведенні */
+    }
+
