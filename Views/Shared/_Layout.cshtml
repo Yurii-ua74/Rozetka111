@@ -612,23 +612,27 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="authModalLabel">Авторизація</h5>
+                <h5 class="enter-reg-tittle" id="authModalLabel">Авторизація</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="auth-form" method="post" action="/Account/Login">
                     @Html.AntiForgeryToken() <!-- Токен захисту від підробки запитів -->
+                    <span class="enter-reg-text">Е-пошта</span>
                     <div class="mb-3">
-                        <label for="auth-email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="auth-email" name="Email" required>
+                        <label for="auth-email" class="form-label"></label>
+                        <input type="email" class="enter-reg" id="auth-email" name="Email" required>
                     </div>
+                    <span class="enter-reg-text">Пароль</span>
                     <div class="mb-3">
-                        <label for="auth-password" class="form-label">Пароль:</label>
-                        <input type="password" class="form-control" id="auth-password" name="Password" required>
+                        <label for="auth-password" class="form-label"></label>
+                        <input type="password" class="enter-reg" id="auth-password" name="Password" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="auth-remember" class="form-label">Запам'ятати мене</label>
-                        <input type="checkbox" id="auth-remember" name="RememberMe">
+                    <div class="mb-3 remember-me-container">
+                        <label for="auth-remember" class="enter-reg-text">Запам'ятати мене</label>
+                       
+                        <input type="checkbox" id="auth-remember" name="RememberMe" class="check-box-margins">
+                        <br />
                         <span>&nbsp;</span>
                         <br />
                         <button type="submit" class="btn btn-purple">Увійти</button>

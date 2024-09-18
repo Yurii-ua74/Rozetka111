@@ -630,4 +630,49 @@ a:hover{
     cursor: pointer;
 }
 
+/*Поля ввода регистрация */
+.enter-reg {
+    margin: 10px 0px 0px 0px;
+    width: 673px;
+    height: 42px;
+    left: 499px;
+    top: 511px;
+    border: 1px solid #C9C9C9;
+    border-radius: 12px;
+}
 
+.enter-reg-text {
+    /* Висота предмету (см) */
+
+    width: 165px;
+    height: 11px;
+    left: 499px;
+    top: 904px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 130%;
+    color: #828282;
+}
+
+.enter-reg-tittle {
+    font-size: 32px;
+   
+    width: 165px;
+    height: 11px;
+    left: 499px;
+    top: 904px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+  
+    line-height: 130%;
+    color: #828282;
+}
+.check-box-margins {
+   
+    position: relative; 
+    left: -25px; 
+    bottom: -2px;
+}
