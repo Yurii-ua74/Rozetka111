@@ -21,15 +21,7 @@
     @* <header>         
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom fixed-top">
            
-            <div class="container-xxl bd-gutter flex-wrap flex-lg-nowrap">    
-                @* hamburger menu *@ @*
-                <a class="nav-link text-white btn-lg"
-                   data-bs-toggle="offcanvas" 
-                    href="#offcanvasExample" 
-                    role="button" 
-                    aria-controls="offcanvasExample">
-                    <i class="bi bi-list" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Бокова панель"></i>
-                </a>
+            
              *@   @* розгортання або згортання навігаційної панелі на мобільних пристроях. *@ @*
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" style="color: white"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +53,7 @@
                         {
                             if (@Context.User.IsInRole("admin"))
                           *@  @* if (@Context.User.Claims.First(c => c.Type == ClaimTypes.Role).Value == "admin")  *@
-                            {                               
+                                                          
                                     @* Переходить на сторінку для додавання нового товару (метод NewProduct в ProductController) *@  @*
                                 <li class="nav-item">
                                     <a class="nav-link text-white btn-lg"
@@ -159,55 +151,174 @@
         </nav>   
     </header> *@
     <header class="header bg-light py-3">
+        <nav> @* class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom fixed-top"> *@
+
+            @* розгортання або згортання навігаційної панелі на мобільних пристроях. *@ 
+            @* <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" style="color: white"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="bi bi-list"></span>
+            </button> *@
+
         <div class="container-fluid">
             <div class="row align-items-center justify-content-between">
 
                 <!-- Гамбургер та Лого -->
-                <div class="col-1 col-md-1 d-flex align-items-center">
-                    <!-- Гамбургер меню (показується лише на мобільних) -->
-                    <a class="nav-link btn-lg me-2"
+                <div class="col-1 col-md-1 d-flex align-items-lg-end">
+                    <!-- Гамбургер меню -->
+                    <a class="nav-link btn-lg ms-5 text-black"
                        data-bs-toggle="offcanvas"
                        href="#offcanvasExample"
                        role="button"
                        aria-controls="offcanvasExample">
-                        <i class="bi bi-list" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Бокова панель"></i>
+                        <i class="bi bi-list fs-2" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Бокова панель"></i>
                     </a>
                 </div>
+
                 <div class="col-4 col-md-2 d-flex align-items-center">
-                    <!-- Лого -->
+                    <!-- Логотип -->
                     <div class="col-6 col-md-12 ">
-                        <a href="https://example.com" class="logo-link">
+                        <a class="logo-link" asp-area="" asp-controller="Home" asp-action="Index">
                             <img src="/logo/shvidkobuy.png" alt="ШвидкоBuy" class="logo-image img-fluid">
                         </a>
-                    </div>
+                    </div>                        
                 </div>
+
                 <!-- Пошук та Каталог -->
                 <div class="col-8 col-md-5">
                     <div class="d-flex justify-content-center align-items-center">
-                        <!-- Кнопка каталогу -->
-                        <button type="button" class="quick-find-button btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#catalogModal">
-                            <i class="bi bi-grid me-1"></i> Каталог
-                        </button>
-                        <!-- Поле пошуку -->
-                        <div class="quick-search-container">
-                            <p class="quick-search-label">Знайти на ШвидкоBuy</p>
-                            <div class="quick-search-container1">
-                                <div class="vertical-divider"></div>
-                                <div class="svg-container1">
-                                    <i class="bi bi-mic fs-5"></i>
-                                </div>
-                                <div class="purple-box-with-text">
-                                    <div class="svg-container2">
-                                        <i class="bi bi-search fs-5"></i>
+                        <form class="d-flex mx-3 p-2 flex-fill" role="search" asp-controller="Products" asp-action="Searching">
+                            <!-- Кнопка каталогу -->
+                            <button type="button" class="quick-find-button btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#catalogModal">
+                                <i class="bi bi-grid me-1"></i> Каталог
+                            </button>
+                            <!-- Поле пошуку -->
+                            <div class="quick-search-container">
+                                <p class="quick-search-label">Знайти на ШвидкоBuy</p>
+                                <div class="quick-search-container1">
+                                    <div class="vertical-divider"></div>
+                                    <div class="svg-container1">
+                                        <i class="bi bi-mic fs-5"></i>
+                                    </div>
+                                    <div class="purple-box-with-text">
+                                        <div class="svg-container2">
+                                            <i class="bi bi-search fs-5"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
-
-                <!-- Навігація -->
+                <!--//////////////////////////////////////-->                
                 <div class="col-6 col-md-3 d-flex justify-content-center">
+                    <div class="d-flex align-items-center">
+
+                        @if (Context.User.Identity?.IsAuthenticated ?? false)
+                        {
+                            if (@Context.User.IsInRole("admin"))
+                            {
+                            @* if (@Context.User.Claims.First(c => c.Type == ClaimTypes.Role).Value == "admin")  *@
+                                                          
+                                @* Переходить на сторінку для додавання нового товару (метод NewProduct в ProductController) *@                                  
+                                    <a class="nav-link text-black btn-lg"
+                                       asp-action="NewProduct" asp-controller="Product"
+                                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Додати товар">
+                                        <i class="bi bi-plus-circle"></i>
+                                    </a>
+                                
+                                @* Переходить на сторінку з таблицею товарів(метод ProductDB в ProductController) *@                                    
+                                    <a class="nav-link text-black btn-lg"
+                                       asp-action="ProductDB" asp-controller="Product"
+                                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Таблиця товарів">
+                                        <i class="bi bi-table"></i>
+                                    </a>                                
+                            }
+                            @* Переходить на сторінку з покупками користувача(метод Purchase в HomeController) *@                             
+                                <a class="nav-link text-black btn-lg"
+                                   asp-area="" asp-controller="Home" asp-action="Purchase"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
+                                    <i class="bi bi-card-list"></i>
+                                </a>                           
+                           @*  Переходить на сторінку з акціями(метод Shares в HomeController) *@                             
+                                <a class="nav-link text-black btn-lg"
+                                   asp-area="" asp-controller="Home" asp-action="Shares"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">
+                                    <i class="bi bi-bell"></i>
+                                </a>                           
+                            @* Переходить на сторінку з порівняннями(метод Compare в HomeController) *@                             
+                                <a type="button" class="nav-link text-black btn-lg"
+                                   asp-area="" asp-controller="Home" asp-action="Compare"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Список порівнянь">
+                                    <img src="~/icons/balance_icon.png" alt="Balance Icon" class="icon-img-white">
+                                </a>                            
+                           @*  Переходить на сторінку зі списком бажань(метод WishList в HomeController) *@                            
+                                <a class="nav-link text-black btn-lg"
+                                   asp-area="" asp-controller="Home" asp-action="WishList"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Список бажань">
+                                    <i class="bi bi-heart"></i>                                  
+                                </a>                            
+                            @* вихід з акаунту *@                                                    
+                                <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout">
+                                    <button type="submit" class="nav-link text-black btn-lg" id="auth-signout-button-nav"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Вихід"
+                                            style="background-color: black; color: white; border: none;">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                    </button>
+                                    @Html.AntiForgeryToken()
+                                </form>                            
+                        }
+                        else
+                        {
+                            @* Відкриває модальне вікно для авторизації(модальне вікно з ID authModal) *@                              
+                                <!-- ВХІД РЕЄСТРАЦІЯ -->
+                                <a type="button" href="" class="nav-link text-black btn-lg"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#authModal">
+                                      <div class="me-3 text-center"> 
+                                         <i class="bi bi-person "></i>
+                                         <p class="menu-link-text-style mb-0">Увійти</p>
+                                      </div> 
+                                </a>                           
+                            }  
+                        
+                        <!-- КОШИК -->
+                        @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
+                        <a class="nav-link text-black position-relative btn-lg"
+                               asp-area="" asp-controller="Favorites" asp-action="Index"
+                               data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Обране">
+                                <div class="text-center">
+                                    <i class="bi bi-heart fs-5"></i>
+                                    <p class="menu-link-text-style mb-0">Обране</p>
+                                </div>
+                            <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
+                               0
+                            </span>
+                        </a>
+
+                            <a class="nav-link text-black position-relative btn-lg"
+                               asp-area="" asp-controller="Cart" asp-action="Index"
+                               data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик">
+                                <div class="text-center">
+                                    <i class="bi bi-cart2 fs-5"></i>
+                                    <p class="menu-link-text-style mb-0">Кошик</p>
+                                </div>
+                                <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
+                                    0
+                                </span>
+                            </a>
+
+                        <!-- АДМІНКА -->
+                        <a class="nav-link text-black btn-lg"
+                           asp-action="AdminPage" asp-controller="Home"
+                           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Сторінка адміністратора">
+                            <i class="bi bi-file-earmark-break-fill"></i>
+                        </a>
+
+                    </div>
+                </div>
+                <!--/////////////////////////////////////////////-->
+                <!-- Навігація -->
+                 @* <div class="col-6 col-md-3 d-flex justify-content-center">
                     <div class="d-flex align-items-center">
                         <div class="me-3 text-center">
                             <i class="bi bi-person fs-5"></i>
@@ -222,9 +333,10 @@
                             <p class="menu-link-text-style mb-0">Кошик</p>
                         </div>
                     </div>
-                </div>
+                </div> *@ 
             </div>
         </div>
+        </nav>
     </header>
 
     @* бічне вікно кошика *@
