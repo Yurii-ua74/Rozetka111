@@ -2,76 +2,7 @@
     ViewData["Title"] = "Головна сторінка";
 }
 
-<div class="row">
-    @* <div class="col-md-4 text-start border-end border-2" style="min-width: 320px">
-        <ul class="catalog">
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Ноутбуки та комп'ютери"><i class="bi bi-laptop"></i> Ноутбуки та комп'ютери</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Смартфони, ТВ і електроніка"><i class="bi bi-phone"></i> Смартфони, ТВ і електроніка</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Товари для геймерів"><i class="bi bi-controller"></i> Товари для геймерів</a>
-            </li>
-           
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Побутова техніка"><i class="bi bi-boombox"></i> Побутова техніка</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Товари для дому"><i class="bi bi-easel"></i> Товари для дому</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Інструменти та автотовари"><i class="bi bi-hammer"></i> Інструменти та автотовари</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Сантехніка та ремонт"><i class="bi bi-paint-bucket"></i> Сантехніка та ремонт</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Дача, сад і город"><i class="bi bi-house"></i> Дача, сад і город</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Спорт і захоплення"><i class="bi bi-bicycle"></i> Спорт і захоплення</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Одяг, взуття та прикраси"><i class="bi bi-gem"></i> Одяг, взуття та прикраси</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Краса та здоров'я"><i class="bi bi-emoji-sunglasses"></i> Краса та здоров'я</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Дитячі товари"><i class="bi bi-balloon-heart"></i> Дитячі товари</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Зоотовари"><i class="bi bi-tencent-qq"></i> Зоотовари</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Офіс, школа, книги"><i class="bi bi-pen"></i> Офіс, школа, книги</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Алкогольні напої та продукти"><i class="bi bi-cup-straw"></i> Алкогольні напої та продукти</a>
-            </li>
-            
-            <li style="list-style-type: none;">
-                <a href="/Categories/GetChildCategories?category=Побутова хімія"><i class="bi bi-eyedropper"></i> Побутова хімія</a>
-            </li>
-        </ul>
-    </div> *@   
-
+<div class="row">    
     <div class="col-md-12">
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">                
@@ -106,3 +37,193 @@
         </div>
     </div>
 </div>
+
+<div class="container-fluid">
+
+    <!-- 2-й рядок: Рекомендуємо для вас -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3>Рекомендуємо для вас</h3>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        @for (int i = 0; i < 6; i++)
+        {
+            <!-- 6 блоків товарів -->
+            <div class="col-md-2 mb-3">
+                <div>
+                    <div class="product-block">
+                        <img src="images/no-image-icon.png" class="img-fluid" alt="Product Image">
+                    </div>
+                    <div class="mt-2">
+                        <div class="product-title">Назва продукту</div>
+                        <div class="product-description">Опис продукту</div>
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="product-price">₴1000</div>
+                            <i class="bi bi-heart ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3>Більше товарів для вибору</h3>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        @for (int i = 0; i < 12; i++)
+        {
+            <div class="col-md-2 mb-3">
+                <!-- 12 блоків товарів -->
+                <div>
+                    <div class="product-block">
+                        <img src="images/no-image-icon.png" class="img-fluid" alt="Product Image">
+                    </div>
+                    <div class="mt-2">
+                        <div class="product-title">Назва продукту</div>
+                        <div class="product-description">Опис продукту</div>
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="product-price">₴1000</div>
+                            <i class="bi bi-heart ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3>Акційні пропозиції</h3>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="col-md-2 mb-3">
+                <!-- 6 блоків товарів -->
+                <div>
+                    <div class="product-block">
+                        <img src="images/no-image-icon.png" class="img-fluid" alt="Product Image">
+                    </div>
+                    <div class="mt-2">
+                        <div class="product-title">Назва продукту</div>
+                        <div class="product-description">Опис продукту</div>
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="product-price">₴1000</div>
+                            <i class="bi bi-heart ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3>найчастіше додають до списку бажань</h3>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="col-md-2 mb-3">
+                <!-- 6 блоків товарів -->
+                <div>
+                    <div class="product-block">
+                        <img src="images/no-image-icon.png" class="img-fluid" alt="Product Image">
+                    </div>
+                    <div class="mt-2">
+                        <div class="product-title">Назва продукту</div>
+                        <div class="product-description">Опис продукту</div>
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="product-price">₴1000</div>
+                            <i class="bi bi-heart ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3>актуальне в категорії одяг</h3>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="col-md-2 mb-3">
+                <!-- 6 блоків товарів -->
+                <div>
+                    <div class="product-block">
+                        <img src="images/no-image-icon.png" class="img-fluid" alt="Product Image">
+                    </div>
+                    <div class="mt-2">
+                        <div class="product-title">Назва продукту</div>
+                        <div class="product-description">Опис продукту</div>
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="product-price">₴1000</div>
+                            <i class="bi bi-heart ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="carousel-item active">
+                <img src="~/images_advertising/baner.png" class="d-block w-100 slider-img" alt="...">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <h3>користуються попитом</h3>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        @for (int i = 0; i < 18; i++)
+        {
+            <div class="col-md-2 mb-3">
+                <!-- 18 блоків товарів -->
+                <div>
+                    <div class="product-block">
+                        <img src="images/no-image-icon.png" class="img-fluid" alt="Product Image">
+                    </div>
+                    <div class="mt-2">
+                        <div class="product-title">Назва продукту</div>
+                        <div class="product-description">Опис продукту</div>
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="product-price">₴1000</div>
+                            <i class="bi bi-heart ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Кнопка Показати ще -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <button class="btn btn-primary w-100 quick-find-button">Показати ще</button>
+        </div>
+    </div>
+
+</div>
+
+
