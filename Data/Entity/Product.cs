@@ -17,5 +17,7 @@
         public int? QuantityInStock { get; set; }
         public ICollection<ProductImage>? ProductImages { get; set; }
         public ICollection<Review>? Reviews { get; set; }
+        public int SubChildCategoryId { get; set; }
+        public SubChildCategory SubChildCategory { get; set; }
     }
 }

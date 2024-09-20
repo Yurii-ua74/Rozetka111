@@ -189,6 +189,11 @@ a:hover{
 /* ///////// ///////// */
 
 /*<-- header -->*/
+.heder {
+    z-index: 1050; /* Має бути вище за затінення та випадаюче вікно */
+    position: relative;
+}
+
 .header-container {
     box-sizing: border-box;
     display: flex;
@@ -528,6 +533,8 @@ a:hover{
     height: 24px;
 }
 
+
+/*<--   НЕ ВИКОРИСТОВУЄТЬСЯ   -->*/
 /*<-- модальне вікно КАТАЛОГ-->*/
 #catalogModal .modal-dialog {
     max-width: 90%; /* Ширина модального вікна 90% від ширини екрану */
@@ -572,29 +579,50 @@ a:hover{
 .modal-footer {
     border: none;
 }
+/*<--///////////////////////////////-->*/
+
+
+/*<-- випадаюче верхнє вікно КАТАЛОГ-->*/
+.offcanvas-top {
+    width: calc(100% - 350px); /* ширина з кожного боку */
+    margin-left: auto;
+    margin-right: auto;
+    height: auto; /* висотa панелі */
+    max-height: 80vh; /* Максимум висоти екрану */
+    /* margin: 1px;*/ /* зміщення панелі на висоту хедера */
+    top: 100px; /* Зміщення на висоту хедера */
+    border-radius: 10px;
+}
+
+.offcanvas-backdrop {  /* Кастомне затінення для offcanvas */
+    position: fixed;
+    top: 100px; /* Висота хедера */
+    width: 100%;
+    height: calc(100vh - 100px); /* Покриває всю сторінку, крім хедера */
+    background-color: rgba(0, 0, 0, 0.5); /* Напівпрозоре чорне тло */
+    z-index: 1040; /* Нижче хедера, але вище контенту сторінки */
+}
+
+.offcanvas-top { /* Відступ для верхнього випадаючого вікна */
+    top: 100px; /* Рівно під хедером */   
+}
+
 
 /*Вирівнювання іконок*/
 .category-title-wrapper {
     display: flex;
-    align-items: center;
-    /*justify-content: space-between;*/ /* Pushes the chevron icon to the far right */
-    padding: 0.5em 0; /* padding to the top and bottom */
+    align-items: center;    
 }
 
 .category-link {
     display: flex;
     align-items: center;
-    text-decoration: none; /* To remove underline from links */
+    text-decoration: none; /* прибрати з лінка підкреслення */
     width: 100%;
 }
 
-.category-link i {
-    margin-right: 0.5em; /* Space between icon and text */
-    font-size: 1.25rem; /*розмір іконок*/
-}
-
 .category-link .bi-chevron-right {
-    margin-left: auto; /* Pushes the chevron icon to the far right */
+    margin-left: auto; 
     margin-right: 5px;
 }
 
@@ -629,5 +657,6 @@ a:hover{
     right: 10px;
     cursor: pointer;
 }
+
 
 

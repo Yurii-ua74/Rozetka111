@@ -152,15 +152,15 @@
         </nav>   
     </header> *@
     <header class="header bg-light py-3">
-        <nav> @* class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom fixed-top"> *@
-
+        <nav class="container-fluid">
+            
             @* розгортання або згортання навігаційної панелі на мобільних пристроях. *@ 
             @* <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" style="color: white"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="bi bi-list"></span>
             </button> *@
 
-        <div class="container-fluid">
+        @* <div class="container-fluid"> *@
             <div class="row align-items-center justify-content-between">
 
                 <!-- Гамбургер та Лого -->
@@ -189,9 +189,13 @@
                     <div class="d-flex justify-content-center align-items-center">
                         <form class="d-flex mx-3 p-2 flex-fill" role="search" asp-controller="Products" asp-action="Searching">
                             <!-- Кнопка каталогу -->
-                            <button type="button" class="quick-find-button btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#catalogModal">
+                            @* <button type="button" class="quick-find-button btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#catalogModal">
                                 <i class="bi bi-grid me-1"></i> Каталог
-                            </button>
+                            </button> *@
+                                <!-- Кнопка для відкриття панелі -->           
+                                <button class="quick-find-button btn btn-outline-secondary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+                                    <i class="bi bi-grid"></i> Каталог
+                                </button>
                             <!-- Поле пошуку -->
                             <div class="quick-search-container">
                                 <p class="quick-search-label">Знайти на ШвидкоBuy</p>
@@ -210,7 +214,7 @@
                         </form>
                     </div>
                 </div>
-                <!--//////////////////////////////////////-->                
+                               
                 <div class="col-6 col-md-3 d-flex justify-content-center">
                     <div class="d-flex align-items-center">
 
@@ -224,27 +228,27 @@
                                     <a class="nav-link text-black btn-lg"
                                        asp-action="NewProduct" asp-controller="Product"
                                        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Додати товар">
-                                        <i class="bi bi-plus-circle"></i>
+                                        <i class="bi bi-plus-circle fs-4"></i>
                                     </a>
                                 
                                 @* Переходить на сторінку з таблицею товарів(метод ProductDB в ProductController) *@                                    
                                     <a class="nav-link text-black btn-lg"
                                        asp-action="ProductDB" asp-controller="Product"
                                        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Таблиця товарів">
-                                        <i class="bi bi-table"></i>
+                                        <i class="bi bi-table fs-4"></i>
                                     </a>                                
                             }
                             @* Переходить на сторінку з покупками користувача(метод Purchase в HomeController) *@                             
                                 <a class="nav-link text-black btn-lg"
                                    asp-area="" asp-controller="Home" asp-action="Purchase"
                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
-                                    <i class="bi bi-card-list"></i>
+                                    <i class="bi bi-card-list fs-4"></i>
                                 </a>                           
                            @*  Переходить на сторінку з акціями(метод Shares в HomeController) *@                             
                                 <a class="nav-link text-black btn-lg"
                                    asp-area="" asp-controller="Home" asp-action="Shares"
                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">
-                                    <i class="bi bi-bell"></i>
+                                    <i class="bi bi-bell fs-4"></i>
                                 </a>                           
                             @* Переходить на сторінку з порівняннями(метод Compare в HomeController) *@                             
                                 <a type="button" class="nav-link text-black btn-lg"
@@ -256,14 +260,14 @@
                                 <a class="nav-link text-black btn-lg"
                                    asp-area="" asp-controller="Home" asp-action="WishList"
                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Список бажань">
-                                    <i class="bi bi-heart"></i>                                  
+                                    <i class="bi bi-heart fs-4"></i>                                  
                                 </a>                            
                             @* вихід з акаунту *@                                                    
                                 <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout">
                                     <button type="submit" class="nav-link text-black btn-lg" id="auth-signout-button-nav"
                                             data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Вихід"
                                             style="background-color: black; color: white; border: none;">
-                                        <i class="bi bi-box-arrow-right"></i>
+                                        <i class="bi bi-box-arrow-right fs-4"></i>
                                     </button>
                                     @Html.AntiForgeryToken()
                                 </form>                            
@@ -275,8 +279,8 @@
                                 <a type="button" href="" class="nav-link text-black btn-lg"
                                    data-bs-toggle="modal"
                                    data-bs-target="#authModal">
-                                      <div class="me-3 text-center"> 
-                                         <i class="bi bi-person "></i>
+                                      <div class="me-3 text-center">
+                                         <i class="bi bi-person fs-4"></i>
                                          <p class="menu-link-text-style mb-0">Увійти</p>
                                       </div> 
                                 </a>                           
@@ -288,7 +292,7 @@
                                asp-area="" asp-controller="Favorites" asp-action="Index"
                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Обране">
                                 <div class="text-center">
-                                    <i class="bi bi-heart fs-5"></i>
+                                    <i class="bi bi-heart fs-4"></i>
                                     <p class="menu-link-text-style mb-0">Обране</p>
                                 </div>
                             <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
@@ -300,7 +304,7 @@
                                asp-area="" asp-controller="Cart" asp-action="Index"
                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик">
                                 <div class="text-center">
-                                    <i class="bi bi-cart2 fs-5"></i>
+                                    <i class="bi bi-cart2 fs-4"></i>
                                     <p class="menu-link-text-style mb-0">Кошик</p>
                                 </div>
                                 <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
@@ -313,33 +317,15 @@
                            asp-action="AdminPage" asp-controller="Home"
                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Сторінка адміністратора">
                             <div class="text-center">
-                                <i class="bi bi-file-earmark-break-fill"></i>
+                                <i class="bi bi-file-earmark-break-fill fs-4"></i>
                                 <p class="menu-link-text-style mb-0">Админ Панель</p>
                             </div>
                         </a>
 
                     </div>
-                </div>
-                <!--/////////////////////////////////////////////-->
-                <!-- Навігація -->
-                 @* <div class="col-6 col-md-3 d-flex justify-content-center">
-                    <div class="d-flex align-items-center">
-                        <div class="me-3 text-center">
-                            <i class="bi bi-person fs-5"></i>
-                            <p class="menu-link-text-style mb-0">Увійти</p>
-                        </div>
-                        <div class="me-3 text-center">
-                            <i class="bi bi-heart fs-5"></i>
-                            <p class="menu-link-text-style mb-0">Обране</p>
-                        </div>
-                        <div class="text-center">
-                            <i class="bi bi-basket fs-5"></i>
-                            <p class="menu-link-text-style mb-0">Кошик</p>
-                        </div>
-                    </div>
-                </div> *@ 
+                </div>               
             </div>
-        </div>
+        @* </div> *@
         </nav>
     </header>
 
@@ -449,8 +435,7 @@
     </div> 
 
     @* основний контент сторінки, що буде динамічно вставлений в шаблон за допомогою @RenderBody(). *@
-    <div class="container-fluid slider-container">
-       
+    <div class="container-fluid slider-container">       
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -459,8 +444,7 @@
 
     <footer class="border-top bg-light text-muted py-4">
         <div class="container-fluid px-4">
-            <div class="row justify-content-between">
-                @* <div class="col-md-2"> *@
+            <div class="row justify-content-between">                
                 <div class="col-lg-2 offset-lg-1 col-md-3">
                     <h5>Покупцям</h5>
                     <ul class="list-unstyled">
@@ -493,7 +477,7 @@
                         </div>
                     </div>
                 </div>
-                @* <div class="col-md-2"> *@
+               
                 <div class="col-lg-2 col-md-3">
                     <h5>Продавцям та партнерам</h5>
                     <ul class="list-unstyled">
@@ -503,7 +487,7 @@
                         <li><a href="#" class="text-muted">Доставляти замовлення</a></li>
                     </ul>
                 </div>
-                @* <div class="col-md-2"> *@
+                
                 <div class="col-lg-2 col-md-3">
                     <h5>Допомога</h5>
                     <ul class="list-unstyled">
@@ -513,7 +497,7 @@
                         <li><a href="#" class="text-muted">Повернення товару</a></li>
                     </ul>
                 </div>
-                @* <div class="col-md-2"> *@
+                
                 <div class="col-lg-2 col-md-3">
                     <h5>Інформація про компанію</h5>
                     <ul class="list-unstyled">
@@ -523,7 +507,7 @@
                         <li><a href="#" class="text-muted">Контакти</a></li>
                     </ul>
                 </div>
-                @* <div class="col-md-2">  *@
+                
                 <div class="col-lg-2 col-md-3">
                     <div class="card" style="width: 8rem;">
                         <img src="@Url.Content("~/images/image_4b26cab1.png")" class="card-img-top mb-3" alt="...">
@@ -539,70 +523,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
-
-    <!-- <script>
-        // Инициализация Facebook SDK
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: '919240966632914', // Замените на ваш App ID
-                cookie: true,
-                xfbml: true,
-                version: 'v20.0'
-            });
-
-            FB.AppEvents.logPageView();
-
-            // Проверка статуса входа
-            FB.getLoginStatus(function (response) {
-                if (response.status === 'connected') {
-                    fetchUserData(response.authResponse.accessToken);
-                } else {
-                    console.log('User is not logged into Facebook or not authorized.');
-                }
-            });
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-        // Функция для проверки статуса входа
-        // Обработчик нажатия кнопки входа
-        function checkLoginState() {
-            if (typeof FB !== 'undefined') {
-                FB.getLoginStatus(function (response) {
-                    if (response.status === 'connected') {
-                        fetchUserData(response.authResponse.accessToken);
-                    } else {
-                        console.log('User is not logged into Facebook or not authorized.');
-                    }
-                });
-            } else {
-                console.error('Facebook SDK not yet loaded.');
-            }
-        }
-
-        // Функция для получения данных пользователя
-        function fetchUserData(accessToken) {
-            const url = `https://graph.facebook.com/me?fields=id,name,email&access_token=${accessToken}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('User Data:', data);
-                    // Обработка данных пользователя
-                })
-                .catch(error => {
-                    console.error('Error fetching user data:', error);
-                });
-        }
-    </script>-->
-
 
 </body>
 </html>
@@ -631,25 +551,20 @@
                         <input type="checkbox" id="auth-remember" name="RememberMe">
                         <span>&nbsp;</span>
                         <br />
-                        <button type="submit" class="btn btn-purple">Увійти</button>
-                    
-
-                       
+                        <button type="submit" class="btn btn-purple">Увійти</button>                   
                     </div>
                     <div class="modal-footer">
-                        <div id="auth-message" class="alert alert-danger visually-hidden" role="alert"></div>
-                       
-                        
+                        <div id="auth-message" class="alert alert-danger visually-hidden" role="alert"></div>                    
                     </div>                  
                 </form>
             </div>
             <div class="mb-3 d-flex justify-content-center gap-2">
-                <!-- Вход Google -->
+                <!-- Вхід Google -->
                 <a asp-action="GoogleLogin" asp-controller="Account" class="btn btn-purple d-flex align-items-center">
                     <i class="fab fa-google me-2"></i> Login with Google
                 </a>
 
-                <!-- Вход Facebook -->
+                <!-- Вхід Facebook -->
                 <a asp-action="FacebookLogin" asp-controller="Account" class="btn btn-purple d-flex align-items-center">
                     <i class="fab fa-facebook me-2"></i> Login with Facebook
                 </a>
@@ -668,7 +583,7 @@
 
 
 <!-- Модальне вікно для каталогу -->
-<div class="modal fade" id="catalogModal" tabindex="-1" aria-labelledby="catalogModalLabel" aria-hidden="true">
+@* <div class="modal fade" id="catalogModal" tabindex="-1" aria-labelledby="catalogModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -753,6 +668,169 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
             </div>
         </div>
+    </div>
+</div> *@
+
+
+<!-- Верхня випадаюча панель -->
+<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasTopLabel">Каталог товарів</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>        
+    </div>
+    <div class="offcanvas-body">
+        <!-- Вміст модального вікна для каталогу -->
+        <div class="row">
+            <div class="col-md-3 text-start border-end border-2" style="min-width: 320px">
+                 <ul class="catalog">
+
+                    <li style="list-style-type: none;">                        
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Ноутбуки та комп'ютери" class="category-link">
+                                <i class="bi bi-laptop me-2" style="color: black;"></i> Ноутбуки та комп'ютери
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Смартфони, ТВ і електроніка" class="category-link">
+                                <i class="bi bi-phone me-2" style="color: black;"></i> Смартфони, ТВ і електроніка
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Товари для геймерів" class="category-link">
+                                <i class="bi bi-controller me-2" style="color: black;"></i> Товари для геймерів
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Побутова техніка" class="category-link">
+                                <i class="bi bi-boombox me-2" style="color: black;"></i> Побутова техніка
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Товари для дому" class="category-link">
+                                <i class="bi bi-easel me-2" style="color: black;"></i> Товари для дому
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Інструменти та автотовари" class="category-link">
+                                <i class="bi bi-hammer me-2" style="color: black;"></i> Інструменти та автотовари
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Сантехніка та ремонт" class="category-link">
+                                <i class="bi bi-paint-bucket me-2" style="color: black;"></i>Сантехніка та ремонт
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Дача, сад і город" class="category-link">
+                                <i class="bi bi-house me-2" style="color: black;"></i>Дача, сад і город
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Спорт і захоплення" class="category-link">
+                                <i class="bi bi-bicycle me-2" style="color: black;"></i>Спорт і захоплення
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Одяг, взуття та прикраси" class="category-link">
+                                <i class="bi bi-gem me-2" style="color: black;"></i>Одяг, взуття та прикраси
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Краса та здоров'я" class="category-link">
+                                <i class="bi bi-emoji-sunglasses me-2" style="color: black;"></i>Краса та здоров'я
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Дитячі товари" class="category-link">
+                                <i class="bi bi-balloon-heart me-2" style="color: black;"></i>Дитячі товари
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Зоотовари" class="category-link">
+                                <i class="bi bi-tencent-qq me-2" style="color: black;"></i>Зоотовари
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Офіс, школа, книги" class="category-link">
+                                <i class="bi bi-pen me-2" style="color: black;"></i>Офіс, школа, книги
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Алкогольні напої та продукти" class="category-link">
+                                <i class="bi bi-cup-straw me-2" style="color: black;"></i>Алкогольні напої та продукти
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li style="list-style-type: none;">
+                        <div class="category-title-wrapper">
+                            <a href="/Categories/GetChildCategories?category=Побутова хімія" class="category-link">
+                                <i class="bi bi-eyedropper me-2" style="color: black;"></i>Побутова хімія
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>              
+            </div>
+        </div>       
     </div>
 </div>
 
