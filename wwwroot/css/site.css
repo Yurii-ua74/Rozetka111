@@ -658,5 +658,14 @@ a:hover{
     cursor: pointer;
 }
 
-
+/*Поля ввода регистрация */
+.enter-reg {
+    margin: 10px 0px 0px 0px;
+    width: 673px;
+    height: 42px;
+    left: 499px;
+    top: 511px;
+    border: 1px solid #C9C9C9;
+    border-radius: 12px;
+}
 

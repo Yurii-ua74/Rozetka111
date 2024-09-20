@@ -1,101 +1,94 @@
 ﻿@model Rozetka.Models.ViewModels.Account.RegisterViewModel
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "";
 }
 
 <h2>@ViewData["Title"]</h2>
+<span class="enter-reg-tittle">Реєстрація нового користувача</span>
 <br />
 <br />
 <br />
-<h1 class="display-4">Реєстрація нового користувача</h1>
+
 
 <form asp-action="Register">
+    <span class="enter-reg-text">Ім'я</span>
+        
     <div class="form-group">
         @* <label asp-for="FirstName" class="control-label"></label> *@
+       
         <div class="input-group mb-3">
-            <span class="input-group-text" id="firstname-addon">
-                <i class="bi bi-person"></i>
-            </span>
-            <input asp-for="FirstName" class="form-control"
+           
+            <input asp-for="FirstName" class="enter-reg"
                    minlength="2" maxlength="20"
-                   placeholder="Ім'я" aria-label="Ім'я"
+                   placeholder="" aria-label="Ім'я"
                    aria-describedby="firstname-addon">
         </div>
+       
         <span asp-validation-for="FirstName" class="text-danger"></span>
     </div>
-
+    <span class="enter-reg-text">Прізвище</span>
     <div class="form-group">
         @* <label asp-for="LastName" class="control-label"></label> *@
         <div class="input-group mb-3">
-            <span class="input-group-text" id="lastname-addon">
-                <i class="bi bi-person-vcard"></i>
-            </span>
-            <input asp-for="LastName" class="form-control"
+           
+            <input asp-for="LastName" class="enter-reg"
                    minlength="2" maxlength="20"
-                   placeholder="Прізвище" aria-label="Прізвище"
+                   placeholder="" aria-label="Прізвище"
                    aria-describedby="lastname-addon">
         </div>
         <span asp-validation-for="LastName" class="text-danger"></span>
     </div>
-
+    <span class="enter-reg-text">Номер телефону</span>
     <div class="form-group">
         @* <label asp-for="PhoneNumber" class="control-label"></label> *@
         <div class="input-group mb-3">
-            <span class="input-group-text" id="phone-addon">
-                <i class="bi bi-telephone"></i>
-            </span>
-            <input asp-for="PhoneNumber" class="form-control"
+         
+            <input asp-for="PhoneNumber" class="enter-reg"
                    minlength="10" maxlength="15"
-                   placeholder="Номер телефону" aria-label="Номер телефону"
+                   placeholder="" aria-label="Номер телефону"
                    aria-describedby="phone-addon">
         </div>
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
-
+    <span class="enter-reg-text">Е-пошта</span>
     <div class="form-group">
         @* <label asp-for="Email" class="control-label"></label> *@
         <div class="input-group mb-3">
-            <span class="input-group-text" id="email-addon">
-                <i class="bi bi-envelope"></i>
-            </span>
-            <input asp-for="Email" class="form-control"
+          
+            <input asp-for="Email" class="enter-reg"
                    minlength="6" maxlength="30"
-                   placeholder="Е-пошта" aria-label="Е-пошта"
+                   placeholder="" aria-label="Е-пошта"
                    aria-describedby="email-addon">
         </div>
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
-
+    <span class="enter-reg-text">Пароль</span>
     <div class="form-group">
         @* <label asp-for="Password" class="control-label"></label> *@
         <div class="input-group mb-3">
-            <span class="input-group-text" id="password-addon">
-                <i class="bi bi-lock"></i>
-            </span>
-            <input asp-for="Password" class="form-control"
+         
+            <input asp-for="Password" class="enter-reg"
                    minlength="6" maxlength="30"
-                   placeholder="Пароль" aria-label="Пароль"
+                   placeholder="" aria-label="Пароль"
                    aria-describedby="password-addon">
         </div>
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
-
+    <span class="enter-reg-text">Повторіть пароль</span>
     <div class="form-group">
         @* <label asp-for="ConfirmPassword" class="control-label"></label> *@
         <div class="input-group mb-3">
-            <span class="input-group-text" id="confirmpassword-addon">
-                <i class="bi bi-unlock"></i>
-            </span>
-            <input asp-for="ConfirmPassword" class="form-control"
+          
+            <input asp-for="ConfirmPassword" class="enter-reg"
                    minlength="6" maxlength="30"
-                   placeholder="Повторіть пароль" aria-label="Повторіть пароль"
+                   placeholder="" aria-label="Повторіть пароль"
                    aria-describedby="confirmpassword-addon">
         </div>
         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
     </div>
 
     <div class="form-group mt-3">
-        <input type="submit" value="Register" class="btn btn-primary" />
+        <input type="submit" value="Реєстрація" class="btn btn-purple d-flex align-items-center" />
     </div>
 </form>
