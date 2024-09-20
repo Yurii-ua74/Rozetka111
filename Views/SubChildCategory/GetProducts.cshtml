@@ -1,26 +1,28 @@
 ﻿@using Rozetka.Data.Entity
-@model IEnumerable<Product> 
+@model IEnumerable<Product>
 
 @{
     string? category = Context.Session.GetString("Category");
     string? childcategory = Context.Session.GetString("ChildCategory");
+    string? subchildcategory = Context.Session.GetString("SubChildCategory");
 
     decimal? minPrice = Model.Any() ? Model.Min(p => p.Price) : null;
     decimal? maxPrice = Model.Any() ? Model.Max(p => p.Price) : null;
 }
 @{
-    ViewData["Title"] = childcategory;
+    ViewData["Title"] = subchildcategory;
 }
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href=".."><i class="bi bi-house"></i></a></li>
         <li class="breadcrumb-item"><a href="/Categories/GetChildCategories?category=@category">@category</a></li>
-        <li class="breadcrumb-item active" aria-current="page">@childcategory</li>
+        <li class="breadcrumb-item"><a href="/ChildCategories/GetSubChildCategories?childcategory=@childcategory">@childcategory</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@subchildcategory</li>
     </ol>
 </nav>
 
-<h1 class="display-4">@childcategory</h1>
+<h1 class="display-4">@subchildcategory</h1>
 
 <div class="sticky-top">
     <ul class="list-group list-group-horizontal">
@@ -237,7 +239,7 @@
                                         <img src="~/icons/balance_icon.png" alt="Balance Icon" class="icon-img">
                                     </a>
 
-                                </div>                              
+                                </div>
                             </div>
 
                             <div class="card-body">
@@ -246,26 +248,26 @@
                                 </a>
                                 <h5 class="card-title">@product.Price.ToString("0") ₴</h5>
                             </div>
-                          
+
                             <div class="product-item">
                                 <!-- Кнопка для додавання товару в кошик (бічне вікно)-->
                                 <button class="btn btn-primary"
                                         onclick="addToCartAndOpenSidebar('@product.Id', '@product.Brand.Title', '@product.Title', '@product.ProductImages', '@product.Price')">
                                     <i class="bi bi-cart-plus"></i> Add to Cart
-                                </button>               
+                                </button>
 
 
                                 @* кнопка додавання до кошика *@
                                 <div class="mt-3">
-                                <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart">
-                                @* <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" class="btn btn-primary"> *@
-                                   <i class="bi bi-cart-plus"></i>
-                                </a>
-                                </div>                                
-                            </div>                            
+                                    <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart">
+                                        @* <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" class="btn btn-primary"> *@
+                                        <i class="bi bi-cart-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
+
                 }
                 @foreach (var product in Model.Where(p => p.QuantityInStock <= 0))
                 {
@@ -288,13 +290,13 @@
                                     }
                                 </a>
                             </div>
-                          
+
                             <div class="card-body">
                                 <a class="a-card" href="/Products/GetProduct?id=@product.Id">
                                     <p class="card-text">@product.ProductType.Title @product.BrandId @product.Title</p>
                                 </a>
                                 <h5 class="card-title">Немає в наявності</h5>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 }

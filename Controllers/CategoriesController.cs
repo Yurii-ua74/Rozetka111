@@ -19,7 +19,8 @@ namespace Rozetka.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Categories.Include(c => c.ParentCategory);
+            var dataContext = _context.Categories
+                          .Include(c => c.ParentCategory);
             return View(await dataContext.ToListAsync());
         }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Rozetka.Data.Entity;
+using System.Reflection.Emit;
 
 
 //using RozetkaDatabase.Models;
@@ -26,6 +27,11 @@ namespace Rozetka.Data
                 .HasColumnType("decimal(18, 0)"); // Устанавливаем тип данных decimal(18, 0)
 
             //////////////////////////////////////
+            
+             builder.Entity<SubChildCategory>()
+            .HasOne(s => s.Childcategory)
+            .WithMany(c => c.SubChildCategories)  // Убедитесь, что это соответствует
+            .HasForeignKey(s => s.ChildCategoryId);
         }
 
         public DbSet<Category> Categories { get; set; }

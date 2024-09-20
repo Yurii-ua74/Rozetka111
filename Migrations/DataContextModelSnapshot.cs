@@ -238,6 +238,9 @@ namespace Rozetka.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ChildcategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -245,6 +248,8 @@ namespace Rozetka.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("ChildcategoryId");
 
                     b.ToTable("Childcategories");
                 });
@@ -590,6 +595,10 @@ namespace Rozetka.Migrations
                         .WithMany("Childcategory")
                         .HasForeignKey("CategoryId");
 
+                    b.HasOne("Rozetka.Data.Entity.Childcategory", null)
+                        .WithMany("SubChildcategories")
+                        .HasForeignKey("ChildcategoryId");
+
                     b.Navigation("Category");
                 });
 
@@ -700,6 +709,8 @@ namespace Rozetka.Migrations
             modelBuilder.Entity("Rozetka.Data.Entity.Childcategory", b =>
                 {
                     b.Navigation("Products");
+
+                    b.Navigation("SubChildcategories");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.Product", b =>

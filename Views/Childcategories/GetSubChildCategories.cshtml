@@ -1,0 +1,31 @@
+﻿@using Rozetka.Data.Entity
+@model IEnumerable<SubChildCategory>
+
+
+@{
+    string? category = Context.Session.GetString("Category");
+    string? childcategory = Context.Session.GetString("ChildCategory");
+}
+@{
+    ViewData["Title"] = childcategory;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href=".."><i class="bi bi-house"></i></a></li>
+        <li class="breadcrumb-item"><a href="/Categories/GetChildCategories?category=@category">@category</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@childcategory</li>
+    </ol>
+</nav>
+
+<h1 class="display-4">@childcategory</h1>
+
+
+<ul>
+    @foreach (var subchildcategory in Model)
+    {       
+        <li style="list-style-type: none;">
+            <a href="/SubChildCategory/GetProducts?subchildcategory=@subchildcategory.Name"> @subchildcategory.Name</a>
+        </li>
+    }
+</ul>

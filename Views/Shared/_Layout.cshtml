@@ -284,10 +284,10 @@
                                          <p class="menu-link-text-style mb-0">Увійти</p>
                                       </div> 
                                 </a>                           
-                            }  
+                        }  
                         
-                        <!-- КОШИК -->
-                        @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
+                       
+                        
                         <a class="nav-link text-black position-relative btn-lg"
                                asp-area="" asp-controller="Favorites" asp-action="Index"
                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Обране">
@@ -300,19 +300,21 @@
                             </span>
                         </a>
 
-                            <a class="nav-link text-black position-relative btn-lg"
-                               asp-area="" asp-controller="Cart" asp-action="Index"
-                               data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик">
-                                <div class="text-center">
-                                    <i class="bi bi-cart2 fs-4"></i>
-                                    <p class="menu-link-text-style mb-0">Кошик</p>
-                                </div>
-                                <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
-                                    0
-                                </span>
-                            </a>
+                         <!-- КОШИК -->
+                        @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
+                         <a class="nav-link text-black position-relative btn-lg"
+                            asp-area="" asp-controller="Cart" asp-action="Index"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик">
+                             <div class="text-center">
+                                 <i class="bi bi-cart2 fs-4"></i>
+                                 <p class="menu-link-text-style mb-0">Кошик</p>
+                             </div>
+                             <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
+                                 0
+                             </span>
+                         </a>
 
-                        <!-- АДМІНКА -->
+                        @* <!-- АДМІНКА --> *@
                         <a class="nav-link text-black btn-lg"
                            asp-action="AdminPage" asp-controller="Home"
                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Сторінка адміністратора">
