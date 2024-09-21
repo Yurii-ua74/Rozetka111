@@ -525,7 +525,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 </body>
 </html>
 
@@ -681,18 +682,19 @@
 <!-- Верхня випадаюча панель -->
 <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasTopLabel">Каталог товарів</h5>
+        <h5 class="offcanvas-title" id="offcanvasTopLabel">Каталог товарів</h5>       
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>        
     </div>
     <div class="offcanvas-body">
         <!-- Вміст модального вікна для каталогу -->
         <div class="row">
+            
             <div class="col-md-3 text-start border-end border-2" style="min-width: 320px">
                  <ul class="catalog">
 
                     <li style="list-style-type: none;">                        
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Ноутбуки та комп'ютери" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Ноутбуки та комп'ютери" class="category-link" data-category="Ноутбуки та комп'ютери">
                                 <i class="bi bi-laptop me-2" style="color: black;"></i> Ноутбуки та комп'ютери
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -701,7 +703,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Смартфони, ТВ і електроніка" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Смартфони, ТВ і електроніка" class="category-link" data-category="Смартфони, ТВ і електроніка">
                                 <i class="bi bi-phone me-2" style="color: black;"></i> Смартфони, ТВ і електроніка
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -710,7 +712,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Товари для геймерів" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Товари для геймерів" class="category-link" data-category="Товари для геймерів">
                                 <i class="bi bi-controller me-2" style="color: black;"></i> Товари для геймерів
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -719,7 +721,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Побутова техніка" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Побутова техніка" class="category-link" data-category="Побутова техніка">
                                 <i class="bi bi-boombox me-2" style="color: black;"></i> Побутова техніка
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -728,7 +730,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Товари для дому" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Товари для дому" class="category-link" data-category="Товари для дому">
                                 <i class="bi bi-easel me-2" style="color: black;"></i> Товари для дому
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -737,7 +739,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Інструменти та автотовари" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Інструменти та автотовари" class="category-link" data-category="Інструменти та автотовари">
                                 <i class="bi bi-hammer me-2" style="color: black;"></i> Інструменти та автотовари
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -746,7 +748,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Сантехніка та ремонт" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Сантехніка та ремонт" class="category-link" data-category="Сантехніка та ремонт">
                                 <i class="bi bi-paint-bucket me-2" style="color: black;"></i>Сантехніка та ремонт
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -755,7 +757,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Дача, сад і город" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Дача, сад і город" class="category-link" data-category="Дача, сад і город">
                                 <i class="bi bi-house me-2" style="color: black;"></i>Дача, сад і город
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -764,7 +766,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Спорт і захоплення" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Спорт і захоплення" class="category-link" data-category="Спорт і захоплення">
                                 <i class="bi bi-bicycle me-2" style="color: black;"></i>Спорт і захоплення
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -773,7 +775,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Одяг, взуття та прикраси" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Одяг, взуття та прикраси" class="category-link" data-category="Одяг, взуття та прикраси">
                                 <i class="bi bi-gem me-2" style="color: black;"></i>Одяг, взуття та прикраси
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -782,7 +784,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Краса та здоров'я" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Краса та здоров'я" class="category-link" data-category="Краса та здоров'я">
                                 <i class="bi bi-emoji-sunglasses me-2" style="color: black;"></i>Краса та здоров'я
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -791,7 +793,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Дитячі товари" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Дитячі товари" class="category-link" data-category="Дитячі товари">
                                 <i class="bi bi-balloon-heart me-2" style="color: black;"></i>Дитячі товари
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -800,7 +802,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Зоотовари" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Зоотовари" class="category-link" data-category="Зоотовари">
                                 <i class="bi bi-tencent-qq me-2" style="color: black;"></i>Зоотовари
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -809,7 +811,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Офіс, школа, книги" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Офіс, школа, книги" class="category-link" data-category="Офіс, школа, книги">
                                 <i class="bi bi-pen me-2" style="color: black;"></i>Офіс, школа, книги
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -818,7 +820,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Алкогольні напої та продукти" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Алкогольні напої та продукти" class="category-link" data-category="Алкогольні напої та продукти">
                                 <i class="bi bi-cup-straw me-2" style="color: black;"></i>Алкогольні напої та продукти
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -827,7 +829,7 @@
 
                     <li style="list-style-type: none;">
                         <div class="category-title-wrapper">
-                            <a href="/Categories/GetChildCategories?category=Побутова хімія" class="category-link">
+                            <a href="/Categories/GetChildCategories?category=Побутова хімія" class="category-link" data-category="Побутова хімія">
                                 <i class="bi bi-eyedropper me-2" style="color: black;"></i>Побутова хімія
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -836,10 +838,19 @@
 
                 </ul>              
             </div>
+
+
+
+            <div class="subcategory-container col-md-9">
+                <!-- Контейнер для виводу підкатегорій та субпідкатегорій -->  
+                11111
+                 <div id="childcategories" class="col-md-4"></div>
+                <div id="subchildcategories" class="col-md-8"></div> 
+             </div> 
+
         </div>       
     </div>
 </div>
-
 
             @* перевірки на автентифікацію (Context.User.Identity?.IsAuthenticated ?? false) 
             якщо потрібно перевірити роль користувача, краще використовувати методи 

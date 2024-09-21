@@ -55,6 +55,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 //builder.Services.AddAutoMapper(typeof(ProductProfile)); // Налаштовує AutoMapper, щоб використовувати профіль конфігурації, визначений в ProductProfile
 
 
+
 ////////// Register DbContext and services ////////////
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -79,7 +80,6 @@ builder.Services.AddAuthentication()
          facebookOptions.AppId = builder.Configuration["Facebook:AppId"];
          facebookOptions.AppSecret = builder.Configuration["Facebook:AppSecret"];
      });
-
 
 
 var app = builder.Build();

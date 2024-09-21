@@ -1,4 +1,26 @@
-﻿function addToCartAndOpenSidebar(productId, brandTitle, productName, productPhoto, productPrice) {
+﻿// передача даних в верхнє випадаюче вікно
+$(document).ready(function () {
+    // Обробка наведення на посилання категорії
+    $('.category-link').on('mouseenter', function () {
+        var category = $(this).data('category'); // Отримуємо назву категорії
+        console.log("Запит категорії: " + category); // Виводимо в консоль
+
+        $.ajax({
+            url: '/Categories/GetChildAndSubChildCategories', // Змінити на правильний маршрут
+            method: 'GET',
+            data: { category: category },
+            success: function (data) {
+                $('.subcategory-container').html(data); // Вставляємо отримані дані
+                console.log("Отримані дані: ", data); // Виводимо отримані дані в консоль
+            },
+            error: function (xhr, status, error) {
+                console.error("Помилка: ", error); // Виводимо помилку в консоль
+            }
+        });
+    });
+});
+
+function addToCartAndOpenSidebar(productId, brandTitle, productName, productPhoto, productPrice) {
     // Виконати AJAX-запит для додавання товару до кошика 
     fetch(`/Cart/AddToCart/${productId}`, {
         method: "post",
@@ -117,3 +139,5 @@ function updateCartCount() {
         });
 }
 document.addEventListener('DOMContentLoaded', updateCartCount);
+
+

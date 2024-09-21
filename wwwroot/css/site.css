@@ -634,6 +634,23 @@ a:hover{
     color: #9c12ff; /* Фіолетовий колір при наведенні */
 }
 
+/*виведення підкатегорій та субпідкатегорій*/
+#subcategory-container {
+    display: none; /* Спочатку приховуємо контейнер */
+}
+
+.category-link:hover + #subcategory-container {
+    display: block; /* Відображаємо при наведенні */
+}
+
+.child-category {
+    font-weight: bold;
+}
+
+.subchild-category {
+    margin-left: 20px; /* Робимо відступ для субпідкатегорій */
+}
+
 /*<-- головна сторінка -->*/
 .product-block {
     background-color: #f5f5dc; /* бежовий фон */

@@ -181,6 +181,70 @@ namespace Rozetka.Controllers
                 .ToListAsync();
             return View(childCategories);
         }
+
+        // отримання підкатегорій та підпідкатегорій для КАТАЛОГУ
+        public IActionResult GetChildAndSubChildCategories(string category)
+        {
+            //var childSubChildCategories = _context.Childcategories
+            //                              .Where(c => c.Category.Name == category)
+            //                              .Select(c => new
+            //                              {
+            //                                  c.Id,
+            //                                  c.Name,
+            //                                  SubChildCategories = c.SubChildCategories.Select(sc => new { sc.Id, sc.Name }).ToList()
+            //                              }).ToList();
+
+            // Повернення часткового представлення
+            //return PartialView("_ChildCategoriesPartial", childSubChildCategories);
+
+            //try
+            //{
+            //    // Отримуємо головну категорію за її назвою
+            //    var parentCategory = _context.Categories
+            //        .Include(c => c.Childcategory)
+            //            .ThenInclude(child => child.SubChildCategories) // Завантажуємо субкатегорії
+            //        .FirstOrDefault(c => c.Name == category);
+
+            //    // Перевіряємо, чи знайдено категорію
+            //    if (parentCategory == null)
+            //    {
+            //        return NotFound();
+            //    }
+
+            //    // Повертаємо дочірні категорії у вигляді часткового представлення
+            //    return PartialView("_ChildCategories", parentCategory.Childcategory);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //    return StatusCode(500, "Internal server error");
+            //}
+
+            try
+            {
+                // Отримуємо головну категорію за її назвою
+                var parentCategory = _context.Categories
+                    .Include(c => c.Childcategory)
+                        .ThenInclude(child => child.SubChildCategories)
+                    .FirstOrDefault(c => c.Name == category);
+
+                // Перевіряємо, чи знайдено категорію
+                if (parentCategory == null)
+                {
+                    Console.WriteLine($"Категорію не знайдено: {category}");
+                    return NotFound();
+                }
+
+                // Повертаємо дочірні категорії у вигляді часткового представлення
+                return PartialView("_ChildCategoriesPartial", parentCategory.Childcategory);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Помилка: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
     }
 }
 
