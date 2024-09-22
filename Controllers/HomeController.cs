@@ -20,7 +20,8 @@ namespace Rozetka.Controllers
         public IActionResult Index()
         {
             try
-            {               
+            {
+                HttpContext.Session.Clear();
                 return View();
             }
             catch (Exception ex)

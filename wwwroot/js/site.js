@@ -6,7 +6,7 @@ $(document).ready(function () {
         console.log("Запит категорії: " + category); // Виводимо в консоль
 
         $.ajax({
-            url: '/Categories/GetChildAndSubChildCategories', // Змінити на правильний маршрут
+            url: '/Categories/GetChildAndSubChildCategories', // маршрут
             method: 'GET',
             data: { category: category },
             success: function (data) {

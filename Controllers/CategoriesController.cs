@@ -21,6 +21,7 @@ namespace Rozetka.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
+            HttpContext.Session.Clear();
             var dataContext = _context.Categories
                           .Include(c => c.ParentCategory);
             return View(await dataContext.ToListAsync());
@@ -162,7 +163,7 @@ namespace Rozetka.Controllers
         }
 
         public async Task<IActionResult> GetChildCategories(string category)
-        {
+        {            
             if (string.IsNullOrEmpty(category))
             {
                 return NotFound();

@@ -271,6 +271,7 @@ namespace Rozetka.Controllers
             {
                 return NotFound();
             }
+            HttpContext.Session.SetString("Product", product.Title);
             return View(product);
         }
     }
