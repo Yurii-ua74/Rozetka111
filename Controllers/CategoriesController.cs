@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rozetka.Data;
 using Rozetka.Data.Entity;
+using Rozetka.Models.ViewModels;
+using Rozetka.Models.ViewModels.ChildCategoriesViewModel;
 
 
 namespace Rozetka.Controllers
@@ -185,41 +187,7 @@ namespace Rozetka.Controllers
         // отримання підкатегорій та підпідкатегорій для КАТАЛОГУ
         public IActionResult GetChildAndSubChildCategories(string category)
         {
-            //var childSubChildCategories = _context.Childcategories
-            //                              .Where(c => c.Category.Name == category)
-            //                              .Select(c => new
-            //                              {
-            //                                  c.Id,
-            //                                  c.Name,
-            //                                  SubChildCategories = c.SubChildCategories.Select(sc => new { sc.Id, sc.Name }).ToList()
-            //                              }).ToList();
-
-            // Повернення часткового представлення
-            //return PartialView("_ChildCategoriesPartial", childSubChildCategories);
-
-            //try
-            //{
-            //    // Отримуємо головну категорію за її назвою
-            //    var parentCategory = _context.Categories
-            //        .Include(c => c.Childcategory)
-            //            .ThenInclude(child => child.SubChildCategories) // Завантажуємо субкатегорії
-            //        .FirstOrDefault(c => c.Name == category);
-
-            //    // Перевіряємо, чи знайдено категорію
-            //    if (parentCategory == null)
-            //    {
-            //        return NotFound();
-            //    }
-
-            //    // Повертаємо дочірні категорії у вигляді часткового представлення
-            //    return PartialView("_ChildCategories", parentCategory.Childcategory);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //    return StatusCode(500, "Internal server error");
-            //}
-
+            
             try
             {
                 // Отримуємо головну категорію за її назвою
@@ -235,8 +203,28 @@ namespace Rozetka.Controllers
                     return NotFound();
                 }
 
+                //   //////////////////////////////   //
+                // Отримуємо всі дочірні категорії
+                var allChildCategories = parentCategory.Childcategory.ToList();
+                // Розділяємо на три частини
+                var totalCount = allChildCategories.Count;
+                var chunkSize = (int)Math.Ceiling(totalCount / 3.0);
+
+                var firstPart = allChildCategories.Take(chunkSize).ToList();
+                var secondPart = allChildCategories.Skip(chunkSize).Take(chunkSize).ToList();
+                var thirdPart = allChildCategories.Skip(chunkSize * 2).Take(chunkSize).ToList();
+
+                var model = new ChildCategoriesViewModel
+                {
+                    FirstPart = firstPart,
+                    SecondPart = secondPart,
+                    ThirdPart = thirdPart
+                };
+                //    ////////////////////////////////  //
+
                 // Повертаємо дочірні категорії у вигляді часткового представлення
-                return PartialView("_ChildCategoriesPartial", parentCategory.Childcategory);
+                // return PartialView("_ChildCategoriesPartial", parentCategory.Childcategory);
+                return PartialView("_ChildCategoriesPartial", model);
             }
             catch (Exception ex)
             {

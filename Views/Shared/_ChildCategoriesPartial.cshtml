@@ -1,16 +1,63 @@
-﻿@model IEnumerable<Rozetka.Data.Entity.Childcategory>
+﻿@*  @model IEnumerable<Rozetka.Data.Entity.Childcategory> *@
+    @model Rozetka.Models.ViewModels.ChildCategoriesViewModel.ChildCategoriesViewModel
 
-<div id="childcategories" class="col-md-4">
-    @foreach (var child in Model)
-    {
-        <div class="child-category">
-            <h5>@child.Name</h5>
-            <ul>
-                @foreach (var subChild in child.SubChildCategories)
+
+<div class="row">
+    @for (int i = 1; i <= 3; i++)
+        @switch (i)
+        {
+            case 1:
                 {
-                    <li>@subChild.Name</li>
+                    <div id="childcategories1">     
+                        @foreach (var child in Model.FirstPart)
+                        {
+                            <div class="child-category">
+                                <h5>@child.Name</h5>
+                                <ul>
+                                    @foreach (var subChild in child.SubChildCategories)
+                                    {
+                                        <li>@subChild.Name</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                } break;
+            case 2:
+                {
+                <div id="childcategories2">
+                       @foreach (var child in Model.SecondPart)
+                       {
+                           <div class="child-category">
+                               <h5>@child.Name</h5>
+                               <ul>
+                                   @foreach (var subChild in child.SubChildCategories)
+                                   {
+                                       <li>@subChild.Name</li>
+                                   }
+                               </ul>
+                           </div>
+                       }
+                </div>
                 }
-            </ul>
-        </div>
-    }
+                break;
+            case 3:
+                {
+                 <div id="childcategories3">   
+                      @foreach (var child in Model.ThirdPart)
+                      {
+                          <div class="child-category">
+                              <h5>@child.Name</h5>
+                              <ul>
+                                  @foreach (var subChild in child.SubChildCategories)
+                                  {
+                                      <li>@subChild.Name</li>
+                                  }
+                              </ul>
+                          </div>
+                      }
+                </div>
+                }
+                break;
+     }
 </div>

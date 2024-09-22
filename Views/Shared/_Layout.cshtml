@@ -188,7 +188,7 @@
                 <div class="col-8 col-md-5">
                     <div class="d-flex justify-content-center align-items-center">
                         <form class="d-flex mx-3 p-2 flex-fill" role="search" asp-controller="Products" asp-action="Searching">
-                            <!-- Кнопка каталогу -->
+                            <!-- Кнопка каталогу modal -->
                             @* <button type="button" class="quick-find-button btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#catalogModal">
                                 <i class="bi bi-grid me-1"></i> Каталог
                             </button> *@
@@ -443,7 +443,7 @@
         </main>
     </div> 
 
-
+   @* <--   футер   --> *@
     <footer class="border-top bg-light text-muted py-4">
         <div class="container-fluid px-4">
             <div class="row justify-content-between">                
@@ -839,17 +839,44 @@
                 </ul>              
             </div>
 
+            <div class="col-md-9">
+                <div class="container-fluid">
+                    <div class="row d-flex justify-content-between"> 
+                        
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="subcategory-container col-md-9">
+                                    <!-- Контейнер для виводу підкатегорій та субпідкатегорій -->
+                                    <div id="childcategories1" class="col-md-4"></div>
+                                    <div id="subchildcategories" class="col-md-8"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="subcategory-container col-md-9">
+                                    <!-- Контейнер для виводу підкатегорій та субпідкатегорій -->
+                                    <div id="childcategories2" class="col-md-4"></div>
+                                    <div id="subchildcategories" class="col-md-8"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="subcategory-container col-md-9">
+                                    <!-- Контейнер для виводу підкатегорій та субпідкатегорій -->
+                                    <div id="childcategories3" class="col-md-4"></div>
+                                    <div id="subchildcategories" class="col-md-8"></div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+           
+
+        </div>  
+
+       
+    </div> 
 
 
-            <div class="subcategory-container col-md-9">
-                <!-- Контейнер для виводу підкатегорій та субпідкатегорій -->  
-                11111
-                 <div id="childcategories" class="col-md-4"></div>
-                <div id="subchildcategories" class="col-md-8"></div> 
-             </div> 
-
-        </div>       
-    </div>
 </div>
 
             @* перевірки на автентифікацію (Context.User.Identity?.IsAuthenticated ?? false) 

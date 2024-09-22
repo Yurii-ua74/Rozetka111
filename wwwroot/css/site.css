@@ -81,10 +81,7 @@ a:hover{
 #heart-icon {
     color: gold; /* Новый цвет иконки */
 }
-/*.btn-link:focus,
-.btn-link:active {
-    outline: none;
-}*/
+
 .icon-img {
     width: 32px;
     height: 32px;
@@ -384,7 +381,7 @@ a:hover{
 
 
 
-/*<-- каталог -->*/
+/*<-- каталог кнопка -->*/
 .quick-find-button {
     box-sizing: border-box;
     display: inline-flex;
@@ -589,7 +586,6 @@ a:hover{
     margin-right: auto;
     height: auto; /* висотa панелі */
     max-height: 80vh; /* Максимум висоти екрану */
-    /* margin: 1px;*/ /* зміщення панелі на висоту хедера */
     top: 100px; /* Зміщення на висоту хедера */
     border-radius: 10px;
 }
@@ -650,6 +646,49 @@ a:hover{
 .subchild-category {
     margin-left: 20px; /* Робимо відступ для субпідкатегорій */
 }
+
+/*<-- виведення підкатегорій та субпідкатегорій -->*/
+/*.subcategory-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#childcategories, #subchildcategories {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+#childcategories {
+    flex-basis: 30%;  30% ширини для підкатегорій 
+    max-width: 30%;
+}
+
+#subchildcategories {
+    flex-basis: 70%;  70% ширини для субпідкатегорій 
+    max-width: 70%;
+}
+
+.subcategory-container > div {
+    margin-bottom: 20px;
+}
+
+.subcategory-block {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+.subcategory-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+*/
+
+
+
 
 /*<-- головна сторінка -->*/
 .product-block {

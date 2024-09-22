@@ -20,6 +20,8 @@ $(document).ready(function () {
     });
 });
 
+
+
 function addToCartAndOpenSidebar(productId, brandTitle, productName, productPhoto, productPrice) {
     // Виконати AJAX-запит для додавання товару до кошика 
     fetch(`/Cart/AddToCart/${productId}`, {
