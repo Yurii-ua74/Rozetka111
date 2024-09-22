@@ -63,10 +63,6 @@ a:hover{
     font-size: 20px; /* Увеличиваем размер текста */
 }
 
-/*.catalog a:hover {
-    color: #9C12FF;*/ /* Цвет текста при наведении - фиолетовый */
-    /*text-decoration: underline;*/ /* Добавляем подчеркивание при наведении */
-/*}*/
 
 .catalog i.bi {
     color: gray; /* Цвет иконки - серый */
@@ -116,7 +112,7 @@ a:hover{
 
 .cart-sidebar-content {
     padding: 20px;
-    position: relative; /* Ensure that the close button is positioned relative to this container */
+    position: relative; 
 }
 
 .cart-items {
@@ -603,6 +599,10 @@ a:hover{
     top: 100px; /* Рівно під хедером */   
 }
 
+.font-sz {
+    font-weight: 1000;
+}
+
 
 /*Вирівнювання іконок*/
 .category-title-wrapper {
@@ -648,6 +648,23 @@ a:hover{
     margin-left: 20px; /* Робимо відступ для субпідкатегорій */
 }
 
+/*<--  права частина каталогу  -->*/
+.text-block {
+    width: 100%;
+    max-width: 1200px; /* Максимальна ширина блоку */
+    height: auto; /* Висота блоку */
+    column-count: 3; /* Максимум три колонки */
+    column-gap: 20px; /* Відступи між колонками */
+    padding: 20px;
+    overflow: hidden; /* Приховати текст, який виходить за межі блоку */
+    /*border: 1px solid #ccc;*/ /* Додаємо рамку для стилізації */
+    box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
+}
+
+    .text-block p {
+        margin: 0;
+    }
+
 
 /*<-- головна сторінка -->*/
 .product-block {
@@ -684,23 +701,35 @@ a:hover{
     border-radius: 12px;
 }
 
-
-
-/*<--  права частина каталогу  -->*/
-.text-block {
+/*<--  бокове  вікно  -->*/
+.left-wind {
     width: 100%;
-    max-width: 1200px; /* Максимальна ширина блоку */
-    height: auto; /* Висота блоку */
-    column-count: 3; /* Максимум три колонки */
-    column-gap: 20px; /* Відступи між колонками */
+    max-width: 400px; /* Максимальна ширина блоку */
+    height: auto; /* Висота блоку */    
     padding: 20px;
-    overflow: hidden; /* Приховати текст, який виходить за межі блоку */
-    /*border: 1px solid #ccc;*/ /* Додаємо рамку для стилізації */
+    border: 1px solid #ccc; /* Додаємо рамку для стилізації */
     box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
 }
 
-    .text-block p {
-        margin: 0;
-    }
+.btn-sz {
+    width: 95%;
+}
+
+.reg-bl {
+    width: 90%;
+    height: 150px;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+.entr-btn {
+    background-color: #e8daf4;
+    border-radius: 10px;
+    border: 3px solid #9C12FF;
+}
+
+
+
 
 

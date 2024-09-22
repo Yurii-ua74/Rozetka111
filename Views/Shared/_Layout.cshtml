@@ -34,7 +34,7 @@
 
                 <!-- Гамбургер та Лого -->
                 <div class="col-1 col-md-1 d-flex align-items-lg-end">
-                    <!-- Гамбургер меню -->
+                    <!-- Гамбургер меню -->  @*////////////////////////////////////////////////*@
                     <a class="nav-link btn-lg ms-5 text-black"
                        data-bs-toggle="offcanvas"
                        href="#offcanvasExample"
@@ -61,7 +61,7 @@
                             @* <button type="button" class="quick-find-button btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#catalogModal">
                             <i class="bi bi-grid me-1"></i> Каталог
                             </button> *@
-                            <!-- Кнопка для відкриття панелі -->
+                            <!-- Кнопка для відкриття панелі -->    
                             <button class="quick-find-button btn btn-outline-secondary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
                                 <i class="bi bi-grid"></i> Каталог
                             </button>
@@ -213,96 +213,117 @@
         </div>
     </div>
 
-
-    @* бічне меню, яке відкривається по кліку на іконку *@
+    @*//////////////////////////////////////////////////*@
+    @* бічне меню, яке відкривається по кліку на сендвіч *@
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-header" style="background-color:black">
+         <div class="offcanvas-header" style="background-color:floralwhite">
             <a class="navbar-brand fs-2 ms-5" asp-area="" asp-controller="Home" asp-action="Index">
-                <img src="\logo\hello_smile_icon.png" alt="ROZETKA" width="40" height="40">ROZETKA
+                 <img src="/logo/shvidkobuy.png" alt="ShvidkoBuy">                         
             </a>
             <button type="button" class="btn-close btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body" style="background-color:white">
-
-            @if (Context.User.Identity?.IsAuthenticated ?? false)
-            {
-                <div class="catalog text-center text-capitalize">
-                    <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" asp-controller="User" asp-action="PersonalData">
-                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">@Context.User.Identity?.Name</h5>                       
-                    </a>
-                </div>
-            }
-            else
-            {
-                <div class="row">
-                    <div class="col">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#authModal">
-                            Вхід
-                        </button>
-                    </div>                  
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <img src="~/icons/person_icon.png" alt="Person Icon">
-
-                    </div>
-                    <diV class="col-8">
-                        <label>Авторизуйтесь для отримання розширених можливостей</label>
-                    </diV>
-                </div>
-            }
-
-            <div class="d-grid gap-2">
-                <hr>
-                <button type="button" class="btn btn-lg text-success text-start" data-bs-toggle="modal" data-bs-target="#catalogModal">
-                    <i class="bi bi-boxes"></i>
-                    Каталог товарів
-                </button>
-                <hr>
-                <button type="button" class="btn btn-lg text-success text-start"
-                        data-bs-toggle="modal"
-                        data-bs-target="#infoModal">
-                    <i class="bi bi-question-circle"></i>
-                    Довідковий центр
-                </button>
-                <hr>
-                <a class="btn btn-lg text-success text-start" asp-controller="Cart" asp-action="Index">  
-                    <i class="bi bi-cart2"></i>
-                    Кошик                                       
-                </a>
-                @if (Context.User.Identity?.IsAuthenticated ?? false)
-                {
-                    <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="Purchase">
-                        <i class="bi bi-card-list"></i>
-                        Мої замовлення
-                    </a>
-                    <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="Shares">
-                        <i class="bi bi-bell"></i>
-                        Персональні пропозиції
-                    </a>
-
-                    <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="WishList">
-                        <i class="bi bi-heart"></i>
-                        Список бажань                                             
-                    </a>
-
-                    <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="Compare">
-                        <img src="~/icons/balance_icon2.png" alt="Balance Icon" class="icon-img-green">
-                        Порівняння                      
-                    </a>
-                    <hr>
-                   
-                    <form id="logoutFormOffcanvas" method="post" asp-controller="Account" asp-action="Logout">
-                        <button type="submit" class="btn btn-lg text-danger text-start" id="auth-signout-button-offcanvas">
-                            <i class="bi bi-box-arrow-right"></i>
-                            Вихід
-                        </button>
-                        @Html.AntiForgeryToken()
-                    </form>
-                }                
-            </div>            
+        <div class="left-wind">
+        <button class="quick-find-button btn-sz btn btn-outline-secondary me-2 ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+            <i class="bi bi-grid"></i> Каталог
+        </button>
         </div>
+
+        <div class="left-wind reg-bl">
+            <h6>Увійдіть, щоб отримувати рекомендації,
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;персональні бонуси і знижки
+            </h6>
+            <button class="entr-btn btn-sz opacity-75 btn btn-outline-secondary me-2 ms-2 mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+                <h5 style="color:black">Увійдіть в особистий кабінет</h5>
+            </button>       
+        </div>
+        <hr>
+
+
+
+
+                <div class="offcanvas-body" style="background-color:white">
+
+                     @* @if (Context.User.Identity?.IsAuthenticated ?? false)
+                     {
+                         <div class="catalog text-center text-capitalize">
+                             <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" asp-controller="User" asp-action="PersonalData">
+                                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">@Context.User.Identity?.Name</h5>                       
+                             </a>
+                         </div>
+                     }
+                     else
+                     {
+                         <div class="row">
+                             <div class="col">
+                                 <!-- Button trigger modal -->
+                                 <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#authModal">
+                                     Вхід
+                                 </button>
+                             </div>                  
+                         </div>
+                         <div class="row">
+                             <div class="col">
+                                 <img src="~/icons/person_icon.png" alt="Person Icon">
+                    
+                             </div>
+                             <diV class="col-8">
+                                 <label>Авторизуйтесь для отримання розширених можливостей</label>
+                             </diV>
+                         </div>
+                     } *@
+                    
+                     <div class="d-grid gap-2">
+                         @* <hr>
+                         <button type="button" class="btn btn-lg text-success text-start" data-bs-toggle="modal" data-bs-target="#catalogModal">
+                             <i class="bi bi-boxes"></i>
+                             Каталог товарів
+                         </button> *@
+                         
+                         <button type="button" class="btn btn-lg text-success text-start"
+                                 data-bs-toggle="modal"
+                                 data-bs-target="#infoModal">
+                             <i class="bi bi-question-circle"></i>
+                             Довідковий центр
+                         </button>
+                         <hr>
+                         <a class="btn btn-lg text-success text-start" asp-controller="Cart" asp-action="Index">  
+                             <i class="bi bi-cart2"></i>
+                             Кошик                                       
+                         </a>
+                         @if (Context.User.Identity?.IsAuthenticated ?? false)
+                         {
+                             <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="Purchase">
+                                 <i class="bi bi-card-list"></i>
+                                 Мої замовлення
+                             </a>
+                             <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="Shares">
+                                 <i class="bi bi-bell"></i>
+                                 Персональні пропозиції
+                             </a>
+                    
+                             <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="WishList">
+                                 <i class="bi bi-heart"></i>
+                                 Список бажань                                             
+                             </a>
+                    
+                             <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="Compare">
+                                 <img src="~/icons/balance_icon2.png" alt="Balance Icon" class="icon-img-green">
+                                 Порівняння                      
+                             </a>
+                             <hr>
+                            
+                             <form id="logoutFormOffcanvas" method="post" asp-controller="Account" asp-action="Logout">
+                                 <button type="submit" class="btn btn-lg text-danger text-start" id="auth-signout-button-offcanvas">
+                                     <i class="bi bi-box-arrow-right"></i>
+                                     Вихід
+                                 </button>
+                                 @Html.AntiForgeryToken()
+                             </form>
+                         }                
+                     </div>            
+                 </div> 
+        
+            
     </div> 
 
     @* основний контент сторінки, що буде динамічно вставлений в шаблон за допомогою @RenderBody(). *@
@@ -710,32 +731,12 @@
 
             <div class="col-md-9">
                 <div class="container-fluid">
-                    <div class="row d-flex justify-content-between"> 
-                        
-                        @*  <div class="col-lg-4 col-md-6 mb-4">
-                             <div class="subcategory-container col-md-9"> 
-                                
-                             </div>
-                        </div> *@
-                         
-                        
-                          @* <div class="col-lg-4 col-md-6 mb-4">
-                             <div class="subcategory-container col-md-9">
-                                 <!-- Контейнер для виводу підкатегорій та субпідкатегорій -->
-                                 <div id="childcategories2" class="col-md-4"></div>
-                                 <div id="subchildcategories" class="col-md-8"></div>
-                             </div>
-                         </div> *@
-
-                        <div class="subcategory-container text-block">
-                             
-                                 <!-- Контейнер для виводу підкатегорій та субпідкатегорій -->
-                                 <div id="childcategories2" class="col-md-4"></div>
-                                 <div id="subchildcategories" class="col-md-8"></div>
-                             
+                    <div class="row d-flex justify-content-between">                        
+                        <div class="subcategory-container text-block">                            
+                                 <!-- Контейнер для виводу підкатегорій та субпідкатегорій -->                           
+                                 @* <div id="childcategories2" class="col-md-4"></div>
+                                 <div id="subchildcategories" class="col-md-8"></div>  *@                           
                          </div> 
-                         
-
                     </div>
                 </div>
             </div>

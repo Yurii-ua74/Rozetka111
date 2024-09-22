@@ -6,7 +6,7 @@
     @foreach (var child in Model.FirstPart)
     {
         <div class="child-category">
-            <h5>
+            <h5 class="font-sz">
                 <!-- Створюємо посилання для підкатегорій -->
                 <a href="@Url.Action("GetSubChildCategories", "Childcategories", new { childcategory = child.Name })"> @* new { childcategory = child.Id })"> *@
                     @child.Name
@@ -31,7 +31,7 @@
     @foreach (var child in Model.SecondPart)
     {
         <div class="child-category">
-            <h5>
+            <h5 class="font-sz">
                 <a href="@Url.Action("GetSubChildCategories", "Childcategories", new { childcategory = child.Name })">
                     @child.Name
                 </a>
@@ -54,7 +54,7 @@
     @foreach (var child in Model.ThirdPart)
     {
         <div class="child-category">
-            <h5>
+            <h5 class="font-sz">
                 <a href="@Url.Action("GetSubChildCategories", "Childcategories", new { childcategory = child.Name })">
                     @child.Name
                 </a>
