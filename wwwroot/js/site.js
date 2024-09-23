@@ -143,3 +143,40 @@ function updateCartCount() {
 document.addEventListener('DOMContentLoaded', updateCartCount);
 
 
+// ////// отримання місцезнаходження ////// //
+// Додаємо функцію для отримання даних
+//function getLocation() {
+//    fetch('https://ipinfo.io/json?token=675fcbb92ab7c6') // Мій токен
+//        .then(response => {
+//            if (!response.ok) {
+//                throw new Error('Network response was not ok');
+//            }
+//            return response.json();
+//        })
+//        .then(data => {
+//            const location = data.city; // Отримуємо назву міста
+//            document.getElementById('location').innerHTML = `Ваше місце знаходження: <br>${location} ?`;
+//        })
+//        .catch(err => {
+//            console.error('Не вдалося отримати дані:', err);
+//            document.getElementById('location').innerText = 'Не вдалося отримати ваше місцезнаходження';
+//        });
+//}
+
+document.getElementById('getLocationBtn').addEventListener('click', function () {
+    fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            const location = data.city;
+            document.getElementById('location').innerText = `Ви знаходитеся в: ${location}`;
+        })
+        .catch(err => {
+            console.error('Не вдалося отримати дані:', err);
+        });
+});
+
+// Викликаємо функцію при завантаженні сторінки
+window.onload = getLocation;
+
+
+
