@@ -33,6 +33,18 @@ body {
     color: #9C12FF; /* Текст меняется на фиолетовый */
     border: 1px solid #9C12FF; /* Добавляем фиолетовую границу */
 }
+.custom-button {
+    padding: 10px 20px; /* Установите свои значения для отступов */
+    margin: 0 10px; /* Отступы между кнопками */
+}
+.btn-margin {
+    margin-left: 16px; /* Отступ слева у кнопки */
+    margin-right: 16px; /* Отступ справа у кнопки */
+}
+
+.mb-3 {
+    margin-bottom: 40px; /* Увеличение отступа между кнопками */
+}
 
 .btn-outline-purple {
     background-color: #f0b0e2;
@@ -692,20 +704,112 @@ a:hover{
 
 /*Поля ввода регистрация */
 .enter-reg {
-    margin: 10px 0px 0px 0px;
-    width: 673px;
+    width: 100%; /* Обеспечит, что поля не будут выходить за пределы */
+    max-width: 100%; /* Ограничит их до размеров контейнера */
     height: 42px;
     left: 499px;
     top: 511px;
     border: 1px solid #C9C9C9;
     border-radius: 12px;
+    margin-bottom: -4px; /* Уменьшите отступ до нужного значения */
+    margin-top: -4px;
 }
+.enter-reg-text {
+    display: block; /* Чтобы текст занимал всю ширину */
+    margin-bottom: -4px; /* Уменьшите отступ до нужного значения */
+    margin-top: -4px;
+}
+
+
+.enter-reg-text::after {
+    content: '\2022'; /* Unicode для точки */
+    color: red; /* Цвет точки */
+    margin-left: 5px; /* Отступ от текста */
+    font-size: 20px; /* Размер точки, можно регулировать */
+    vertical-align: middle; /* Вертикальное выравнивание */
+    margin-top: -5px;
+}
+
+.btn-thicker {
+    padding-top: 10px; /* Отступ сверху */
+    padding-bottom: 10px; /* Отступ снизу */
+}
+
+.enter-reg-tittle {
+    font-size: 22px !important;
+    
+}
+
+.line-with-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%; /* Ширина всей полосы */
+}
+
+    .line-with-text::before,
+    .line-with-text::after {
+        content: '';
+        flex-grow: 1;
+        height: 1px;
+        margin-top: 25px; /* Отступ сверху */
+        margin-bottom: 1px; /* Отступ снизу */
+        background-color: #E8E8E8; /* Цвет линии */
+    }
+
+    .line-with-text::before {
+        margin-right: 10px; /* Отступ от текста до линии слева */
+    }
+
+    .line-with-text::after {
+        margin-left: 10px; /* Отступ от текста до линии справа */
+    }
+
+    .line-with-text span {
+        white-space: nowrap; /* Предотвращает перенос текста */
+        padding: 0 10px; /* Отступы вокруг текста */
+        color: #818181; /* Цвет текста */
+    }
+
+.horizontal-line {
+    width: 100%; /* Толщина полоски */
+    height: 1px; /* Высота полоски */
+    background-color: #E8E8E8; /* Цвет полоски */
+    margin: 0 auto; /* Центровка */
+}
+.mb-3 {
+    margin-top: 0; /* Убирает верхний отступ */
+    margin-bottom: 1rem;
+}
+.no-margin-top {
+    margin-top: 0 !important; /* Убирает верхний отступ с приоритетом */
+}
+.btn-gray {
+    background-color: #E0E0E0; /* Серый цвет фона */
+    color: black; /* Черный текст */
+    border-radius: 12px; /* Закругление углов */
+    padding: 10px 20px; /* Внутренние отступы */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: inline-flex; /* Для выравнивания иконки и текста */
+    align-items: center; /* Вертикальное выравнивание */
+    transition: background-color 0.3s; /* Эффект при наведении */
+}
+
+    .btn-gray:hover {
+        background-color: #B0B0B0; /* Цвет фона при наведении */
+    }
+
+    .btn-gray i {
+        color: inherit; /* Убираем стандартный цвет иконок */
+    }
+
+
 
 /*<--  бокове  вікно  -->*/
 .left-wind {
     width: 100%;
     max-width: 400px; /* Максимальна ширина блоку */
-    height: auto; /* Висота блоку */    
+    height: auto; /* Висота блоку */
     padding: 20px;
     border: 1px solid #ccc; /* Додаємо рамку для стилізації */
     box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
@@ -778,7 +882,20 @@ a:hover{
 /*//////////////////////*/
 
 
+.btn {
+    display: flex;
+    align-items: center; /* Центрирование по вертикали */
+    justify-content: center; /* Центрирование по горизонтали */
+}
 
+    .btn svg {
+        margin-right: 8px; /* Отступ между значком и текстом */
+    }
+
+    .btn span {
+        display: flex; /* Для выравнивания текста */
+        align-items: center; /* Центрирование текста по вертикали */
+    }
 
 
 
