@@ -164,20 +164,80 @@ document.addEventListener('DOMContentLoaded', updateCartCount);
 //}
 
 /*document.getElementById('getLocationBtn').addEventListener('click', function () {*/
-function getLocation() {
+//function getLocation() {
+//    fetch('https://ipapi.co/json/')
+//        .then(response => response.json())
+//        .then(data => {
+//            const region = data.region;
+//            const city = data.city;
+//            document.getElementById('leftLocationText').innerHTML = `Ви знаходитеся в регіоні: <br>${region}<br> ` + `місто: ${city}?`;
+//        })
+//        .catch(err => {
+//            console.error('Не вдалося отримати дані:', err);
+//            document.getElementById('leftLocationText').innerText = 'Невідомо';
+//        });
+//}
+
+function getLocationFromSession() {
+    // Робимо запит на сервер для отримання локації з сесії
+    $.ajax({
+        type: 'GET',
+        url: '/Location/GetSessionLocation', // Адреса методу контролера
+        success: function (response) {
+            if (response.hasLocation) {
+                
+                // Якщо локація є в сесії, виводимо її
+                document.getElementById('leftLocationText').innerHTML = `Ваша обрана локація: <br>${response.location}`;
+                //console.log(response.location);
+            } else {
+                // Якщо локації немає в сесії, викликаємо геолокацію через ipapi.co
+                getLocationFromAPI();
+            }
+        },
+        error: function (error) {
+            console.error('Помилка при отриманні локації з сесії:', error);
+            document.getElementById('leftLocationText').innerText = 'Невідомо';
+        }
+    });
+}
+
+function getLocationFromAPI() {
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
-            const location = data.city;
-            document.getElementById('location').innerText = `Ви знаходитеся в: ${location}?`;
+            const region = data.region;
+            const city = data.city;
+            const location = `Ви знаходитеся в регіоні: <br>${region},<br> місто: ${city}`;
+            document.getElementById('leftLocationText').innerHTML = location;
+
+            // За бажанням: можна також зберегти визначену локацію в сесію
+            $.ajax({
+                type: 'POST',
+                url: '/Location/SaveLocation',
+                data: { location: city }, // Або можна передавати цілий рядок з назвою регіону і міста
+                success: function (response) {
+                    console.log('Локацію збережено в сесію');
+                },
+                error: function (error) {
+                    console.error('Помилка при збереженні локації в сесію', error);
+                }
+            });
         })
         .catch(err => {
             console.error('Не вдалося отримати дані:', err);
+            document.getElementById('leftLocationText').innerText = 'Невідомо';
         });
-}/*);*/
+}
+
+// Викликаємо функцію, коли відкривається бічне вікно
+document.getElementById('offcanvasExample').addEventListener('shown.bs.offcanvas', function () {
+    getLocationFromSession();
+});
 
 // Викликаємо функцію при завантаженні сторінки
-window.onload = getLocation;
+//window.onload = getLocation;
+
+
 
 
 

@@ -16,6 +16,12 @@
     <link rel="icon" href="~/logo/hello_smile_icon.png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px; /*  висота карти */
+        }         
+    </style>
 
 </head>
 
@@ -35,7 +41,7 @@
 
                 <!-- Гамбургер та Лого -->
                 <div class="col-1 col-md-1 d-flex align-items-lg-end">
-                    <!-- Гамбургер меню -->  @*////////////////////////////////////////////////*@
+                    <!-- Гамбургер меню -->  
                     <a class="nav-link btn-lg ms-5 text-black"
                        data-bs-toggle="offcanvas"
                        href="#offcanvasExample"
@@ -95,8 +101,8 @@
                     </div>
                 </div>
 
-                <div class="col-6 col-md-3 d-flex justify-content-center">
-                    <div class="d-flex align-items-center">
+                <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-center">
+                    <div class="d-flex flex-wrap align-items-center justify-content-around">
 
                         @if (Context.User.Identity?.IsAuthenticated ?? false)
                         {
@@ -108,27 +114,27 @@
                                 <a class="nav-link text-black btn-lg"
                                    asp-action="NewProduct" asp-controller="Product"
                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Додати товар">
-                                    <i class="bi bi-plus-circle fs-4"></i>
+                                    <i class="bi bi-plus-circle fs-4 fs-md-3 fs-sm-3"></i>
                                 </a>
 
                                 @* Переходить на сторінку з таблицею товарів(метод ProductDB в ProductController) *@
                                 <a class="nav-link text-black btn-lg"
                                    asp-action="ProductDB" asp-controller="Product"
                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Таблиця товарів">
-                                    <i class="bi bi-table fs-4"></i>
+                                    <i class="bi bi-table fs-4 fs-md-3 fs-sm-3"></i>
                                 </a>
                             }
                             @* Переходить на сторінку з покупками користувача(метод Purchase в HomeController) *@
                             <a class="nav-link text-black btn-lg"
                                asp-area="" asp-controller="Home" asp-action="Purchase"
                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
-                                <i class="bi bi-card-list fs-4"></i>
+                                <i class="bi bi-card-list fs-4 fs-md-3 fs-sm-3"></i>
                             </a>
                             @*  Переходить на сторінку з акціями(метод Shares в HomeController) *@
                             <a class="nav-link text-black btn-lg"
                                asp-area="" asp-controller="Home" asp-action="Shares"
                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">
-                                <i class="bi bi-bell fs-4"></i>
+                                <i class="bi bi-bell fs-4 fs-md-3 fs-sm-3"></i>
                             </a>
                             @* Переходить на сторінку з порівняннями(метод Compare в HomeController) *@
                             <a type="button" class="nav-link text-black btn-lg"
@@ -140,14 +146,14 @@
                             <a class="nav-link text-black btn-lg"
                                asp-area="" asp-controller="Home" asp-action="WishList"
                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Список бажань">
-                                <i class="bi bi-heart fs-4"></i>
+                                <i class="bi bi-heart fs-4 fs-md-3 fs-sm-3"></i>
                             </a>
                             @* вихід з акаунту *@
                             <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout">
                                 <button type="submit" class="nav-link text-black btn-lg" id="auth-signout-button-nav"
                                         data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Вихід"
                                         style="background-color: black; color: white; border: none;">
-                                    <i class="bi bi-box-arrow-right fs-4"></i>
+                                    <i class="bi bi-box-arrow-right fs-4 fs-md-3 fs-sm-3"></i>
                                 </button>
                                 @Html.AntiForgeryToken()
                             </form>
@@ -160,7 +166,7 @@
                                data-bs-toggle="modal"
                                data-bs-target="#authModal">
                                 <div class="me-3 text-center">
-                                    <i class="bi bi-person fs-4"></i>
+                                    <i class="bi bi-person fs-4 fs-md-3 fs-sm-3"></i>
                                     <p class="menu-link-text-style mb-0">Увійти</p>
                                 </div>
                             </a>
@@ -172,7 +178,7 @@
                            asp-area="" asp-controller="Favorites" asp-action="Index"
                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Обране">
                             <div class="text-center">
-                                <i class="bi bi-heart fs-4"></i>
+                                <i class="bi bi-heart fs-4 fs-md-3 fs-sm-3"></i>
                                 <p class="menu-link-text-style mb-0">Обране</p>
                             </div>
                             <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
@@ -186,7 +192,7 @@
                            asp-area="" asp-controller="Cart" asp-action="Index"
                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик">
                             <div class="text-center">
-                                <i class="bi bi-cart2 fs-4"></i>
+                                <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
                                 <p class="menu-link-text-style mb-0">Кошик</p>
                             </div>
                             <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
@@ -199,7 +205,7 @@
                            asp-action="AdminPage" asp-controller="Home"
                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Сторінка адміністратора">
                             <div class="text-center">
-                                <i class="bi bi-file-earmark-break-fill fs-4"></i>
+                                <i class="bi bi-file-earmark-break-fill fs-4 fs-md-3 fs-sm-3"></i>
                                 <p class="menu-link-text-style mb-0">Админ Панель</p>
                             </div>
                         </a>
@@ -210,6 +216,15 @@
             @* </div> *@
         </nav>
     </header>
+
+    @* мапа для пошуку місцезнаходження користувача *@
+    @* <div id="locationBlock">
+        <h1>Оберіть ваше місто на карті</h1>
+        <div id="map"></div>
+        <div class="shop-cart-title">
+            <div id="locationText">...</div>
+        </div>
+    </div> *@
 
     @* бічне вікно кошика *@
     <div id="cartSidebar" class="cart-sidebar">
@@ -297,8 +312,8 @@
             </div>        
             <hr>
               <div class="shop-cart-container">
-                 <a asp-area="" asp-controller="Cart" asp-action="Index"
-                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик" style="display: flex; align-items: center;" class="cart-itm">
+                 <a asp-area="" asp-controller="Location" asp-action="Index"
+                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик" style="display: flex; align-items: center;" class="cart-itm"> 
                     <div class="svg-contnr2">
                         <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="Location" data-node-id="37:2012" xmlns="http://www.w3.org/2000/svg">
@@ -307,11 +322,10 @@
                             </g>
                         </svg>
                     </div>
-                    <div class="shop-cart-title">
-                        <div id="location">...</div>
-                    </div>
-                </a>
-                
+                     <div class="shop-cart-title">
+                        <div id="leftLocationText" style="width:330px; overflow-wrap: break-word; white-space: normal;">...</div>
+                    </div>                     
+                </a>               
             </div>
             <hr>
             @* <button id="getLocationBtn">Отримати місцезнаходження</button> *@
@@ -492,6 +506,62 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- скрипти Leaflet -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- додано бібліотеку для геокодування -->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+        // Ініціалізуємо карту
+        const map = L.map('map').setView([48.3794, 31.1656], 5); // Центр України з рівнем збільшення 5
+
+        // Додаємо шар з OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);     
+
+        // Змінна для збереження маркера
+        let marker;
+
+        // Ініціалізуємо геокодер
+        const geocoder = L.Control.Geocoder.nominatim();
+
+        // Додаємо обробник події для кліка на карті
+        map.on('click', function (e) {
+            const clickedCoords = e.latlng;
+
+            // Якщо маркер вже існує, оновлюємо його позицію
+            if (marker) {
+                marker.setLatLng(clickedCoords);
+            } else {
+                // Створюємо новий маркер
+                marker = L.marker(clickedCoords).addTo(map);
+            }
+
+            geocoder.reverse(clickedCoords, map.options.crs.scale(map.getZoom()), function (results) {
+                if (results && results.length > 0) {
+                    const cityName = results[0].name; // Беремо назву міста
+                    document.getElementById('locationText').innerText = `Ви обрали: ${cityName}`;
+
+                    // Відправляємо назву міста на сервер через AJAX для збереження у сесію
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Location/SaveLocation', // Адреса  методу в контролері
+                        data: { location: cityName },
+                        success: function (response) {
+                            console.log('Геолокацію збережено в сесію');
+                        },
+                        error: function (error) {
+                            console.error('Помилка при збереженні геолокації в сесію', error);
+                        }
+                    });
+                } else {
+                    document.getElementById('locationText').innerText = 'Місто не знайдено';
+                }
+            });
+        });
+   
+    </script>
     
 </body>
 </html>
@@ -573,97 +643,6 @@
     </div>
 </div>
 
-
-
-
-<!-- Модальне вікно для каталогу -->
-@* <div class="modal fade" id="catalogModal" tabindex="-1" aria-labelledby="catalogModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="catalogModalLabel">Каталог товарів</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Вміст модального вікна для каталогу -->
-                <div class="row">
-                    <div class="col-md-4 text-start border-end border-2" style="min-width: 320px">
-                        <ul class="catalog">
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Ноутбуки та комп'ютери"><i class="bi bi-laptop"></i> Ноутбуки та комп'ютери</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Смартфони, ТВ і електроніка"><i class="bi bi-phone"></i> Смартфони, ТВ і електроніка</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Товари для геймерів"><i class="bi bi-controller"></i> Товари для геймерів</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Побутова техніка"><i class="bi bi-boombox"></i> Побутова техніка</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Товари для дому"><i class="bi bi-easel"></i> Товари для дому</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Інструменти та автотовари"><i class="bi bi-hammer"></i> Інструменти та автотовари</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Сантехніка та ремонт"><i class="bi bi-paint-bucket"></i> Сантехніка та ремонт</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Дача, сад і город"><i class="bi bi-house"></i> Дача, сад і город</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Спорт і захоплення"><i class="bi bi-bicycle"></i> Спорт і захоплення</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Одяг, взуття та прикраси"><i class="bi bi-gem"></i> Одяг, взуття та прикраси</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Краса та здоров'я"><i class="bi bi-emoji-sunglasses"></i> Краса та здоров'я</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Дитячі товари"><i class="bi bi-balloon-heart"></i> Дитячі товари</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Зоотовари"><i class="bi bi-tencent-qq"></i> Зоотовари</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Офіс, школа, книги"><i class="bi bi-pen"></i> Офіс, школа, книги</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Алкогольні напої та продукти"><i class="bi bi-cup-straw"></i> Алкогольні напої та продукти</a>
-                            </li>
-
-                            <li style="list-style-type: none;">
-                                <a href="/Categories/GetChildCategories?category=Побутова хімія"><i class="bi bi-eyedropper"></i> Побутова хімія</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
-            </div>
-        </div>
-    </div>
-</div> *@
 
 
 <!-- Верхня випадаюча панель -->
@@ -838,14 +817,44 @@
                 </div>
             </div>
            
-
         </div>  
 
-       
     </div> 
 
-
 </div>
+
+<!-- Модальне вікно з вибором області та населеного пункту -->
+<div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="locationModalLabel">Оберіть ваше місцезнаходження</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Вибір області -->
+                <div class="mb-3">
+                    <label for="regionSelect" class="form-label">Оберіть область</label>
+                    <select id="regionSelect" class="form-select">
+                        <option selected>Оберіть область...</option>
+                    </select>
+                </div>
+                <!-- Вибір населеного пункту -->
+                <div class="mb-3">
+                    <label for="citySelect" class="form-label">Оберіть населений пункт</label>
+                    <select id="citySelect" class="form-select" disabled>
+                        <option selected>Спершу оберіть область</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                <button type="button" class="btn btn-primary" id="saveLocationBtn" data-bs-dismiss="modal">Зберегти</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
             @* перевірки на автентифікацію (Context.User.Identity?.IsAuthenticated ?? false) 
             якщо потрібно перевірити роль користувача, краще використовувати методи 
