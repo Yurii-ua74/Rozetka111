@@ -163,17 +163,18 @@ document.addEventListener('DOMContentLoaded', updateCartCount);
 //        });
 //}
 
-document.getElementById('getLocationBtn').addEventListener('click', function () {
+/*document.getElementById('getLocationBtn').addEventListener('click', function () {*/
+function getLocation() {
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
             const location = data.city;
-            document.getElementById('location').innerText = `Ви знаходитеся в: ${location}`;
+            document.getElementById('location').innerText = `Ви знаходитеся в: ${location}?`;
         })
         .catch(err => {
             console.error('Не вдалося отримати дані:', err);
         });
-});
+}/*);*/
 
 // Викликаємо функцію при завантаженні сторінки
 window.onload = getLocation;
