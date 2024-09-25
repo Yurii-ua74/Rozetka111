@@ -313,10 +313,10 @@
            
            <div class="shopping-list-container">
                <div class="shop-cart-container">
-                   <a asp-area="" asp-controller="Cart" asp-action="Index"
-                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Інформація про компанію" style="display: flex; align-items: center;" class="cart-itm">                   
-                       <p class="shop-cart-title ml-5">Інформація про компанію</p>
-                   </a>
+                   @* <a asp-area="" asp-controller="Cart" asp-action="Index"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Інформація про компанію" style="display: flex; align-items: center;" class="cart-itm">     *@               
+                       <p class="shop-cart-title ml-5 f-st">Інформація про компанію</p>
+                  @*  </a> *@
                </div>
                <div class="shop-cart-container">
                    <a asp-area="" asp-controller="Cart" asp-action="Index"
@@ -371,7 +371,7 @@
 
                 <div class="social-media-links-container">
                     @*  іконка Instagram  *@
-                    <div class="svg-container4">
+                    <a href="https://www.instagram.com" target="_blank" class="svg-container4">
                         <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="Instagram" data-node-id="37:2017" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1" y="1" width="30" height="30" rx="15" fill="#E7E7E8" />
@@ -386,9 +386,9 @@
                                 </g>
                             </g>
                         </svg>
-                    </div>
+                    </a>
                     @*  іконка Telegram  *@
-                    <div class="svg-container4">
+                    <a href="https://telegram.org" target="_blank" class="svg-container4">
                         <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="Telegram" data-node-id="37:2016" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1" y="1" width="30" height="30" rx="15" fill="#E7E7E8" />
@@ -397,9 +397,9 @@
                                 </g>
                             </g>
                         </svg>
-                    </div>
+                    </a>
                     @*  іконка Viber  *@
-                    <div class="svg-container4">
+                    <a href="https://www.viber.com" target="_blank" class="svg-container4">
                         <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="Viber" data-node-id="37:2015" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1" y="1" width="30" height="30" rx="15" fill="#E7E7E8" />
@@ -411,9 +411,9 @@
                                 </g>
                             </g>
                         </svg>
-                    </div>
+                    </a>
                    @*  іконка facebook  *@
-                    <div class="svg-container4">
+                    <a href="https://www.facebook.com" target="_blank" class="svg-container4">
                         <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="Facebook" data-node-id="37:2018" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1" y="1" width="30" height="30" rx="15" fill="#E7E7E8" />
@@ -422,7 +422,7 @@
                                 </g>
                             </g>
                         </svg>
-                    </div>
+                    </a>
 
                 </div>
             </div>

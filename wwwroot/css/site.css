@@ -923,14 +923,14 @@ a:hover{
     justify-content: center; /* Центрирование по горизонтали */
 }
 
-    .btn svg {
-        margin-right: 8px; /* Отступ между значком и текстом */
-    }
+.btn svg {
+    margin-right: 8px; /* Отступ между значком и текстом */
+}
 
-    .btn span {
-        display: flex; /* Для выравнивания текста */
-        align-items: center; /* Центрирование текста по вертикали */
-    }
+.btn span {
+    display: flex; /* Для выравнивания текста */
+    align-items: center; /* Центрирование текста по вертикали */
+}
 
  /* соціальних контейнерів блок */
 .social-media-container {
@@ -960,6 +960,10 @@ a:hover{
     flex: 0 0 auto;
     width: 40px;
     height: 40px;
+}
+
+.f-st {
+    font-weight:600;
 }
 
 
