@@ -237,7 +237,22 @@ document.getElementById('offcanvasExample').addEventListener('shown.bs.offcanvas
 // Викликаємо функцію при завантаженні сторінки
 //window.onload = getLocation;
 
+// //////  випадаючий список в боковому вікні "Сервіси"  ////// //
+// Елементи для стрілки і випадаючого меню
+document.getElementById('dropdownIcon').addEventListener('click', function () {
+    var servicesList = document.getElementById('servicesList');
 
+    // Перемикаємо видимість списку
+    if (servicesList.style.display === 'none' || servicesList.style.display === '') {
+        servicesList.style.display = 'block'; // Показуємо список
+        this.classList.remove('bi-chevron-down'); // Змінюємо стрілку
+        this.classList.add('bi-chevron-up');
+    } else {
+        servicesList.style.display = 'none'; // Ховаємо список
+        this.classList.remove('bi-chevron-up'); // Змінюємо стрілку назад
+        this.classList.add('bi-chevron-down');
+    }
+});
 
 
 

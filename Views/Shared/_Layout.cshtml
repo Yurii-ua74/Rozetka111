@@ -172,8 +172,6 @@
                             </a>
                         }
 
-
-
                         <a class="nav-link text-black position-relative btn-lg"
                            asp-area="" asp-controller="Favorites" asp-action="Index"
                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Обране">
@@ -217,15 +215,6 @@
         </nav>
     </header>
 
-    @* мапа для пошуку місцезнаходження користувача *@
-    @* <div id="locationBlock">
-        <h1>Оберіть ваше місто на карті</h1>
-        <div id="map"></div>
-        <div class="shop-cart-title">
-            <div id="locationText">...</div>
-        </div>
-    </div> *@
-
     @* бічне вікно кошика *@
     <div id="cartSidebar" class="cart-sidebar">
         <div class="cart-sidebar-content">
@@ -242,7 +231,8 @@
     @*//////////////////////////////////////////////////*@
     @* бічне меню, яке відкривається по кліку на сендвіч *@
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-         <div class="offcanvas-header" style="background-color:floralwhite">
+
+        <div class="offcanvas-header" style="background-color:floralwhite">
             <div class="col-4 col-md-9 col-ms-9">
                 <a class="logo-link" asp-area="" asp-controller="Home" asp-action="Index">
                     <svg class="logo-sz-left" viewBox="0 0 288 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -251,136 +241,217 @@
                     </svg>
                 </a>
             </div>
-            <button type="button" class="btn-close btn-light" style="margin-left: 10px" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-light" style="margin-left: 5px" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="left-wind">
-        <button class="quick-find-button btn-sz btn btn-outline-secondary me-2 ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-            <i class="bi bi-grid"></i> Каталог
-        </button>
-        </div>
-
-        <div class="left-wind reg-bl">
-            <h6>Увійдіть, щоб отримувати рекомендації,
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;персональні бонуси і знижки
-            </h6>
-            <button class="entr-btn btn-sz opacity-75 btn btn-outline-secondary me-2 ms-2 mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-                <h5 style="color:black">Увійдіть в особистий кабінет</h5>
-            </button>       
-        </div>
-        <hr>
-
         
-            @* <div class="comparison-list-container">
-                <div class="svg-container2">
-                    <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="Scales" data-node-id="37:2008" xmlns="http://www.w3.org/2000/svg">
-                            <path id="Vector_465" data-node-id="37:2009" d="M15,12c0,0.995 0.3951,1.948 1.0983,2.652c0.7033,0.703 1.6571,1.098 2.6517,1.098c0.9946,0 1.9484,-0.395 2.6516,-1.098c0.7033,-0.704 1.0984,-1.657 1.0984,-2.652c0.0001,-0.116 -0.0269,-0.231 -0.0788,-0.335l-2.9992,-5.998c-0.0103,-0.021 -0.0216,-0.041 -0.0337,-0.061c-0.0672,-0.109 -0.1611,-0.199 -0.2728,-0.261c-0.1118,-0.062 -0.2376,-0.095 -0.3655,-0.095h-4.6335c-0.1134,-0.314 -0.2948,-0.598 -0.531,-0.834c-0.2362,-0.235 -0.5215,-0.416 -0.8355,-0.528v-1.638c0,-0.414 -0.3358,-0.75 -0.75,-0.75c-0.4142,0 -0.75,0.336 -0.75,0.75v1.638c-0.314,0.112 -0.5993,0.293 -0.8355,0.528c-0.2362,0.236 -0.4176,0.52 -0.531,0.834h-4.6335c-0.1392,0 -0.2757,0.039 -0.3941,0.112c-0.1185,0.073 -0.2142,0.178 -0.2764,0.303l-3,6c-0.0522,0.104 -0.0794,0.219 -0.0795,0.335c0,0.995 0.3951,1.948 1.0983,2.652c0.7033,0.703 1.6571,1.098 2.6517,1.098c0.9946,0 1.9484,-0.395 2.6517,-1.098c0.7032,-0.704 1.0983,-1.657 1.0983,-2.652c0.0001,-0.116 -0.0269,-0.231 -0.0787,-0.335l-2.4578,-4.915h3.42c0.1135,0.313 0.2949,0.598 0.5311,0.833c0.2362,0.236 0.5215,0.416 0.8354,0.528v12.889h-6c-0.4142,0 -0.75,0.336 -0.75,0.75c0,0.414 0.3358,0.75 0.75,0.75h13.5c0.4142,0 0.75,-0.336 0.75,-0.75c0,-0.414 -0.3358,-0.75 -0.75,-0.75h-6v-12.888c0.314,-0.112 0.5993,-0.293 0.8355,-0.528c0.2362,-0.236 0.4176,-0.52 0.531,-0.834h3.42l-2.4578,4.915c-0.0518,0.104 -0.0788,0.219 -0.0787,0.335zM5.25,14.25c-0.4636,-0.002 -0.9152,-0.147 -1.2931,-0.416c-0.3779,-0.268 -0.6636,-0.647 -0.8182,-1.084h4.2225c-0.1545,0.437 -0.4402,0.816 -0.8181,1.084c-0.3779,0.269 -0.8295,0.414 -1.2931,0.416zM7.0365,11.25h-3.573l1.7865,-3.573zM12,6.75c-0.1483,0 -0.2933,-0.044 -0.4167,-0.126c-0.1233,-0.083 -0.2194,-0.2 -0.2762,-0.337c-0.0568,-0.137 -0.0716,-0.288 -0.0427,-0.433c0.029,-0.146 0.1004,-0.279 0.2053,-0.384c0.1049,-0.105 0.2385,-0.177 0.384,-0.206c0.1455,-0.029 0.2963,-0.014 0.4333,0.043c0.1371,0.057 0.2542,0.153 0.3366,0.276c0.0824,0.124 0.1264,0.269 0.1264,0.417c0,0.199 -0.079,0.39 -0.2197,0.53c-0.1406,0.141 -0.3314,0.22 -0.5303,0.22zM18.75,14.25c-0.4636,-0.002 -0.9152,-0.147 -1.2931,-0.416c-0.3779,-0.268 -0.6636,-0.647 -0.8181,-1.084h4.2224c-0.1545,0.437 -0.4402,0.816 -0.8181,1.084c-0.3779,0.269 -0.8295,0.414 -1.2931,0.416zM18.75,7.677l1.7865,3.573h-3.573z" fill="currentColor" />
-                        </g>
-                    </svg>
+
+           <div class="offcanvas-body" style="overflow-y: auto; max-height: 100vh;">
+                <div class="left-wind">
+                <button class="quick-find-button btn-sz btn btn-outline-secondary me-2 ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+                    <i class="bi bi-grid"></i> Каталог
+                </button>
                 </div>
-                <p class="shopping-cart-title">Списки порівнянь</p>
-            </div> 
-            
-        <hr> *@
-        
-        <div class="shopping-list-container">
-             <div class="shop-cart-container">
-                <a asp-area="" asp-controller="Cart" asp-action="Index"
-                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик" style="display: flex; align-items: center;" class="cart-itm">
-                    <div class="svg-contnr2">
-                        <svg class="icon" viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g id="Basket" data-node-id="37:1994" xmlns="http://www.w3.org/2000/svg">
-                                <path class="icon-path" id="Vector_464" data-node-id="37:1995" d="M19.3772,9.566h-14.5269c-0.2939,0.001 -0.5839,0.068 -0.8484,0.197c-0.2645,0.128 -0.4967,0.316 -0.6793,0.547c-0.1814,0.231 -0.3081,0.501 -0.3707,0.788c-0.0626,0.288 -0.0594,0.586 0.0094,0.872l1.5576,6.408c0.2251,0.826 0.7148,1.554 1.3934,2.072c0.6787,0.519 1.5098,0.8 2.3647,0.8h7.6715c0.8549,0 1.686,-0.281 2.3647,-0.8c0.6786,-0.518 1.1683,-1.246 1.3934,-2.072l1.5576,-6.407c0.1048,-0.432 0.0588,-0.887 -0.1303,-1.289c-0.1892,-0.402 -0.51,-0.726 -0.9088,-0.919c-0.2649,-0.129 -0.5555,-0.196 -0.8499,-0.197M8.2193,13.46v3.895M12.1137,13.46v3.895M16.0082,13.46v3.895M18.9293,9.566c-0.0004,-0.896 -0.1769,-1.783 -0.5195,-2.61c-0.3427,-0.827 -0.8446,-1.578 -1.477,-2.21c-1.2807,-1.279 -3.0133,-1.997 -4.8191,-1.996c-1.8057,-0.001 -3.5383,0.717 -4.819,1.996c-0.6322,0.632 -1.134,1.383 -1.4764,2.21c-0.3425,0.827 -0.5189,1.714 -0.5191,2.61" stroke="#2F2F2F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+           
+                <div class="left-wind reg-bl">
+                    <h6>Увійдіть, щоб отримувати рекомендації,
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;персональні бонуси і знижки
+                    </h6>
+                    <button class="entr-btn btn-sz opacity-75 btn btn-outline-secondary mr-top" type="button" data-bs-toggle="modal" data-bs-target="#authModal" aria-controls="authModal">
+                        <strong style="color:black ">Увійдіть в особистий кабінет</strong>
+                    </button>                
+                </div>
+           
+           <hr>
+           
+           <div class="shopping-list-container">
+                <div class="shop-cart-container">
+                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик" style="display: flex; align-items: center;" class="cart-itm">
+                       <div class="svg-contnr2">
+                           <svg class="icon" viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                               <g id="Basket" data-node-id="37:1994" xmlns="http://www.w3.org/2000/svg">
+                                   <path class="icon-path" id="Vector_464" data-node-id="37:1995" d="M19.3772,9.566h-14.5269c-0.2939,0.001 -0.5839,0.068 -0.8484,0.197c-0.2645,0.128 -0.4967,0.316 -0.6793,0.547c-0.1814,0.231 -0.3081,0.501 -0.3707,0.788c-0.0626,0.288 -0.0594,0.586 0.0094,0.872l1.5576,6.408c0.2251,0.826 0.7148,1.554 1.3934,2.072c0.6787,0.519 1.5098,0.8 2.3647,0.8h7.6715c0.8549,0 1.686,-0.281 2.3647,-0.8c0.6786,-0.518 1.1683,-1.246 1.3934,-2.072l1.5576,-6.407c0.1048,-0.432 0.0588,-0.887 -0.1303,-1.289c-0.1892,-0.402 -0.51,-0.726 -0.9088,-0.919c-0.2649,-0.129 -0.5555,-0.196 -0.8499,-0.197M8.2193,13.46v3.895M12.1137,13.46v3.895M16.0082,13.46v3.895M18.9293,9.566c-0.0004,-0.896 -0.1769,-1.783 -0.5195,-2.61c-0.3427,-0.827 -0.8446,-1.578 -1.477,-2.21c-1.2807,-1.279 -3.0133,-1.997 -4.8191,-1.996c-1.8057,-0.001 -3.5383,0.717 -4.819,1.996c-0.6322,0.632 -1.134,1.383 -1.4764,2.21c-0.3425,0.827 -0.5189,1.714 -0.5191,2.61" stroke="#2F2F2F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                               </g>
+                           </svg>
+                       </div>
+                       <p class="shop-cart-title">Кошик</p>
+                   </a>
+               </div> 
+               <div class="shop-cart-container">
+                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Списки порівнян" style="display: flex; align-items: center;">
+                        <div class="svg-contnr2">
+                            <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="Scales" data-node-id="37:2008" xmlns="http://www.w3.org/2000/svg">
+                                    <path id="Vector_465" data-node-id="37:2009" d="M15,12c0,0.995 0.3951,1.948 1.0983,2.652c0.7033,0.703 1.6571,1.098 2.6517,1.098c0.9946,0 1.9484,-0.395 2.6516,-1.098c0.7033,-0.704 1.0984,-1.657 1.0984,-2.652c0.0001,-0.116 -0.0269,-0.231 -0.0788,-0.335l-2.9992,-5.998c-0.0103,-0.021 -0.0216,-0.041 -0.0337,-0.061c-0.0672,-0.109 -0.1611,-0.199 -0.2728,-0.261c-0.1118,-0.062 -0.2376,-0.095 -0.3655,-0.095h-4.6335c-0.1134,-0.314 -0.2948,-0.598 -0.531,-0.834c-0.2362,-0.235 -0.5215,-0.416 -0.8355,-0.528v-1.638c0,-0.414 -0.3358,-0.75 -0.75,-0.75c-0.4142,0 -0.75,0.336 -0.75,0.75v1.638c-0.314,0.112 -0.5993,0.293 -0.8355,0.528c-0.2362,0.236 -0.4176,0.52 -0.531,0.834h-4.6335c-0.1392,0 -0.2757,0.039 -0.3941,0.112c-0.1185,0.073 -0.2142,0.178 -0.2764,0.303l-3,6c-0.0522,0.104 -0.0794,0.219 -0.0795,0.335c0,0.995 0.3951,1.948 1.0983,2.652c0.7033,0.703 1.6571,1.098 2.6517,1.098c0.9946,0 1.9484,-0.395 2.6517,-1.098c0.7032,-0.704 1.0983,-1.657 1.0983,-2.652c0.0001,-0.116 -0.0269,-0.231 -0.0787,-0.335l-2.4578,-4.915h3.42c0.1135,0.313 0.2949,0.598 0.5311,0.833c0.2362,0.236 0.5215,0.416 0.8354,0.528v12.889h-6c-0.4142,0 -0.75,0.336 -0.75,0.75c0,0.414 0.3358,0.75 0.75,0.75h13.5c0.4142,0 0.75,-0.336 0.75,-0.75c0,-0.414 -0.3358,-0.75 -0.75,-0.75h-6v-12.888c0.314,-0.112 0.5993,-0.293 0.8355,-0.528c0.2362,-0.236 0.4176,-0.52 0.531,-0.834h3.42l-2.4578,4.915c-0.0518,0.104 -0.0788,0.219 -0.0787,0.335zM5.25,14.25c-0.4636,-0.002 -0.9152,-0.147 -1.2931,-0.416c-0.3779,-0.268 -0.6636,-0.647 -0.8182,-1.084h4.2225c-0.1545,0.437 -0.4402,0.816 -0.8181,1.084c-0.3779,0.269 -0.8295,0.414 -1.2931,0.416zM7.0365,11.25h-3.573l1.7865,-3.573zM12,6.75c-0.1483,0 -0.2933,-0.044 -0.4167,-0.126c-0.1233,-0.083 -0.2194,-0.2 -0.2762,-0.337c-0.0568,-0.137 -0.0716,-0.288 -0.0427,-0.433c0.029,-0.146 0.1004,-0.279 0.2053,-0.384c0.1049,-0.105 0.2385,-0.177 0.384,-0.206c0.1455,-0.029 0.2963,-0.014 0.4333,0.043c0.1371,0.057 0.2542,0.153 0.3366,0.276c0.0824,0.124 0.1264,0.269 0.1264,0.417c0,0.199 -0.079,0.39 -0.2197,0.53c-0.1406,0.141 -0.3314,0.22 -0.5303,0.22zM18.75,14.25c-0.4636,-0.002 -0.9152,-0.147 -1.2931,-0.416c-0.3779,-0.268 -0.6636,-0.647 -0.8181,-1.084h4.2224c-0.1545,0.437 -0.4402,0.816 -0.8181,1.084c-0.3779,0.269 -0.8295,0.414 -1.2931,0.416zM18.75,7.677l1.7865,3.573h-3.573z" fill="currentColor" />
+                                </g>
+                            </svg>
+                        </div>
+                       <p class="shop-cart-title">Списки порівнянь</p>
+                   </a>
+               </div>        
+               <hr>
+                <div class="shop-cart-container">
+                    <a asp-area="" asp-controller="Location" asp-action="Index"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик" style="display: flex; align-items: center;" class="cart-itm"> 
+                       <div class="svg-contnr2">
+                           <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                               <g id="Location" data-node-id="37:2012" xmlns="http://www.w3.org/2000/svg">
+                                   <path class="icon-path" id="Vector_466" data-node-id="37:2013" d="M12,2.25c-3.7266,0 -6.75,2.878 -6.75,6.422c0,4.078 4.5,10.541 6.1523,12.773c0.0686,0.094 0.1585,0.171 0.2624,0.224c0.1039,0.052 0.2188,0.08 0.3353,0.08c0.1165,0 0.2314,-0.028 0.3353,-0.08c0.1039,-0.053 0.1938,-0.13 0.2624,-0.224c1.6523,-2.231 6.1523,-8.692 6.1523,-12.773c0,-3.544 -3.0234,-6.422 -6.75,-6.422z" stroke="#2F2F2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                   <path class="icon-path" id="Vector_467" data-node-id="37:2014" d="M12,11.25c1.2426,0 2.25,-1.007 2.25,-2.25c0,-1.243 -1.0074,-2.25 -2.25,-2.25c-1.2426,0 -2.25,1.007 -2.25,2.25c0,1.243 1.0074,2.25 2.25,2.25z" stroke="#2F2F2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                               </g>
+                           </svg>
+                       </div>
+                        <div class="shop-cart-title">
+                           <div id="leftLocationText" style="width:330px; overflow-wrap: break-word; white-space: normal;">...</div>
+                       </div>                     
+                   </a>               
+               </div>
+               <hr>
+               @* <button id="getLocationBtn">Отримати місцезнаходження</button> *@
+           </div>
+           
+           <div class="shopping-list-container">
+               <div class="shop-cart-container">
+                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Інформація про компанію" style="display: flex; align-items: center;" class="cart-itm">                   
+                       <p class="shop-cart-title ml-5">Інформація про компанію</p>
+                   </a>
+               </div>
+               <div class="shop-cart-container">
+                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Про нас" style="display: flex; align-items: center;">               
+                       <p class="shop-cart-title mt-3 ml-5">Про нас</p>
+                   </a>
+               </div>
+               <div class="shop-cart-container">
+                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Умови використання сайту" style="display: flex; align-items: center;" class="cart-itm">
+                       <p class="shop-cart-title mt-3 ml-5">Умови використання сайту</p>
+                   </a>
+               </div>
+               <div class="shop-cart-container">
+                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Вакансії" style="display: flex; align-items: center;">
+                       <p class="shop-cart-title mt-3 ml-5">Вакансії</p>
+                   </a>
+               </div>
+               <div class="shop-cart-container">
+                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Контакти" style="display: flex; align-items: center;" class="cart-itm">
+                       <p class="shop-cart-title mt-3 ml-5">Контакти</p>
+                   </a>
+               </div>
+               <div class="shop-cart-container">
+                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Всі категорії" style="display: flex; align-items: center;">
+                       <p class="shop-cart-title mt-3 ml-5">Всі категорії</p>
+                   </a>
+               </div>
+               <hr>                                  
+           </div>
+       
+           <div class="container-fluid">
+               <div class="dropdown d-flex justify-content-between align-items-center" id="servicesContainer">
+                   <span class="services-text">Сервіси</span>
+                   <i id="dropdownIcon" class="bi bi-chevron-down"></i> <!-- Клікабельна стрілка -->
+               </div>
+               <ul id="servicesList" style="display: none;">
+                  <li><a class="dropdown-item drop-dn-it" href="#">Бонусний рахунок</a></li>
+                  <li><a class="dropdown-item drop-dn-it" href="#">Подарункові сертифікати</a></li>
+                  <li><a class="dropdown-item drop-dn-it" href="#">ШвидкоBuy обмін</a></li>
+                  <li><a class="dropdown-item drop-dn-it" href="#">Корпоративним клієнтам</a></li>
+               </ul>             
+           </div>
+           <hr>
+
+           @* блок соціальних мереж *@
+            <div class="social-media-container">
+                <p class="city-location-text-style">Ми в соцільних мережах</p>
+
+                <div class="social-media-links-container">
+                    @*  іконка Instagram  *@
+                    <div class="svg-container4">
+                        <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Instagram" data-node-id="37:2017" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="1" y="1" width="30" height="30" rx="15" fill="#E7E7E8" />
+                                <g id="Group 467_2" data-node-id="I37:2017;2966:6264">
+                                    <g id="iconoir:instagram_2" data-node-id="I37:2017;2966:6259">
+                                        <g id="Group_14" data-node-id="I37:2017;2966:6260">
+                                            <path id="Vector_473" data-node-id="I37:2017;2966:6261" d="M16.3048,19.324c0.891,0 1.7455,-0.354 2.3755,-0.984c0.6301,-0.63 0.984,-1.485 0.984,-2.376c0,-0.891 -0.3539,-1.745 -0.984,-2.376c-0.63,-0.63 -1.4845,-0.984 -2.3755,-0.984c-0.8911,0 -1.7456,0.354 -2.3756,0.984c-0.6301,0.631 -0.984,1.485 -0.984,2.376c0,0.891 0.3539,1.746 0.984,2.376c0.63,0.63 1.4845,0.984 2.3756,0.984z" stroke="#9A9A9A" stroke-width="1.35766" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path id="Vector_474" data-node-id="I37:2017;2966:6262" d="M8.4657,19.448v-6.968c0,-1.155 0.4588,-2.263 1.2755,-3.08c0.8168,-0.816 1.9245,-1.275 3.0795,-1.275h6.968c1.155,0 2.2627,0.459 3.0794,1.275c0.8168,0.817 1.2756,1.925 1.2756,3.08v6.968c0,1.155 -0.4588,2.263 -1.2756,3.079c-0.8167,0.817 -1.9244,1.276 -3.0794,1.276h-6.968c-1.155,0 -2.2627,-0.459 -3.0795,-1.276c-0.8167,-0.816 -1.2755,-1.924 -1.2755,-3.079z" stroke="#9A9A9A" stroke-width="1.35766" />
+                                            <path id="Vector_475" data-node-id="I37:2017;2966:6263" d="M20.8242,11.657l0.0076,-0.008" stroke="#9A9A9A" stroke-width="1.35766" stroke-linecap="round" stroke-linejoin="round" />
+                                        </g>
+                                    </g>
+                                </g>
                             </g>
                         </svg>
                     </div>
-                    <p class="shop-cart-title">Кошик</p>
-                </a>
-            </div> 
-            <div class="shop-cart-container">
-                <a asp-area="" asp-controller="Cart" asp-action="Index"
-                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Списки порівнян" style="display: flex; align-items: center;">
-                     <div class="svg-contnr2">
-                         <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
-                             <g id="Scales" data-node-id="37:2008" xmlns="http://www.w3.org/2000/svg">
-                                 <path id="Vector_465" data-node-id="37:2009" d="M15,12c0,0.995 0.3951,1.948 1.0983,2.652c0.7033,0.703 1.6571,1.098 2.6517,1.098c0.9946,0 1.9484,-0.395 2.6516,-1.098c0.7033,-0.704 1.0984,-1.657 1.0984,-2.652c0.0001,-0.116 -0.0269,-0.231 -0.0788,-0.335l-2.9992,-5.998c-0.0103,-0.021 -0.0216,-0.041 -0.0337,-0.061c-0.0672,-0.109 -0.1611,-0.199 -0.2728,-0.261c-0.1118,-0.062 -0.2376,-0.095 -0.3655,-0.095h-4.6335c-0.1134,-0.314 -0.2948,-0.598 -0.531,-0.834c-0.2362,-0.235 -0.5215,-0.416 -0.8355,-0.528v-1.638c0,-0.414 -0.3358,-0.75 -0.75,-0.75c-0.4142,0 -0.75,0.336 -0.75,0.75v1.638c-0.314,0.112 -0.5993,0.293 -0.8355,0.528c-0.2362,0.236 -0.4176,0.52 -0.531,0.834h-4.6335c-0.1392,0 -0.2757,0.039 -0.3941,0.112c-0.1185,0.073 -0.2142,0.178 -0.2764,0.303l-3,6c-0.0522,0.104 -0.0794,0.219 -0.0795,0.335c0,0.995 0.3951,1.948 1.0983,2.652c0.7033,0.703 1.6571,1.098 2.6517,1.098c0.9946,0 1.9484,-0.395 2.6517,-1.098c0.7032,-0.704 1.0983,-1.657 1.0983,-2.652c0.0001,-0.116 -0.0269,-0.231 -0.0787,-0.335l-2.4578,-4.915h3.42c0.1135,0.313 0.2949,0.598 0.5311,0.833c0.2362,0.236 0.5215,0.416 0.8354,0.528v12.889h-6c-0.4142,0 -0.75,0.336 -0.75,0.75c0,0.414 0.3358,0.75 0.75,0.75h13.5c0.4142,0 0.75,-0.336 0.75,-0.75c0,-0.414 -0.3358,-0.75 -0.75,-0.75h-6v-12.888c0.314,-0.112 0.5993,-0.293 0.8355,-0.528c0.2362,-0.236 0.4176,-0.52 0.531,-0.834h3.42l-2.4578,4.915c-0.0518,0.104 -0.0788,0.219 -0.0787,0.335zM5.25,14.25c-0.4636,-0.002 -0.9152,-0.147 -1.2931,-0.416c-0.3779,-0.268 -0.6636,-0.647 -0.8182,-1.084h4.2225c-0.1545,0.437 -0.4402,0.816 -0.8181,1.084c-0.3779,0.269 -0.8295,0.414 -1.2931,0.416zM7.0365,11.25h-3.573l1.7865,-3.573zM12,6.75c-0.1483,0 -0.2933,-0.044 -0.4167,-0.126c-0.1233,-0.083 -0.2194,-0.2 -0.2762,-0.337c-0.0568,-0.137 -0.0716,-0.288 -0.0427,-0.433c0.029,-0.146 0.1004,-0.279 0.2053,-0.384c0.1049,-0.105 0.2385,-0.177 0.384,-0.206c0.1455,-0.029 0.2963,-0.014 0.4333,0.043c0.1371,0.057 0.2542,0.153 0.3366,0.276c0.0824,0.124 0.1264,0.269 0.1264,0.417c0,0.199 -0.079,0.39 -0.2197,0.53c-0.1406,0.141 -0.3314,0.22 -0.5303,0.22zM18.75,14.25c-0.4636,-0.002 -0.9152,-0.147 -1.2931,-0.416c-0.3779,-0.268 -0.6636,-0.647 -0.8181,-1.084h4.2224c-0.1545,0.437 -0.4402,0.816 -0.8181,1.084c-0.3779,0.269 -0.8295,0.414 -1.2931,0.416zM18.75,7.677l1.7865,3.573h-3.573z" fill="currentColor" />
-                             </g>
-                         </svg>
-                     </div>
-                    <p class="shop-cart-title">Списки порівнянь</p>
-                </a>
-            </div>        
-            <hr>
-              <div class="shop-cart-container">
-                 <a asp-area="" asp-controller="Location" asp-action="Index"
-                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик" style="display: flex; align-items: center;" class="cart-itm"> 
-                    <div class="svg-contnr2">
-                        <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g id="Location" data-node-id="37:2012" xmlns="http://www.w3.org/2000/svg">
-                                <path class="icon-path" id="Vector_466" data-node-id="37:2013" d="M12,2.25c-3.7266,0 -6.75,2.878 -6.75,6.422c0,4.078 4.5,10.541 6.1523,12.773c0.0686,0.094 0.1585,0.171 0.2624,0.224c0.1039,0.052 0.2188,0.08 0.3353,0.08c0.1165,0 0.2314,-0.028 0.3353,-0.08c0.1039,-0.053 0.1938,-0.13 0.2624,-0.224c1.6523,-2.231 6.1523,-8.692 6.1523,-12.773c0,-3.544 -3.0234,-6.422 -6.75,-6.422z" stroke="#2F2F2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path class="icon-path" id="Vector_467" data-node-id="37:2014" d="M12,11.25c1.2426,0 2.25,-1.007 2.25,-2.25c0,-1.243 -1.0074,-2.25 -2.25,-2.25c-1.2426,0 -2.25,1.007 -2.25,2.25c0,1.243 1.0074,2.25 2.25,2.25z" stroke="#2F2F2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    @*  іконка Telegram  *@
+                    <div class="svg-container4">
+                        <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Telegram" data-node-id="37:2016" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="1" y="1" width="30" height="30" rx="15" fill="#E7E7E8" />
+                                <g id="la:telegram_2" data-node-id="I37:2016;2966:6294">
+                                    <path id="Vector_472" data-node-id="I37:2016;2966:6295" d="M23.447,8.261c-0.218,0.017 -0.432,0.068 -0.634,0.152h-0.002c-0.194,0.077 -1.114,0.463 -2.5122,1.05l-5.0111,2.11c-3.5957,1.514 -7.1304,3.005 -7.1304,3.005l0.0421,-0.016c0,0 -0.2437,0.08 -0.4983,0.254c-0.1576,0.1 -0.293,0.231 -0.3977,0.385c-0.125,0.183 -0.2254,0.464 -0.1881,0.754c0.0611,0.49 0.3788,0.784 0.6069,0.946c0.2308,0.164 0.4507,0.241 0.4507,0.241h0.0055l3.3147,1.117c0.1486,0.477 1.0101,3.309 1.2171,3.961c0.1222,0.39 0.241,0.634 0.3897,0.82c0.071,0.095 0.1568,0.174 0.2572,0.238c0.0522,0.031 0.1084,0.055 0.167,0.072l-0.0339,-0.008c0.0102,0.002 0.0183,0.011 0.0258,0.013c0.0271,0.008 0.0455,0.01 0.0801,0.016c0.5247,0.159 0.9463,-0.167 0.9463,-0.167l0.0237,-0.019l1.9571,-1.782l3.2801,2.516l0.0747,0.032c0.6836,0.3 1.376,0.133 1.742,-0.161c0.368,-0.297 0.512,-0.676 0.512,-0.676l0.023,-0.062l2.535,-12.985c0.072,-0.32 0.09,-0.62 0.011,-0.912c-0.081,-0.294 -0.271,-0.548 -0.53,-0.71c-0.218,-0.133 -0.47,-0.196 -0.724,-0.184zM23.378,9.653c-0.003,0.043 0.005,0.038 -0.014,0.12v0.008l-2.5106,12.85c-0.0108,0.018 -0.0291,0.058 -0.0794,0.098c-0.0529,0.042 -0.095,0.069 -0.3156,-0.019l-4.0119,-3.075l-2.4234,2.208l0.5091,-3.251l6.5548,-6.11c0.27,-0.251 0.18,-0.304 0.18,-0.304c0.019,-0.308 -0.4081,-0.09 -0.4081,-0.09l-8.2654,5.12l-0.0028,-0.013l-3.9616,-1.334v-0.003l-0.0102,-0.002l0.0204,-0.008l0.0217,-0.011l0.0211,-0.007c0,0 3.5373,-1.491 7.1331,-3.005c1.8002,-0.758 3.6141,-1.522 5.0091,-2.111c0.8277,-0.348 1.6557,-0.694 2.4847,-1.039c0.055,-0.021 0.029,-0.022 0.069,-0.022z" fill="#9A9A9A" />
+                                </g>
                             </g>
                         </svg>
                     </div>
-                     <div class="shop-cart-title">
-                        <div id="leftLocationText" style="width:330px; overflow-wrap: break-word; white-space: normal;">...</div>
-                    </div>                     
-                </a>               
+                    @*  іконка Viber  *@
+                    <div class="svg-container4">
+                        <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Viber" data-node-id="37:2015" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="1" y="1" width="30" height="30" rx="15" fill="#E7E7E8" />
+                                <g id="basil:viber-outline_2" data-node-id="I37:2015;2966:6309">
+                                    <path id="Vector_468" data-node-id="I37:2015;2966:6310" d="M12.689,10.752c-0.169,-0.024 -0.34,0.009 -0.486,0.096h-0.013c-0.34,0.199 -0.646,0.45 -0.906,0.745c-0.217,0.251 -0.335,0.504 -0.366,0.749c-0.018,0.144 -0.005,0.291 0.037,0.43l0.017,0.009c0.244,0.717 0.563,1.408 0.952,2.058c0.502,0.912 1.119,1.757 1.837,2.511l0.022,0.031l0.034,0.026l0.021,0.024l0.025,0.022c0.758,0.72 1.604,1.34 2.518,1.846c1.046,0.569 1.68,0.838 2.061,0.951v0.005c0.112,0.034 0.213,0.05 0.315,0.05c0.325,-0.024 0.632,-0.156 0.873,-0.375c0.294,-0.261 0.543,-0.567 0.737,-0.909v-0.006c0.181,-0.344 0.12,-0.668 -0.143,-0.888c-0.526,-0.461 -1.096,-0.87 -1.702,-1.222c-0.406,-0.22 -0.817,-0.087 -0.984,0.136l-0.356,0.449c-0.182,0.222 -0.514,0.192 -0.514,0.192l-0.009,0.005c-2.472,-0.631 -3.131,-3.133 -3.131,-3.133c0,0 -0.031,-0.341 0.198,-0.514l0.445,-0.359c0.214,-0.174 0.362,-0.585 0.133,-0.99c-0.35,-0.605 -0.759,-1.175 -1.219,-1.702c-0.101,-0.123 -0.242,-0.208 -0.398,-0.238M16.866,9.664c-0.12,0 -0.236,0.048 -0.32,0.133c-0.085,0.085 -0.133,0.2 -0.133,0.32c0,0.12 0.048,0.235 0.133,0.32c0.084,0.085 0.2,0.132 0.32,0.132c1.144,0 2.094,0.374 2.846,1.091c0.387,0.392 0.688,0.856 0.885,1.365c0.199,0.51 0.289,1.054 0.266,1.598c-0.005,0.12 0.037,0.238 0.119,0.326c0.081,0.088 0.194,0.141 0.314,0.146c0.12,0.005 0.237,-0.038 0.326,-0.119c0.088,-0.081 0.141,-0.195 0.146,-0.315c0.027,-0.67 -0.085,-1.338 -0.327,-1.964c-0.244,-0.628 -0.615,-1.2 -1.09,-1.678l-0.009,-0.009c-0.933,-0.891 -2.113,-1.346 -3.476,-1.346z" fill="#9A9A9A" />
+                                    <path id="Vector_469" data-node-id="I37:2015;2966:6311" d="M16.834,11.152c-0.12,0 -0.235,0.048 -0.32,0.133c-0.085,0.085 -0.133,0.2 -0.133,0.32c0,0.12 0.048,0.235 0.133,0.32c0.085,0.085 0.2,0.132 0.32,0.132h0.015c0.826,0.059 1.427,0.334 1.848,0.786c0.431,0.465 0.655,1.044 0.638,1.759c-0.003,0.12 0.042,0.236 0.125,0.323c0.083,0.086 0.197,0.137 0.317,0.14c0.12,0.002 0.236,-0.043 0.323,-0.126c0.087,-0.083 0.137,-0.197 0.14,-0.317c0.022,-0.938 -0.281,-1.748 -0.88,-2.394v-0.002c-0.613,-0.657 -1.454,-1.005 -2.465,-1.073l-0.016,-0.002z" fill="#9A9A9A" />
+                                    <path id="Vector_470" data-node-id="I37:2015;2966:6312" d="M16.817,12.668c-0.061,-0.005 -0.122,0.002 -0.18,0.02c-0.058,0.019 -0.111,0.049 -0.157,0.089c-0.046,0.04 -0.083,0.089 -0.11,0.144c-0.027,0.054 -0.042,0.114 -0.045,0.174c-0.003,0.061 0.006,0.122 0.027,0.179c0.021,0.057 0.053,0.109 0.094,0.154c0.042,0.044 0.092,0.08 0.147,0.105c0.056,0.024 0.116,0.037 0.177,0.038c0.378,0.02 0.62,0.134 0.772,0.287c0.153,0.154 0.267,0.401 0.287,0.788c0.002,0.061 0.015,0.12 0.04,0.176c0.024,0.055 0.06,0.105 0.105,0.147c0.044,0.041 0.096,0.073 0.154,0.094c0.057,0.02 0.117,0.03 0.178,0.026c0.061,-0.003 0.12,-0.018 0.175,-0.045c0.054,-0.027 0.103,-0.064 0.143,-0.11c0.039,-0.046 0.07,-0.099 0.088,-0.157c0.019,-0.058 0.026,-0.119 0.021,-0.179c-0.029,-0.543 -0.199,-1.023 -0.548,-1.376c-0.35,-0.353 -0.827,-0.525 -1.368,-0.554z" fill="#9A9A9A" />
+                                    <path id="Vector_471" data-node-id="I37:2015;2966:6313" fill-rule="evenodd" clip-rule="evenodd" d="M11.876,7.297c2.88,-0.644 5.867,-0.644 8.747,0l0.306,0.068c0.842,0.188 1.615,0.606 2.234,1.208c0.618,0.601 1.058,1.362 1.271,2.198c0.732,2.88 0.732,5.898 0,8.779c-0.213,0.836 -0.653,1.597 -1.271,2.198c-0.619,0.601 -1.392,1.019 -2.234,1.208l-0.307,0.068c-1.804,0.403 -3.655,0.555 -5.501,0.451l-2.401,2.149c-0.09,0.081 -0.201,0.137 -0.32,0.16c-0.119,0.024 -0.243,0.015 -0.357,-0.025c-0.115,-0.04 -0.217,-0.11 -0.295,-0.203c-0.078,-0.093 -0.13,-0.206 -0.15,-0.326l-0.398,-2.373c-0.761,-0.237 -1.449,-0.666 -1.998,-1.245c-0.549,-0.579 -0.941,-1.289 -1.138,-2.062c-0.731,-2.881 -0.731,-5.899 0,-8.779c0.213,-0.836 0.653,-1.597 1.272,-2.198c0.618,-0.602 1.391,-1.02 2.233,-1.208zM20.327,8.621c-2.686,-0.6 -5.47,-0.6 -8.155,0l-0.308,0.069c-0.597,0.134 -1.144,0.43 -1.583,0.857c-0.438,0.426 -0.75,0.965 -0.901,1.558c-0.676,2.661 -0.676,5.449 0,8.111c0.151,0.593 0.463,1.132 0.902,1.558c0.438,0.426 0.986,0.723 1.583,0.857l0.081,0.018c0.132,0.029 0.252,0.098 0.345,0.196c0.093,0.098 0.154,0.221 0.177,0.354l0.266,1.591l1.694,-1.516c0.068,-0.06 0.147,-0.107 0.233,-0.136c0.086,-0.03 0.177,-0.042 0.268,-0.036c1.809,0.128 3.627,-0.007 5.398,-0.402l0.306,-0.069c0.597,-0.134 1.145,-0.431 1.584,-0.857c0.438,-0.426 0.75,-0.965 0.901,-1.558c0.675,-2.661 0.675,-5.45 0,-8.111c-0.151,-0.593 -0.463,-1.132 -0.901,-1.559c-0.439,-0.426 -0.987,-0.722 -1.584,-0.856z" fill="#9A9A9A" />
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                   @*  іконка facebook  *@
+                    <div class="svg-container4">
+                        <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Facebook" data-node-id="37:2018" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="1" y="1" width="30" height="30" rx="15" fill="#E7E7E8" />
+                                <g id="ri:facebook-fill" data-node-id="I37:2018;3289:9896">
+                                    <path id="Vector_476" data-node-id="I37:2018;3289:9897" d="M17.5,17.125h1.875l0.75,-3h-2.625v-1.5c0,-0.773 0,-1.5 1.5,-1.5h1.125v-2.52c-0.245,-0.032 -1.168,-0.105 -2.143,-0.105c-2.036,0 -3.482,1.243 -3.482,3.525v2.1h-2.25v3h2.25v6.375h3z" fill="#9A9A9A" />
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+
+                </div>
             </div>
-            <hr>
-            @* <button id="getLocationBtn">Отримати місцезнаходження</button> *@
         </div>
+    </div>
 
 
 
 
-                <div class="offcanvas-body" style="background-color:white">
+    @* <div class="offcanvas-body" style="background-color:white">
 
-                     @* @if (Context.User.Identity?.IsAuthenticated ?? false)
-                     {
-                         <div class="catalog text-center text-capitalize">
-                             <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" asp-controller="User" asp-action="PersonalData">
-                                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">@Context.User.Identity?.Name</h5>                       
-                             </a>
-                         </div>
-                     }
-                     else
-                     {
-                         <div class="row">
-                             <div class="col">
-                                 <!-- Button trigger modal -->
-                                 <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#authModal">
-                                     Вхід
-                                 </button>
-                             </div>                  
-                         </div>
-                         <div class="row">
-                             <div class="col">
-                                 <img src="~/icons/person_icon.png" alt="Person Icon">
                     
-                             </div>
-                             <diV class="col-8">
-                                 <label>Авторизуйтесь для отримання розширених можливостей</label>
-                             </diV>
-                         </div>
-                     } *@
                     
-                     <div class="d-grid gap-2">
+                     <div class="d-grid gap-2"> *@
                          @* <hr>
                          <button type="button" class="btn btn-lg text-success text-start" data-bs-toggle="modal" data-bs-target="#catalogModal">
                              <i class="bi bi-boxes"></i>
                              Каталог товарів
                          </button> *@
                          
-                         <button type="button" class="btn btn-lg text-success text-start"
+                         @* <button type="button" class="btn btn-lg text-success text-start"
                                  data-bs-toggle="modal"
                                  data-bs-target="#infoModal">
                              <i class="bi bi-question-circle"></i>
                              Довідковий центр
                          </button>
-                         <hr>
+                         <hr> *@
                          
-                         @if (Context.User.Identity?.IsAuthenticated ?? false)
+                        @*  @if (Context.User.Identity?.IsAuthenticated ?? false)
                          {
                              <a class="btn btn-lg text-success text-start" asp-controller="Home" asp-action="Purchase">
                                  <i class="bi bi-card-list"></i>
@@ -409,12 +480,12 @@
                                  </button>
                                  @Html.AntiForgeryToken()
                              </form>
-                         }                
-                     </div>            
-                 </div> 
+                         }                 *@
+
+                   @*   </div>            
+                 </div>  *@
         
-            
-    </div> 
+    
 
     @* основний контент сторінки, що буде динамічно вставлений в шаблон за допомогою @RenderBody(). *@
     <div class="container-fluid slider-container">       
@@ -504,6 +575,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- скрипти Leaflet -->

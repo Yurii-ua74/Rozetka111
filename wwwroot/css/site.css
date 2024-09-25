@@ -636,7 +636,6 @@ a:hover{
     font-weight: 1000;
 }
 
-
 /*Вирівнювання іконок*/
 .category-title-wrapper {
     display: flex;
@@ -662,7 +661,6 @@ a:hover{
 .catalog a:hover, .category-link:hover {
     color: #9c12ff; /* Фіолетовий колір при наведенні */
 }
-
 
 /*виведення підкатегорій та субпідкатегорій*/
 #subcategory-container {
@@ -829,23 +827,28 @@ a:hover{
 /*<--  бокове  вікно  -->*/
 .left-wind {
     width: 100%;
-    max-width: 400px; /* Максимальна ширина блоку */
+    max-width: 600px; /* Максимальна ширина блоку */
     height: auto; /* Висота блоку */
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #ccc; /* Додаємо рамку для стилізації */
     box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
 }
 
 .btn-sz {
-    width: 95%;
+    width: 95%;   
+}
+
+.mr-top {
+    margin-top: 25px;
+    margin-left: 10px;
 }
 
 .reg-bl {
-    width: 90%;
+    width: 96%;
     height: 150px;
     background-color: antiquewhite;
     border-radius: 5px;
-    margin: 20px;
+    margin: 10px;
 }
 
 .entr-btn {
@@ -853,7 +856,6 @@ a:hover{
     border-radius: 10px;
     border: 3px solid #9C12FF;
 }
-
 /* для іконки порівняння */
 .comp-list-container {
     display: flex;
@@ -899,9 +901,21 @@ a:hover{
 .icon:hover .shop-cart-title {
     color: #800080;  
 }
+/*стрілка випадаючого списку Сервіс*/
+.dropdown {
+    cursor: pointer;
+}
 
+.drop-dn-it, .services-text {
+    font: 400 22px Inter, sans-serif;
+}
+
+#servicesList {
+    list-style-type: none; /* Вимикає маркери списку */
+    padding: 0; /* Вимикає відступи зліва */
+    margin: 0; /* Вимикає відступи ззовні */
+}
 /*//////////////////////*/
-
 
 .btn {
     display: flex;
@@ -917,6 +931,36 @@ a:hover{
         display: flex; /* Для выравнивания текста */
         align-items: center; /* Центрирование текста по вертикали */
     }
+
+ /* соціальних контейнерів блок */
+.social-media-container {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px 5px 24px;
+}
+
+.city-location-text-style {
+    padding: 0;
+    margin: 0;
+    font: 100 22px Inter, sans-serif;
+    color: #2f2f2f;
+}
+
+.social-media-links-container {
+    display: flex;
+    flex-direction: row;
+    gap: 23px;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 19px;
+}
+
+.svg-container4 {
+    display: flex;
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+}
 
 
 

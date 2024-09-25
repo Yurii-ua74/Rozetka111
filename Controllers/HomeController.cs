@@ -21,7 +21,7 @@ namespace Rozetka.Controllers
         {
             try
             {
-                HttpContext.Session.Clear();
+                //HttpContext.Session.Clear();
                 return View();
             }
             catch (Exception ex)
