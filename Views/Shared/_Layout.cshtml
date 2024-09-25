@@ -312,20 +312,17 @@
            </div>
            
            <div class="shopping-list-container">
-               <div class="shop-cart-container">
-                   @* <a asp-area="" asp-controller="Cart" asp-action="Index"
-                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Інформація про компанію" style="display: flex; align-items: center;" class="cart-itm">     *@               
-                       <p class="shop-cart-title ml-5 f-st">Інформація про компанію</p>
-                  @*  </a> *@
+               <div class="shop-cart-container">                            
+                   <p class="shop-cart-title ml-5 f-st">Інформація про компанію</p>                  
                </div>
                <div class="shop-cart-container">
-                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                    <a asp-area="" asp-controller="Info" asp-action="AboutUs"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Про нас" style="display: flex; align-items: center;">               
                        <p class="shop-cart-title mt-3 ml-5">Про нас</p>
                    </a>
                </div>
                <div class="shop-cart-container">
-                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                    <a asp-area="" asp-controller="Info" asp-action="Index"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Умови використання сайту" style="display: flex; align-items: center;" class="cart-itm">
                        <p class="shop-cart-title mt-3 ml-5">Умови використання сайту</p>
                    </a>

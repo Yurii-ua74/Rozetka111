@@ -966,5 +966,21 @@ a:hover{
     font-weight:600;
 }
 
+/*анімація логотипу*/
+.anime-logo-link svg {
+    transform-origin: center; /* Встановлюємо центр як точку початку трансформації */
+    animation: reveal 3s ease-in-out infinite; /* Застосовуємо анімацію */
+}
+
+@keyframes reveal {
+    0%, 100% {
+        transform: scaleX(0); /* Логотип стиснутий по горизонталі до центру */
+    }
+
+    50% {
+        transform: scaleX(1); /* Логотип розкритий до повної ширини */
+    }
+}
+
 
 
