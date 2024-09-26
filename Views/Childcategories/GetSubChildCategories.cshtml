@@ -20,47 +20,11 @@
 
 <h1 class="display-5 f-st">@childcategory</h1>
 
-@* <div>
-    <ul>
-        @foreach (var subchildcategory in Model)
-        {
-            <li style="list-style-type: none;">
-                <a href="/SubChildCategory/GetProducts?subchildcategory=@subchildcategory.Name"> @subchildcategory.Name</a>
-            </li>
-        }
-    </ul>
-</div>
-
-<div class="row mb-5 mt-5">
-    
-    <div class="row mb-3">
-        
-        @foreach (var subchildcategory in Model)
-        {
-           
-            <div class="col-md-2 mb-3">
-                <div>
-                    <div class="product-block">
-                        <img src="~/images/no-image-icon.png" class="img-fluid" alt="Product Image">
-                    </div>
-                    <div class="mt-2">
-                        <div class="product-title">Назва продукту</div>
-                        <div class="product-description">Опис продукту</div>
-                        <div class="d-flex align-items-center mt-2">
-                            <div class="product-price">₴1000</div>
-                            <i class="bi bi-heart ms-auto"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div> *@
-
 <div class="row">
     <!-- Фільтри з підкатегоріями -->
-    <div class="col-md-3">
-        <h5>Підкатегорії</h5>
+    <div class="col-md-2">
+        <h5>...</h5>
+        <hr>
         <ul class="list-unstyled">
             @foreach (var subchildcategory in Model)
             {
@@ -76,20 +40,61 @@
         </ul>
     </div>
 
-    <!-- Товари -->
-    <div class="col-md-9">
-        <div class="row mb-5 mt-5">
-            @foreach (var product in Model)
+    @* <div class="col-md-10">
+        <div class="row mb-5 ">
+            @foreach (var subchildcategory in Model)
             {
                 <div class="col-md-2 mb-3">
-                    <div>                      
-                        <a class="f-sz" href="/SubChildCategories/GetProducts?product=@product.Name">
+                    <div>
+                        <a class="f-sz" href="/SubChildCategory/GetProductsByChild?subchildcategory=@subchildcategory.Name">
                             <div class="product-block">
-                                <img src="~/images/no-image-icon.png" class="img-fluid" alt="@product.Name">
+                                <img src="~/images/no-image-icon.png" class="img-fluid" alt="@subchildcategory.Name">
                             </div>
-                            @* <div class="mt-2 f-sz">
-                                @childcategory.Name
-                            </div> *@
+                            <div class="mt-2 f-sz">
+                                @subchildcategory.Name
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div> *@
+
+     <div class="col-md-10">
+        <div class="row mb-5 ">
+            @foreach (var subchildcategory in Model)
+            {
+                <div class="col-md-2 mb-3">
+                    <div>
+                        <a class="f-sz" href="/SubChildCategory/GetProducts?subchildcategory=@subchildcategory.Name">
+                            <div class="product-block">
+                                <img src="~/images/no-image-icon.png" class="img-fluid" alt="@subchildcategory.Name">
+                            </div>
+                            <div class="mt-2 f-sz">
+                                @subchildcategory.Name
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div> 
+
+
+
+
+    <!-- Товари -->
+    @* <div class="col-md-10">
+        <div class="row mb-5 mt-5">
+            @foreach (var subchildcategory in Model)
+            {
+                <div class="col-md-2 mb-3">
+                    <div>
+                        <a class="f-sz" href="/SubChildCategories/GetProducts?product=@subchildcategory.Name">
+                            <div class="product-block">
+                                <img src="~/images/no-image-icon.png" class="img-fluid" alt="@subchildcategory.Name">
+                            </div>
+                           
                             <div class="product-title">Назва продукту</div>
                             <div class="product-description">Опис продукту</div>
                             <div class="d-flex align-items-center mt-2">
@@ -101,7 +106,77 @@
                 </div>
             }
         </div>
-    </div>
+    </div>  *@
+
+    
+    @* <div class="col-md-10">
+        @foreach (var subchildcategory in Model)
+        {
+             <h3>@subchildcategory.Name</h3> 
+            <div class="row">
+                @{
+                    var products = subchildcategory.Products != null ? subchildcategory.Products.ToList() : new List<Product>(); // Перевірка на null і створення порожнього списку
+                    int productCount = products.Count();
+                    int itemsPerRow = 6;
+                    int totalRows = (int)Math.Ceiling(productCount / (double)itemsPerRow);
+                }
+
+                @for (int row = 0; row < totalRows; row++)
+                {
+                     <div class="row mb-4">
+                        @for (int i = row * itemsPerRow; i < (row + 1) * itemsPerRow; i++)
+                        {
+                            if (i < productCount)
+                            {
+                                // Виводимо товар
+                               
+                                <div class="col-md-2">
+                                    <div class="card">
+                                        
+                                        
+                                    </div>
+                                </div>
+                                var product = products[i];
+                                <a class="f-sz" href="/SubChildCategories/GetProducts?product=@subchildcategory.Name">
+                                    <div class="product-block">
+                                        <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.FirstOrDefault()?.ImageData)" class="card-img-top" alt="@product.Title">
+                                    </div>
+                                    <h5 class="card-title">@product.Title</h5>
+                                    <p class="card-text">@product.Description</p>
+                                    <a href="/Product/Details/@product.Id" class="btn btn-primary">Деталі</a>
+                                    <div class="product-title">Назва продукту</div>
+                                    <div class="product-description">Опис продукту</div>
+                                    <div class="d-flex align-items-center mt-2">
+                                        <div class="product-price">₴1000</div>
+                                        <i class="bi bi-heart ms-auto"></i>
+                                    </div>
+                                </a>
+                                 
+                            }
+                            else
+                            {
+                                // Якщо немає більше товарів, виводимо дефолтний блок
+                                <div class="product-block">
+                                    <img src="~/images/no-image-icon.png" class="img-fluid" alt="@subchildcategory.Name">
+                                </div>
+
+                                <div class="product-title">Назва продукту</div>
+                                <div class="product-description">Опис продукту</div>
+                                <div class="d-flex align-items-center mt-2">
+                                    <div class="product-price">₴0000</div>
+                                    <i class="bi bi-heart ms-auto"></i>
+                                </div>
+                            }
+                        }
+                    </div> 
+                }
+            </div>
+            <hr>
+        }
+
+
+    </div> *@
+    
 </div>
 
 

@@ -225,6 +225,32 @@ namespace Rozetka.Controllers
             return View(products);
         }
 
+        /* ///////// */
+        public async Task<IActionResult> GetProductsByChild(int subChildCategoryId)
+        {
+            if (subChildCategoryId <= 0)
+            {
+                return BadRequest();
+            }
+
+            // Отримати товари для підпідкатегорії, обмежуючи кількість до 6
+            var products = await _context.Products
+                                         .Where(p => p.SubChildCategoryId == subChildCategoryId)
+                                         .Include(p => p.ProductImages)
+                                         .Take(6)
+                                         .ToListAsync();
+
+            if (products == null || !products.Any())
+            {
+                // Якщо товарів немає, повертаємо порожній список для подальшого оброблення
+                return PartialView("_ProductBlocks", new List<Product>());
+            }
+
+            return PartialView("_ProductBlocks", products);
+        }
+        /* ///////// */
+
+
         [HttpPost]
         public RedirectToActionResult AddFilter(string[]? selectedBrands, decimal? startPrice, decimal? endPrice)
         {
