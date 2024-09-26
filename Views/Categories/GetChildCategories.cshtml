@@ -16,13 +16,60 @@
         <li class="breadcrumb-item active" aria-current="page">@category</li>
     </ol>
 </nav> 
-<h1 class="display-4">@category</h1> 
 
+ <h1 class="display-5 f-st">@category</h1>
 
-@* <h1 class="centered-container">@ViewData["CategoryName"]</h1>
-<h2>Тут має бути виведений список підкатегорій з бази даних</h2> *@
+<div class="row">
+    <div class="col-md-12">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <img src="~/images_advertising/im1_1category.jpg" class="d-block w-100 slider-img" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/im2_1category.jpg" class="d-block w-100 slider-img" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/im3_1category.jpg" class="d-block w-100 slider-img" alt="...">
+                </div>
+                <div class="carousel-item active">
+                    <img src="~/images_advertising/im4_1category.jpg" class="d-block w-100 slider-img" alt="...">
+                </div>
+            </div>
 
-<ul>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5 mt-5">  
+    <div class="row mb-3">
+        @foreach (var childcategory in Model)
+        {          
+            <div class="col-md-2 mb-3">
+                <div>
+                    <a class="f-sz" href="/Childcategories/GetSubChildCategories?childcategory=@childcategory.Name">
+                        <div class="product-block">
+                            <img src="~/images/no-image-icon.png" class="img-fluid" alt="@childcategory.Name">
+                        </div>
+                        <div class="mt-2 f-sz">
+                            @childcategory.Name
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@* <ul>
     @foreach (var childcategory in Model)
     {
         //<li>@subcategory.Name</li>
@@ -30,4 +77,4 @@
             <a href="/Childcategories/GetSubChildCategories?childcategory=@childcategory.Name"> @childcategory.Name</a>
         </li>
     }
-</ul>
+</ul> *@

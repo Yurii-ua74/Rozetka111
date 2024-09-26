@@ -18,14 +18,91 @@
     </ol>
 </nav>
 
-<h1 class="display-4">@childcategory</h1>
+<h1 class="display-5 f-st">@childcategory</h1>
+
+@* <div>
+    <ul>
+        @foreach (var subchildcategory in Model)
+        {
+            <li style="list-style-type: none;">
+                <a href="/SubChildCategory/GetProducts?subchildcategory=@subchildcategory.Name"> @subchildcategory.Name</a>
+            </li>
+        }
+    </ul>
+</div>
+
+<div class="row mb-5 mt-5">
+    
+    <div class="row mb-3">
+        
+        @foreach (var subchildcategory in Model)
+        {
+           
+            <div class="col-md-2 mb-3">
+                <div>
+                    <div class="product-block">
+                        <img src="~/images/no-image-icon.png" class="img-fluid" alt="Product Image">
+                    </div>
+                    <div class="mt-2">
+                        <div class="product-title">Назва продукту</div>
+                        <div class="product-description">Опис продукту</div>
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="product-price">₴1000</div>
+                            <i class="bi bi-heart ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div> *@
+
+<div class="row">
+    <!-- Фільтри з підкатегоріями -->
+    <div class="col-md-3">
+        <h5>Підкатегорії</h5>
+        <ul class="list-unstyled">
+            @foreach (var subchildcategory in Model)
+            {
+                <li>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="@subchildcategory.Name" id="subchildcategory_@subchildcategory.Id">
+                        <label class="form-check-label f-sz" for="subchildcategory_@subchildcategory.Id">
+                            @subchildcategory.Name
+                        </label>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <!-- Товари -->
+    <div class="col-md-9">
+        <div class="row mb-5 mt-5">
+            @foreach (var product in Model)
+            {
+                <div class="col-md-2 mb-3">
+                    <div>                      
+                        <a class="f-sz" href="/SubChildCategories/GetProducts?product=@product.Name">
+                            <div class="product-block">
+                                <img src="~/images/no-image-icon.png" class="img-fluid" alt="@product.Name">
+                            </div>
+                            @* <div class="mt-2 f-sz">
+                                @childcategory.Name
+                            </div> *@
+                            <div class="product-title">Назва продукту</div>
+                            <div class="product-description">Опис продукту</div>
+                            <div class="d-flex align-items-center mt-2">
+                                <div class="product-price">₴1000</div>
+                                <i class="bi bi-heart ms-auto"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 
 
-<ul>
-    @foreach (var subchildcategory in Model)
-    {       
-        <li style="list-style-type: none;">
-            <a href="/SubChildCategory/GetProducts?subchildcategory=@subchildcategory.Name"> @subchildcategory.Name</a>
-        </li>
-    }
-</ul>
+

@@ -796,10 +796,10 @@ a:hover{
     background-color: #E8E8E8; /* Цвет полоски */
     margin: 0 auto; /* Центровка */
 }
-.mb-3 {
-    margin-top: 0; /* Убирает верхний отступ */
-    margin-bottom: 1rem;
-}
+/*.mb-3 {
+    margin-top: 0;*/ /* Убирает верхний отступ */
+    /*margin-bottom: 1rem;
+}*/
 .no-margin-top {
     margin-top: 0 !important; /* Убирает верхний отступ с приоритетом */
 }
@@ -963,7 +963,11 @@ a:hover{
 }
 
 .f-st {
-    font-weight:600;
+    font-weight: 600;
+}
+
+.f-sz {
+    font-size: 24px;
 }
 
 /*анімація логотипу*/
