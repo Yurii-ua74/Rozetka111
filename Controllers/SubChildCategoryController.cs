@@ -226,27 +226,40 @@ namespace Rozetka.Controllers
         }
 
         /* ///////// */
-        public async Task<IActionResult> GetProductsByChild(int subChildCategoryId)
+        //public async Task<IActionResult> GetProductsByChild(int subChildCategoryId)
+        //{
+        //    if (subChildCategoryId <= 0)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    // Отримати товари для підпідкатегорії, обмежуючи кількість до 6
+        //    var products = await _context.Products
+        //                                 .Where(p => p.SubChildCategoryId == subChildCategoryId)
+        //                                 .Include(p => p.ProductImages)
+        //                                 .Take(6)
+        //                                 .ToListAsync();
+
+        //    if (products == null || !products.Any())
+        //    {
+        //        // Якщо товарів немає, повертаємо порожній список для подальшого оброблення
+        //        return PartialView("_ProductBlocks", new List<Product>());
+        //    }
+
+        //    return PartialView("_ProductBlocks", products);
+        //}
+
+        /* ///////// */
+        [HttpPost]
+        public IActionResult GetProductsBySubChildCategories(List<int> subchildcategoryIds)
         {
-            if (subChildCategoryId <= 0)
-            {
-                return BadRequest();
-            }
+            // Отримуємо товари відповідно до вибраних субкатегорій
+            var products = _context.Products
+                .Where(p => subchildcategoryIds.Contains(p.SubChildCategoryId))
+                .Take(6)  // Обмежуємо кількість товарів до 6 на субкатегорію
+                .ToList();
 
-            // Отримати товари для підпідкатегорії, обмежуючи кількість до 6
-            var products = await _context.Products
-                                         .Where(p => p.SubChildCategoryId == subChildCategoryId)
-                                         .Include(p => p.ProductImages)
-                                         .Take(6)
-                                         .ToListAsync();
-
-            if (products == null || !products.Any())
-            {
-                // Якщо товарів немає, повертаємо порожній список для подальшого оброблення
-                return PartialView("_ProductBlocks", new List<Product>());
-            }
-
-            return PartialView("_ProductBlocks", products);
+            return PartialView("_ProductsPartial", products);
         }
         /* ///////// */
 

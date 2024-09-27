@@ -194,10 +194,9 @@
                     </div>
                 </div>
             </div>
-
         }
-
     </div>
+
     <div class="col-sm-8">
         @if (!Model.Any())
         {
@@ -273,6 +272,7 @@
                 {
                     <div class="col">
                         <div class="card h-100" style="opacity: 0.8;">
+
                             <div class="d-flex justify-content-center p-1">
                                 <a href="/Products/GetProduct?id=@product.Id">
                                     @if (product.ProductImages != null && product.ProductImages.Any())
@@ -302,7 +302,6 @@
                 }
             </div>
         }
-
     </div>
 </div>
 

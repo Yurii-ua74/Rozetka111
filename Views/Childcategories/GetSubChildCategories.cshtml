@@ -9,7 +9,7 @@
 @{
     ViewData["Title"] = childcategory;
 }
-
+              @* блок 1  *@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href=".."><i class="bi bi-house"></i></a></li>
@@ -19,7 +19,7 @@
 </nav>
 
 <h1 class="display-5 f-st">@childcategory</h1>
-
+              @* блок 2 *@
 <div class="row">
     <!-- Фільтри з підкатегоріями -->
     <div class="col-md-2">
@@ -30,7 +30,7 @@
             {
                 <li>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="@subchildcategory.Name" id="subchildcategory_@subchildcategory.Id">
+                        <input class="form-check-input" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id" onchange="handleCheckboxChange()">
                         <label class="form-check-label f-sz" for="subchildcategory_@subchildcategory.Id">
                             @subchildcategory.Name
                         </label>
@@ -39,8 +39,65 @@
             }
         </ul>
     </div>
+               @* блок 3 *@
+     <div class="col-md-10">
+        <div class="row mb-5 ">
+            @foreach (var subchildcategory in Model)
+            {
+                <div class="col-md-2 mb-3">
+                    <div>
+                        <a href="/SubChildCategory/GetProducts?subchildcategory=@subchildcategory.Name" class="f-sz">
+                            <div class="product-block">
+                                <img src="~/images/no-image-icon.png" class="img-fluid" alt="@subchildcategory.Name">
+                            </div>
+                            <div class="mt-2 f-sz">
+                                @subchildcategory.Name
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- Блок для виведення товарів -->
+        <div id="products-block" class="row">
+            <!-- Товари будуть додаватися сюди через AJAX -->
+        </div>
+    </div> 
+</div>
 
-    @* <div class="col-md-10">
+
+<!-- JS -->
+<script>
+    function handleCheckboxChange() {
+        // Збираємо всі вибрані чекбокси
+        var selectedSubCategories = [];
+        document.querySelectorAll('.form-check-input:checked').forEach(function (checkbox) {
+            selectedSubCategories.push(checkbox.value);
+        });
+
+        // Виконуємо AJAX запит на сервер, щоб отримати товари для вибраних субкатегорій
+        if (selectedSubCategories.length > 0) {
+            $.ajax({
+                url: '/SubChildCategory/GetProductsBySubChildCategories',
+                type: 'POST',
+                data: { subchildcategoryIds: selectedSubCategories },
+                success: function (result) {
+                    // Очищаємо блок перед виведенням нових товарів
+                    $('#products-block').html(result);
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        } else {
+            // Якщо всі чекбокси зняті, очищаємо блок товарів
+            $('#products-block').html('');
+        }
+    }
+</script>
+
+
+@* <div class="col-md-10">
         <div class="row mb-5 ">
             @foreach (var subchildcategory in Model)
             {
@@ -59,125 +116,3 @@
             }
         </div>
     </div> *@
-
-     <div class="col-md-10">
-        <div class="row mb-5 ">
-            @foreach (var subchildcategory in Model)
-            {
-                <div class="col-md-2 mb-3">
-                    <div>
-                        <a class="f-sz" href="/SubChildCategory/GetProducts?subchildcategory=@subchildcategory.Name">
-                            <div class="product-block">
-                                <img src="~/images/no-image-icon.png" class="img-fluid" alt="@subchildcategory.Name">
-                            </div>
-                            <div class="mt-2 f-sz">
-                                @subchildcategory.Name
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            }
-        </div>
-    </div> 
-
-
-
-
-    <!-- Товари -->
-    @* <div class="col-md-10">
-        <div class="row mb-5 mt-5">
-            @foreach (var subchildcategory in Model)
-            {
-                <div class="col-md-2 mb-3">
-                    <div>
-                        <a class="f-sz" href="/SubChildCategories/GetProducts?product=@subchildcategory.Name">
-                            <div class="product-block">
-                                <img src="~/images/no-image-icon.png" class="img-fluid" alt="@subchildcategory.Name">
-                            </div>
-                           
-                            <div class="product-title">Назва продукту</div>
-                            <div class="product-description">Опис продукту</div>
-                            <div class="d-flex align-items-center mt-2">
-                                <div class="product-price">₴1000</div>
-                                <i class="bi bi-heart ms-auto"></i>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>  *@
-
-    
-    @* <div class="col-md-10">
-        @foreach (var subchildcategory in Model)
-        {
-             <h3>@subchildcategory.Name</h3> 
-            <div class="row">
-                @{
-                    var products = subchildcategory.Products != null ? subchildcategory.Products.ToList() : new List<Product>(); // Перевірка на null і створення порожнього списку
-                    int productCount = products.Count();
-                    int itemsPerRow = 6;
-                    int totalRows = (int)Math.Ceiling(productCount / (double)itemsPerRow);
-                }
-
-                @for (int row = 0; row < totalRows; row++)
-                {
-                     <div class="row mb-4">
-                        @for (int i = row * itemsPerRow; i < (row + 1) * itemsPerRow; i++)
-                        {
-                            if (i < productCount)
-                            {
-                                // Виводимо товар
-                               
-                                <div class="col-md-2">
-                                    <div class="card">
-                                        
-                                        
-                                    </div>
-                                </div>
-                                var product = products[i];
-                                <a class="f-sz" href="/SubChildCategories/GetProducts?product=@subchildcategory.Name">
-                                    <div class="product-block">
-                                        <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.FirstOrDefault()?.ImageData)" class="card-img-top" alt="@product.Title">
-                                    </div>
-                                    <h5 class="card-title">@product.Title</h5>
-                                    <p class="card-text">@product.Description</p>
-                                    <a href="/Product/Details/@product.Id" class="btn btn-primary">Деталі</a>
-                                    <div class="product-title">Назва продукту</div>
-                                    <div class="product-description">Опис продукту</div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div class="product-price">₴1000</div>
-                                        <i class="bi bi-heart ms-auto"></i>
-                                    </div>
-                                </a>
-                                 
-                            }
-                            else
-                            {
-                                // Якщо немає більше товарів, виводимо дефолтний блок
-                                <div class="product-block">
-                                    <img src="~/images/no-image-icon.png" class="img-fluid" alt="@subchildcategory.Name">
-                                </div>
-
-                                <div class="product-title">Назва продукту</div>
-                                <div class="product-description">Опис продукту</div>
-                                <div class="d-flex align-items-center mt-2">
-                                    <div class="product-price">₴0000</div>
-                                    <i class="bi bi-heart ms-auto"></i>
-                                </div>
-                            }
-                        }
-                    </div> 
-                }
-            </div>
-            <hr>
-        }
-
-
-    </div> *@
-    
-</div>
-
-
-

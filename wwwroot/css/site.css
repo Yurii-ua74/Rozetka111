@@ -42,9 +42,9 @@ body {
     margin-right: 16px; /* Отступ справа у кнопки */
 }
 
-.mb-3 {
-    margin-bottom: 40px; /* Увеличение отступа между кнопками */
-}
+/*.mb-3 {
+    margin-bottom: 40px;*/ /* Увеличение отступа между кнопками */
+/*}*/
 
 .btn-outline-purple {
     background-color: #f0b0e2;
@@ -435,13 +435,17 @@ a:hover{
     height: 24px;
 }
 
-/*<-- Знайти на швидкоbuy -->*/
+/*<-- Знайти на швидкоbuy поле -->*/
 .logo-link {
     margin-right: 1rem; /* Зменшити значення, щоб зменшити відстань між логотипом та кнопкою */
 }
 
 .quick-find-button {
     margin-left: 0.5rem; /* Зменшити значення, якщо потрібно налаштувати відстань */
+}
+
+.white-icon {
+    color: white;
 }
 
 .quick-search-container {
@@ -796,10 +800,7 @@ a:hover{
     background-color: #E8E8E8; /* Цвет полоски */
     margin: 0 auto; /* Центровка */
 }
-/*.mb-3 {
-    margin-top: 0;*/ /* Убирает верхний отступ */
-    /*margin-bottom: 1rem;
-}*/
+
 .no-margin-top {
     margin-top: 0 !important; /* Убирает верхний отступ с приоритетом */
 }
@@ -984,6 +985,11 @@ a:hover{
     50% {
         transform: scaleX(1); /* Логотип розкритий до повної ширини */
     }
+}
+
+/* мапа світу */
+#map {
+    height: 600px; /*  висота карти */
 }
 
 

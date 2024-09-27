@@ -163,20 +163,7 @@ document.addEventListener('DOMContentLoaded', updateCartCount);
 //        });
 //}
 
-/*document.getElementById('getLocationBtn').addEventListener('click', function () {*/
-//function getLocation() {
-//    fetch('https://ipapi.co/json/')
-//        .then(response => response.json())
-//        .then(data => {
-//            const region = data.region;
-//            const city = data.city;
-//            document.getElementById('leftLocationText').innerHTML = `Ви знаходитеся в регіоні: <br>${region}<br> ` + `місто: ${city}?`;
-//        })
-//        .catch(err => {
-//            console.error('Не вдалося отримати дані:', err);
-//            document.getElementById('leftLocationText').innerText = 'Невідомо';
-//        });
-//}
+
 
 function getLocationFromSession() {
     // Робимо запит на сервер для отримання локації з сесії
