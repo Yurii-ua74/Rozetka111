@@ -223,6 +223,7 @@ namespace Rozetka.Controllers
             var products = await productsQuery.ToListAsync();
 
             return View(products);
+           
         }
 
         /* ///////// */
@@ -256,6 +257,10 @@ namespace Rozetka.Controllers
             // Отримуємо товари відповідно до вибраних субкатегорій
             var products = _context.Products
                 .Where(p => subchildcategoryIds.Contains(p.SubChildCategoryId))
+                .Include(p => p.ProductType)
+                .Include(p => p.Brand)
+                .Include(p => p.ProductImages)
+                .Include(p => p.Reviews)
                 .Take(6)  // Обмежуємо кількість товарів до 6 на субкатегорію
                 .ToList();
 
