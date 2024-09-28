@@ -175,6 +175,7 @@ a:hover{
 /*<-- Слайдер на всю ширину хедера -->*/
 .carousel {
     width: 100%;
+ 
 }
 
 .slider-img {
@@ -762,7 +763,7 @@ a:hover{
     font-size: 22px !important;
     
 }
-
+/* Линия "АБО", форма входа */
 .line-with-text {
     display: flex;
     align-items: center;
@@ -781,11 +782,11 @@ a:hover{
     }
 
     .line-with-text::before {
-        margin-right: 10px; /* Отступ от текста до линии слева */
+        margin-right: 1px; /* Отступ от текста до линии слева */
     }
 
     .line-with-text::after {
-        margin-left: 10px; /* Отступ от текста до линии справа */
+        margin-left: 1px; /* Отступ от текста до линии справа */
     }
 
     .line-with-text span {
