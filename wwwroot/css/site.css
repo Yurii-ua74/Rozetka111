@@ -46,10 +46,6 @@ body {
     margin-right: 16px; /* Отступ справа у кнопки */
 }
 
-/*.mb-3 {
-    margin-bottom: 40px;*/ /* Увеличение отступа между кнопками */
-/*}*/
-
 .btn-outline-purple {
     background-color: #f0b0e2;
     color: #9C12FF;
@@ -169,7 +165,7 @@ a:hover{
         color: red; 
     }
 
-    /* ////// малий навігаційний рядок ////// */
+/* ////// малий навігаційний рядок ////// */
 .fixed-bottom {
     height: 50px;
 }
@@ -181,11 +177,24 @@ a:hover{
     justify-content: center;
 }
 
-/*.compare {
-    display: flex;
-    width: 34px;
-    height: 34px;*/                /* ///////////////////////////////////////////////////////////// */
-/*}*/
+/* іконка каталога малого навігаційного рядка */
+.minimal-button {
+    padding: 0; /* Прибираємо всі внутрішні відступи */
+    margin: 0; /* Прибираємо зовнішні відступи */
+    border: none; /* Прибираємо рамку */
+    background-color: transparent; /* Прозорий фон */
+    box-shadow: none; /* Прибираємо тіні */
+    width: auto; /* Розмір по іконці */
+    height: auto; /* Розмір по іконці */
+    display: inline-flex; /* Вирівнюємо вміст кнопки */
+    align-items: center;
+    justify-content: center;
+}
+
+    .minimal-button i {
+        font-size: 1.5rem; /* Можна налаштувати розмір іконки */
+        color: inherit; /* Використовуємо колір тексту або іконки, заданий в інших стилях */
+    }
 
     /*<-- FOOTER -->*/
 .icon-up {
@@ -507,8 +516,6 @@ a:hover{
         margin-right: 1rem; /* Зменшити значення, щоб зменшити відстань між логотипом та кнопкою */
     }
 
-
-
     .white-icon {
         color: white;
     }
@@ -669,18 +676,18 @@ a:hover{
         width: 100%;
     }
 
-        .category-link .bi-chevron-right {
-            margin-left: auto;
-            margin-right: 5px;
-        }
+    .category-link .bi-chevron-right {
+        margin-left: auto;
+        margin-right: 5px;
+    }
 
     .catalog a, .category-link {
         color: black; /* Чорний колір тексту та іконок */
     }
 
-        .catalog a:hover, .category-link:hover {
-            color: #9c12ff; /* Фіолетовий колір при наведенні */
-        }
+    .catalog a:hover, .category-link:hover {
+        color: #9c12ff; /* Фіолетовий колір при наведенні */
+    }
 
     /*виведення підкатегорій та субпідкатегорій*/
     #subcategory-container {
@@ -712,9 +719,9 @@ a:hover{
         box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
     }
 
-        .text-block p {
-            margin: 0;
-        }
+    .text-block p {
+        margin: 0;
+    }
     /* //////////////  кінець header /////////// */
 
     /*<--////////////  головна сторінка /////////////-->*/
@@ -761,14 +768,14 @@ a:hover{
     }
 
 
-        .enter-reg-text::after {
-            content: '\2022'; /* Unicode для точки */
-            color: red; /* Цвет точки */
-            margin-left: 5px; /* Отступ от текста */
-            font-size: 20px; /* Размер точки, можно регулировать */
-            vertical-align: middle; /* Вертикальное выравнивание */
-            margin-top: -5px;
-        }
+    .enter-reg-text::after {
+        content: '\2022'; /* Unicode для точки */
+        color: red; /* Цвет точки */
+        margin-left: 5px; /* Отступ от текста */
+        font-size: 20px; /* Размер точки, можно регулировать */
+        vertical-align: middle; /* Вертикальное выравнивание */
+        margin-top: -5px;
+    }
 
     .btn-thicker {
         padding-top: 10px; /* Отступ сверху */
@@ -851,6 +858,11 @@ a:hover{
         border: 1px solid #ccc; /* Додаємо рамку для стилізації */
         box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
     }
+
+.logo-sz-left {
+    width: 100%;
+    margin-top: 15px;
+}
 
     .btn-sz {
         width: 95%;

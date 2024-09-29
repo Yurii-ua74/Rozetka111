@@ -1,23 +1,28 @@
 ﻿// передача даних в верхнє випадаюче вікно
 $(document).ready(function () {
-    // Обробка наведення на посилання категорії
-    $('.category-link').on('mouseenter', function () {
-        var category = $(this).data('category'); // Отримуємо назву категорії
-        console.log("Запит категорії: " + category); // Виводимо в консоль
+    // Перевірка розміру екрану
+    if ($(window).width() >= 1010) {
+        //  // Код буде працювати тільки на великих екранах >= 992px
 
-        $.ajax({
-            url: '/Categories/GetChildAndSubChildCategories', // маршрут
-            method: 'GET',
-            data: { category: category },
-            success: function (data) {
-                $('.subcategory-container').html(data); // Вставляємо отримані дані
-                console.log("Отримані дані: ", data); // Виводимо отримані дані в консоль
-            },
-            error: function (xhr, status, error) {
-                console.error("Помилка: ", error); // Виводимо помилку в консоль
-            }
+        // Обробка наведення на посилання категорії
+        $('.category-link').on('mouseenter', function () {
+            var category = $(this).data('category'); // Отримуємо назву категорії
+            console.log("Запит категорії: " + category); // Виводимо в консоль
+
+            $.ajax({
+                url: '/Categories/GetChildAndSubChildCategories', // маршрут
+                method: 'GET',
+                data: { category: category },
+                success: function (data) {
+                    $('.subcategory-container').html(data); // Вставляємо отримані дані
+                    console.log("Отримані дані: ", data); // Виводимо отримані дані в консоль
+                },
+                error: function (xhr, status, error) {
+                    console.error("Помилка: ", error); // Виводимо помилку в консоль
+                }
+            });
         });
-    });
+    }
 });
 
 
