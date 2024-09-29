@@ -492,13 +492,41 @@ namespace Rozetka.Data
             new SubChildCategory { Name = "Автохімія", ChildCategoryId = childCategories[40].Id },
             new SubChildCategory { Name = "Автокосметика", ChildCategoryId = childCategories[40].Id },
                        // ////////////////  Сантехніка та ремонт   ///////////////// //
-            //Сантехніка та меблі для ванної
-
-            //Будівельні матеріали
-
-            //Інтер'єр та оздоблення
-
+            //Вани бокси душові
+            new SubChildCategory { Name = "Ванни", ChildCategoryId = childCategories[41].Id },
+            new SubChildCategory { Name = "Гідромасажні бокси", ChildCategoryId = childCategories[41].Id },
+            new SubChildCategory { Name = "Душові гарнітури", ChildCategoryId = childCategories[41].Id },
+            new SubChildCategory { Name = "Душові кабіни", ChildCategoryId = childCategories[41].Id },
+            new SubChildCategory { Name = "Бойлери", ChildCategoryId = childCategories[41].Id },
+            new SubChildCategory { Name = "Душові двері та перегородки", ChildCategoryId = childCategories[41].Id },
+            //Мийки змішувачі сифони
+            new SubChildCategory { Name = "Змішувачі", ChildCategoryId = childCategories[42].Id },
+            new SubChildCategory { Name = "Кухонні мийки", ChildCategoryId = childCategories[42].Id },
+            new SubChildCategory { Name = "Кухонні змішувачі", ChildCategoryId = childCategories[42].Id },
+            new SubChildCategory { Name = "Сифони", ChildCategoryId = childCategories[42].Id },
+            new SubChildCategory { Name = "Системи зворотнього осмосу", ChildCategoryId = childCategories[42].Id },
+            //Сушки для рушників та радіатори
+            new SubChildCategory { Name = "Сушки для рушників", ChildCategoryId = childCategories[43].Id },
+            new SubChildCategory { Name = "Радіатори", ChildCategoryId = childCategories[43].Id },
             //Освітлення
+            new SubChildCategory { Name = "Люстри", ChildCategoryId = childCategories[44].Id },
+            new SubChildCategory { Name = "Настінно-стельові світильники", ChildCategoryId = childCategories[44].Id },
+            new SubChildCategory { Name = "Точечні ліхтарі", ChildCategoryId = childCategories[44].Id },
+            new SubChildCategory { Name = "Торшери", ChildCategoryId = childCategories[44].Id },
+            new SubChildCategory { Name = "Дитячінастільні лампи", ChildCategoryId = childCategories[44].Id },
+            //Лічильники
+            new SubChildCategory { Name = "Захист від перепадів напруги", ChildCategoryId = childCategories[45].Id },
+            new SubChildCategory { Name = "Лічильники води", ChildCategoryId = childCategories[45].Id },
+            new SubChildCategory { Name = "Лічильники газу", ChildCategoryId = childCategories[45].Id },
+            new SubChildCategory { Name = "Лічильник електроенергії", ChildCategoryId = childCategories[45].Id },
+                       // ////////////////  Дача, сад і город   ///////////////// //
+            //Садова техніка
+
+            //Садовий інвертар
+
+            //Системи поливу
+
+            //Рослини і догляд за ними
 
             };
 

@@ -6,6 +6,8 @@
         public string Title { get; set; } = default!;       
         public string? Description { get; set; }
         public decimal Price { get; set; }
+        public decimal? Rating { get; set; } //середній рейтинг товару
+        public int Amount { get; set; } = 0; //загальна кількість голосів
 
         public int? BrandId { get; set; }
         public Brand? Brand { get; set; }
