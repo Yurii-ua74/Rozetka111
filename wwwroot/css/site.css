@@ -20,6 +20,10 @@ html {
 body {
     font-family: 'Inter', sans-serif;
     margin-bottom: 60px;
+} */
+
+    body {
+    padding-top: 110px; /* Налаштуйте цей відступ відповідно до висоти вашого хедера */
 }
 
 /* Определение стиля для кнопки с классом btn-purple */
@@ -165,6 +169,24 @@ a:hover{
         color: red; 
     }
 
+    /* ////// малий навігаційний рядок ////// */
+.fixed-bottom {
+    height: 50px;
+}
+
+.fixed-bottom .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*.compare {
+    display: flex;
+    width: 34px;
+    height: 34px;*/                /* ///////////////////////////////////////////////////////////// */
+/*}*/
+
     /*<-- FOOTER -->*/
 .icon-up {
     display: inline-block;
@@ -199,6 +221,17 @@ a:hover{
     z-index: 1050; /* Має бути вище за затінення та випадаюче вікно */
     position: relative;
 }
+
+.fixed-header {
+    position: fixed; /* Фіксує елемент у верхній частині */
+    top: 0; /* Відступ від верху екрану */
+    left: 0; /* Відступ від лівого краю */
+    width: 100%; /* Хедер буде займати всю ширину */
+    height: 100px; /* Фіксована висота */
+    overflow: hidden; /* Приховує елементи, що виходять за межі */
+    z-index: 1000; /* Забезпечує, щоб хедер завжди був поверх інших елементів */
+}
+
 
 .header-container {
     box-sizing: border-box;
@@ -258,740 +291,727 @@ a:hover{
     border-radius: 12px;
 }
 
-.svg-container {
-    display: flex;
-    width: 24px;
-    height: 24px;
-}
-
 .quick-search-container {
-    box-sizing: border-box;
+    flex-grow: 1;
     display: flex;
-    flex: 1 0 auto;
-    flex-direction: row;
-    gap: 8px;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 17px;
-    margin-left: 20px;
-    background: #fbfbfb;
-    border: 1px solid #9c12ff;
-    border-radius: 12px;
-}
-
-.quick-search-label {
-    flex: 0 0 auto;
-    padding: 0;
-    margin: 0;
-    font: 400 16px Inter, sans-serif;
-    color: #959595;
-}
-
-.quick-search-container1 {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: row;
-    gap: 14.5px;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.vertical-divider {
-    box-sizing: border-box;
-    flex: 0 0 auto;
-    width: 1px;
-    height: 20px;
-    border-left: 1px solid #cecece;
-}
-
-.svg-container1 {
-    display: flex;
-    flex: 0 0 auto;
-    width: 24px;
-    height: 24px;
-    color: #959595;
-}
-
-.purple-box-with-text {
-    box-sizing: border-box;
-    display: flex;
-    flex: 0 0 auto;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 43px;
-    padding-right: 26px;
-    padding-left: 26px;
-    background: #9c12ff;
-    border-radius: 0px 12px 12px 0px;
 }
 
-.svg-container2 {
-    display: flex;
-    flex: 0 0 auto;
-    width: 24px;
-    height: 24px;
-}
-
-.navigation-links-container {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: row;
-    gap: 28px;
-    align-items: flex-start;
-    justify-content: center;
-    margin-left: 29px;
-}
-
-.vertical-text-container {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-bottom: 2.75px;
-}
-
-.svg-container3 {
-    display: flex;
-    flex: 0 0 auto;
-    width: 24px;
-    height: 24px;
-    color: #3f3f3f;
-}
-
-.menu-link-text-style {
-    flex: 0 0 auto;
-    padding: 0;
-    margin: 0;
-    margin-top: 7.75px;
-    font: 400 14px Inter, sans-serif;
-    color: #3f3f3f;
-}
-
-.vertical-menu-nav-item {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-/*<-- швидкоbuy логотип -->*/
-.logo-link {
-    display: inline-block;
-    text-decoration: none;
-}
-
-.logo-image {
-    width: 350px;
-    height: 70px;
-}
-.logo-sz-left {
-    width: 90%;
-    height: 38px;
-    margin-top: 15px;
-}
-
-.logo-sz-main {
-    width: 100%;
-    margin-top: 15px;
-}
-
-@media (max-width: 768px) {
-    .logo-sz-main {
-        min-width: 180px; 
-        min-height: 30px;
+    .svg-container {
+        display: flex;
+        width: 24px;
+        height: 24px;
     }
-}
-@media (max-width: 480px) {
-    .logo-sz-main {
-       width: 240px;   
-       height: 48px;
+
+    .quick-search-container {
+        box-sizing: border-box;
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: row;
+        gap: 8px;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 17px;
+        margin-left: 20px;
+        background: #fbfbfb;
+        border: 1px solid #9c12ff;
+        border-radius: 12px;
+        width: 100%; /* Поле пошуку заповнює весь простір */
     }
-}
-
-/*<-- каталог кнопка -->*/
-.quick-find-button {
-    box-sizing: border-box;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 9px;
-    align-items: center;
-    justify-content: center;
-    width: 133px;
-    min-width: 133px;
-    height: 44px;
-    font: 500 16px Inter, sans-serif;
-    color: white;
-    cursor: pointer;
-    background: #9c12ff;
-    border: none;
-    border-radius: 12px;
-}
-
-.svg-container {
-    display: flex;
-    width: 24px;
-    height: 24px;
-}
-
-/*<-- Знайти на швидкоbuy поле -->*/
-.logo-link {
-    margin-right: 1rem; /* Зменшити значення, щоб зменшити відстань між логотипом та кнопкою */
-}
-
-.quick-find-button {
-    margin-left: 0.5rem; /* Зменшити значення, якщо потрібно налаштувати відстань */
-}
-
-.white-icon {
-    color: white;
-}
-
-.quick-search-container {
-    box-sizing: border-box;
-    display: flex;
-    flex: 1 0 auto;
-    flex-direction: row;
-    gap: 8px;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 17px;
-    margin-left: 20px;
-    background: #fbfbfb;
-    border: 1px solid #9c12ff;
-    border-radius: 12px;
-    width: auto;
-}
-
-.quick-search-label {
-    flex: 0 0 auto;
-    padding: 0;
-    margin: 0;
-    font: 400 16px Inter, sans-serif;
-    color: #959595;
-}
-
-.quick-search-container1 {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: row;
-    gap: 14.5px;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.vertical-divider {
-    box-sizing: border-box;
-    flex: 0 0 auto;
-    width: 1px;
-    height: 20px;
-    border-left: 1px solid #cecece;
-}
-
-.svg-container1 {
-    display: flex;
-    flex: 0 0 auto;
-    width: 24px;
-    height: 24px;
-    color: #959595;
-}
-
-.purple-box-with-text {
-    box-sizing: border-box;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 43px;
-    padding-right: 26px;
-    padding-left: 26px;
-    background: #9c12ff;
-    border-radius: 0px 12px 12px 0px;
-}
-
-/*<-- навигатор лінк -->*/
-.navigation-links-container {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: row;
-    gap: 28px;
-    align-items: flex-start;
-    justify-content: center;
-    margin-left: 29px;
-}
-
-.vertical-text-container {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-bottom: 2.75px;
-}
-
-.svg-container3 {
-    display: flex;
-    flex: 0 0 auto;
-    width: 24px;
-    height: 24px;
-    color: #3f3f3f;
-}
-
-.menu-link-text-style {
-    flex: 0 0 auto;
-    padding: 0;
-    margin: 0;
-    margin-top: 7.75px;
-    font: 400 14px Inter, sans-serif;
-    color: #3f3f3f;
-}
-
-.vertical-menu-nav-item {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.svg-container2 {
-    display: flex;
-    flex: 0 0 auto;
-    width: 24px;
-    height: 24px;
-}
 
 
-/*<--   НЕ ВИКОРИСТОВУЄТЬСЯ   -->*/
-/*<-- модальне вікно КАТАЛОГ-->*/
-#catalogModal .modal-dialog {
-    max-width: 90%; /* Ширина модального вікна 90% від ширини екрану */
-    margin-top: 5%; /* Відступ від верху (під хедером) */
-    margin-bottom: 1rem; /* Невеликий відступ знизу */
-}
-
-#catalogModal .modal-content {
-    height: auto; /* Висота модального вікна по вмісту */
-    max-height: calc(100vh - 10%); /* Висота модального вікна не більше 90% від висоти екрану */
-    overflow-y: auto; /* прокручування, якщо вміст перевищує висоту екрану */
-}
-
-#catalogModal .modal-body {
-    padding: 20px;
-    display: flex;
-    /*justify-content: flex-start;*/
-    flex-direction: column; /* Щоб вміст відображався у стовпчику */
-}
-
-.catalog {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-}
-
-.catalog li {
-    margin-bottom: 10px;
-}
-
-.catalog a {
-    text-decoration: none;
-    font-size: 20px;
-}
-
-.catalog a:hover {
-    color: #9c12ff;
-    text-decoration: underline;
-}
-
-.modal-header,
-.modal-footer {
-    border: none;
-}
-/*<--///////////////////////////////-->*/
+    .search-container {
+        display: flex;
+        justify-content: flex-start; /* Рухатиме кнопку вліво */
+        align-items: center;
+        gap: 10px;
+        flex-wrap: nowrap;
+    }
 
 
-/*<-- випадаюче верхнє вікно КАТАЛОГ-->*/
-.offcanvas-top {
-    width: calc(100% - 350px); /* ширина з кожного боку */
-    margin-left: auto;
-    margin-right: auto;
-    height: auto; /* висотa панелі */
-    max-height: 80vh; /* Максимум висоти екрану */
-    top: 100px; /* Зміщення на висоту хедера */
-    border-radius: 10px;
-}
+    @media (max-width: 768px) {
+        .quick-search-label {
+            font-size: 0.9rem;
+        }
+    }
 
-.offcanvas-backdrop {  /* Кастомне затінення для offcanvas */
-    position: fixed;
-    top: 100px; /* Висота хедера */
-    width: 100%;
-    height: calc(100vh - 100px); /* Покриває всю сторінку, крім хедера */
-    background-color: rgba(0, 0, 0, 0.5); /* Напівпрозоре чорне тло */
-    z-index: 1040; /* Нижче хедера, але вище контенту сторінки */
-}
-
-.offcanvas-top { /* Відступ для верхнього випадаючого вікна */
-    top: 100px; /* Рівно під хедером */   
-}
-
-.font-sz {
-    font-weight: 1000;
-}
-
-/*Вирівнювання іконок*/
-.category-title-wrapper {
-    display: flex;
-    align-items: center;    
-}
-
-.category-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none; /* прибрати з лінка підкреслення */
-    width: 100%;
-}
-
-.category-link .bi-chevron-right {
-    margin-left: auto; 
-    margin-right: 5px;
-}
-
-.catalog a, .category-link {
-    color: black; /* Чорний колір тексту та іконок */
-}
-
-.catalog a:hover, .category-link:hover {
-    color: #9c12ff; /* Фіолетовий колір при наведенні */
-}
-
-/*виведення підкатегорій та субпідкатегорій*/
-#subcategory-container {
-    display: none; /* Спочатку приховуємо контейнер */
-}
-
-.category-link:hover + #subcategory-container {
-    display: block; /* Відображаємо при наведенні */
-}
-
-.child-category {
-    font-weight: bold;
-}
-
-.subchild-category {
-    margin-left: 20px; /* Робимо відступ для субпідкатегорій */
-}
-
-/*<--  права частина каталогу  -->*/
-.text-block {
-    width: 100%;
-    max-width: 1200px; /* Максимальна ширина блоку */
-    height: auto; /* Висота блоку */
-    column-count: 3; /* Максимум три колонки */
-    column-gap: 20px; /* Відступи між колонками */
-    padding: 20px;
-    overflow: hidden; /* Приховати текст, який виходить за межі блоку */
-    /*border: 1px solid #ccc;*/ /* Додаємо рамку для стилізації */
-    box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
-}
-
-    .text-block p {
+    .quick-search-label {
+        flex: 0 0 auto;
+        padding: 0;
         margin: 0;
+        font: 400 16px Inter, sans-serif;
+        color: #959595;
+    }
+
+    .quick-search-container1 {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        gap: 14.5px;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .vertical-divider {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 1px;
+        height: 20px;
+        border-left: 1px solid #cecece;
+    }
+
+    .svg-container1 {
+        display: flex;
+        flex: 0 0 auto;
+        width: 24px;
+        height: 24px;
+        color: #959595;
+    }
+
+    .purple-box-with-text {
+        box-sizing: border-box;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 43px;
+        padding-right: 26px;
+        padding-left: 26px;
+        background: #9c12ff;
+        border-radius: 0px 12px 12px 0px;
+    }
+
+    .svg-container2 {
+        display: flex;
+        flex: 0 0 auto;
+        width: 24px;
+        height: 24px;
+    }
+
+    .navigation-links-container {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        gap: 28px;
+        align-items: flex-start;
+        justify-content: center;
+        margin-left: 29px;
+    }
+
+    .vertical-text-container {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-bottom: 2.75px;
+    }
+
+    .svg-container3 {
+        display: flex;
+        flex: 0 0 auto;
+        width: 24px;
+        height: 24px;
+        color: #3f3f3f;
+    }
+
+    .menu-link-text-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        margin-top: 7.75px;
+        font: 400 14px Inter, sans-serif;
+        color: #3f3f3f;
+    }
+
+    .vertical-menu-nav-item {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    /*<-- швидкоbuy логотип -->*/
+    .logo-link {
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    .logo-sz-main {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    @media (max-width: 1654px) {
+        .logo-large {
+            display: none;
+        }
+    }
+
+    @media (max-width: 1654px) {
+        .logo-small {
+            display: inline;
+            width: 37px;
+        }
+    }
+
+    @media (min-width: 1655px) {
+        .logo-small {
+            display: none;
+        }
+    }
+    /* іконка адмін панелі */
+    @media (max-width: 1654px) {
+        .admin-non {
+            display: none;
+        }
+    }
+    /* іконка список покупок */
+    @media (max-width: 965px) {
+        .list-none {
+            display: none;
+        }
     }
 
 
-/*<-- головна сторінка -->*/
-.product-block {
-    background-color: #f5f5dc; /* бежовий фон */
-    padding: 20px;
-    text-align: center;
-    position: relative;
-}
-
-.product-title {
-    font-weight: bold;
-}
-
-.product-price {
-    color: red;
-    font-size: 1.2rem;
-}
-
-.heart-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-
-/*Поля ввода регистрация */
-.enter-reg {
-    width: 100%; /* Обеспечит, что поля не будут выходить за пределы */
-    max-width: 100%; /* Ограничит их до размеров контейнера */
-    height: 42px;
-    left: 499px;
-    top: 511px;
-    border: 1px solid #C9C9C9;
-    border-radius: 12px;
-    margin-bottom: -4px; /* Уменьшите отступ до нужного значения */
-    margin-top: -4px;
-}
-.enter-reg-text {
-    display: block; /* Чтобы текст занимал всю ширину */
-    margin-bottom: -4px; /* Уменьшите отступ до нужного значения */
-    margin-top: -4px;
-}
-
-
-.enter-reg-text::after {
-    content: '\2022'; /* Unicode для точки */
-    color: red; /* Цвет точки */
-    margin-left: 5px; /* Отступ от текста */
-    font-size: 20px; /* Размер точки, можно регулировать */
-    vertical-align: middle; /* Вертикальное выравнивание */
-    margin-top: -5px;
-}
-
-.btn-thicker {
-    padding-top: 10px; /* Отступ сверху */
-    padding-bottom: 10px; /* Отступ снизу */
-}
-
-.enter-reg-tittle {
-    font-size: 22px !important;
-    
-}
-/* Линия "АБО", форма входа */
-.line-with-text {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    width: 100%; /* Ширина всей полосы */
-}
-
-    .line-with-text::before,
-    .line-with-text::after {
-        content: '';
-        flex-grow: 1;
-        height: 1px;
-        margin-top: 25px; /* Отступ сверху */
-        margin-bottom: 1px; /* Отступ снизу */
-        background-color: #E8E8E8; /* Цвет линии */
+    /*<-- каталог кнопка -->*/
+    .quick-find-button {
+        box-sizing: border-box;
+        display: inline-flex;
+        gap: 9px;
+        align-items: center;
+        justify-content: center;
+        width: 133px;
+        min-width: 133px;
+        height: 44px;
+        font: 500 16px Inter, sans-serif;
+        color: white;
+        cursor: pointer;
+        background: #9c12ff;
+        border: none;
+        border-radius: 12px;
+        flex-shrink: 0;
+        margin-left: 0.5rem; /* Зменшити значення, якщо потрібно налаштувати відстань */
     }
 
-    .line-with-text::before {
-        margin-right: 1px; /* Отступ от текста до линии слева */
+    .svg-container {
+        display: flex;
+        width: 24px;
+        height: 24px;
     }
 
-    .line-with-text::after {
-        margin-left: 1px; /* Отступ от текста до линии справа */
-    }
-
-    .line-with-text span {
-        white-space: nowrap; /* Предотвращает перенос текста */
-        padding: 0 10px; /* Отступы вокруг текста */
-        color: #818181; /* Цвет текста */
-    }
-
-.horizontal-line {
-    width: 100%; /* Толщина полоски */
-    height: 1px; /* Высота полоски */
-    background-color: #E8E8E8; /* Цвет полоски */
-    margin: 0 auto; /* Центровка */
-}
-
-.no-margin-top {
-    margin-top: 0 !important; /* Убирает верхний отступ с приоритетом */
-}
-.btn-gray {
-    background-color: #E0E0E0; /* Серый цвет фона */
-    color: black; /* Черный текст */
-    border-radius: 12px; /* Закругление углов */
-    padding: 10px 20px; /* Внутренние отступы */
-    text-decoration: none; /* Убираем подчеркивание */
-    display: inline-flex; /* Для выравнивания иконки и текста */
-    align-items: center; /* Вертикальное выравнивание */
-    transition: background-color 0.3s; /* Эффект при наведении */
-}
-
-    .btn-gray:hover {
-        background-color: #B0B0B0; /* Цвет фона при наведении */
-    }
-
-    .btn-gray i {
-        color: inherit; /* Убираем стандартный цвет иконок */
+    /*<-- Знайти на швидкоbuy поле -->*/
+    .logo-link {
+        margin-right: 1rem; /* Зменшити значення, щоб зменшити відстань між логотипом та кнопкою */
     }
 
 
 
-/*<--  бокове  вікно  -->*/
-.left-wind {
-    width: 100%;
-    max-width: 600px; /* Максимальна ширина блоку */
-    height: auto; /* Висота блоку */
-    padding: 10px;
-    border: 1px solid #ccc; /* Додаємо рамку для стилізації */
-    box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
-}
-
-.btn-sz {
-    width: 95%;   
-}
-
-.mr-top {
-    margin-top: 25px;
-    margin-left: 10px;
-}
-
-.reg-bl {
-    width: 96%;
-    height: 150px;
-    background-color: antiquewhite;
-    border-radius: 5px;
-    margin: 10px;
-}
-
-.entr-btn {
-    background-color: #e8daf4;
-    border-radius: 10px;
-    border: 3px solid #9C12FF;
-}
-/* для іконки порівняння */
-.comp-list-container {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.shop-cart-title {
-    flex: 0 0 auto;
-    padding: 0;
-    margin: 0;
-    margin-left: 7px;
-    font: 400 22px Inter, sans-serif;
-}
-/* для іконки кошика */
-.shop-cart-container {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.svg-contnr1, .svg-contnr2 {
-    display: flex;
-    flex: 0 0 auto;
-    width: 34px;
-    height: 34px;
-    margin: 10px 15px;
-}
-
-.icon-path {
-    transition: stroke 0.3s ease;
-}
-.cart-itm:hover .icon-path {
-    stroke: #800080; /* Фіолетовий колір іконки при наведенні */
-}
-.icon:hover .icon-path {
-    stroke: #800080;  
-}
-.icon:hover .shop-cart-title {
-    color: #800080;  
-}
-/*стрілка випадаючого списку Сервіс*/
-.dropdown {
-    cursor: pointer;
-}
-
-.drop-dn-it, .services-text {
-    font: 400 22px Inter, sans-serif;
-}
-
-#servicesList {
-    list-style-type: none; /* Вимикає маркери списку */
-    padding: 0; /* Вимикає відступи зліва */
-    margin: 0; /* Вимикає відступи ззовні */
-}
-/*//////////////////////*/
-
-.btn {
-    display: flex;
-    align-items: center; /* Центрирование по вертикали */
-    justify-content: center; /* Центрирование по горизонтали */
-}
-
-.btn svg {
-    margin-right: 8px; /* Отступ между значком и текстом */
-}
-
-.btn span {
-    display: flex; /* Для выравнивания текста */
-    align-items: center; /* Центрирование текста по вертикали */
-}
-
- /* соціальних контейнерів блок */
-.social-media-container {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 5px 5px 24px;
-}
-
-.city-location-text-style {
-    padding: 0;
-    margin: 0;
-    font: 100 22px Inter, sans-serif;
-    color: #2f2f2f;
-}
-
-.social-media-links-container {
-    display: flex;
-    flex-direction: row;
-    gap: 23px;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: 19px;
-}
-
-.svg-container4 {
-    display: flex;
-    flex: 0 0 auto;
-    width: 40px;
-    height: 40px;
-}
-
-.f-st {
-    font-weight: 600;
-}
-
-.f-sz {
-    font-size: 24px;
-}
-
-/*анімація логотипу*/
-.anime-logo-link svg {
-    transform-origin: center; /* Встановлюємо центр як точку початку трансформації */
-    animation: reveal 3s ease-in-out infinite; /* Застосовуємо анімацію */
-}
-
-@keyframes reveal {
-    0%, 100% {
-        transform: scaleX(0); /* Логотип стиснутий по горизонталі до центру */
+    .white-icon {
+        color: white;
     }
 
-    50% {
-        transform: scaleX(1); /* Логотип розкритий до повної ширини */
+    .quick-search-container {
+        box-sizing: border-box;
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: row;
+        gap: 8px;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 17px;
+        margin-left: 20px;
+        background: #fbfbfb;
+        border: 1px solid #9c12ff;
+        border-radius: 12px;
+        width: auto;
     }
-}
 
-/* мапа світу */
-#map {
-    height: 600px; /*  висота карти */
-}
+    .quick-search-label {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        font: 400 16px Inter, sans-serif;
+        color: #959595;
+    }
+
+    .quick-search-container1 {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        gap: 14.5px;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .vertical-divider {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 1px;
+        height: 20px;
+        border-left: 1px solid #cecece;
+    }
+
+    .svg-container1 {
+        display: flex;
+        flex: 0 0 auto;
+        width: 24px;
+        height: 24px;
+        color: #959595;
+    }
+
+    .purple-box-with-text {
+        box-sizing: border-box;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 43px;
+        padding-right: 26px;
+        padding-left: 26px;
+        background: #9c12ff;
+        border-radius: 0px 12px 12px 0px;
+    }
+
+    /*<-- навигатор лінк -->*/
+    .navigation-links-container {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        gap: 28px;
+        align-items: flex-start;
+        justify-content: center;
+        margin-left: 29px;
+    }
+
+    .vertical-text-container {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-bottom: 2.75px;
+    }
+
+    .svg-container3 {
+        display: flex;
+        flex: 0 0 auto;
+        width: 24px;
+        height: 24px;
+        color: #3f3f3f;
+    }
+
+    .menu-link-text-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        margin-top: 7.75px;
+        font: 400 14px Inter, sans-serif;
+        color: #3f3f3f;
+    }
+
+    .vertical-menu-nav-item {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .svg-container2 {
+        display: flex;
+        flex: 0 0 auto;
+        width: 24px;
+        height: 24px;
+    }
+
+    /*<-- випадаюче верхнє вікно КАТАЛОГ-->*/
+    .offcanvas-top {
+        width: calc(100% - 350px); /* ширина з кожного боку */
+        margin-left: auto;
+        margin-right: auto;
+        height: auto; /* висотa панелі */
+        max-height: 80vh; /* Максимум висоти екрану */
+        top: 100px; /* Зміщення на висоту хедера */
+        border-radius: 10px;
+    }
+
+    .offcanvas-backdrop { /* Кастомне затінення для offcanvas */
+        position: fixed;
+        top: 100px; /* Висота хедера */
+        width: 100%;
+        height: calc(100vh - 100px); /* Покриває всю сторінку, крім хедера */
+        background-color: rgba(0, 0, 0, 0.5); /* Напівпрозоре чорне тло */
+        z-index: 1040; /* Нижче хедера, але вище контенту сторінки */
+    }
+
+    .offcanvas-top { /* Відступ для верхнього випадаючого вікна */
+        top: 100px; /* Рівно під хедером */
+    }
+
+    .font-sz {
+        font-weight: 1000;
+    }
+
+    /*Вирівнювання іконок*/
+    .category-title-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .category-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none; /* прибрати з лінка підкреслення */
+        width: 100%;
+    }
+
+        .category-link .bi-chevron-right {
+            margin-left: auto;
+            margin-right: 5px;
+        }
+
+    .catalog a, .category-link {
+        color: black; /* Чорний колір тексту та іконок */
+    }
+
+        .catalog a:hover, .category-link:hover {
+            color: #9c12ff; /* Фіолетовий колір при наведенні */
+        }
+
+    /*виведення підкатегорій та субпідкатегорій*/
+    #subcategory-container {
+        display: none; /* Спочатку приховуємо контейнер */
+    }
+
+    .category-link:hover + #subcategory-container {
+        display: block; /* Відображаємо при наведенні */
+    }
+
+    .child-category {
+        font-weight: bold;
+    }
+
+    .subchild-category {
+        margin-left: 20px; /* Робимо відступ для субпідкатегорій */
+    }
+
+    /*<--  права частина каталогу  -->*/
+    .text-block {
+        width: 100%;
+        max-width: 1200px; /* Максимальна ширина блоку */
+        height: auto; /* Висота блоку */
+        column-count: 3; /* Максимум три колонки */
+        column-gap: 20px; /* Відступи між колонками */
+        padding: 20px;
+        overflow: hidden; /* Приховати текст, який виходить за межі блоку */
+        /*border: 1px solid #ccc;*/ /* Додаємо рамку для стилізації */
+        box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
+    }
+
+        .text-block p {
+            margin: 0;
+        }
+    /* //////////////  кінець header /////////// */
+
+    /*<--////////////  головна сторінка /////////////-->*/
+    .product-block {
+        background-color: #f5f5dc; /* бежовий фон */
+        padding: 20px;
+        text-align: center;
+        position: relative;
+    }
+
+    .product-title {
+        font-weight: bold;
+    }
+
+    .product-price {
+        color: red;
+        font-size: 1.2rem;
+    }
+
+    .heart-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    /*Поля ввода регистрация */
+    .enter-reg {
+        width: 100%; /* Обеспечит, что поля не будут выходить за пределы */
+        max-width: 100%; /* Ограничит их до размеров контейнера */
+        height: 42px;
+        left: 499px;
+        top: 511px;
+        border: 1px solid #C9C9C9;
+        border-radius: 12px;
+        margin-bottom: -4px; /* Уменьшите отступ до нужного значения */
+        margin-top: -4px;
+    }
+
+    .enter-reg-text {
+        display: block; /* Чтобы текст занимал всю ширину */
+        margin-bottom: -4px; /* Уменьшите отступ до нужного значения */
+        margin-top: -4px;
+    }
+
+
+        .enter-reg-text::after {
+            content: '\2022'; /* Unicode для точки */
+            color: red; /* Цвет точки */
+            margin-left: 5px; /* Отступ от текста */
+            font-size: 20px; /* Размер точки, можно регулировать */
+            vertical-align: middle; /* Вертикальное выравнивание */
+            margin-top: -5px;
+        }
+
+    .btn-thicker {
+        padding-top: 10px; /* Отступ сверху */
+        padding-bottom: 10px; /* Отступ снизу */
+    }
+
+    .enter-reg-tittle {
+        font-size: 22px !important;
+    }
+    /* Линия "АБО", форма входа */
+    .line-with-text {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        width: 100%; /* Ширина всей полосы */
+    }
+
+        .line-with-text::before,
+        .line-with-text::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            margin-top: 25px; /* Отступ сверху */
+            margin-bottom: 1px; /* Отступ снизу */
+            background-color: #E8E8E8; /* Цвет линии */
+        }
+
+        .line-with-text::before {
+            margin-right: 1px; /* Отступ от текста до линии слева */
+        }
+
+        .line-with-text::after {
+            margin-left: 1px; /* Отступ от текста до линии справа */
+        }
+
+        .line-with-text span {
+            white-space: nowrap; /* Предотвращает перенос текста */
+            padding: 0 10px; /* Отступы вокруг текста */
+            color: #818181; /* Цвет текста */
+        }
+
+    .horizontal-line {
+        width: 100%; /* Толщина полоски */
+        height: 1px; /* Высота полоски */
+        background-color: #E8E8E8; /* Цвет полоски */
+        margin: 0 auto; /* Центровка */
+    }
+
+    .no-margin-top {
+        margin-top: 0 !important; /* Убирает верхний отступ с приоритетом */
+    }
+
+    .btn-gray {
+        background-color: #E0E0E0; /* Серый цвет фона */
+        color: black; /* Черный текст */
+        border-radius: 12px; /* Закругление углов */
+        padding: 10px 20px; /* Внутренние отступы */
+        text-decoration: none; /* Убираем подчеркивание */
+        display: inline-flex; /* Для выравнивания иконки и текста */
+        align-items: center; /* Вертикальное выравнивание */
+        transition: background-color 0.3s; /* Эффект при наведении */
+    }
+
+        .btn-gray:hover {
+            background-color: #B0B0B0; /* Цвет фона при наведении */
+        }
+
+        .btn-gray i {
+            color: inherit; /* Убираем стандартный цвет иконок */
+        }
+
+
+
+    /*<-- ліве  бокове  вікно  -->*/
+    .left-wind {
+        width: 100%;
+        max-width: 600px; /* Максимальна ширина блоку */
+        height: auto; /* Висота блоку */
+        padding: 10px;
+        border: 1px solid #ccc; /* Додаємо рамку для стилізації */
+        box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
+    }
+
+    .btn-sz {
+        width: 95%;
+    }
+
+    .mr-top {
+        margin-top: 25px;
+        margin-left: 10px;
+    }
+
+    .reg-bl {
+        width: 96%;
+        height: 150px;
+        background-color: antiquewhite;
+        border-radius: 5px;
+        margin: 10px;
+    }
+
+    .entr-btn {
+        background-color: #e8daf4;
+        border-radius: 10px;
+        border: 3px solid #9C12FF;
+    }
+    /* для іконки порівняння */
+    .comp-list-container {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .shop-cart-title {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        margin-left: 7px;
+        font: 400 22px Inter, sans-serif;
+    }
+    /* для іконки кошика */
+    .shop-cart-container {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .svg-contnr1, .svg-contnr2 {
+        display: flex;
+        flex: 0 0 auto;
+        width: 34px;
+        height: 34px;
+        margin: 10px 15px;
+    }
+
+    .icon-path {
+        transition: stroke 0.3s ease;
+    }
+
+    .cart-itm:hover .icon-path {
+        stroke: #800080; /* Фіолетовий колір іконки при наведенні */
+    }
+
+    .icon:hover .icon-path {
+        stroke: #800080;
+    }
+
+    .icon:hover .shop-cart-title {
+        color: #800080;
+    }
+    /*стрілка випадаючого списку Сервіс*/
+    .dropdown {
+        cursor: pointer;
+    }
+
+    .drop-dn-it, .services-text {
+        font: 400 22px Inter, sans-serif;
+    }
+
+    #servicesList {
+        list-style-type: none; /* Вимикає маркери списку */
+        padding: 0; /* Вимикає відступи зліва */
+        margin: 0; /* Вимикає відступи ззовні */
+    }
+    /*//////////////////////*/
+
+    .btn {
+        display: flex;
+        align-items: center; /* Центрирование по вертикали */
+        justify-content: center; /* Центрирование по горизонтали */
+    }
+
+        .btn svg {
+            margin-right: 8px; /* Отступ между значком и текстом */
+        }
+
+        .btn span {
+            display: flex; /* Для выравнивания текста */
+            align-items: center; /* Центрирование текста по вертикали */
+        }
+
+    /* соціальних контейнерів блок */
+    .social-media-container {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 5px 5px 24px;
+    }
+
+    .city-location-text-style {
+        padding: 0;
+        margin: 0;
+        font: 100 22px Inter, sans-serif;
+        color: #2f2f2f;
+    }
+
+    .social-media-links-container {
+        display: flex;
+        flex-direction: row;
+        gap: 23px;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 19px;
+    }
+
+    .svg-container4 {
+        display: flex;
+        flex: 0 0 auto;
+        width: 40px;
+        height: 40px;
+    }
+
+    .f-st {
+        font-weight: 600;
+    }
+
+    .f-sz {
+        font-size: 24px;
+    }
+    /* /////////  кінець ліве бокове вікно //////// */
+
+    /*анімація логотипу*/
+    .anime-logo-link svg {
+        transform-origin: center; /* Встановлюємо центр як точку початку трансформації */
+        animation: reveal 3s ease-in-out infinite; /* Застосовуємо анімацію */
+    }
+
+    @keyframes reveal {
+        0%, 100% {
+            transform: scaleX(0); /* Логотип стиснутий по горизонталі до центру */
+        }
+
+        50% {
+            transform: scaleX(1); /* Логотип розкритий до повної ширини */
+        }
+    }
+
+    /* мапа світу */
+    #map {
+        height: 600px; /*  висота карти */
+    }
 
 
 
