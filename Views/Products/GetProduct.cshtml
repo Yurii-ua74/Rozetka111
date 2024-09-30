@@ -3,7 +3,7 @@
 @{
     string? category = Context.Session.GetString("Category");
     string? childcategory = Context.Session.GetString("ChildCategory");    
-    string? subchildcategory = Context.Session.GetString("SubChildCategory");
+    // string? subchildcategory = Context.Session.GetString("SubChildCategory");
     string? product = Context.Session.GetString("Product");
 }
 @{
@@ -14,8 +14,8 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href=".."><i class="bi bi-house"></i></a></li>
         <li class="breadcrumb-item"><a href="/Categories/GetChildCategories?category=@category">@category</a></li>
-        <li class="breadcrumb-item"><a href="/Childcategories/GetSubChildCategories?childcategory=@childcategory">@childcategory</a></></li>
-        <li class="breadcrumb-item"><a href="/SubChildCategory/GetProducts?subchildcategory=@subchildcategory">@subchildcategory</a></></li>
+        <li class="breadcrumb-item"><a href="/Childcategories/GetProducts?childcategory=@childcategory">@childcategory</a></></li>
+        @* <li class="breadcrumb-item"><a href="/SubChildCategory/GetProducts?subchildcategory=@subchildcategory">@subchildcategory</a></></li> *@
         <li class="breadcrumb-item active" aria-current="page">@Model.Brand.Title</li>
     </ol>
 </nav>

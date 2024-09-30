@@ -663,7 +663,7 @@ a:hover{
         font-weight: 1000;
     }
 
-    /*Вирівнювання іконок*/
+    /* Вирівнювання іконок */
     .category-title-wrapper {
         display: flex;
         align-items: center;
@@ -725,16 +725,30 @@ a:hover{
     /* //////////////  кінець header /////////// */
 
     /*<--////////////  головна сторінка /////////////-->*/
-    .product-block {
-        background-color: #f5f5dc; /* бежовий фон */
-        padding: 20px;
-        text-align: center;
-        position: relative;
-    }
+.product-block, .product-block-products {
+    text-align: center;
+    position: relative;   
+    max-height: 250px; /* максимальна висота для картки */
+    min-height: 250px; /* мінімальна висота для вирівнювання */
+    overflow: hidden; /* Якщо контент перевищує висоту, приховати його */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Рівномірний розподіл елементів у картці */
+}
 
-    .product-title {
-        font-weight: bold;
-    }
+.product-block {
+    background-color: #f5f5dc;
+    padding: 20px;
+}
+
+.product-block-products {
+    background-color: #f5f4eb;
+    padding: 5px;
+}
+
+.product-title {
+    font-weight: bold;
+}
 
     .product-price {
         color: red;
@@ -1024,6 +1038,7 @@ a:hover{
     #map {
         height: 600px; /*  висота карти */
     }
+
 
 
 
