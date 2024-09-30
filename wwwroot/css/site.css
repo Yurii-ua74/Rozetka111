@@ -728,8 +728,8 @@ a:hover{
 .product-block, .product-block-products {
     text-align: center;
     position: relative;   
-    max-height: 250px; /* максимальна висота дл€ картки */
-    min-height: 250px; /* м≥н≥мальна висота дл€ вир≥внюванн€ */
+    max-height: 300px; /* максимальна висота дл€ картки */
+    min-height: 300px; /* м≥н≥мальна висота дл€ вир≥внюванн€ */
     overflow: hidden; /* якщо контент перевищуЇ висоту, приховати його */
     display: flex;
     flex-direction: column;
@@ -742,7 +742,7 @@ a:hover{
 }
 
 .product-block-products {
-    background-color: #f5f4eb;
+    background-color: #fbfaf9;
     padding: 5px;
 }
 

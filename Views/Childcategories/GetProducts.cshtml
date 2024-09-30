@@ -1,14 +1,16 @@
 ﻿@using Rozetka.Data.Entity
-@model IEnumerable<Product> 
+@using Rozetka.Models.ViewModels.ProductAndSubChildCategory
+@* @model IEnumerable<Product>  *@
 @* @model Dictionary<Rozetka.Data.Entity.SubChildCategory, List<Rozetka.Data.Entity.Product>> *@
+    @model ProductAndSubChildCategoryViewModel
 
 @{
     string? category = Context.Session.GetString("Category");
     string? childcategory = Context.Session.GetString("ChildCategory");
     // string? subchildcategory = Context.Session.GetString("SubChildCategory");
 
-    decimal? minPrice = Model.Any() ? Model.Min(p => p.Price) : null;
-    decimal? maxPrice = Model.Any() ? Model.Max(p => p.Price) : null;
+    decimal? minPrice = Model.Products.Any() ? Model.Products.Min(p => p.Price) : null;
+    decimal? maxPrice = Model.Products.Any() ? Model.Products.Max(p => p.Price) : null;
 }
 @{
     ViewData["Title"] = childcategory;
@@ -29,7 +31,7 @@
     <ul class="list-group list-group-horizontal">
 
         <li class="list-group-item">
-            Знайдено @Model.Count() товарів
+            Знайдено @Model.Products.Count() товарів
         </li>
         @if (!string.IsNullOrEmpty(Context.Session.GetString("SelectedBrands")) || !string.IsNullOrEmpty(Context.Session.GetString("StartPrice")) || !string.IsNullOrEmpty(Context.Session.GetString("EndPrice")))
         {
@@ -65,7 +67,7 @@
 
 <div class="row">
     <div class="col-sm-3 text-start border-end border-2" style="min-width: 300px">
-        @if (Model.Any())
+        @if (Model.Products.Any())
         {
             <div class="accordion" id="accordionPanelsStayOpenExample">
                 
@@ -75,7 +77,7 @@
                             Бренд
                         </button>
                     </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
+                   @*  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
                         <div class="accordion-body">
                             <form method="post" asp-action="AddFilter">
                                 <ul class="list-group list-group-flush">
@@ -95,7 +97,26 @@
                             </form>
 
                         </div>
+                    </div> *@
+                    <div class="col-md-2">
+                        <h5>...</h5>
+                        <hr>
+                        <ul class="list-unstyled">
+                            @foreach (var subchildcategory in Model.SubChildCategories)
+                            {
+                                <li>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id" onchange="handleCheckboxChange()">
+                                        <label class="form-check-label f-sz" for="subchildcategory_@subchildcategory.Id">
+                                            @subchildcategory.Name
+                                        </label>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
                     </div>
+
+                    
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
@@ -128,7 +149,7 @@
     </div>
 
     <div class="col-sm-8">
-        @if (!Model.Any())
+        @if (!Model.Products.Any())
         {
             <div class="container d-flex align-items-center justify-content-center">
                 <h4><em>В зв'язку з тим, що сайт знаходиться в розробці, товари даної категорії ще відсутні! Але, якщо ви маєте права адміністратора, ви можете це виправити!:)</em></h4>
@@ -136,103 +157,8 @@
         }
         else
         {
-            @* <div class="row row-cols-3 row-cols-md-5 g-1">
-                @foreach (var product in Model.Where(p => p.QuantityInStock > 0))
-                {
-                    <div class="col" style="min-width: 160px">
-                        <div class="card h-100">
-                            <div class="d-flex justify-content-center p-1">
-                                <a href="/Products/GetProduct?id=@product.Id">
-                                    @if (product.ProductImages != null && product.ProductImages.Any())
-                                    {
-                                        var firstImage = product.ProductImages.FirstOrDefault();
-                                        var lastImage = product.ProductImages.LastOrDefault();
-
-                                        <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
-                                             alt="Product Image"
-                                             style="max-height: 155px; width: auto; max-width: 100%;"
-                                             onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';"
-                                             onmouseover="this.src='data:image;base64,@Convert.ToBase64String(lastImage.ImageData)'"
-                                             onmouseout="this.src='data:image;base64,@Convert.ToBase64String(firstImage.ImageData)'" />
-                                    }
-                                    else
-                                    {
-                                        <img src="/photoproducts/no-image.jpg" alt="Photo" class="card-img-top" style="max-height: 155px;" />
-                                    }
-                                </a>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <a type="button" class="link btn" onclick="addListCompare('@product.Id')">
-
-                                        <img src="~/icons/balance_icon.png" alt="Balance Icon" class="icon-img">
-                                    </a>
-
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <a class="a-card" href="/Products/GetProduct?id=@product.Id">
-                                    <p class="card-text">@product.ProductType.Title @product.Brand.Title @product.Title</p>
-                                </a>
-                                <h5 class="card-title">@product.Price.ToString("0") ₴</h5>
-                            </div>
-
-                            <div class="product-item">
-                                <!-- Кнопка для додавання товару в кошик (бічне вікно)-->
-                               @*  <button class="btn btn-primary"
-                                        onclick="addToCartAndOpenSidebar('@product.Id', '@product.Brand.Title', '@product.Title', '@product.ProductImages', '@product.Price')">
-                                    <i class="bi bi-cart-plus"></i> Add to Cart
-                                </button> *@
-
-
-                                @* кнопка додавання до кошика *@
-                             @*   <div class="mt-3">
-                                    <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart">
-                                        <i class="bi bi-cart-plus"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                }
-                @foreach (var product in Model.Where(p => p.QuantityInStock <= 0))
-                {
-                    <div class="col">
-                        <div class="card h-100" style="opacity: 0.8;">
-
-                            <div class="d-flex justify-content-center p-1">
-                                <a href="/Products/GetProduct?id=@product.Id">
-                                    @if (product.ProductImages != null && product.ProductImages.Any())
-                                    {
-                                        var firstImage = product.ProductImages.FirstOrDefault();
-
-                                        <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
-                                             alt="Product Image"
-                                             style="max-height: 155px; width: auto; max-width: 100%;"
-                                             onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';" />
-                                    }
-                                    else
-                                    {
-                                        <img src="/photoproducts/no-image.jpg" alt="Photo" class="card-img-top" style="max-height: 155px;" />
-                                    }
-                                </a>
-                            </div>
-
-                            <div class="card-body">
-                                <a class="a-card" href="/Products/GetProduct?id=@product.Id">
-                                    <p class="card-text">@product.ProductType.Title @product.BrandId @product.Title</p>
-                                </a>
-                                <h5 class="card-title">Немає в наявності</h5>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div> *@
-
              <div class="row mb-3">
-                @foreach (var product in Model.Where(p => p.QuantityInStock > 0))
+                @foreach (var product in Model.Products.Where(p => p.QuantityInStock > 0))
                 {
                     <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
                         <!-- Стилізований блок товару -->
@@ -262,7 +188,7 @@
                                 <div class="product-description">@product.Description</div>
                                 <div class="d-flex align-items-center mt-2">
                                     <div class="product-price">@product.Price.ToString("0") ₴</div>
-                                    <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple">                                        
+                                    <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">                                        
                                         <i class="bi bi-cart-plus"></i>
                                     </a>
                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -275,7 +201,7 @@
                     </div>
                 }
 
-                @foreach (var product in Model.Where(p => p.QuantityInStock <= 0))
+                @foreach (var product in Model.Products.Where(p => p.QuantityInStock <= 0))
                 {
                     <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
                         <!-- Стилізований блок товару для товарів без наявності -->
@@ -306,9 +232,44 @@
                     </div>
                 }
             </div> 
-
-
         }
+
+        <!-- Блок для виведення товарів -->
+        <div id="products-block" class="row">
+            <!-- Товари будуть додаватися сюди через AJAX -->
+        </div>
+
     </div>
 </div>
 
+
+
+<!-- JS -->
+<script>
+    function handleCheckboxChange() {
+        // Збираємо всі вибрані чекбокси
+        var selectedSubCategories = [];
+        document.querySelectorAll('.form-check-input:checked').forEach(function (checkbox) {
+            selectedSubCategories.push(checkbox.value);
+        });
+
+        // Виконуємо AJAX запит на сервер, щоб отримати товари для вибраних субкатегорій
+        if (selectedSubCategories.length > 0) {
+            $.ajax({
+                url: '/SubChildCategory/GetProductsBySubChildCategories',
+                type: 'POST',
+                data: { subchildcategoryIds: selectedSubCategories },
+                success: function (result) {
+                    // Очищаємо блок перед виведенням нових товарів
+                    $('#products-block').html(result);
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        } else {
+            // Якщо всі чекбокси зняті, очищаємо блок товарів
+            $('#products-block').html('');
+        }
+    }
+</script>

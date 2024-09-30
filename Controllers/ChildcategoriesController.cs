@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rozetka.Data;
 using Rozetka.Data.Entity;
+using Rozetka.Models.ViewModels.ProductAndSubChildCategory;
 
 namespace Rozetka.Controllers
 {
@@ -26,37 +27,6 @@ namespace Rozetka.Controllers
             return View(await dataContext.ToListAsync());
         }
 
-
-        // Атрибут маршрутизації для методу, який приймає параметр
-        // [Route("Сhildcategories/index{childcategory}")]
-        // // метод Index з параметром
-        //public IActionResult Index(string childcategory)
-        //{
-        //    //var dataContext = _context.Childcategories.Include(c => c.Category);
-        //    //return View(await dataContext.ToListAsync());
-        //    if (string.IsNullOrEmpty(childcategory))
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    // Знайти Id категорії за назвою
-        //    var childcategoryEntity = _context.Childcategories.FirstOrDefault(c => c.Name == childcategory);
-        //    if (childcategoryEntity == null)
-        //    {
-        //        // Якщо підкатегорія не знайдена
-        //        return NotFound();
-        //    }
-
-        //    // Отримати товари для знайденої підкатегорії 
-        //    var products = _context.Products
-        //        .Where(sc => sc.Childcategory.Name == childcategory)
-        //        .ToList();
-
-        //    // Відкрити на новій сторінці
-        //    //ViewData["ChildCategoryName"] = childcategory;
-        //    HttpContext.Session.SetString("ChildCategory", childcategory);
-        //    return View(products);
-        //}
 
         // GET: Childcategories/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -217,6 +187,7 @@ namespace Rozetka.Controllers
             return View(subchildCategories);
         }
 
+
         public async Task<IActionResult> GetProducts(string childcategory)
         {
             if (string.IsNullOrEmpty(childcategory))
@@ -261,8 +232,15 @@ namespace Rozetka.Controllers
                 products.AddRange(subProducts);
             }
 
+            // Створити ViewModel та передати його у View
+            var viewModel = new ProductAndSubChildCategoryViewModel
+            {
+                Products = products,
+                SubChildCategories = subchildCategories
+            };
+
             // Передати список продуктів у View
-            return View(products);
+            return View(viewModel);
         }
 
     }
