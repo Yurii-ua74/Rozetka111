@@ -217,5 +217,53 @@ namespace Rozetka.Controllers
             return View(subchildCategories);
         }
 
+        public async Task<IActionResult> GetProducts(string childcategory)
+        {
+            if (string.IsNullOrEmpty(childcategory))
+            {
+                return NotFound();
+            }
+
+            // Знайти підкатегорію за назвою
+            var childcategoryEntity = await _context.Childcategories
+                .FirstOrDefaultAsync(c => c.Name == childcategory);
+            if (childcategoryEntity == null)
+            {
+                // Якщо підкатегорія не знайдена
+                return NotFound();
+            }
+            HttpContext.Session.SetString("ChildCategory", childcategoryEntity.Name);
+
+            // Знайти субпідкатегорії, пов'язані з підкатегорією
+            var subchildCategories = await _context.SubChildCategories
+                .Where(sc => sc.ChildCategoryId == childcategoryEntity.Id)
+                .ToListAsync();
+            if (subchildCategories == null || !subchildCategories.Any())
+            {
+                return NotFound();
+            }
+
+            // Об'єднати всі товари з субпідкатегорій в один список
+            var products = new List<Product>();
+
+            foreach (var subchildCategory in subchildCategories)
+            {
+                var subProducts = await _context.Products
+                    .Where(p => p.SubChildCategoryId == subchildCategory.Id)
+                    .Include(p => p.ProductType)
+                    .Include(p => p.Brand)
+                    .Include(p => p.Childcategory)
+                    .Include(p => p.ProductImages)
+                    .Include(p => p.Reviews)
+                    .Take(6) // Обмеження до 6 товарів
+                    .ToListAsync();
+
+                products.AddRange(subProducts);
+            }
+
+            // Передати список продуктів у View
+            return View(products);
+        }
+
     }
 }
