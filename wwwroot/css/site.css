@@ -31,6 +31,7 @@ body {
     background-color: #9C12FF; /* Цвет фона фиолетовый */
     color: #FFFFFF; /* Цвет текста белый */
     border-radius: 10px;
+    margin-top: 20px;
 }
 .btn-purple:hover {
     background-color: #FFFFFF; /* При наведении фон меняется на белый */
@@ -771,15 +772,15 @@ a:hover{
         top: 511px;
         border: 1px solid #C9C9C9;
         border-radius: 12px;
-        margin-bottom: -4px; /* Уменьшите отступ до нужного значения */
-        margin-top: -4px;
+
+       
+       
     }
 
-    .enter-reg-text {
-        display: block; /* Чтобы текст занимал всю ширину */
-        margin-bottom: -4px; /* Уменьшите отступ до нужного значения */
-        margin-top: -4px;
-    }
+.enter-reg-text {
+    display: block; /* Чтобы текст занимал всю ширину */
+    margin-bottom: -20px;
+}
 
 
     .enter-reg-text::after {
@@ -788,7 +789,7 @@ a:hover{
         margin-left: 5px; /* Отступ от текста */
         font-size: 20px; /* Размер точки, можно регулировать */
         vertical-align: middle; /* Вертикальное выравнивание */
-        margin-top: -5px;
+       
     }
 
     .btn-thicker {
@@ -812,7 +813,7 @@ a:hover{
             content: '';
             flex-grow: 1;
             height: 1px;
-            margin-top: 25px; /* Отступ сверху */
+            margin-top: 1px; /* Отступ сверху */
             margin-bottom: 1px; /* Отступ снизу */
             background-color: #E8E8E8; /* Цвет линии */
         }
@@ -851,6 +852,7 @@ a:hover{
         display: inline-flex; /* Для выравнивания иконки и текста */
         align-items: center; /* Вертикальное выравнивание */
         transition: background-color 0.3s; /* Эффект при наведении */
+        margin-top: 0px;
     }
 
         .btn-gray:hover {
@@ -1039,6 +1041,24 @@ a:hover{
         height: 600px; /*  висота карти */
     }
 
+/* Даухшаговая регистрация */
+.step-indicators {
+    display: flex;
+    justify-content: space-between; /* Отступы между прямоугольниками */
+    margin: 3px; /* Отступы по бокам */
+}
 
+.step {
+    width: 48%; /* Ширина прямоугольников */
+    height: 4px; /* Высота прямоугольников */
+    border-radius: 12px;
+}
 
+.light-purple {
+    background-color: #ECD2FF; /* Светло-фиолетовый */
+}
+
+.dark-purple {
+    background-color: #9C12FF; /* Темно-фиолетовый */
+}
 
