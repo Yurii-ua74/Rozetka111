@@ -248,3 +248,36 @@ document.getElementById('dropdownIcon').addEventListener('click', function () {
 
 
 
+/*   фільтр товару по ціні   */
+$(document).ready(function () {
+    // Функція для виконання AJAX запиту
+    function filterProductsByPrice() {
+        var startPrice = $('#startPrice').val();
+        var endPrice = $('#endPrice').val();
+
+        // Перевірка наявності значень цін
+        if (startPrice && endPrice) {
+            // Виконуємо AJAX запит
+            $.ajax({
+                url: '/SubChildCategory/FilterByPrice',  // Виклик в  контролер
+                type: 'GET',
+                data: { startPrice: startPrice, endPrice: endPrice },
+                success: function (result) {
+                    // Оновлюємо блок з товарами
+                    $('#products-block').html(result);
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
+    }
+
+    // Виклик фільтрації при зміні значення в полях
+    $('#startPrice, #endPrice').on('keyup', function () {
+        filterProductsByPrice();
+    });
+});
+
+
+

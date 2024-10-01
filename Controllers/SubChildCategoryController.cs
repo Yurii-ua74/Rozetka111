@@ -9,7 +9,7 @@ namespace Rozetka.Controllers
     public class SubChildCategoryController : Controller
     {
         private readonly DataContext _context;
-
+       
         public SubChildCategoryController(DataContext context)
         {
             _context = context;
@@ -151,12 +151,13 @@ namespace Rozetka.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         private bool SubChildCategoryExists(int id)
         {
             return _context.SubChildCategories.Any(e => e.Id == id);
         }
 
+
+        /* ///////////////  викликаєтьсяя з каталогу від субпідкатегорій  /////////////// */
         public async Task<IActionResult> GetProducts(string subchildcategory)
         {
             if (string.IsNullOrEmpty(subchildcategory))
@@ -223,34 +224,11 @@ namespace Rozetka.Controllers
             var products = await productsQuery.ToListAsync();
 
             return View(products);
-           
+
         }
 
-        /* ///////// */
-        //public async Task<IActionResult> GetProductsByChild(int subChildCategoryId)
-        //{
-        //    if (subChildCategoryId <= 0)
-        //    {
-        //        return BadRequest();
-        //    }
 
-        //    // Отримати товари для підпідкатегорії, обмежуючи кількість до 6
-        //    var products = await _context.Products
-        //                                 .Where(p => p.SubChildCategoryId == subChildCategoryId)
-        //                                 .Include(p => p.ProductImages)
-        //                                 .Take(6)
-        //                                 .ToListAsync();
 
-        //    if (products == null || !products.Any())
-        //    {
-        //        // Якщо товарів немає, повертаємо порожній список для подальшого оброблення
-        //        return PartialView("_ProductBlocks", new List<Product>());
-        //    }
-
-        //    return PartialView("_ProductBlocks", products);
-        //}
-
-        /* ///////// */
         [HttpPost]
         public IActionResult GetProductsBySubChildCategories(List<int> subchildcategoryIds)
         {
@@ -269,43 +247,76 @@ namespace Rozetka.Controllers
         /* ///////// */
 
 
-        [HttpPost]
-        public RedirectToActionResult AddFilter(string[]? selectedBrands, decimal? startPrice, decimal? endPrice)
+        public IActionResult FilterByPrice(decimal? startPrice, decimal? endPrice)
         {
-            if (selectedBrands.Any())
+            // Отримуємо всі товари
+            var products = _context.Products
+                .Include(p => p.ProductType)  // Включаємо тип продукту
+                .Include(p => p.Brand)         // Включаємо бренд
+                .Include(p => p.ProductImages)  // Включаємо зображення продукту
+                .Include(p => p.Reviews)       // Включаємо відгуки
+                .AsQueryable();
+
+            // Якщо вказана мінімальна ціна, фільтруємо за нею
+            if (startPrice.HasValue)
             {
-                HttpContext.Session.SetString("SelectedBrands", string.Join(",", selectedBrands));
-            }
-            if (startPrice != null)
-            {
-                HttpContext.Session.SetString("StartPrice", startPrice.ToString());
-            }
-            if (endPrice != null)
-            {
-                HttpContext.Session.SetString("EndPrice", endPrice.ToString());
+                products = products.Where(p => p.Price >= startPrice.Value);
             }
 
-            return RedirectToAction(nameof(GetProducts));
+            // Якщо вказана максимальна ціна, фільтруємо за нею
+            if (endPrice.HasValue)
+            {
+                products = products.Where(p => p.Price <= endPrice.Value);
+            }
+
+            // Повертаємо часткове представлення з відфільтрованими товарами
+            return PartialView("_ProductsPartial", products);
         }
 
-        public RedirectToActionResult FullDeleteFilters()
-        {
-            HttpContext.Session.Remove("SelectedBrands");
-            HttpContext.Session.Remove("StartPrice");
-            HttpContext.Session.Remove("EndPrice");
-            return RedirectToAction(nameof(GetProducts));
-        }
 
-        public RedirectToActionResult DeleteFilterBrand()
-        {
-            HttpContext.Session.Remove("SelectedBrands");
-            return RedirectToAction(nameof(GetProducts));
-        }
-        public RedirectToActionResult DeleteFilterPrice()
-        {
-            HttpContext.Session.Remove("StartPrice");
-            HttpContext.Session.Remove("EndPrice");
-            return RedirectToAction(nameof(GetProducts));
-        }
+
+
+
+
+        /*  ///////////////////////////  */
+
+        //[HttpPost]
+        //public RedirectToActionResult AddFilter(string[]? selectedBrands, decimal? startPrice, decimal? endPrice)
+        //{
+        //    if (selectedBrands.Any())
+        //    {
+        //        HttpContext.Session.SetString("SelectedBrands", string.Join(",", selectedBrands));
+        //    }
+        //    if (startPrice != null)
+        //    {
+        //        HttpContext.Session.SetString("StartPrice", startPrice.ToString());
+        //    }
+        //    if (endPrice != null)
+        //    {
+        //        HttpContext.Session.SetString("EndPrice", endPrice.ToString());
+        //    }
+
+        //    return RedirectToAction(nameof(GetProducts));
+        //}
+
+        //public RedirectToActionResult FullDeleteFilters()
+        //{
+        //    HttpContext.Session.Remove("SelectedBrands");
+        //    HttpContext.Session.Remove("StartPrice");
+        //    HttpContext.Session.Remove("EndPrice");
+        //    return RedirectToAction(nameof(GetProducts));
+        //}
+
+        //public RedirectToActionResult DeleteFilterBrand()
+        //{
+        //    HttpContext.Session.Remove("SelectedBrands");
+        //    return RedirectToAction(nameof(GetProducts));
+        //}
+        //public RedirectToActionResult DeleteFilterPrice()
+        //{
+        //    HttpContext.Session.Remove("StartPrice");
+        //    HttpContext.Session.Remove("EndPrice");
+        //    return RedirectToAction(nameof(GetProducts));
+        //}
     }
 }

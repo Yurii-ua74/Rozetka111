@@ -9,7 +9,7 @@
         <div class="child-category">
             <h5 class="font-sz">
                 <!-- Створюємо посилання для підкатегорій -->
-                <a href="@Url.Action("GetSubChildCategories", "Childcategories", new { childcategory = child.Name })"> @* new { childcategory = child.Id })"> *@
+                <a href="@Url.Action("GetProducts", "Childcategories", new { childcategory = child.Name })"> @* new { childcategory = child.Id })"> *@
                     @child.Name
                 </a>
             </h5>
@@ -33,7 +33,7 @@
     {
         <div class="child-category">
             <h5 class="font-sz">
-                <a href="@Url.Action("GetSubChildCategories", "Childcategories", new { childcategory = child.Name })">
+                <a href="@Url.Action("GetProducts", "Childcategories", new { childcategory = child.Name })">
                     @child.Name
                 </a>
             </h5>
@@ -56,7 +56,7 @@
     {
         <div class="child-category">
             <h5 class="font-sz">
-                <a href="@Url.Action("GetSubChildCategories", "Childcategories", new { childcategory = child.Name })">
+                <a href="@Url.Action("GetProducts", "Childcategories", new { childcategory = child.Name })">
                     @child.Name
                 </a>
             </h5>
