@@ -168,6 +168,22 @@
                             </span>
                         </a>
 
+                    <!-- КОШИК ТЕСТОВИЙ, ТИМЧАСОВИЙ -->
+                    @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
+
+
+                    <a type="button" href="" class="d-none d-md-block nav-link text-black btn-lg"
+                       data-bs-toggle="modal"
+                       data-bs-target="#cartModal">
+                        <div class="me-3 text-center">
+                            <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
+                            <p class="menu-link-text-style mb-0">ТЕСТ</p>
+                        </div>
+                    </a>
+
+
+                   
+
                         @* <!-- АДМІНКА --> *@
                         <a class="nav-link text-black btn-lg admin-non"
                            asp-action="AdminPage" asp-controller="Home"
@@ -814,6 +830,44 @@
     </div>
 </div>
 
+
+
+
+
+<!-- Модальне вікно для кошика -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 90%; width: 90%;">
+        <!-- Указана ширина 90% -->
+        <div class="modal-content" style="border-radius: 15px; height: 90vh;">
+            <!-- Высота на 90% экрана -->
+            <div class="modal-header">
+                <h5 class="enter-reg-tittle" id="authModalLabel">Кошик</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="horizontal-line"></div>
+            <div class="modal-body">
+                
+  
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#cartModal').on('show.bs.modal', function () {
+            $('.modal-body').html('<span>Loading...</span>');  // Показать индикатор загрузки
+            $.get('/Cart/LoadCartModal', function (data) {
+                $('.modal-body').html(data);  // Вставить данные в модальное окно
+            });
+        });
+    });
+</script>
+
+
+
 <script>
     // Двухшаговая регистрация
     function nextStep() {
@@ -856,7 +910,7 @@
         const password = document.getElementById("auth-password").value;
         const confirmPassword = document.getElementById("auth-confirm-password").value;
 
-        // Проверяем каждое поле вручную
+        // Проверяем каждое поле 
         if (firstName.length < 2) {
             document.getElementById("firstname-error").innerText = "Ім'я повинно містити щонайменше 2 символи.";
             valid = false;

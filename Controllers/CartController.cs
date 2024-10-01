@@ -130,6 +130,22 @@ namespace Rozetka.Controllers
 
 
 
+
+        // Эагрузка корзины в модальном окне
+        public IActionResult LoadCartModal()
+        {
+            Cart cart = GetCart(); // Получаем корзину из сессии
+            CartIndexVM cartIndexVM = new CartIndexVM
+            {
+                CartItems = cart.CartItems,
+                TotalPrice = cart.GetTotalPrice()
+            };
+            return PartialView("_CartModalPartial", cartIndexVM);  // Возвращаем частичное представление
+        }
+
+
+
+
         public void SetCart(Cart cart)
         {
             HttpContext.Session.Set("cart", cart.CartItems);

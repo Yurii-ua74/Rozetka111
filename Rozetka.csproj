@@ -26,6 +26,9 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Views\Новая папка1\" />
+    <Folder Include="Views\Новая папка2\" />
+    <Folder Include="Views\Новая папка\" />
   </ItemGroup>
 
 	
