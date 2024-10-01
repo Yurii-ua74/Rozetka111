@@ -143,6 +143,8 @@ namespace Rozetka.Controllers
             return View(childcategory);
         }
 
+
+
         // POST: Childcategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -164,28 +166,28 @@ namespace Rozetka.Controllers
         }
         
 
-        public async Task<IActionResult> GetSubChildCategories(string childcategory)
-        {
-            if (string.IsNullOrEmpty(childcategory))
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> GetSubChildCategories(string childcategory)
+        //{
+        //    if (string.IsNullOrEmpty(childcategory))
+        //    {
+        //        return NotFound();
+        //    }
 
-            // Знайти Id категорії за назвою
-            var childcategoryEntity = _context.Childcategories
-                .FirstOrDefault(c => c.Name == childcategory);
-            if (childcategoryEntity == null)
-            {
-                // Якщо категорія не знайдена
-                return NotFound();
-            }
-            HttpContext.Session.SetString("ChildCategory", childcategoryEntity.Name);
+        //    // Знайти Id категорії за назвою
+        //    var childcategoryEntity = _context.Childcategories
+        //        .FirstOrDefault(c => c.Name == childcategory);
+        //    if (childcategoryEntity == null)
+        //    {
+        //        // Якщо категорія не знайдена
+        //        return NotFound();
+        //    }
+        //    HttpContext.Session.SetString("ChildCategory", childcategoryEntity.Name);
 
-            var subchildCategories = await _context.SubChildCategories
-                .Where(predicate: sc => sc.Childcategory.Name == childcategory)
-                .ToListAsync();
-            return View(subchildCategories);
-        }
+        //    var subchildCategories = await _context.SubChildCategories
+        //        .Where(predicate: sc => sc.Childcategory.Name == childcategory)
+        //        .ToListAsync();
+        //    return View(subchildCategories);
+        //}
 
 
         public async Task<IActionResult> GetProducts(string childcategory)
@@ -243,6 +245,80 @@ namespace Rozetka.Controllers
             return View(viewModel);
         }
 
+
+
+
+
+
+
+        /* ////////////////////////////////////////////  */
+        //public IActionResult FilterByPrice(decimal? startPrice, decimal? endPrice)
+        //{
+        //    // Отримуємо всі товари
+        //    var products = _context.Products
+        //        .Include(p => p.ProductType)  // Включаємо тип продукту
+        //        .Include(p => p.Brand)         // Включаємо бренд
+        //        .Include(p => p.ProductImages)  // Включаємо зображення продукту
+        //        .Include(p => p.Reviews)       // Включаємо відгуки
+        //        .AsQueryable();
+
+        //    // Якщо вказана мінімальна ціна, фільтруємо за нею
+        //    if (startPrice.HasValue)
+        //    {
+        //        products = products.Where(p => p.Price >= startPrice.Value);
+        //    }
+
+        //    // Якщо вказана максимальна ціна, фільтруємо за нею
+        //    if (endPrice.HasValue)
+        //    {
+        //        products = products.Where(p => p.Price <= endPrice.Value);
+        //    }
+
+        //    // Повертаємо часткове представлення з відфільтрованими товарами
+        //    return PartialView("_ProductsPartial", products);
+        //}
+
+
+
+        /* ////////////////////////////////////////////  */
+        [HttpPost]
+        public RedirectToActionResult AddFilter(string[]? selectedBrands, decimal? startPrice, decimal? endPrice)
+        {
+            if (selectedBrands.Any())
+            {
+                HttpContext.Session.SetString("SelectedBrands", string.Join(",", selectedBrands));
+            }
+            if (startPrice != null)
+            {
+                HttpContext.Session.SetString("StartPrice", startPrice.ToString());
+            }
+            if (endPrice != null)
+            {
+                HttpContext.Session.SetString("EndPrice", endPrice.ToString());
+            }
+
+            return RedirectToAction(nameof(GetProducts));
+        }
+
+        public RedirectToActionResult FullDeleteFilters()
+        {
+            HttpContext.Session.Remove("SelectedBrands");
+            HttpContext.Session.Remove("StartPrice");
+            HttpContext.Session.Remove("EndPrice");
+            return RedirectToAction(nameof(GetProducts));
+        }
+
+        public RedirectToActionResult DeleteFilterBrand()
+        {
+            HttpContext.Session.Remove("SelectedBrands");
+            return RedirectToAction(nameof(GetProducts));
+        }
+        public RedirectToActionResult DeleteFilterPrice()
+        {
+            HttpContext.Session.Remove("StartPrice");
+            HttpContext.Session.Remove("EndPrice");
+            return RedirectToAction(nameof(GetProducts));
+        }
 
     }
 }
