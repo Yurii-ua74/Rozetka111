@@ -157,75 +157,75 @@ namespace Rozetka.Controllers
         }
 
 
-/* ////////////////////////////////////////////// */
-        //public async Task<IActionResult> GetProducts(string subchildcategory)
-        //{
-        //    if (string.IsNullOrEmpty(subchildcategory))
-        //    {
-        //        subchildcategory = HttpContext.Session.GetString("SubChildCategory");
-        //        //return NotFound();
-        //    }
-        //    else
-        //    {
-        //        string oldSubChildCategory = HttpContext.Session.GetString("SubChildCategory");
-        //        if (!string.IsNullOrEmpty(oldSubChildCategory))
-        //        {
-        //            if (subchildcategory != oldSubChildCategory)
-        //            {
-        //                HttpContext.Session.Remove("SelectedBrands"); //удаляем фильтры при смене категории
-        //                HttpContext.Session.Remove("StartPrice");
-        //                HttpContext.Session.Remove("EndPrice");
-        //            }
-        //        }
-        //    }
-        //    HttpContext.Session.SetString("SubChildCategory", subchildcategory);
+        /* ///////////////  викликаєтьсяя з каталогу від субпідкатегорій  /////////////// */
+        public async Task<IActionResult> GetProducts(string subchildcategory)
+        {
+            if (string.IsNullOrEmpty(subchildcategory))
+            {
+                subchildcategory = HttpContext.Session.GetString("SubChildCategory");
+                //return NotFound();
+            }
+            else
+            {
+                string oldSubChildCategory = HttpContext.Session.GetString("SubChildCategory");
+                if (!string.IsNullOrEmpty(oldSubChildCategory))
+                {
+                    if (subchildcategory != oldSubChildCategory)
+                    {
+                        HttpContext.Session.Remove("SelectedBrands"); //удаляем фильтры при смене категории
+                        HttpContext.Session.Remove("StartPrice");
+                        HttpContext.Session.Remove("EndPrice");
+                    }
+                }
+            }
+            HttpContext.Session.SetString("SubChildCategory", subchildcategory);
 
-        //    // Знайти Id категорії за назвою
-        //    var subchildcategoryEntity = _context.SubChildCategories.FirstOrDefault(c => c.Name == subchildcategory);
-        //    if (subchildcategoryEntity == null)
-        //    {
-        //        // Якщо підкатегорія не знайдена
-        //        return NotFound();
-        //    }
+            // Знайти Id категорії за назвою
+            var subchildcategoryEntity = _context.SubChildCategories.FirstOrDefault(c => c.Name == subchildcategory);
+            if (subchildcategoryEntity == null)
+            {
+                // Якщо підкатегорія не знайдена
+                return NotFound();
+            }
 
-        //    // Отримати товари для знайденої підкатегорії з усіма відповідними даними
-        //    var productsQuery = _context.Products
-        //        .Where(p => p.SubChildCategory.Name == subchildcategory)
-        //        .Include(p => p.ProductType)
-        //        .Include(p => p.Brand)
-        //        .Include(p => p.ProductImages)
-        //        .Include(p => p.Reviews)
-        //        .AsQueryable();
+            // Отримати товари для знайденої підкатегорії з усіма відповідними даними
+            var productsQuery = _context.Products
+                .Where(p => p.SubChildCategory.Name == subchildcategory)
+                .Include(p => p.ProductType)
+                .Include(p => p.Brand)
+                .Include(p => p.ProductImages)
+                .Include(p => p.Reviews)
+                .AsQueryable();
 
-        //    // Извлечение фильтров из сессии
-        //    var selectedBrands = HttpContext.Session.GetString("SelectedBrands")?.Split(',') ?? Array.Empty<string>();
-        //    var startPriceString = HttpContext.Session.GetString("StartPrice");
-        //    var endPriceString = HttpContext.Session.GetString("EndPrice");
-        //    // Применение фильтров из сессии
-        //    if (selectedBrands.Length > 0)
-        //    {
-        //        productsQuery = productsQuery.Where(p => selectedBrands.Contains(p.Brand.Title));
-        //        //ViewBag.SelectedBrands = selectedBrands;
-        //    }
+            // Извлечение фильтров из сессии
+            var selectedBrands = HttpContext.Session.GetString("SelectedBrands")?.Split(',') ?? Array.Empty<string>();
+            var startPriceString = HttpContext.Session.GetString("StartPrice");
+            var endPriceString = HttpContext.Session.GetString("EndPrice");
+            // Применение фильтров из сессии
+            if (selectedBrands.Length > 0)
+            {
+                productsQuery = productsQuery.Where(p => selectedBrands.Contains(p.Brand.Title));
+                //ViewBag.SelectedBrands = selectedBrands;
+            }
 
-        //    if (decimal.TryParse(startPriceString, out var startPrice))
-        //    {
-        //        productsQuery = productsQuery.Where(p => p.Price >= startPrice);
-        //        //ViewBag.StartPrice = startPrice;
-        //    }
+            if (decimal.TryParse(startPriceString, out var startPrice))
+            {
+                productsQuery = productsQuery.Where(p => p.Price >= startPrice);
+                //ViewBag.StartPrice = startPrice;
+            }
 
-        //    if (decimal.TryParse(endPriceString, out var endPrice))
-        //    {
-        //        productsQuery = productsQuery.Where(p => p.Price <= endPrice);
-        //        //ViewBag.EndPrice = endPrice;
-        //    }
+            if (decimal.TryParse(endPriceString, out var endPrice))
+            {
+                productsQuery = productsQuery.Where(p => p.Price <= endPrice);
+                //ViewBag.EndPrice = endPrice;
+            }
 
-        //    // Выполнение запроса и получение продуктов
-        //    var products = await productsQuery.ToListAsync();
+            // Выполнение запроса и получение продуктов
+            var products = await productsQuery.ToListAsync();
 
-        //    return View(products);
+            return View(products);
 
-        //}
+        }
 
 
 
@@ -245,6 +245,8 @@ namespace Rozetka.Controllers
             return PartialView("_ProductsPartial", products);
         }
         /* ///////// */
+
+
         public IActionResult FilterByPrice(decimal? startPrice, decimal? endPrice)
         {
             // Отримуємо всі товари

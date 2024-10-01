@@ -248,7 +248,7 @@ document.getElementById('dropdownIcon').addEventListener('click', function () {
 
 
 
-
+/*   фільтр товару по ціні   */
 $(document).ready(function () {
     // Функція для виконання AJAX запиту
     function filterProductsByPrice() {
@@ -259,7 +259,7 @@ $(document).ready(function () {
         if (startPrice && endPrice) {
             // Виконуємо AJAX запит
             $.ajax({
-                url: '/SubChildCategory/FilterByPrice',  // Виклик в потрібний контролер
+                url: '/SubChildCategory/FilterByPrice',  // Виклик в  контролер
                 type: 'GET',
                 data: { startPrice: startPrice, endPrice: endPrice },
                 success: function (result) {
