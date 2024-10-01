@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Rozetka.Data.Entity.Product>
+
+<div class="row mb-3">
+    @foreach (var product in Model)
+    {
+        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
+            <div class="product-block-products">
+                <a href="/Products/GetProduct?id=@product.Id">
+                    @if (product.ProductImages != null && product.ProductImages.Any())
+                    {
+                        var firstImage = product.ProductImages.FirstOrDefault();
+                        <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
+                             class="img-fluid"
+                             alt="Product Image"
+                             style="max-height: 255px; width: auto; max-width: 100%;"
+                             onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';" />
+                    }
+                    else
+                    {
+                        <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                    }
+                </a>
+                <div class="mt-2 product-block-products">
+                    <div class="product-title">@product.ProductType.Title @product.Brand.Title @product.Title</div>
+                    <div class="product-description">@product.Description</div>
+                    <div class="d-flex align-items-center mt-2">
+                        <div class="product-price">@product.Price.ToString("0") ₴</div>
+                        <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">
+                            <i class="bi bi-cart-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
