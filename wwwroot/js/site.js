@@ -259,7 +259,8 @@ $(document).ready(function () {
         if (startPrice && endPrice) {
             // Виконуємо AJAX запит
             $.ajax({
-                url: '/SubChildCategory/FilterByPrice',  // Виклик в  контролер
+                /*url: '/SubChildCategory/FilterByPrice',*/  // Виклик в  контролер
+                url: '/SubChildCategory/FilterProducts',
                 type: 'GET',
                 data: { startPrice: startPrice, endPrice: endPrice },
                 success: function (result) {
@@ -274,10 +275,121 @@ $(document).ready(function () {
     }
 
     // Виклик фільтрації при зміні значення в полях
-    $('#startPrice, #endPrice').on('keyup', function () {
+    $('#startPrice, #endPrice').on('change', function () {
         filterProductsByPrice();
     });
 });
+
+
+/*  фільтр товарів по субпідкатегорії  */
+function handleCheckboxChange() {
+    // Збираємо всі вибрані чекбокси
+    var selectedSubCategories = [];
+    document.querySelectorAll('.form-check-input:checked').forEach(function (checkbox) {
+        selectedSubCategories.push(checkbox.value);
+    });
+
+    // Виконуємо AJAX запит на сервер, щоб отримати товари для вибраних субкатегорій
+    if (selectedSubCategories.length > 0) {
+        $.ajax({
+            /*url: '/SubChildCategory/GetProductsBySubChildCategories',*/
+            url: '/SubChildCategory/FilterProducts',
+            type: 'POST',
+            data: { subchildcategoryIds: selectedSubCategories },
+            success: function (result) {
+                // Очищаємо блок перед виведенням нових товарів
+                $('#products-block').html(result);
+            },
+            error: function (xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    } else {
+        // Якщо всі чекбокси зняті, очищаємо блок товарів
+        $('#products-block').html('');
+    }
+}
+
+function handleCheckPriceChange() {
+    var selectedSubCategories = [];
+
+    // Отримуємо вибрані субкатегорії з чекбоксів
+    document.querySelectorAll('.form-control:checked').forEach(function (checkbox) {
+        selectedSubCategories.push(checkbox.value);
+    });
+
+    // Отримуємо введені значення цін
+    var minPrice = $('#minPrice').val();
+    var maxPrice = $('#maxPrice').val();
+
+    // Перевіряємо, чи є вибрані субкатегорії або встановлені ціни
+    if (selectedSubCategories.length > 0 || minPrice || maxPrice) {
+        $.ajax({
+            url: '/SubChildCategory/FilterProducts',
+            type: 'POST',
+            data: {
+                subchildcategoryIds: selectedSubCategories,
+                startPrice: minPrice,
+                endPrice: maxPrice
+            },
+            success: function (result) {
+                // Очищаємо блок перед виведенням нових товарів
+                $('#products-block').html(result);
+            },
+            error: function (xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    } else {
+        // Якщо всі чекбокси зняті і ціни не вказані, очищаємо блок товарів
+        $('#products-block').html('');
+    }
+}
+
+
+
+
+//$(document).ready(function () {
+//    // Функція для виконання AJAX запиту з обома фільтрами (ціна + субпідкатегорії)
+//    function filterProducts() {
+//        var startPrice = $('#startPrice').val();
+//        var endPrice = $('#endPrice').val();
+
+//        // Збираємо всі вибрані чекбокси субпідкатегорій
+//        var selectedSubCategories = [];
+//        document.querySelectorAll('.form-check-input:checked').forEach(function (checkbox) {
+//            selectedSubCategories.push(checkbox.value);
+//        });
+
+//        // Виконуємо AJAX запит, якщо є значення для фільтрації
+//        $.ajax({
+//            url: '/SubChildCategory/FilterProducts',  // Виклик в контролер для обробки обох фільтрів
+//            type: 'GET',
+//            data: {
+//                startPrice: startPrice,
+//                endPrice: endPrice,
+//                subchildcategoryIds: selectedSubCategories
+//            },
+//            success: function (result) {
+//                // Оновлюємо блок з товарами
+//                $('#products-block').html(result);
+//            },
+//            error: function (xhr, status, error) {
+//                console.log('Error:', error);
+//            }
+//        });
+//    }
+
+//    // Виклик фільтрації при зміні значення в полях цін
+//    $('#startPrice, #endPrice').on('change', function () {
+//        filterProducts();
+//    });
+
+//    // Виклик фільтрації при зміні чекбоксів субпідкатегорій
+//    $('.form-check-input').on('change', function () {
+//        filterProducts();
+//    });
+//});
 
 
 

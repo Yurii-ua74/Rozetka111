@@ -103,24 +103,24 @@
                         </button>
                     </h2>
                     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">
-                        <div class="accordion-body">
-                            <form method="get" class="row g-3" asp-action="FilterByPrice" id="priceFilterForm">
+                        <div class="row g-3 accordion-body">
+                            @* <form method="get" class="row g-3" asp-action="FilterByPrice" id="priceFilterForm"> *@
                                 <!-- Добавляем скрытое поле для передачи параметра category -->
 
                                 <div class="col-md-5">
                                     @* <input type="text" class="form-control" placeholder="Від" aria-label="Від" id="startPrice" name="startPrice" value="@minPrice"> *@
-                                    <input type="text" class="form-control" placeholder="Від" aria-label="Від" id="startPrice" name="startPrice" value="@ViewData["MinPrice"]">
-
+                                   @*  <input type="text" class="form-control" placeholder="Від" aria-label="Від" id="startPrice" name="startPrice" value="@ViewData["MinPrice"]"> *@
+                                <input class="form-control" type="text" placeholder="Від" aria-label="Від" value="@minPrice" id="minPrice" onchange="handleCheckPriceChange()">
                                 </div>
                                 <div class="col-md-5">
                                     @* <input type="text" class="form-control" placeholder="До" aria-label="До" id="endPrice" name="endPrice" value="@maxPrice"> *@
-                                    <input type="text" class="form-control" placeholder="До" aria-label="До" id="endPrice" name="endPrice" value="@ViewData["MaxPrice"]">
-
+                                    @* <input type="text" class="form-control" placeholder="До" aria-label="До" id="endPrice" name="endPrice" value="@ViewData["MaxPrice"]"> *@
+                                <input class="form-control" type="text" placeholder="До" aria-label="До" value="@maxPrice" id="maxPrice" onchange="handleCheckPriceChange()">
                                 </div>
                                @*  <div class="col-2">
                                     <button type="submit" class="btn btn-primary btn-purple">Ok</button>
                                 </div> *@
-                            </form>
+                            @* </form> *@
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,7 @@
 
 
 <!-- JS -->
-<script>
+@* <script>
      function handleCheckboxChange() {
         // Збираємо всі вибрані чекбокси
         var selectedSubCategories = [];
@@ -255,3 +255,4 @@
     }
 
 </script>
+ *@

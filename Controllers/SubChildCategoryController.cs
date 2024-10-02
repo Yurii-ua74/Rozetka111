@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Rozetka.Data;
 using Rozetka.Data.Entity;
 
@@ -228,7 +229,7 @@ namespace Rozetka.Controllers
         }
 
 
-
+/* ////////////////////////////////////////////////////// */
         [HttpPost]
         public IActionResult GetProductsBySubChildCategories(List<int> subchildcategoryIds)
         {
@@ -274,6 +275,71 @@ namespace Rozetka.Controllers
         }
 
 
+        public IActionResult FilterProducts(decimal? startPrice, decimal? endPrice, List<int> subchildcategoryIds)
+        {
+            if (!subchildcategoryIds.IsNullOrEmpty() && !startPrice.HasValue && !endPrice.HasValue)
+            {
+                // Отримуємо товари відповідно до вибраних субкатегорій
+                 var products = _context.Products
+                    .Where(p => subchildcategoryIds.Contains(p.SubChildCategoryId))
+                    .Include(p => p.ProductType)
+                    .Include(p => p.Brand)
+                    .Include(p => p.ProductImages)
+                    .Include(p => p.Reviews)
+                    .Take(6)  // Обмежуємо кількість товарів до 6 на субкатегорію
+                    .ToList();
+                return PartialView("_ProductsPartial", products);
+            }
+            else if (startPrice.HasValue && endPrice.HasValue && subchildcategoryIds.IsNullOrEmpty())
+            {
+                // Отримуємо всі товари
+                var products = _context.Products
+                    .Include(p => p.ProductType)  // Включаємо тип продукту
+                    .Include(p => p.Brand)         // Включаємо бренд
+                    .Include(p => p.ProductImages)  // Включаємо зображення продукту
+                    .Include(p => p.Reviews)       // Включаємо відгуки
+                    .AsQueryable();
+                return PartialView("_ProductsPartial", products);
+            }
+            else
+            {
+                // Отримуємо товари відповідно до вибраних субкатегорій
+                var products = _context.Products
+                   .Where(p => subchildcategoryIds.Contains(p.SubChildCategoryId))
+                   .Include(p => p.ProductType)
+                   .Include(p => p.Brand)
+                   .Include(p => p.ProductImages)
+                   .Include(p => p.Reviews)
+                   .Take(6)  // Обмежуємо кількість товарів до 6 на субкатегорію
+                   .ToList();
+                return PartialView("_ProductsPartial", products);
+            }
+
+
+            //// Якщо startPrice вказана, додаємо фільтрацію за мінімальною ціною
+            //if (startPrice.HasValue)
+            //{
+            //    productsQuery = (List<Product>)productsQuery.Where(p => p.Price >= startPrice.Value);
+            //}
+
+            //// Якщо endPrice вказана, додаємо фільтрацію за максимальною ціною
+            //if (endPrice.HasValue)
+            //{
+            //    productsQuery = (List<Product>)productsQuery.Where(p => p.Price <= endPrice.Value);
+            //}
+
+            //// Виконання запиту та отримання списку товарів
+            //var products = productsQuery.ToList();
+
+            // Повертаємо результат
+           // return PartialView("_ProductsPartial", products);
+
+            // Можна додатково обмежити кількість товарів, якщо потрібно, наприклад, показати перші 6 товарів
+            //products = products.Take(6);
+
+            //// Повертаємо часткове представлення з відфільтрованими товарами
+            //return PartialView("_ProductsPartial", products);
+        }
 
 
 
