@@ -29,13 +29,28 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Сharacteristic)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Childcategory)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.QuantityInStock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductColor.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductColor.HexCode)
             </th>
             <th></th>
         </tr>
@@ -60,7 +75,16 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Сharacteristic)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Childcategory.Name)
@@ -68,6 +92,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.QuantityInStock)
                 </td>
+                @if (item.ProductColor != null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductColor.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductColor.HexCode)
+                    </td>
+                }
+                
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

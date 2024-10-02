@@ -22,6 +22,11 @@
                 <span asp-validation-for="Product.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Product.Сharacteristic" class="control-label"></label>
+                <textarea asp-for="Product.Сharacteristic" class="form-control"></textarea>
+                <span asp-validation-for="Product.Сharacteristic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Product.Price" class="control-label"></label>
                 <input asp-for="Product.Price" class="form-control" />
                 <span asp-validation-for="Product.Price" class="text-danger"></span>
@@ -35,6 +40,11 @@
                 <label asp-for="Product.BrandId" class="control-label">Brand</label>
                 <select asp-for="Product.BrandId" class="form-control" asp-items="Model.Brands"></select>
                 <span asp-validation-for="Product.BrandId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.ProductColorId" class="control-label">Color</label>
+                <select asp-for="Product.ProductColorId" class="form-control" asp-items="Model.ProductColors"></select>
+                <span asp-validation-for="Product.ProductColorId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.ChildcategoryId" class="control-label">Childcategory</label>

@@ -17,7 +17,7 @@
         public int? ChildcategoryId { get; set; }
         public Childcategory? Childcategory { get; set; }
         public int? ProductColorId { get; set; }
-        public ProductColor? ProductColors { get; set; }
+        public ProductColor? ProductColor { get; set; }
         public int? QuantityInStock { get; set; }
         public ICollection<ProductImage>? ProductImages { get; set; }
         public ICollection<Review>? Reviews { get; set; }

@@ -10,6 +10,8 @@ namespace Rozetka.Models.ViewModels.Products
 
         public SelectList? Brands { get; set; }
 
+        public SelectList? ProductColors { get; set; }
+
         public SelectList? Childcategories { get; set; }
 
         public Product Product { get; set; } = new Product();
