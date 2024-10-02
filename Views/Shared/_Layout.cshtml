@@ -156,9 +156,10 @@
 
                         <!-- КОШИК -->
                         @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
-                        <a class="nav-link text-black position-relative btn-lg"
-                           asp-area="" asp-controller="Cart" asp-action="Index"
-                           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик">
+                    <a type="button" class="nav-link text-black position-relative btn-lg"
+                       data-bs-toggle="modal"
+                       data-bs-target="#cartModal">
+
                             <div class="text-center">
                                 <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
                                 <p class="menu-link-text-style mb-0">Кошик</p>
@@ -172,14 +173,14 @@
                     @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
 
 
-                    <a type="button" href="" class="d-none d-md-block nav-link text-black btn-lg"
+                   @*  <a type="button" href="" class="d-none d-md-block nav-link text-black btn-lg"
                        data-bs-toggle="modal"
                        data-bs-target="#cartModal">
                         <div class="me-3 text-center">
                             <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
                             <p class="menu-link-text-style mb-0">ТЕСТ</p>
                         </div>
-                    </a>
+                    </a> *@
 
 
                    
@@ -837,9 +838,9 @@
 
 <!-- Модальне вікно для кошика -->
 <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 90%; width: 90%;">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; width: 60%;">
         <!-- Указана ширина 90% -->
-        <div class="modal-content" style="border-radius: 15px; height: 90vh;">
+        <div class="modal-content" style="border-radius: 15px; height: 75vh;">
             <!-- Высота на 90% экрана -->
             <div class="modal-header">
                 <h5 class="enter-reg-tittle" id="authModalLabel">Кошик</h5>
