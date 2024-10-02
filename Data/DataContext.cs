@@ -26,9 +26,13 @@ namespace Rozetka.Data
                 .Property(p => p.Price)
                 .HasColumnType("decimal(18, 0)"); // Устанавливаем тип данных decimal(18, 0)
 
+            builder.Entity<Product>()
+                .Property(p => p.Rating)
+                .HasColumnType("decimal(2, 1)"); // 1 целое и 1 дробное
+
             //////////////////////////////////////
-            
-             builder.Entity<SubChildCategory>()
+
+            builder.Entity<SubChildCategory>()
             .HasOne(s => s.Childcategory)
             .WithMany(c => c.SubChildCategories)  // Убедитесь, что это соответствует
             .HasForeignKey(s => s.ChildCategoryId);
@@ -40,7 +44,8 @@ namespace Rozetka.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
-        public DbSet<ProductImage> ProductImages { get; set; }        
+        public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<WishList> WishList { get; set; }
         public DbSet<Cart> Carts { get; set; }
