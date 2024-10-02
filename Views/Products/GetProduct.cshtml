@@ -86,12 +86,13 @@
             <p><i class="bi bi-star-fill rating"></i> 4.1 Рейтинг</p>
             <p>Артикул: @Model.Id</p>
         </div>
-        @if(Model.ProductColorId != null)
+        @if (Model.ProductColorId != null && Model.ProductColors != null)
         {
-            <h5>Колір:</h5>
+            <h5>Колір: @Model.ProductColors.Title</h5> <!-- Отображение названия цвета -->
+
             <div class="d-flex mb-3">
-                <button class="btn btn-light me-2">Чорний</button>
-                <button class="btn btn-light me-2">Коричневий</button>
+                <!-- Отображение кнопки с цветом фона на основе HexCode -->
+                <button class="btn me-2" style="background-color: @Model.ProductColors.HexCode;"></button>
             </div>
         }
        
