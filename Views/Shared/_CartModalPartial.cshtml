@@ -1,0 +1,61 @@
+﻿@using Rozetka.Models.ViewModels.Cart
+@using Rozetka.Data.Entity
+@model CartIndexVM
+@{
+    ViewData["Title"] = "Index";
+    //int index = 0;
+}
+<table class="table">
+    <thead>
+       
+    </thead>
+    <tbody>
+        @foreach (CartItem cartItem in Model.CartItems)
+        {
+            <tr>
+               @*  <td>@(++index)</td> *@
+                <td>
+                    @if (cartItem.Product.ProductImages!.Any())
+                    {
+                        <img src="data:image/*;base64,@(Convert.ToBase64String(cartItem.Product.ProductImages!.FirstOrDefault()!.ImageData!))" class="card-img-top" alt="@cartItem.Product.Title"
+                             style="height: 100px;width: auto;object-fit: contain;">
+                    }
+                    else
+                    {
+                        <img src="~/images/No-Image-Placeholder.svg.png" alt="no-image"
+                             style="height: 100px;width: auto;object-fit: contain;" />
+                    }
+                </td>
+                <td>@cartItem.Product.Title</td>
+               @*  <td>@cartItem.Product.Price</td> *@
+                <td class="item-count" data-row-id="@cartItem.Product.Id">
+                    <div class="d-flex text-center">
+                        <span class="flex-fill rounded-start border p-2"
+                              onclick="decCount(event, @cartItem.Product.Id)">-</span>
+                        <span class="flex-fill border p-2">@cartItem.Count</span>
+                        <span class="flex-fill rounded-end border p-2" onclick="incCount(event, @cartItem.Product.Id)">+</span>
+                    </div>
+                </td>
+                <td>@(cartItem.Count * cartItem.Product.Price) </td>
+                <td>
+                    <form asp-action="RemoveFromCart" asp-controller="Cart"
+                          method="post">
+                        <input type="hidden" name="id" value="@cartItem.Product.Id" />
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                        <button type="submit" class="btn btn-outline-dark">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="5"></td>
+            <td id="totalPrice">@Model.TotalPrice UAH</td>
+        </tr>
+    </tbody>
+</table>
+<div class="total-price">
+    Загальна сума: @Model.TotalPrice UAH
+    <a class="btn btn-purple w-100" asp-controller="Cart" asp-action="Index">
+        Оформити замовлення
+    </a>
+</div>
