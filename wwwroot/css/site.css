@@ -30,8 +30,7 @@ body {
 .btn-purple {
     background-color: #9C12FF; /* Цвет фона фиолетовый */
     color: #FFFFFF; /* Цвет текста белый */
-    border-radius: 10px;
-    margin-top: 20px;
+    border-radius: 10px;   
 }
 .btn-purple:hover {
     background-color: #FFFFFF; /* При наведении фон меняется на белый */
