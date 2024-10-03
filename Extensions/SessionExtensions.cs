@@ -1,5 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text.Json;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+
 
 namespace Rozetka.Extensions
 {
@@ -58,6 +62,18 @@ namespace Rozetka.Extensions
         //Метод GetString використовується для отримання рядка JSON з сесії.
         //Десеріалізація:
         //Якщо рядок не є null, він десеріалізується назад в об'єкт типу T за допомогою JsonSerializer.Deserialize.
+
+
+        public static void SetObject(this ISession session, string key, object value)
+        {
+            session.SetString(key, JsonConvert.SerializeObject(value));
+        }
+
+        public static T GetObject<T>(this ISession session, string key)
+        {
+            var value = session.GetString(key);
+            return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
+        }
 
     }
 }

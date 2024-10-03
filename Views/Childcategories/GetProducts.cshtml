@@ -33,7 +33,7 @@
         <li class="list-group-item">
             Знайдено @Model.Products.Count() товарів
         </li>
-        @if (!string.IsNullOrEmpty(Context.Session.GetString("SelectedBrands")) || !string.IsNullOrEmpty(Context.Session.GetString("StartPrice")) || !string.IsNullOrEmpty(Context.Session.GetString("EndPrice")))
+        @if (!string.IsNullOrEmpty(Context.Session.GetString("selectedSubChildCategories")) || !string.IsNullOrEmpty(Context.Session.GetString("minPrice")) || !string.IsNullOrEmpty(Context.Session.GetString("maxPrice")))
         {
             <li class="list-group-item">
                 <form asp-action="FullDeleteFilters" method="post">
@@ -42,19 +42,19 @@
                     </button>
                 </form>
             </li>
-            @if (!string.IsNullOrEmpty(Context.Session.GetString("SelectedBrands")))
+            @if (!string.IsNullOrEmpty(Context.Session.GetString("selectedSubChildCategories")))
             {
                 <li class="list-group-item">
-                    Бренды: @Context.Session.GetString("SelectedBrands")
+                    Бренды: @Context.Session.GetString("selectedSubChildCategories")
                     <form asp-action="DeleteFilterBrand" method="post">
                         <button type="submit" class="btn-close" aria-label="Close"></button>
                     </form>
                 </li>
             }
-            @if (!string.IsNullOrEmpty(Context.Session.GetString("StartPrice")))
+            @if (!string.IsNullOrEmpty(Context.Session.GetString("maxPrice")))
             {
                 <li class="list-group-item">
-                    @Context.Session.GetString("StartPrice") - @Context.Session.GetString("EndPrice") грн
+                    @Context.Session.GetString("minPrice") - @Context.Session.GetString("maxPrice") грн
                     <form asp-action="DeleteFilterPrice" method="post">
                         <button type="submit" class="btn-close" aria-label="Close"></button>
                     </form>
@@ -77,7 +77,7 @@
                            Фыльтр
                         </button>
                     </h2>
-                   
+                   @* чекбокси для вибору субпідкатегорій  *@
                     <div class="col-md-2">                       
                         <hr>
                         <ul class="list-unstyled">
@@ -85,11 +85,12 @@
                             {
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id" onchange="handleCheckboxChange()">
+                                        <input class="form-check-input subCategoryCheckbox" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id" class="subCategoryCheckbox">
                                         <label class="form-check-label f-sz" for="subchildcategory_@subchildcategory.Id">
                                             @subchildcategory.Name
                                         </label>
                                     </div>
+
                                 </li>
                             }
                         </ul>
@@ -102,25 +103,17 @@
                             Ціна
                         </button>
                     </h2>
+                    фільтри по цінам 
                     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">
                         <div class="row g-3 accordion-body">
-                            @* <form method="get" class="row g-3" asp-action="FilterByPrice" id="priceFilterForm"> *@
-                                <!-- Добавляем скрытое поле для передачи параметра category -->
+                            
+                            <div class="col-md-5">
+                                <input class="form-control" type="text" placeholder="Від" aria-label="Від" id="minPrice" value="@minPrice">
+                            </div>
+                            <div class="col-md-5">
+                                <input class="form-control" type="text" placeholder="До" aria-label="До" id="maxPrice" value="@maxPrice">
+                            </div>
 
-                                <div class="col-md-5">
-                                    @* <input type="text" class="form-control" placeholder="Від" aria-label="Від" id="startPrice" name="startPrice" value="@minPrice"> *@
-                                   @*  <input type="text" class="form-control" placeholder="Від" aria-label="Від" id="startPrice" name="startPrice" value="@ViewData["MinPrice"]"> *@
-                                <input class="form-control" type="text" placeholder="Від" aria-label="Від" value="@minPrice" id="minPrice" onchange="handleCheckPriceChange()">
-                                </div>
-                                <div class="col-md-5">
-                                    @* <input type="text" class="form-control" placeholder="До" aria-label="До" id="endPrice" name="endPrice" value="@maxPrice"> *@
-                                    @* <input type="text" class="form-control" placeholder="До" aria-label="До" id="endPrice" name="endPrice" value="@ViewData["MaxPrice"]"> *@
-                                <input class="form-control" type="text" placeholder="До" aria-label="До" value="@maxPrice" id="maxPrice" onchange="handleCheckPriceChange()">
-                                </div>
-                               @*  <div class="col-2">
-                                    <button type="submit" class="btn btn-primary btn-purple">Ok</button>
-                                </div> *@
-                            @* </form> *@
                         </div>
                     </div>
                 </div>
@@ -129,11 +122,17 @@
         }
     </div>
 
+    @*///////////////////////////////////////////////////////*@
     <div class="col-sm-8">
         <!-- Блок для виведення товарів -->
-        <div id="products-block" class="row">
+        @* <div id="products-block" class="row">
             <!-- Товари будуть додаватися сюди через AJAX -->
+        </div> *@
+        <div id="productsPartial" class="row">
+
         </div>
+     
+    @*///////////////////////////////////////////////////////*@
 
         @if (!Model.Products.Any())
         {
@@ -226,33 +225,60 @@
 
 
 <!-- JS -->
-@* <script>
-     function handleCheckboxChange() {
-        // Збираємо всі вибрані чекбокси
-        var selectedSubCategories = [];
-        document.querySelectorAll('.form-check-input:checked').forEach(function (checkbox) {
-            selectedSubCategories.push(checkbox.value);
-        });
+ <script>
+    //  function handleCheckboxChange() {
+    //     // Збираємо всі вибрані чекбокси
+    //     var selectedSubCategories = [];
+    //     document.querySelectorAll('.form-check-input:checked').forEach(function (checkbox) {
+    //         selectedSubCategories.push(checkbox.value);
+    //     });
 
-        // Виконуємо AJAX запит на сервер, щоб отримати товари для вибраних субкатегорій
-        if (selectedSubCategories.length > 0) {
-            $.ajax({
-                url: '/SubChildCategory/GetProductsBySubChildCategories',
-                type: 'POST',
-                data: { subchildcategoryIds: selectedSubCategories },
-                success: function (result) {
-                    // Очищаємо блок перед виведенням нових товарів
-                    $('#products-block').html(result);
-                },
-                error: function (xhr, status, error) {
-                    console.log('Error:', error);
-                }
-            });
-        } else {
-            // Якщо всі чекбокси зняті, очищаємо блок товарів
-            $('#products-block').html('');
-        } 
-    }
+    //     // Виконуємо AJAX запит на сервер, щоб отримати товари для вибраних субкатегорій
+    //     if (selectedSubCategories.length > 0) {
+    //         $.ajax({
+    //             url: '/SubChildCategory/GetProductsBySubChildCategories',
+    //             type: 'POST',
+    //             data: { subchildcategoryIds: selectedSubCategories },
+    //             success: function (result) {
+    //                 // Очищаємо блок перед виведенням нових товарів
+    //                 $('#products-block').html(result);
+    //             },
+    //             error: function (xhr, status, error) {
+    //                 console.log('Error:', error);
+    //             }
+    //         });
+    //     } else {
+    //         // Якщо всі чекбокси зняті, очищаємо блок товарів
+    //         $('#products-block').html('');
+    //     } 
+    // }
+
+
+
+
+    // $(document).ready(function () {
+    //     // Обробник події для фільтрів
+    //     $('#filter-form').on('submit', function (event) {
+    //         event.preventDefault(); // Запобігає оновленню сторінки
+
+    //         // Отримання даних форми
+    //         var formData = $(this).serialize();
+
+    //         // Відправка AJAX-запиту на сервер
+    //         $.ajax({
+    //             url: '/Childcategories/GetProducts', // Шлях до вашого екшену
+    //             type: 'GET',
+    //             data: formData,
+    //             success: function (response) {
+    //                 // Успішний запит: поміщаємо часткове представлення в блок
+    //                 $('#products-block').html(response);
+    //             },
+    //             error: function () {
+    //                 // Вивести повідомлення про помилку у разі невдалого запиту
+    //                 alert('Помилка завантаження товарів.');
+    //             }
+    //         });
+    //     });
+    // });
 
 </script>
- *@

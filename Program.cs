@@ -26,7 +26,7 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromSeconds(TimeBeforeLogout); // час очикування
-    options.Cookie.HttpOnly = true;
+    options.Cookie.HttpOnly = true;  // Захист від JS-атак
     options.Cookie.IsEssential = true;
 });
 
@@ -96,6 +96,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.MapControllers();
 
 app.UseAuthentication();
 app.UseAuthorization();

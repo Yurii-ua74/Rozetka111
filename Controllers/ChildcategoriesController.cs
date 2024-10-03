@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Rozetka.Data;
 using Rozetka.Data.Entity;
+using Rozetka.Extensions;
 using Rozetka.Models.ViewModels.ProductAndSubChildCategory;
 
 namespace Rozetka.Controllers
@@ -164,7 +166,7 @@ namespace Rozetka.Controllers
         {
             return _context.Childcategories.Any(e => e.Id == id);
         }
-        
+
 
         //public async Task<IActionResult> GetSubChildCategories(string childcategory)
         //{
@@ -190,11 +192,25 @@ namespace Rozetka.Controllers
         //}
 
 
+
+        /* //////////////////////////////// ///////////////////////////////// */
+        /*    викликається по кліку на childcategory на сторінці    */
+
         public async Task<IActionResult> GetProducts(string childcategory)
         {
+            // Якщо параметр childcategory порожній, спробую отримати його з сесії
             if (string.IsNullOrEmpty(childcategory))
             {
-                return NotFound();
+                childcategory = HttpContext.Session.GetString("ChildCategory");
+                if (string.IsNullOrEmpty(childcategory))
+                {
+                    return NotFound(); // Якщо значення все ще порожнє, повертаємо NotFound
+                }
+            }
+            else
+            {
+                // Зберігаємо значення childcategory в сесії
+                HttpContext.Session.SetString("ChildCategory", childcategory);
             }
 
             // Знайти підкатегорію за назвою
@@ -205,7 +221,10 @@ namespace Rozetka.Controllers
                 // Якщо підкатегорія не знайдена
                 return NotFound();
             }
-            HttpContext.Session.SetString("ChildCategory", childcategoryEntity.Name);
+            //HttpContext.Session.SetString("ChildCategory", childcategoryEntity.Name);
+
+            // Зберегти ID підкатегорії в сесії
+            HttpContext.Session.SetInt32("ChildCategoryId", childcategoryEntity.Id);
 
             // Знайти субпідкатегорії, пов'язані з підкатегорією
             var subchildCategories = await _context.SubChildCategories
@@ -218,7 +237,7 @@ namespace Rozetka.Controllers
 
             // Об'єднати всі товари з субпідкатегорій в один список
             var products = new List<Product>();
-
+            
             foreach (var subchildCategory in subchildCategories)
             {
                 var subProducts = await _context.Products
@@ -233,7 +252,6 @@ namespace Rozetka.Controllers
 
                 products.AddRange(subProducts);
             }
-
             // Створити ViewModel та передати його у View
             var viewModel = new ProductAndSubChildCategoryViewModel
             {
@@ -243,82 +261,71 @@ namespace Rozetka.Controllers
 
             // Передати список продуктів у View
             return View(viewModel);
+            
         }
 
 
 
 
-
-
-
-        /* ////////////////////////////////////////////  */
-        //public IActionResult FilterByPrice(decimal? startPrice, decimal? endPrice)
-        //{
-        //    // Отримуємо всі товари
-        //    var products = _context.Products
-        //        .Include(p => p.ProductType)  // Включаємо тип продукту
-        //        .Include(p => p.Brand)         // Включаємо бренд
-        //        .Include(p => p.ProductImages)  // Включаємо зображення продукту
-        //        .Include(p => p.Reviews)       // Включаємо відгуки
-        //        .AsQueryable();
-
-        //    // Якщо вказана мінімальна ціна, фільтруємо за нею
-        //    if (startPrice.HasValue)
-        //    {
-        //        products = products.Where(p => p.Price >= startPrice.Value);
-        //    }
-
-        //    // Якщо вказана максимальна ціна, фільтруємо за нею
-        //    if (endPrice.HasValue)
-        //    {
-        //        products = products.Where(p => p.Price <= endPrice.Value);
-        //    }
-
-        //    // Повертаємо часткове представлення з відфільтрованими товарами
-        //    return PartialView("_ProductsPartial", products);
-        //}
-
-
-
-        /* ////////////////////////////////////////////  */
+        //3.10.24
         [HttpPost]
-        public RedirectToActionResult AddFilter(string[]? selectedBrands, decimal? startPrice, decimal? endPrice)
+        public IActionResult GetProductsByFilter(List<int> subChildCategoryIds, decimal? minPrice, decimal? maxPrice)
         {
-            if (selectedBrands.Any())
+            // Отримуємо всі продукти
+            var products = _context.Products.AsQueryable();
+
+            // Отримуємо Name ChildCategory з сессії
+            var childcategory = HttpContext.Session.GetString("ChildCategory");
+            var childcategoryId = HttpContext.Session.GetInt32("ChildCategoryId");
+
+            // Перевіряємо, чи є обрані підкатегорії та чи задано діапазон цін
+            bool hasSelectedSubCategories = subChildCategoryIds != null && subChildCategoryIds.Any();
+            bool hasMinPrice = minPrice.HasValue;
+            bool hasMaxPrice = maxPrice.HasValue;
+
+            if (!hasSelectedSubCategories)
             {
-                HttpContext.Session.SetString("SelectedBrands", string.Join(",", selectedBrands));
+                if (!hasMinPrice || !hasMaxPrice)
+                {
+                    // Якщо жоден фільтр не застосований, фільтруємо товар за ChildCategoryId
+                    products = products.Where(p => p.SubChildCategory.ChildCategoryId == childcategoryId);
+                    return PartialView("_ProductsPartial", new List<Product>());
+                }
             }
-            if (startPrice != null)
+            else
             {
-                HttpContext.Session.SetString("StartPrice", startPrice.ToString());
-            }
-            if (endPrice != null)
-            {
-                HttpContext.Session.SetString("EndPrice", endPrice.ToString());
+                // Фільтруємо продукти за субкатегоріями
+                if (hasSelectedSubCategories)
+                {
+                    products = products.Where(p => subChildCategoryIds.Contains(p.SubChildCategoryId));
+                }
+
+                // Фільтруємо продукти за ціною
+                if (hasMinPrice)
+                {
+                    products = products.Where(p => p.Price >= minPrice.Value);
+                }
+
+                if (hasMaxPrice)
+                {
+                    products = products.Where(p => p.Price <= maxPrice.Value);
+                }
             }
 
-            return RedirectToAction(nameof(GetProducts));
+            // Підключаємо необхідні пов'язані дані
+            var filteredProducts = products
+                .Include(p => p.ProductType)
+                .Include(p => p.Brand)
+                .Include(p => p.ProductImages)
+                .Include(p => p.Reviews)
+                .ToList();
+
+            // Повертаємо часткове представлення з відфільтрованими продуктами
+            return PartialView("_ProductsPartial", filteredProducts);
         }
 
-        public RedirectToActionResult FullDeleteFilters()
-        {
-            HttpContext.Session.Remove("SelectedBrands");
-            HttpContext.Session.Remove("StartPrice");
-            HttpContext.Session.Remove("EndPrice");
-            return RedirectToAction(nameof(GetProducts));
-        }
-
-        public RedirectToActionResult DeleteFilterBrand()
-        {
-            HttpContext.Session.Remove("SelectedBrands");
-            return RedirectToAction(nameof(GetProducts));
-        }
-        public RedirectToActionResult DeleteFilterPrice()
-        {
-            HttpContext.Session.Remove("StartPrice");
-            HttpContext.Session.Remove("EndPrice");
-            return RedirectToAction(nameof(GetProducts));
-        }
 
     }
+
+
 }

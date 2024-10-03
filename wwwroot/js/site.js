@@ -226,8 +226,12 @@ document.getElementById('offcanvasExample').addEventListener('shown.bs.offcanvas
     getLocationFromSession();
 });
 
+
+
 // Викликаємо функцію при завантаженні сторінки
 //window.onload = getLocation;
+
+
 
 // //////  випадаючий список в боковому вікні "Сервіси"  ////// //
 // Елементи для стрілки і випадаючого меню
@@ -248,148 +252,47 @@ document.getElementById('dropdownIcon').addEventListener('click', function () {
 
 
 
-/*   фільтр товару по ціні   */
+/*  ///////////////////////////////////////////////////////  */
+
+
+//3.10.24
+// Функція для обробки змін фільтрів субпідкатегорій та цін
 $(document).ready(function () {
-    // Функція для виконання AJAX запиту
-    function filterProductsByPrice() {
-        var startPrice = $('#startPrice').val();
-        var endPrice = $('#endPrice').val();
-
-        // Перевірка наявності значень цін
-        if (startPrice && endPrice) {
-            // Виконуємо AJAX запит
-            $.ajax({
-                /*url: '/SubChildCategory/FilterByPrice',*/  // Виклик в  контролер
-                url: '/SubChildCategory/FilterProducts',
-                type: 'GET',
-                data: { startPrice: startPrice, endPrice: endPrice },
-                success: function (result) {
-                    // Оновлюємо блок з товарами
-                    $('#products-block').html(result);
-                },
-                error: function (xhr, status, error) {
-                    console.log('Error:', error);
-                }
-            });
-        }
-    }
-
-    // Виклик фільтрації при зміні значення в полях
-    $('#startPrice, #endPrice').on('change', function () {
-        filterProductsByPrice();
-    });
-});
-
-
-/*  фільтр товарів по субпідкатегорії  */
-function handleCheckboxChange() {
-    // Збираємо всі вибрані чекбокси
-    var selectedSubCategories = [];
-    document.querySelectorAll('.form-check-input:checked').forEach(function (checkbox) {
-        selectedSubCategories.push(checkbox.value);
-    });
-
-    // Виконуємо AJAX запит на сервер, щоб отримати товари для вибраних субкатегорій
-    if (selectedSubCategories.length > 0) {
-        $.ajax({
-            /*url: '/SubChildCategory/GetProductsBySubChildCategories',*/
-            url: '/SubChildCategory/FilterProducts',
-            type: 'POST',
-            data: { subchildcategoryIds: selectedSubCategories },
-            success: function (result) {
-                // Очищаємо блок перед виведенням нових товарів
-                $('#products-block').html(result);
-            },
-            error: function (xhr, status, error) {
-                console.log('Error:', error);
-            }
+    // Функція для обробки змін чекбоксів та цін
+    function handleCheckboxChange() {
+        var selectedSubCategories = [];
+        // Отримуємо всі обрані чекбокси
+        $('.subCategoryCheckbox:checked').each(function () {
+            selectedSubCategories.push($(this).val());
         });
-    } else {
-        // Якщо всі чекбокси зняті, очищаємо блок товарів
-        $('#products-block').html('');
-    }
-}
 
-function handleCheckPriceChange() {
-    var selectedSubCategories = [];
+        // Отримуємо значення полів цін
+        var minPrice = $('#minPrice').val();
+        var maxPrice = $('#maxPrice').val();
 
-    // Отримуємо вибрані субкатегорії з чекбоксів
-    document.querySelectorAll('.form-control:checked').forEach(function (checkbox) {
-        selectedSubCategories.push(checkbox.value);
-    });
-
-    // Отримуємо введені значення цін
-    var minPrice = $('#minPrice').val();
-    var maxPrice = $('#maxPrice').val();
-
-    // Перевіряємо, чи є вибрані субкатегорії або встановлені ціни
-    if (selectedSubCategories.length > 0 || minPrice || maxPrice) {
+        // AJAX-запит для фільтрації продуктів
         $.ajax({
-            url: '/SubChildCategory/FilterProducts',
+            url: '/Childcategories/GetProductsByFilter', // Поставте правильний шлях до вашого контролера
             type: 'POST',
             data: {
-                subchildcategoryIds: selectedSubCategories,
-                startPrice: minPrice,
-                endPrice: maxPrice
+                subChildCategoryIds: selectedSubCategories,
+                minPrice: minPrice,
+                maxPrice: maxPrice
             },
-            success: function (result) {
-                // Очищаємо блок перед виведенням нових товарів
-                $('#products-block').html(result);
+            success: function (response) {
+                // Оновлення часткового представлення продуктів
+                $('#productsPartial').html(response);
             },
             error: function (xhr, status, error) {
-                console.log('Error:', error);
+                console.log('Помилка при отриманні фільтрованих даних:', error);
             }
         });
-    } else {
-        // Якщо всі чекбокси зняті і ціни не вказані, очищаємо блок товарів
-        $('#products-block').html('');
     }
-}
 
+    // Виклик функції при зміні чекбоксів
+    $('.subCategoryCheckbox').on('change', handleCheckboxChange);
 
-
-
-//$(document).ready(function () {
-//    // Функція для виконання AJAX запиту з обома фільтрами (ціна + субпідкатегорії)
-//    function filterProducts() {
-//        var startPrice = $('#startPrice').val();
-//        var endPrice = $('#endPrice').val();
-
-//        // Збираємо всі вибрані чекбокси субпідкатегорій
-//        var selectedSubCategories = [];
-//        document.querySelectorAll('.form-check-input:checked').forEach(function (checkbox) {
-//            selectedSubCategories.push(checkbox.value);
-//        });
-
-//        // Виконуємо AJAX запит, якщо є значення для фільтрації
-//        $.ajax({
-//            url: '/SubChildCategory/FilterProducts',  // Виклик в контролер для обробки обох фільтрів
-//            type: 'GET',
-//            data: {
-//                startPrice: startPrice,
-//                endPrice: endPrice,
-//                subchildcategoryIds: selectedSubCategories
-//            },
-//            success: function (result) {
-//                // Оновлюємо блок з товарами
-//                $('#products-block').html(result);
-//            },
-//            error: function (xhr, status, error) {
-//                console.log('Error:', error);
-//            }
-//        });
-//    }
-
-//    // Виклик фільтрації при зміні значення в полях цін
-//    $('#startPrice, #endPrice').on('change', function () {
-//        filterProducts();
-//    });
-
-//    // Виклик фільтрації при зміні чекбоксів субпідкатегорій
-//    $('.form-check-input').on('change', function () {
-//        filterProducts();
-//    });
-//});
-
-
+    // Виклик функції при зміні полів ціни
+    $('#minPrice, #maxPrice').on('change', handleCheckboxChange);
+});
 
