@@ -63,12 +63,14 @@ namespace Rozetka.Controllers
         {
             var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
+            var colors = await _context.ProductColors.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
 
             var viewModel = new CreateProductVM
             {
                 ProductTypes = new SelectList(type, "Id", "Title"),
                 Brands = new SelectList(brands, "Id", "Title"),
+                ProductColors = new SelectList(colors, "Id", "Title"),
                 Childcategories = new SelectList(childcategories, "Id", "Name")
                 //Product = new Product()
             };
@@ -92,10 +94,12 @@ namespace Rozetka.Controllers
 
             var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
+            var colors = await _context.ProductColors.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
 
             viewModel.ProductTypes = new SelectList(type, "Id", "Title");
             viewModel.Brands = new SelectList(brands, "Id", "Title");
+            viewModel.ProductColors = new SelectList(colors, "Id", "Title");
             viewModel.Childcategories = new SelectList(childcategories, "Id", "Name");
 
             return View(viewModel);
@@ -117,12 +121,14 @@ namespace Rozetka.Controllers
 
             var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
+            var colors = await _context.ProductColors.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
             var viewModel = new CreateProductVM
             {
                 Product = product,
                 ProductTypes = new SelectList(type, "Id", "Title"),
-                Brands = new SelectList(brands, "Id", "Title"),                
+                Brands = new SelectList(brands, "Id", "Title"),
+                ProductColors = new SelectList(colors, "Id", "Title"),
                 Childcategories = new SelectList(childcategories, "Id", "Name")
             };
             //ViewData["ChildcategoryId"] = new SelectList(_context.Childcategories, "Id", "Id", product.ChildcategoryId);
@@ -147,6 +153,13 @@ namespace Rozetka.Controllers
             {
                 try
                 {
+                    var product = await _context.Products.FindAsync(id);
+                    if (product == null)
+                    {
+                        return NotFound();
+                    }
+                    viewModel.Product.Amount = product.Amount;
+                    viewModel.Product.Rating = product.Rating;
                     _context.Update(viewModel.Product);
                     await _context.SaveChangesAsync();
                 }
@@ -166,10 +179,12 @@ namespace Rozetka.Controllers
 
             var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
+            var colors = await _context.ProductColors.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
 
             viewModel.ProductTypes = new SelectList(type, "Id", "Title");
             viewModel.Brands = new SelectList(brands, "Id", "Title");
+            viewModel.ProductColors = new SelectList(colors, "Id", "Title");
             viewModel.Childcategories = new SelectList(childcategories, "Id", "Name");
 
             return View(viewModel);

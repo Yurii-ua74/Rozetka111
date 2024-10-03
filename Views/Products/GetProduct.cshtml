@@ -86,13 +86,13 @@
             <p><i class="bi bi-star-fill rating"></i> 4.1 Рейтинг</p>
             <p>Артикул: @Model.Id</p>
         </div>
-        @if (Model.ProductColorId != null && Model.ProductColors != null)
+        @if (Model.ProductColorId != null && Model.ProductColor != null)
         {
-            <h5>Колір: @Model.ProductColors.Title</h5> <!-- Отображение названия цвета -->
+            <h5>Колір: @Model.ProductColor.Title</h5> <!-- Отображение названия цвета -->
 
             <div class="d-flex mb-3">
                 <!-- Отображение кнопки с цветом фона на основе HexCode -->
-                <button class="btn me-2" style="background-color: @Model.ProductColors.HexCode;"></button>
+                <button class="btn me-2" style="background-color: @Model.ProductColor.HexCode;"></button>
             </div>
         }
        
@@ -108,7 +108,7 @@
                 <h4 class="price">@Model.Price ₴</h4>
             </div>
             <div class="col">
-                <button class="btn btn-purple btn-lg w-100">Додати до кошика</button>
+                <a class="btn btn-purple btn-add-to-cart btn-lg w-100" href="@Url.Action("AddToCart", "Cart", new { id = Model.Id })">Додати до кошика</a>
             </div>
             <div class="col col-lg-1">
                 <button class="btn btn-outline-purple btn-lg"><i class="bi bi-heart"></i> </button>

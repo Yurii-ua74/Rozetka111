@@ -76,7 +76,7 @@ namespace Rozetka.Controllers
         public IActionResult RemoveFromCart(Cart cart, int? id, string? returnUrl)
         {
             if (id == null) return NotFound();
-            //Cart cart = GetCart();
+            cart = GetCart();
             cart.RemoveFromCart(id.Value);
             SetCart(cart);
             return RedirectToAction("Index", new { returnUrl });

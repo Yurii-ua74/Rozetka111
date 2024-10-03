@@ -1059,5 +1059,23 @@ a:hover{
 
 .dark-purple {
     background-color: #9C12FF; /* Темно-фиолетовый */
+
+}
+/* Кошик модал */
+.total-price-container {
+    display: flex;
+    justify-content: flex-end; /* Прижимает все к правому краю */
+    align-items: center; /* Выравнивает элементы по вертикали */
+}
+
+.total-price-text {
+    margin-right: 10px; /* Отступ между текстом и кнопкой */
+    font-family: 'Inter', sans-serif; /* Устанавливает шрифт */
+    font-style: normal; /* Нормальный стиль текста */
+    font-size: 24px; /* Размер шрифта */
+}
+
+.total-price-button {
+    width: 20%; /* Задает кнопке ширину 20% от экрана */
 }
 

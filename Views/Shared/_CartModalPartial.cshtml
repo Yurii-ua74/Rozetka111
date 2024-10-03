@@ -3,59 +3,69 @@
 @model CartIndexVM
 @{
     ViewData["Title"] = "Index";
-    //int index = 0;
 }
-<table class="table">
-    <thead>
-       
-    </thead>
-    <tbody>
-        @foreach (CartItem cartItem in Model.CartItems)
-        {
-            <tr>
-               @*  <td>@(++index)</td> *@
-                <td>
-                    @if (cartItem.Product.ProductImages!.Any())
-                    {
-                        <img src="data:image/*;base64,@(Convert.ToBase64String(cartItem.Product.ProductImages!.FirstOrDefault()!.ImageData!))" class="card-img-top" alt="@cartItem.Product.Title"
-                             style="height: 100px;width: auto;object-fit: contain;">
-                    }
-                    else
-                    {
-                        <img src="~/images/No-Image-Placeholder.svg.png" alt="no-image"
-                             style="height: 100px;width: auto;object-fit: contain;" />
-                    }
-                </td>
-                <td>@cartItem.Product.Title</td>
-               @*  <td>@cartItem.Product.Price</td> *@
-                <td class="item-count" data-row-id="@cartItem.Product.Id">
-                    <div class="d-flex text-center">
-                        <span class="flex-fill rounded-start border p-2"
-                              onclick="decCount(event, @cartItem.Product.Id)">-</span>
-                        <span class="flex-fill border p-2">@cartItem.Count</span>
-                        <span class="flex-fill rounded-end border p-2" onclick="incCount(event, @cartItem.Product.Id)">+</span>
-                    </div>
-                </td>
-                <td>@(cartItem.Count * cartItem.Product.Price) </td>
-                <td>
-                    <form asp-action="RemoveFromCart" asp-controller="Cart"
-                          method="post">
-                        <input type="hidden" name="id" value="@cartItem.Product.Id" />
-                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
-                        <button type="submit" class="btn btn-outline-dark">Remove</button>
-                    </form>
-                </td>
-            </tr>
-        }
-        <tr>
-            <td colspan="5"></td>
-            <td id="totalPrice">@Model.TotalPrice UAH</td>
-        </tr>
-    </tbody>
-</table>
-<div class="total-price">
-    Загальна сума: @Model.TotalPrice UAH
-    <a class="btn btn-purple w-100" asp-controller="Cart" asp-action="Index">
-        Оформити замовлення
-    </a>
-</div>
+
+@if (Model.CartItems != null && Model.CartItems.Any())
+{
+    <table class="table">
+      
+        <tbody>
+            @foreach (CartItem cartItem in Model.CartItems)
+            {
+                <tr>
+                    <td style="border: none;">
+                        @if (cartItem.Product.ProductImages!.Any())
+                        {
+                            <img src="data:image/*;base64,@(Convert.ToBase64String(cartItem.Product.ProductImages!.FirstOrDefault()!.ImageData!))" class="card-img-top" alt="@cartItem.Product.Title"
+                                 style="height: 100px;width: auto;object-fit: contain;">
+                        }
+                        else
+                        {
+                            <img src="~/images/No-Image-Placeholder.svg.png" alt="no-image"
+                                 style="height: 100px;width: auto;object-fit: contain;" />
+                        }
+                    </td>
+                    <td style="border: none;">@cartItem.Product.Title</td>
+
+                    <td class="item-count" data-row-id="@cartItem.Product.Id" style="border: none;">
+                        <div class="d-flex text-center">
+                            @* <span class="flex-fill rounded-start border p-2"
+                                  onclick="decCount(event, @cartItem.Product.Id)">-</span> *@
+                            <span style="border-radius: 8px; border: 1px solid #000000; box-sizing: border-box;  width: 33px; left: 689px; top: 210px">@cartItem.Count</span>
+                           @*  <span class="flex-fill rounded-end border p-2" onclick="incCount(event, @cartItem.Product.Id)">+</span> *@
+                        </div>
+                    </td>
+
+                    <td style="border: none;">@(cartItem.Count * cartItem.Product.Price) ₴ </td>
+                    <td style="border: none;">
+                        <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                          
+                            <input type="hidden" name="id" value="@cartItem.Product.Id" />
+                            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                            <button type="submit" class="btn p-0">
+                                <i class="bi bi-trash"></i> <!-- Иконка мусорной корзины -->
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-end align-items-center total-price-container">
+        <div class="total-price-text me-3">
+            @Model.TotalPrice ₴
+        </div>
+        <a class="btn btn-purple w-20 total-price-button" asp-controller="Cart" asp-action="Index">
+            Сформувати замовлення
+        </a>
+    </div>
+}
+else
+{
+    <div class="text-center mt-5">
+        <h3>Ваш кошик порожнiй</h3>
+        <p>Додайте товари у кошик, щоб продовжити.</p>
+        <i class="bi bi-emoji-frown" style="font-size: 240px; color: #ccc;"></i> <!-- Иконка пустой корзины -->
+    </div>
+}
+
