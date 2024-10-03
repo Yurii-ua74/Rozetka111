@@ -39,6 +39,7 @@
                     <td style="border: none;">@(cartItem.Count * cartItem.Product.Price) ₴ </td>
                     <td style="border: none;">
                         <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                          
                             <input type="hidden" name="id" value="@cartItem.Product.Id" />
                             <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
                             <button type="submit" class="btn p-0">
@@ -55,7 +56,7 @@
             @Model.TotalPrice ₴
         </div>
         <a class="btn btn-purple w-20 total-price-button" asp-controller="Cart" asp-action="Index">
-            Оформити замовлення
+            Сформувати замовлення
         </a>
     </div>
 }

@@ -843,12 +843,12 @@
         <div class="modal-content" style="border-radius: 15px; height: 75vh;">
             <!-- Высота на 90% экрана -->
             <div class="modal-header">
-                <h5 class="enter-reg-tittle" id="authModalLabel">Кошик</h5>
+                <h5 class="enter-reg-tittle" id="cartModalLabel">Кошик</h5>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="horizontal-line"></div>
-            <div class="modal-body">
+            <div class="modal-body-basket">
                 
   
             </div>
@@ -860,9 +860,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#cartModal').on('show.bs.modal', function () {
-            $('.modal-body').html('<span>Loading...</span>');  // Показать индикатор загрузки
+            $('.modal-body-basket').html('<span>Loading...</span>');  // Показать индикатор загрузки
             $.get('/Cart/LoadCartModal', function (data) {
-                $('.modal-body').html(data);  // Вставить данные в модальное окно
+                $('.modal-body-basket').html(data);  // Вставить данные в модальное окно
             });
         });
     });
