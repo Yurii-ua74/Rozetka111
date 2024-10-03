@@ -848,7 +848,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="horizontal-line"></div>
-            <div class="modal-body-basket">
+            <div class="modal-body custom-modal-body">
                 
   
             </div>
@@ -860,9 +860,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#cartModal').on('show.bs.modal', function () {
-            $('.modal-body-basket').html('<span>Loading...</span>');  // Показать индикатор загрузки
+            $('.custom-modal-body').html('<span>Loading...</span>');  // Показать индикатор загрузки
             $.get('/Cart/LoadCartModal', function (data) {
-                $('.modal-body-basket').html(data);  // Вставить данные в модальное окно
+                $('.custom-modal-body').html(data);  // Вставить данные в модальное окно
             });
         });
     });
