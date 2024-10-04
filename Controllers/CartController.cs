@@ -79,13 +79,15 @@ namespace Rozetka.Controllers
             var cart = GetCart();
             cart.RemoveFromCart(id);
             SetCart(cart);
+            var cartItemCount = cart.GetTotalCount(); // Получите актуальное количество товаров в корзине
+            var totalPrice = cart.GetTotalPrice(); // Рассчитайте общую стоимость
 
             // Возвращаем актуальные данные
             return Json(new
             {
                 success = true,
                 cartItemCount = cart.GetTotalCount(),
-                totalPrice = cart.GetTotalPrice() // Не забудьте обновить эту логику
+                totalPrice = cart.GetTotalPrice() 
             });
         }
         //Видаляє товар з кошика.
