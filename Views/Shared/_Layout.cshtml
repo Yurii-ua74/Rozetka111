@@ -240,6 +240,26 @@
                 </button>
                 </div>
            
+            @if (User.Identity.IsAuthenticated)
+            {
+                <!-- Якщо користувач авторизований, показуємо блок з іконкою чоловічка та nik користувача -->
+                <div class="d-flex align-items-center" style="font-size: 24px;">
+                    <a href="@Url.Action("Edit", "Account")" class="d-flex align-items-center text-decoration-none text-black">
+                        <i class="bi bi-person-circle me-2"></i> <!-- Іконка чоловічка -->
+                        <span>@User.Identity.Name</span> <!-- Відображення nika користувача -->
+                    </a>
+                </div>
+                
+                <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout">
+                    <button type="submit" class="entr-btn btn-sz opacity-75 btn btn-outline-secondary mr-top" id="auth-signout-button-nav"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Вихід">
+                        <i>Вийти</i>
+                    </button>
+                    @Html.AntiForgeryToken()
+                </form>
+            }
+            else
+            {
                 <div class="left-wind reg-bl">
                     <h6>Увійдіть, щоб отримувати рекомендації,
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;персональні бонуси і знижки
@@ -247,9 +267,9 @@
                     <button class="entr-btn btn-sz opacity-75 btn btn-outline-secondary mr-top" type="button" data-bs-toggle="modal" data-bs-target="#authModal" aria-controls="authModal">
                         <strong style="color:black ">Увійдіть в особистий кабінет</strong>
                     </button>                
-                </div>
-           
-           <hr>
+                </div>            
+            }
+            <hr>
            
            <div class="shopping-list-container">
                 <div class="shop-cart-container">

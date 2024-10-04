@@ -47,7 +47,7 @@ namespace Rozetka.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
-            {              
+            {
                 var user = new User
                 {
                     UserName = model.Email,
@@ -165,63 +165,6 @@ namespace Rozetka.Controllers
         }
 
 
-
-        //// GET: Account/LoginWithGoogle
-        //[HttpGet("login/google")]
-        //public IActionResult LoginWithGoogle()
-        //{
-        //    var redirectUrl = Url.Action("GoogleResponse", "Account");
-        //    var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
-        //    return Challenge(properties, GoogleDefaults.AuthenticationScheme);
-        //}
-
-        //// GET: Account/GoogleResponse
-        //[HttpGet("google-response")]
-        //public async Task<IActionResult> GoogleResponse()
-        //{
-        //    var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        //    if (!result.Succeeded)
-        //    {
-        //        Console.WriteLine("Authentication failed.");
-        //        return BadRequest();
-        //    }
-
-        //    var email = result.Principal.FindFirstValue(ClaimTypes.Email);
-        //    var fullName = result.Principal.FindFirstValue(ClaimTypes.Name);
-
-        //    // Разделяем полное имя на имя и фамилию
-        //    var names = fullName?.Split(' ', 2);
-        //    var firstName = names?.FirstOrDefault();
-        //    var lastName = names?.Skip(1).FirstOrDefault();
-
-        //    var user = await _userManager.FindByEmailAsync(email);
-        //    if (user == null)
-        //    {
-        //        // Создайте нового пользователя, если он не существует
-        //        user = new User
-        //        {
-        //            Email = email,
-        //            UserName = email,
-        //            FirstName = firstName,
-        //            LastName = lastName,
-        //            RegisterDt = DateTime.Now
-        //        };
-
-        //        var createResult = await _userManager.CreateAsync(user);
-        //        if (!createResult.Succeeded)
-        //        {
-        //            // Обработка ошибок создания пользователя
-        //            Console.WriteLine("User creation failed.");
-        //            return BadRequest(createResult.Errors);
-        //        }
-        //    }
-
-        //    await _signInManager.SignInAsync(user, isPersistent: false);
-        //    Console.WriteLine("User signed in successfully.");
-        //    return RedirectToAction("Index", "Home");
-        //}
-
-
         [AllowAnonymous]
         public IActionResult GoogleLogin()
         {
@@ -335,5 +278,31 @@ namespace Rozetka.Controllers
 
         // TEST
 
+
+
+
+
+
+        public async Task<IActionResult> Edit()
+        {
+            // Отримуємо ім'я користувача
+            var userName = User.Identity.Name;
+
+            if (userName == null)
+            {
+                return NotFound(); // Якщо користувач не знайдений, повертаємо 404
+            }
+
+            // Знаходимо користувача за його UserName
+            var user = await _userManager.FindByNameAsync(userName);
+
+            if (user == null)
+            {
+                return NotFound(); // Якщо користувача немає в базі даних, повертаємо 404
+            }
+
+            // Передаємо дані користувача до вьюшки
+            return View(user);
+        }
     }
 }

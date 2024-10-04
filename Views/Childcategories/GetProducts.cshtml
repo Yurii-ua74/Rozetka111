@@ -1,7 +1,6 @@
 ﻿@using Rozetka.Data.Entity
 @using Rozetka.Models.ViewModels.ProductAndSubChildCategory
 @model ProductAndSubChildCategoryViewModel
-@* ////////////////////////////////////////// *@
 
 
 @{
@@ -224,63 +223,3 @@
     </div>
 </div>
 
-
-
-<!-- JS -->
- <script>
-    //  function handleCheckboxChange() {
-    //     // Збираємо всі вибрані чекбокси
-    //     var selectedSubCategories = [];
-    //     document.querySelectorAll('.form-check-input:checked').forEach(function (checkbox) {
-    //         selectedSubCategories.push(checkbox.value);
-    //     });
-
-    //     // Виконуємо AJAX запит на сервер, щоб отримати товари для вибраних субкатегорій
-    //     if (selectedSubCategories.length > 0) {
-    //         $.ajax({
-    //             url: '/SubChildCategory/GetProductsBySubChildCategories',
-    //             type: 'POST',
-    //             data: { subchildcategoryIds: selectedSubCategories },
-    //             success: function (result) {
-    //                 // Очищаємо блок перед виведенням нових товарів
-    //                 $('#products-block').html(result);
-    //             },
-    //             error: function (xhr, status, error) {
-    //                 console.log('Error:', error);
-    //             }
-    //         });
-    //     } else {
-    //         // Якщо всі чекбокси зняті, очищаємо блок товарів
-    //         $('#products-block').html('');
-    //     } 
-    // }
-
-
-
-
-    // $(document).ready(function () {
-    //     // Обробник події для фільтрів
-    //     $('#filter-form').on('submit', function (event) {
-    //         event.preventDefault(); // Запобігає оновленню сторінки
-
-    //         // Отримання даних форми
-    //         var formData = $(this).serialize();
-
-    //         // Відправка AJAX-запиту на сервер
-    //         $.ajax({
-    //             url: '/Childcategories/GetProducts', // Шлях до вашого екшену
-    //             type: 'GET',
-    //             data: formData,
-    //             success: function (response) {
-    //                 // Успішний запит: поміщаємо часткове представлення в блок
-    //                 $('#products-block').html(response);
-    //             },
-    //             error: function () {
-    //                 // Вивести повідомлення про помилку у разі невдалого запиту
-    //                 alert('Помилка завантаження товарів.');
-    //             }
-    //         });
-    //     });
-    // });
-
-</script>
