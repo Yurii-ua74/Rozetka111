@@ -270,27 +270,26 @@ namespace Rozetka.Controllers
         //3.10.24
         [HttpPost]
         public IActionResult GetProductsByFilter(List<int> subChildCategoryIds, decimal? minPrice, decimal? maxPrice)
-        {
-            // Отримуємо всі продукти
-            var products = _context.Products.AsQueryable();
-
+        {           
             // Отримуємо Name ChildCategory з сессії
             var childcategory = HttpContext.Session.GetString("ChildCategory");
             var childcategoryId = HttpContext.Session.GetInt32("ChildCategoryId");
+
+            // Отримуємо всі продукти відповідної підкатегорії
+            var products = _context.Products
+                .Where(p => p.SubChildCategory.ChildCategoryId == childcategoryId)
+                .AsQueryable();
 
             // Перевіряємо, чи є обрані підкатегорії та чи задано діапазон цін
             bool hasSelectedSubCategories = subChildCategoryIds != null && subChildCategoryIds.Any();
             bool hasMinPrice = minPrice.HasValue;
             bool hasMaxPrice = maxPrice.HasValue;
 
-            if (!hasSelectedSubCategories)
-            {
-                if (!hasMinPrice || !hasMaxPrice)
-                {
-                    // Якщо жоден фільтр не застосований, фільтруємо товар за ChildCategoryId
-                    products = products.Where(p => p.SubChildCategory.ChildCategoryId == childcategoryId);
-                    return PartialView("_ProductsPartial", new List<Product>());
-                }
+            if (!hasSelectedSubCategories && !hasMinPrice || !hasMaxPrice)
+            {                                
+                // Передаємо змінну у View, щоб визначити, чи були застосовані фільтри
+                ViewBag.FiltersApplied = hasSelectedSubCategories || hasMinPrice || hasMaxPrice;
+                return new EmptyResult();
             }
             else
             {
