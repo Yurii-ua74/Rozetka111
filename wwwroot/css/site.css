@@ -32,6 +32,15 @@ body {
     color: #FFFFFF; /* Цвет текста белый */
     border-radius: 10px;   
 }
+
+.btn-purple-back {
+    background-color: #F5E6FF; /* Цвет фона фиолетовый */
+    color: #9C12FF; /* Цвет текста белый */
+    border-radius: 10px;
+    border: 0px solid #9C12FF;
+    font-size: 18px;
+    font-weight: bold;
+}
 .btn-purple:hover {
     background-color: #FFFFFF; /* При наведении фон меняется на белый */
     color: #9C12FF; /* Текст меняется на фиолетовый */
