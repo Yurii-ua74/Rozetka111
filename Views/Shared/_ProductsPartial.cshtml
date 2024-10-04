@@ -3,7 +3,7 @@
 
 
 <div class="row mb-3">
-    @foreach (var product in Model.Where(p => p.QuantityInStock > 0))
+    @* @foreach (var product in Model.Where(p => p.QuantityInStock > 0))
     {
         <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
             <!-- Стилізований блок товару -->
@@ -32,6 +32,54 @@
                     <div class="product-title">@product.ProductType.Title @product.Brand.Title @product.Title</div>
                     <div class="product-description">@product.Description</div>
                     <div class="d-flex align-items-center mt-2">
+                        <div class="product-price">@product.Price.ToString("0") ₴</div>
+                        <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">
+                            <i class="bi bi-cart-plus"></i>
+                        </a>
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="32" height="32" rx="9" fill="#F5E8FF" />
+                            <path d="M19.9215 8.78467C18.3458 8.78467 16.9473 9.40663 15.9999 10.4756C15.0524 9.40663 13.654 8.78467 12.0783 8.78467C10.706 8.78633 9.39026 9.33224 8.41984 10.3027C7.44943 11.2731 6.90352 12.5888 6.90186 13.9611C6.90186 19.6349 15.2007 24.1682 15.5536 24.3588C15.6908 24.4327 15.8441 24.4713 15.9999 24.4713C16.1557 24.4713 16.309 24.4327 16.4462 24.3588C16.7991 24.1682 25.0979 19.6349 25.0979 13.9611C25.0963 12.5888 24.5504 11.2731 23.5799 10.3027C22.6095 9.33224 21.2938 8.78633 19.9215 8.78467ZM19.4909 19.9502C18.3985 20.8771 17.2308 21.7113 15.9999 22.4443C14.769 21.7113 13.6013 20.8771 12.5089 19.9502C10.8093 18.4921 8.78421 16.2686 8.78421 13.9611C8.78421 13.0875 9.13127 12.2496 9.74903 11.6318C10.3668 11.0141 11.2047 10.667 12.0783 10.667C13.4744 10.667 14.643 11.4043 15.1285 12.5917C15.1992 12.7648 15.3198 12.913 15.475 13.0172C15.6302 13.1215 15.8129 13.1772 15.9999 13.1772C16.1869 13.1772 16.3696 13.1215 16.5248 13.0172C16.68 12.913 16.8006 12.7648 16.8713 12.5917C17.3568 11.4043 18.5254 10.667 19.9215 10.667C20.7951 10.667 21.633 11.0141 22.2508 11.6318C22.8685 12.2496 23.2156 13.0875 23.2156 13.9611C23.2156 16.2686 21.1905 18.4921 19.4909 19.9502Z" fill="#9C12FF" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    } *@
+
+    @foreach (var product in Model.Where(p => p.QuantityInStock > 0))
+    {
+        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
+            <!-- Стилізований блок товару -->
+            <div class="product-card h-100 d-flex flex-column">
+                <div class="product-image">
+                    <a href="/Products/GetProduct?id=@product.Id">
+                        @if (product.ProductImages != null && product.ProductImages.Any())
+                        {
+                            var firstImage = product.ProductImages.FirstOrDefault();
+                            <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
+                                 class="img-fluid"
+                                 alt="Product Image"
+                                 style="max-height: 255px; width: auto; max-width: 100%;"
+                                 onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';"
+                                 onmouseover="this.src='data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)'"
+                                 onmouseout="this.src='data:image;base64,@Convert.ToBase64String(firstImage.ImageData)'" />
+                        }
+                        else
+                        {
+                            <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                        }
+                    </a>
+                </div>
+
+                <!-- Обмежений блок опису, якщо багато тексту -->
+                <div class="mt-2 product-description-block flex-grow-1">
+                    <div class="product-title">@product.ProductType.Title @product.Brand.Title @product.Title</div>
+                    <div class="product-description">@product.Description</div>
+                </div>
+
+                <!-- Футер картки з фіксацією до низу -->
+                <div class="product-footer mt-2">
+                    <div class="d-flex align-items-center">
                         <div class="product-price">@product.Price.ToString("0") ₴</div>
                         <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">
                             <i class="bi bi-cart-plus"></i>

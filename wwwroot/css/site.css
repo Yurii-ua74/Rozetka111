@@ -227,7 +227,7 @@ a:hover{
 
 /*<-- header -->*/
 .heder {
-    z-index: 1050; /* Має бути вище за затінення та випадаюче вікно */
+    z-index: 2050; /* Має бути вище за затінення та випадаюче вікно */
     position: relative;
 }
 
@@ -238,7 +238,7 @@ a:hover{
     width: 100%; /* Хедер буде займати всю ширину */
     height: 100px; /* Фіксована висота */
     overflow: hidden; /* Приховує елементи, що виходять за межі */
-    z-index: 1000; /* Забезпечує, щоб хедер завжди був поверх інших елементів */
+    z-index: 2000; /* Забезпечує, щоб хедер завжди був поверх інших елементів */
 }
 
 
@@ -1079,3 +1079,39 @@ a:hover{
     width: 20%; /* Задает кнопке ширину 20% от экрана */
 }
 
+
+
+
+
+/*  для футера карток з товарами  */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    padding: 15px;
+    height: 100%;
+}
+
+.product-description-block {
+    overflow: hidden;
+    max-height: 90px; /*  потрібна висота */
+    position: relative;
+}
+
+    .product-description-block:hover {
+        overflow: auto;
+    }
+
+.product-footer {
+    position: relative;
+    margin-top: auto; /* Це дозволить футеру залишатися внизу */
+    padding-top: 5px;
+    border-top: 1px solid #ddd;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
