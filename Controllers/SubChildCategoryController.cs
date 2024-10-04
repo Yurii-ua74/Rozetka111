@@ -238,21 +238,21 @@ namespace Rozetka.Controllers
 
 
 
-        [HttpPost]
-        public IActionResult GetProductsBySubChildCategories(List<int> subchildcategoryIds)
-        {
-            // Отримуємо товари відповідно до вибраних субкатегорій
-            var products = _context.Products
-                .Where(p => subchildcategoryIds.Contains(p.SubChildCategoryId))
-                .Include(p => p.ProductType)
-                .Include(p => p.Brand)
-                .Include(p => p.ProductImages)
-                .Include(p => p.Reviews)
-                .Take(6)  // Обмежуємо кількість товарів до 6 на субкатегорію
-                .ToList();
+        //[HttpPost]
+        //public IActionResult GetProductsBySubChildCategories(List<int> subchildcategoryIds)
+        //{
+        //    // Отримуємо товари відповідно до вибраних субкатегорій
+        //    var products = _context.Products
+        //        .Where(p => subchildcategoryIds.Contains(p.SubChildCategoryId))
+        //        .Include(p => p.ProductType)
+        //        .Include(p => p.Brand)
+        //        .Include(p => p.ProductImages)
+        //        .Include(p => p.Reviews)
+        //        .Take(6)  // Обмежуємо кількість товарів до 6 на субкатегорію
+        //        .ToList();
 
-            return PartialView("_ProductsPartial", products);
-        }
+        //    return PartialView("_ProductsPartial", products);
+        //}
         /* ///////// */
 
 
@@ -394,44 +394,44 @@ namespace Rozetka.Controllers
         //}
 
 
-        [HttpPost]
-        public RedirectToActionResult AddFilter(string[]? selectedSubChildCategories, decimal? minPrice, decimal? maxPrice)
-        {
-            if (selectedSubChildCategories.Any())
-            {
-                HttpContext.Session.SetString("selectedSubChildCategories", string.Join(",", selectedSubChildCategories));
-            }
-            if (minPrice != null)
-            {
-                HttpContext.Session.SetString("minPrice", minPrice.ToString());
-            }
-            if (maxPrice != null)
-            {
-                HttpContext.Session.SetString("maxPrice", maxPrice.ToString());
-            }
+        //[HttpPost]
+        //public RedirectToActionResult AddFilter(string[]? selectedSubChildCategories, decimal? minPrice, decimal? maxPrice)
+        //{
+        //    if (selectedSubChildCategories.Any())
+        //    {
+        //        HttpContext.Session.SetString("selectedSubChildCategories", string.Join(",", selectedSubChildCategories));
+        //    }
+        //    if (minPrice != null)
+        //    {
+        //        HttpContext.Session.SetString("minPrice", minPrice.ToString());
+        //    }
+        //    if (maxPrice != null)
+        //    {
+        //        HttpContext.Session.SetString("maxPrice", maxPrice.ToString());
+        //    }
 
-            return RedirectToAction(nameof(GetProducts));
-        }
+        //    return RedirectToAction(nameof(GetProducts));
+        //}
 
-        public RedirectToActionResult FullDeleteFilters()
-        {
-            HttpContext.Session.Remove("selectedSubChildCategories");
-            HttpContext.Session.Remove("minPrice");
-            HttpContext.Session.Remove("maxPrice");
-            return RedirectToAction(nameof(GetProducts));
-        }
+        //public RedirectToActionResult FullDeleteFilters()
+        //{
+        //    HttpContext.Session.Remove("selectedSubChildCategories");
+        //    HttpContext.Session.Remove("minPrice");
+        //    HttpContext.Session.Remove("maxPrice");
+        //    return RedirectToAction(nameof(GetProducts));
+        //}
 
-        public RedirectToActionResult DeleteFilterBrand()
-        {
-            HttpContext.Session.Remove("selectedSubChildCategories");
-            return RedirectToAction(nameof(GetProducts));
-        }
-        public RedirectToActionResult DeleteFilterPrice()
-        {
-            HttpContext.Session.Remove("minPrice");
-            HttpContext.Session.Remove("maxPrice");
-            return RedirectToAction(nameof(GetProducts));
-        }
+        //public RedirectToActionResult DeleteFilterBrand()
+        //{
+        //    HttpContext.Session.Remove("selectedSubChildCategories");
+        //    return RedirectToAction(nameof(GetProducts));
+        //}
+        //public RedirectToActionResult DeleteFilterPrice()
+        //{
+        //    HttpContext.Session.Remove("minPrice");
+        //    HttpContext.Session.Remove("maxPrice");
+        //    return RedirectToAction(nameof(GetProducts));
+        //}
     }
 }
 
