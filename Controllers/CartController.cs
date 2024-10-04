@@ -70,16 +70,23 @@ namespace Rozetka.Controllers
         //Додає товар до кошика.
         //Викликається при додаванні товару до кошика за URL Cart/AddToCart/{ id}.
         //Отримує товар за його id, завантажує його зображення, додає товар до кошика та зберігає кошик у сесії.
-        
+
 
         [HttpPost]
-        public IActionResult RemoveFromCart(Cart cart, int? id, string? returnUrl)
+        public IActionResult RemoveFromCart(int id)
         {
-            if (id == null) return NotFound();
-            cart = GetCart();
-            cart.RemoveFromCart(id.Value);
+            // Логика удаления товара
+            var cart = GetCart();
+            cart.RemoveFromCart(id);
             SetCart(cart);
-            return RedirectToAction("Index", new { returnUrl });
+
+            // Возвращаем актуальные данные
+            return Json(new
+            {
+                success = true,
+                cartItemCount = cart.GetTotalCount(),
+                totalPrice = cart.GetTotalPrice() // Не забудьте обновить эту логику
+            });
         }
         //Видаляє товар з кошика.
         //Викликається при видаленні товару з кошика (метод POST) за URL Cart/RemoveFromCart.
