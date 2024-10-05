@@ -1,6 +1,6 @@
 ﻿@model Rozetka.Data.Entity.User
 
-<form asp-action="Edit" method="post">
+@* <form asp-action="Edit" method="post">
     <div class="form-group">
         <label asp-for="FirstName"></label>
         <input asp-for="FirstName" class="form-control" />
@@ -15,4 +15,1006 @@
     </div>
     
     <button type="submit" class="btn btn-primary">Зберегти</button>
-</form>
+</form> *@
+
+
+@* /* //////////////////////////// */ *@
+@*
+
+<div style="display: inline-block; width: 1440px; background: white" data-ignore="used only for top most containter width">
+    <div class="main-content-wrapper">
+        <div class="profile-sidebar">
+            <div class="contact-info-container2">
+                <div class="profile-card">
+                    <img src="assets/image_30612c2.png" class="profile-image-container" />
+                    <div class="contact-info-container1">
+                        <p class="business-title-text-style">Mister Biznes</p>
+                        <p class="email-contact-info">misterbiznes@gmail.com</p>
+                    </div>
+                </div>
+                <div class="bonus-account-section">
+                    <div class="bonus-account-container">
+                        <p class="vibrant-text">Б</p>
+                    </div>
+                    <p class="bonus-account-title">Бонусний рахунок</p>
+                </div>
+            </div>
+            <div class="vertical-section-container1">
+                <div class="vertical-section-container">
+                    <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
+                    <div class="section-title-container">
+                        <div class="svg-container">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_11" data-node-id="39:2844" d="M26.5933,12.45h-21.185c-0.4286,0.001 -0.8516,0.099 -1.2373,0.287c-0.3857,0.188 -0.7243,0.461 -0.9906,0.798c-0.2645,0.338 -0.4494,0.731 -0.5406,1.15c-0.0913,0.419 -0.0866,0.854 0.0137,1.271l2.2715,9.345c0.3283,1.205 1.0425,2.267 2.032,3.022c0.9899,0.757 2.2018,1.167 3.4486,1.167h11.1875c1.2468,0 2.4587,-0.41 3.4486,-1.167c0.9896,-0.755 1.7037,-1.817 2.032,-3.022l2.2715,-9.343c0.1529,-0.63 0.0858,-1.294 -0.19,-1.88c-0.2759,-0.586 -0.7437,-1.059 -1.3253,-1.34c-0.3864,-0.189 -0.8101,-0.287 -1.2395,-0.288M10.3214,18.129v5.68M16.0008,18.129v5.68M21.6802,18.129v5.68M25.9401,12.45c-0.0005,-1.306 -0.2579,-2.6 -0.7576,-3.806c-0.4997,-1.206 -1.2316,-2.302 -2.1539,-3.223c-1.8676,-1.865 -4.3944,-2.912 -7.0278,-2.911c-2.6334,-0.001 -5.1601,1.046 -7.0278,2.911c-0.922,0.922 -1.6537,2.017 -2.1531,3.223c-0.4994,1.206 -0.7567,2.5 -0.757,3.806" stroke="#A323FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        <p class="section-title-label-style">Кошик</p>
+                    </div>
+                    <div class="section-title-container">
+                        <div class="svg-container" style="color: #a323ff">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_19" data-node-id="39:2874" d="M22.8359,2.8783c-2.8232,0 -5.2951,1.214 -6.8359,3.266c-1.5408,-2.052 -4.0127,-3.266 -6.8359,-3.266c-2.2474,0.002 -4.402,0.896 -5.9911,2.485c-1.5891,1.589 -2.483,3.744 -2.4855,5.991c0,9.571 14.19,17.317 14.7943,17.637c0.1593,0.086 0.3373,0.131 0.5182,0.131c0.1809,0 0.3589,-0.045 0.5182,-0.131c0.6043,-0.32 14.7943,-8.066 14.7943,-17.637c-0.0025,-2.247 -0.8964,-4.402 -2.4855,-5.991c-1.5891,-1.589 -3.7437,-2.483 -5.9911,-2.485zM16,26.7763c-2.4965,-1.454 -13.125,-8.081 -13.125,-15.422c0.0022,-1.667 0.6655,-3.265 1.8444,-4.444c1.179,-1.179 2.7774,-1.843 4.4447,-1.845c2.6591,0 4.8918,1.417 5.8242,3.692c0.0824,0.2 0.2226,0.372 0.4027,0.493c0.1802,0.12 0.3921,0.185 0.609,0.185c0.2169,0 0.4288,-0.065 0.609,-0.185c0.1801,-0.121 0.3203,-0.293 0.4027,-0.493c0.9324,-2.279 3.1651,-3.692 5.8242,-3.692c1.6673,0.002 3.2657,0.666 4.4447,1.845c1.1789,1.179 1.8422,2.777 1.8444,4.444c0,7.33 -10.6313,13.966 -13.125,15.422z" fill="currentColor" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        <p class="section-title-label-style">Обране</p>
+                    </div>
+                    <div class="section-title-container section-title-container:nth-child(3)">
+                        <div class="svg-container">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="Group_2" data-node-id="39:2848" xmlns="http://www.w3.org/2000/svg">
+                                    <path id="Vector_12" data-node-id="39:2849" d="M6.593,14.2774l-2.6629,2.355c-0.3577,0.315 -0.595,0.745 -0.6716,1.215c-0.0765,0.471 0.0123,0.954 0.2516,1.366l2.4106,4.229c0.2362,0.409 0.6065,0.724 1.0483,0.891c0.4417,0.167 0.9276,0.177 1.3754,0.027l3.3498,-1.142z" stroke="#A323FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path id="Vector_13" data-node-id="39:2850" d="M12.002,5.1934c-0.6658,2.045 -1.4999,4.031 -2.4937,5.938c-0.7454,1.238 -1.7383,2.309 -2.9167,3.146l5.1027,8.913c1.3198,-0.608 2.7502,-0.94 4.2029,-0.974c2.135,0.096 4.2584,0.364 6.3482,0.805" stroke="#A323FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path id="Vector_14" data-node-id="39:2851" d="M3.6924,19.5224l-0.8837,0.522c-0.2352,0.135 -0.4412,0.316 -0.606,0.531c-0.1647,0.215 -0.2849,0.461 -0.3536,0.724c-0.0698,0.262 -0.0865,0.536 -0.0491,0.805c0.0373,0.269 0.1278,0.527 0.2664,0.761c0.1333,0.235 0.312,0.442 0.5258,0.608c0.2138,0.165 0.4584,0.287 0.7196,0.357c0.2609,0.07 0.5333,0.087 0.8009,0.05c0.2675,-0.037 0.5249,-0.128 0.7566,-0.267l0.8269,-0.522M12.702,22.7954l2.4806,4.331c0.2653,0.475 0.3361,1.034 0.1977,1.559c-0.1385,0.526 -0.4754,0.978 -0.94,1.26c-0.2338,0.135 -0.492,0.222 -0.7596,0.257c-0.2677,0.035 -0.5397,0.016 -0.8002,-0.055c-0.2605,-0.07 -0.5044,-0.192 -0.7177,-0.357c-0.2134,-0.166 -0.3919,-0.372 -0.5254,-0.606l-2.8029,-4.979M27.1366,8.5504l-3.6429,2.114M30.2195,15.8144h-4.2044M22.1622,1.7804l-2.1029,3.668M11.9947,5.1944l1.7719,-1.029c0.2326,-0.136 0.4899,-0.224 0.7569,-0.26c0.267,-0.036 0.5384,-0.018 0.7985,0.052c0.2601,0.07 0.5036,0.192 0.7165,0.357c0.2129,0.165 0.3909,0.37 0.5237,0.605l8.1769,14.253c0.2656,0.473 0.3352,1.031 0.1936,1.555c-0.1415,0.524 -0.4828,0.971 -0.9505,1.245l-1.7719,1.031z" stroke="#A323FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                        </div>
+                        <p class="section-title-label-style">Мої оголошення</p>
+                    </div>
+                    <div class="section-title-container section-title-container:nth-child(4)">
+                        <div class="svg-container" style="color: #a323ff">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_15" data-node-id="39:2855" d="M2.875,7.2497c0,-0.29 0.1152,-0.568 0.3204,-0.773c0.2051,-0.205 0.4833,-0.321 0.7734,-0.321h17.5c0.29,0 0.5682,0.116 0.7733,0.321c0.2052,0.205 0.3204,0.483 0.3204,0.773c0,0.29 -0.1152,0.569 -0.3204,0.774c-0.2051,0.205 -0.4833,0.32 -0.7733,0.32h-17.5c-0.2901,0 -0.5683,-0.115 -0.7734,-0.32c-0.2052,-0.205 -0.3204,-0.484 -0.3204,-0.774zM2.875,24.7497c0,-0.29 0.1152,-0.568 0.3204,-0.773c0.2051,-0.205 0.4833,-0.321 0.7734,-0.321h15.3124c0.2901,0 0.5683,0.116 0.7734,0.321c0.2052,0.205 0.3204,0.483 0.3204,0.773c0,0.29 -0.1152,0.569 -0.3204,0.774c-0.2051,0.205 -0.4833,0.32 -0.7734,0.32h-15.3124c-0.2901,0 -0.5683,-0.115 -0.7734,-0.32c-0.2052,-0.205 -0.3204,-0.484 -0.3204,-0.774zM3.9688,14.9057c-0.2901,0 -0.5683,0.116 -0.7734,0.321c-0.2052,0.205 -0.3204,0.483 -0.3204,0.773c0,0.29 0.1152,0.569 0.3204,0.774c0.2051,0.205 0.4833,0.32 0.7734,0.32h24.0624c0.2901,0 0.5683,-0.115 0.7735,-0.32c0.2051,-0.205 0.3203,-0.484 0.3203,-0.774c0,-0.29 -0.1152,-0.568 -0.3203,-0.773c-0.2052,-0.205 -0.4834,-0.321 -0.7735,-0.321z" fill="currentColor" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        <p class="section-title-label-style">Мої замовлення</p>
+                    </div>
+                </div>
+                <div class="section-title-container">
+                    <img src="assets/image_d8b789f7.png" class="friend-list-icon" />
+                    <p class="bonus-account-title">Друзi</p>
+                </div>
+                <div class="section-title-container1">
+                    <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
+                    <div class="section-title-container">
+                        <div class="svg-container1">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_17" data-node-id="39:2865" d="M11.6254,13.8095c0,-0.29 0.1152,-0.568 0.3203,-0.773c0.2051,-0.205 0.4833,-0.32 0.7734,-0.32h6.5625c0.2901,0 0.5683,0.115 0.7734,0.32c0.2051,0.205 0.3204,0.483 0.3204,0.773c0,0.291 -0.1153,0.569 -0.3204,0.774c-0.2051,0.205 -0.4833,0.32 -0.7734,0.32h-6.5625c-0.2901,0 -0.5683,-0.115 -0.7734,-0.32c-0.2051,-0.205 -0.3203,-0.483 -0.3203,-0.774zM12.7191,17.0915c-0.2901,0 -0.5683,0.115 -0.7734,0.32c-0.2051,0.205 -0.3203,0.483 -0.3203,0.773c0,0.291 0.1152,0.569 0.3203,0.774c0.2051,0.205 0.4833,0.32 0.7734,0.32h4.375c0.2901,0 0.5683,-0.115 0.7734,-0.32c0.2051,-0.205 0.3204,-0.483 0.3204,-0.774c0,-0.29 -0.1153,-0.568 -0.3204,-0.773c-0.2051,-0.205 -0.4833,-0.32 -0.7734,-0.32zM2.8754,15.9975c0.0005,-2.89 0.9547,-5.698 2.7143,-7.99c1.7597,-2.292 4.2266,-3.939 7.018,-4.686c2.7913,-0.747 5.7512,-0.552 8.4204,0.555c2.6691,1.107 4.8984,3.063 6.342,5.566c1.4436,2.504 2.0208,5.413 1.642,8.278c-0.3787,2.865 -1.6922,5.524 -3.7368,7.566c-2.0445,2.042 -4.7057,3.352 -7.5708,3.727c-2.8652,0.376 -5.774,-0.205 -8.2754,-1.652l-5.1143,1.706c-0.189,0.063 -0.3916,0.074 -0.586,0.03c-0.1943,-0.044 -0.3731,-0.139 -0.517,-0.277c-0.1438,-0.138 -0.2473,-0.313 -0.2993,-0.505c-0.052,-0.192 -0.0504,-0.395 0.0044,-0.586l1.5575,-5.45c-1.0499,-1.927 -1.5997,-4.087 -1.599,-6.282zM16.0004,5.0595c-1.9312,0 -3.828,0.512 -5.4975,1.482c-1.6696,0.971 -3.0524,2.366 -4.008,4.044c-0.9555,1.678 -1.4497,3.58 -1.4323,5.511c0.0175,1.931 0.5459,3.823 1.5315,5.483c0.0759,0.129 0.1247,0.271 0.1435,0.419c0.0188,0.148 0.0072,0.298 -0.0341,0.441l-1.1134,3.894l3.6268,-1.208c0.1541,-0.051 0.3176,-0.067 0.4788,-0.048c0.1612,0.02 0.316,0.075 0.4531,0.162c1.4334,0.907 3.0582,1.469 4.7459,1.64c1.6876,0.171 3.392,-0.053 4.9783,-0.654c1.5863,-0.601 3.011,-1.563 4.1616,-2.809c1.1507,-1.247 1.9956,-2.744 2.468,-4.373c0.4724,-1.629 0.5594,-3.346 0.2541,-5.015c-0.3053,-1.668 -0.9945,-3.243 -2.0132,-4.599c-1.0187,-1.357 -2.339,-2.458 -3.8564,-3.216c-1.5174,-0.758 -3.1904,-1.153 -4.8867,-1.154z" fill="currentColor" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        <p class="section-title-label-style">Чат</p>
+                    </div>
+                    <div class="section-title-container">
+                        <div class="svg-container1">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="mingcute:settings-2-line" data-node-id="39:2858" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="Group_3" data-node-id="39:2859">
+                                        <path id="Vector_16" data-node-id="39:2861" fill-rule="evenodd" clip-rule="evenodd" d="M24.75,4.333c0,-0.386 -0.1536,-0.757 -0.4271,-1.031c-0.2735,-0.273 -0.6445,-0.427 -1.0312,-0.427c-0.3868,0 -0.7577,0.154 -1.0312,0.427c-0.2735,0.274 -0.4272,0.645 -0.4272,1.031v1.459h-17.5c-0.3867,0 -0.7577,0.153 -1.0312,0.427c-0.2735,0.273 -0.4271,0.644 -0.4271,1.031c0,0.387 0.1536,0.758 0.4271,1.031c0.2735,0.274 0.6445,0.427 1.0312,0.427h17.5v1.459c0,0.386 0.1537,0.757 0.4272,1.031c0.2735,0.273 0.6444,0.427 1.0312,0.427c0.3867,0 0.7577,-0.154 1.0312,-0.427c0.2735,-0.274 0.4271,-0.645 0.4271,-1.031v-1.459h2.9167c0.3867,0 0.7577,-0.153 1.0312,-0.427c0.2735,-0.273 0.4271,-0.644 0.4271,-1.031c0,-0.387 -0.1536,-0.758 -0.4271,-1.031c-0.2735,-0.274 -0.6445,-0.427 -1.0312,-0.427h-2.9167zM4.3333,14.542c-0.3867,0 -0.7577,0.153 -1.0312,0.427c-0.2735,0.273 -0.4271,0.644 -0.4271,1.031c0,0.387 0.1536,0.758 0.4271,1.031c0.2735,0.274 0.6445,0.427 1.0312,0.427h2.9167v1.459c0,0.386 0.1536,0.757 0.4271,1.031c0.2735,0.273 0.6445,0.427 1.0312,0.427c0.3868,0 0.7577,-0.154 1.0312,-0.427c0.2735,-0.274 0.4272,-0.645 0.4272,-1.031v-1.459h17.5c0.3867,0 0.7577,-0.153 1.0312,-0.427c0.2735,-0.273 0.4271,-0.644 0.4271,-1.031c0,-0.387 -0.1536,-0.758 -0.4271,-1.031c-0.2735,-0.274 -0.6445,-0.427 -1.0312,-0.427h-17.5v-1.459c0,-0.386 -0.1537,-0.757 -0.4272,-1.031c-0.2735,-0.273 -0.6444,-0.427 -1.0312,-0.427c-0.3867,0 -0.7577,0.154 -1.0312,0.427c-0.2735,0.274 -0.4271,0.645 -0.4271,1.031v1.459zM2.875,24.75c0,-0.387 0.1536,-0.758 0.4271,-1.031c0.2735,-0.274 0.6445,-0.427 1.0312,-0.427h17.5v-1.459c0,-0.386 0.1537,-0.757 0.4272,-1.031c0.2735,-0.273 0.6444,-0.427 1.0312,-0.427c0.3867,0 0.7577,0.154 1.0312,0.427c0.2735,0.274 0.4271,0.645 0.4271,1.031v1.459h2.9167c0.3867,0 0.7577,0.153 1.0312,0.427c0.2735,0.273 0.4271,0.644 0.4271,1.031c0,0.387 -0.1536,0.758 -0.4271,1.031c-0.2735,0.274 -0.6445,0.427 -1.0312,0.427h-2.9167v1.459c0,0.386 -0.1536,0.757 -0.4271,1.031c-0.2735,0.273 -0.6445,0.427 -1.0312,0.427c-0.3868,0 -0.7577,-0.154 -1.0312,-0.427c-0.2735,-0.274 -0.4272,-0.645 -0.4272,-1.031v-1.459h-17.5c-0.3867,0 -0.7577,-0.153 -1.0312,-0.427c-0.2735,-0.273 -0.4271,-0.644 -0.4271,-1.031z" fill="currentColor" />
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                        <p class="section-title-label-style">Налаштування</p>
+                    </div>
+                    <div class="section-title-container">
+                        <div class="svg-container1">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_406" data-node-id="39:2879" fill-rule="evenodd" clip-rule="evenodd" d="M20.3752,2.8745c0.1915,0 0.3811,0.038 0.558,0.111c0.177,0.074 0.3377,0.181 0.4732,0.317c0.1354,0.135 0.2428,0.296 0.3161,0.473c0.0733,0.177 0.111,0.366 0.111,0.558c0,0.191 -0.0377,0.381 -0.111,0.558c-0.0733,0.177 -0.1807,0.338 -0.3161,0.473c-0.1355,0.135 -0.2962,0.243 -0.4732,0.316c-0.1769,0.073 -0.3665,0.111 -0.558,0.111h-13.125v18.958c0,0.387 0.1536,0.758 0.4271,1.032c0.2735,0.273 0.6444,0.427 1.0312,0.427h11.6667c0.3867,0 0.7577,0.153 1.0312,0.427c0.2734,0.273 0.4271,0.644 0.4271,1.031c0,0.387 -0.1537,0.758 -0.4271,1.031c-0.2735,0.274 -0.6445,0.427 -1.0312,0.427h-11.6667c-1.1603,0 -2.2731,-0.46 -3.0936,-1.281c-0.8205,-0.82 -1.2814,-1.933 -1.2814,-3.094v-20.416c0,-0.387 0.1536,-0.758 0.4271,-1.031c0.2735,-0.274 0.6445,-0.428 1.0312,-0.428zM22.8645,10.5935c-0.2038,-0.203 -0.4635,-0.342 -0.7462,-0.398c-0.2827,-0.057 -0.5758,-0.028 -0.8422,0.082c-0.2663,0.11 -0.4941,0.297 -0.6545,0.537c-0.1603,0.239 -0.2461,0.521 -0.2464,0.809v2.917h-8.75c-0.3868,0 -0.7577,0.153 -1.0312,0.427c-0.2735,0.273 -0.4272,0.644 -0.4272,1.031c0,0.387 0.1537,0.758 0.4272,1.031c0.2735,0.274 0.6444,0.427 1.0312,0.427h8.75v2.917c0,0.288 0.0856,0.57 0.2458,0.81c0.1603,0.24 0.388,0.427 0.6545,0.537c0.2664,0.11 0.5596,0.139 0.8424,0.083c0.2829,-0.056 0.5427,-0.195 0.7466,-0.399l4.375,-4.375c0.2734,-0.273 0.427,-0.644 0.427,-1.031c0,-0.387 -0.1536,-0.758 -0.427,-1.031z" fill="currentColor" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        <p class="section-title-label-style">Вихiд</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="personal-data-section1">
+            <div class="personal-data-section">
+                <p class="personal-data-title">Персональнi данi</p>
+                <div class="personal-data-credentials-container">
+                    <p class="login-credentials-text-style">Логiн та пароль</p>
+                    <div class="login-credentials-separator"></div>
+                </div>
+            </div>
+            <p class="personal-data-description-text-style">Як логін ви можете використовувати телефон та email. Пароль для них<br />буде однаковим.</p>
+            <div class="login-form-container">
+                <p class="business-title-text-style">Логiн</p>
+                <div class="login-options-container">
+                    <div class="contact-info-container4">
+                        <p class="contact-info-heading">По номеру</p>
+                        <div class="contact-info-container">
+                            <p class="contact-number-display-style">(380)- XX - XX - XXX</p>
+                            <div class="svg-container2">
+                                <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="weui:eyes-off-outlined_3" data-node-id="39:2827" xmlns="http://www.w3.org/2000/svg">
+                                        <path id="Vector_9" data-node-id="I39:2827;1:3498" fill-rule="evenodd" clip-rule="evenodd" d="M18.67,16.973l2.755,2.755l-0.849,0.848l-16.726,-16.726l0.847,-0.85l2.855,2.855c1.38,-0.552 2.88,-0.855 4.448,-0.855c4.808,0 8.972,2.848 11,7c-0.978,2.011 -2.472,3.727 -4.33,4.973zM8.486,6.79l1.664,1.664c0.755,-0.395 1.616,-0.538 2.458,-0.409c0.842,0.129 1.621,0.523 2.224,1.125c0.602,0.603 0.996,1.382 1.125,2.224c0.129,0.842 -0.014,1.703 -0.409,2.458l2.255,2.255c1.574,-1 2.904,-2.403 3.845,-4.106c-1.962,-3.551 -5.614,-5.801 -9.648,-5.801c-1.196,0.001 -2.383,0.2 -3.514,0.59zM14.638,12.942c0.178,-0.499 0.211,-1.039 0.095,-1.556c-0.116,-0.518 -0.377,-0.991 -0.752,-1.366c-0.375,-0.375 -0.848,-0.636 -1.366,-0.752c-0.517,-0.116 -1.057,-0.083 -1.556,0.095zM16.448,18.146c-1.38,0.552 -2.88,0.855 -4.448,0.855c-4.808,0 -8.972,-2.848 -11,-7c0.978,-2.011 2.472,-3.727 4.33,-4.973l0.867,0.867c-1.606,1.024 -2.928,2.436 -3.845,4.105c1.962,3.55 5.614,5.8 9.648,5.8c1.196,-0.001 2.383,-0.2 3.514,-0.59zM8.453,10.15l0.909,0.91c-0.178,0.499 -0.211,1.039 -0.095,1.556c0.116,0.518 0.377,0.991 0.752,1.366c0.375,0.375 0.848,0.636 1.366,0.752c0.517,0.116 1.057,0.083 1.556,-0.095l0.91,0.908c-0.755,0.395 -1.616,0.538 -2.458,0.409c-0.842,-0.129 -1.621,-0.523 -2.224,-1.125c-0.602,-0.603 -0.996,-1.382 -1.125,-2.224c-0.129,-0.842 0.014,-1.702 0.409,-2.457z" fill="currentColor" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-info-container3">
+                        <p class="contact-info-heading">По почтi</p>
+                        <!-- PLACEHOLDER - Button Component detected here. Go to "React Code" via right click menu to see code generated -->
+                    </div>
+                </div>
+                <div class="account-info-controls">
+                    <div class="center-column-text-container">
+                        <p class="blue-text-heading">Змінити номер</p>
+                        <div class="contact-info-divider"></div>
+                    </div>
+                    <div class="change-info-panel">
+                        <p class="blue-text-heading">Змінити пошту</p>
+                        <div class="contact-info-divider"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="login-form-container">
+                <div class="contact-info-container2">
+                    <p class="business-title-text-style">Пароль</p>
+                    <div class="password-field-container">
+                        <p class="contact-number-display-style">******************</p>
+                        <div class="svg-container2">
+                            <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <clipPath id="clip1_39_2763" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="24" height="24" fill="white" transform="translate(0, 0)" />
+                                    </clipPath>
+                                </defs>
+                                <g id="weui:eyes-off-outlined" data-node-id="39:2815" clip-path="url(#clip1_39_2763)" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="weui:eyes-off-outlined_2" data-node-id="39:2816">
+                                        <path id="Vector_8" data-node-id="I39:2816;1:3498" fill-rule="evenodd" clip-rule="evenodd" d="M18.67,16.973l2.755,2.755l-0.849,0.848l-16.726,-16.726l0.847,-0.85l2.855,2.855c1.38,-0.552 2.88,-0.855 4.448,-0.855c4.808,0 8.972,2.848 11,7c-0.978,2.011 -2.472,3.727 -4.33,4.973zM8.486,6.79l1.664,1.664c0.755,-0.395 1.616,-0.538 2.458,-0.409c0.842,0.129 1.621,0.523 2.224,1.125c0.602,0.603 0.996,1.382 1.125,2.224c0.129,0.842 -0.014,1.703 -0.409,2.458l2.255,2.255c1.574,-1 2.904,-2.403 3.845,-4.106c-1.962,-3.551 -5.614,-5.801 -9.648,-5.801c-1.196,0.001 -2.383,0.2 -3.514,0.59zM14.638,12.942c0.178,-0.499 0.211,-1.039 0.095,-1.556c-0.116,-0.518 -0.377,-0.991 -0.752,-1.366c-0.375,-0.375 -0.848,-0.636 -1.366,-0.752c-0.517,-0.116 -1.057,-0.083 -1.556,0.095zM16.448,18.146c-1.38,0.552 -2.88,0.855 -4.448,0.855c-4.808,0 -8.972,-2.848 -11,-7c0.978,-2.011 2.472,-3.727 4.33,-4.973l0.867,0.867c-1.606,1.024 -2.928,2.436 -3.845,4.105c1.962,3.55 5.614,5.8 9.648,5.8c1.196,-0.001 2.383,-0.2 3.514,-0.59zM8.453,10.15l0.909,0.91c-0.178,0.499 -0.211,1.039 -0.095,1.556c0.116,0.518 0.377,0.991 0.752,1.366c0.375,0.375 0.848,0.636 1.366,0.752c0.517,0.116 1.057,0.083 1.556,-0.095l0.91,0.908c-0.755,0.395 -1.616,0.538 -2.458,0.409c-0.842,-0.129 -1.621,-0.523 -2.224,-1.125c-0.602,-0.603 -0.996,-1.382 -1.125,-2.224c-0.129,-0.842 0.014,-1.702 0.409,-2.457z" fill="currentColor" />
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="password-change-section">
+                        <p class="change-password-heading">Змінити пароль</p>
+                        <div class="password-change-divider"></div>
+                    </div>
+                    <div class="authentication-options-container">
+                        <!-- PLACEHOLDER - Checkbox Component detected here. Go to "React Code" via right click menu to see code generated -->
+                        <p class="auth-prompt-text-style">Включити двофакторну автентифікацію</p>
+                    </div>
+                    <p class="security-info-text">Двофакторна автентифікація - це додатковий рівень безпеки, який гарантує, що доступ до<br />вашого облікового запису зможете отримати тільки ви, навіть якщо ваш пароль став відомий<br />комусь ще. Після входу в профіль ви отримаєте смс-код на номер, на який ви зареєстровані,<br />і зможете підтвердити справжність входу.</p>
+                </div>
+                <div class="profile-delete-button">
+                    <p class="profile-deletion-heading">Видалити профiль</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+
+                   @*  /* ********************************* */ *@
+
+ <style>
+    .user-profile-form-container {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: flex-start;
+        min-width: 1440px;
+        padding: 45px 37px 150px;
+    }
+
+    .profile-image-container-wrapper {
+        position: relative; /* позиціонування */
+        display: inline-block;
+    }
+
+    .status-indicator {
+        position: absolute;
+        bottom: 1px;
+        right: 1px;
+        width: 20px;
+        height: 20px;
+        background-color: #00FF00; /* Зелений колір */
+        border: 2px solid white; /* Бордер для крапки */
+        border-radius: 50%;
+    }
+
+    .profile-details-section {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 32.65%;
+        padding-bottom: 585px;
+    }
+
+    .flex-row-with-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .profile-image-container {
+        box-sizing: border-box;
+        display: block;        
+        max-width: initial;       
+        border-radius: 50%; /* Кругла форма */
+        border: 2px solid #9C12FF; 
+        width: 80px; /* Ширина зображення */
+        height: 80px; /* Висота зображення */
+        object-fit: cover; /* Щоб зображення заповнювало рамку без спотворення */
+    }
+
+    .contact-info-container4 {
+        flex: 0 0 auto;
+        padding-top: 9px;
+        padding-bottom: 8px;
+        margin-left: 14px;
+    }
+
+    .personal-data-title {
+        padding: 0;
+        margin: 0;
+        font: 500 24px Inter, sans-serif;
+        color: black;
+    }
+
+    .email-contact-info-text-style {
+        padding: 0;
+        margin: 0;
+        margin-top: 10px;
+        font: 400 20px Inter, sans-serif;
+        color: black;
+    }
+
+    .vertical-card-container {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 42px;
+        align-items: stretch;
+        justify-content: center;
+        width: 100%;
+        margin-top: 45px;
+    }
+
+    .item-container-edit {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        /* transform: translateX(-20px); */ /* зміщує блок на 20px вліво */
+    }
+
+    .bonus-account-container {
+        box-sizing: border-box;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        height: 35px;
+        padding-right: 10px;
+        padding-left: 10px;
+        background: url("assets/image_7428131d.png") 50% / cover no-repeat;
+    }
+
+    .vibrant-text {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        font: 500 20px Inter, sans-serif;
+        color: #a323ff;
+    }
+
+    .bonus-account-text-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        margin-left: 14px;
+        font: 500 20px Inter, sans-serif;
+        color: #3f3f3f;
+    }
+
+    .center-column-with-items {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 44px;
+        align-items: stretch;
+        justify-content: center;
+    }
+
+    .svg-container {
+        display: flex;
+        flex: 0 0 auto;
+        width: 32px;
+        height: 32px;
+    }
+
+    .item-label-text-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        margin-left: 15.5px;
+        font: 500 20px Inter, sans-serif;
+        color: #3f3f3f;
+        white-space: pre-wrap;
+    }
+
+    .item-container:nth-child(3) {
+        margin-top: -2.19px;
+    }
+
+    .item-container:nth-child(4) {
+        margin-top: -2.19px;
+    }
+
+    .friend-list-container {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 4.75px;
+    }
+
+    .friend-list-icon {
+        box-sizing: border-box;
+        display: block;
+        width: 35px;
+        max-width: initial;
+        height: 27.5px;
+    }
+
+    .vertical-center-with-gap {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 43px;
+        align-items: stretch;
+        justify-content: center;
+        margin-top: 3.75px;
+    }
+
+    .svg-container1 {
+        display: flex;
+        flex: 0 0 auto;
+        width: 32px;
+        height: 32px;
+        color: #a323ff;
+    }
+
+    .personal-info-section2 {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 67.35%;
+        padding-top: 16px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .personal-data-form-container {
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .personal-data-title1 {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        font: 500 18px Inter, sans-serif;
+        color: #a323ff;
+    }
+
+    .personal-data-credentials-text-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        margin-left: 19px;
+        font: 500 16px Inter, sans-serif;
+        color: grey;
+    }
+
+    .purple-border-full-width-box {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 14px;
+        border-top: 2px solid #a323ff;
+    }
+
+    .personal-info-form {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 45px;
+    }
+
+    .personal-info-text {
+        box-sizing: border-box;
+        max-width: 495px;
+        padding: 0;
+        margin: 0;
+        font: 400 16px Inter, sans-serif;
+        color: #7f7f7f;
+        text-align: left;
+    }
+
+    .personal-info-section {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 40px;
+    }
+
+    .personal-data-heading {
+        padding: 0;
+        margin: 0;
+        margin-top: 20px;
+        font: 400 16px Inter, sans-serif;
+        color: #7f7f7f;
+    }
+
+    .personal-info-section1 {
+        padding-right: 48px;
+        padding-left: 60px;
+        margin-top: 77px;
+    }
+
+    .svg-container2 {
+        display: flex;
+        width: 32px;
+        height: 32px;
+    }
+
+    .personal-data-form {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 41px;
+    }
+
+    .personal-data-form-input-group {
+        display: flex;
+        flex-direction: row;
+        gap: 18px;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 30px;
+    }
+
+    .vertical-column-container {
+        box-sizing: border-box;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        width: 132px;
+    }
+
+    .user-info-card {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        font: 400 16px Inter, sans-serif;
+        color: black;
+    }
+
+    .profile-field-container {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        height: 42px;
+        margin-top: 9px;
+        border: 1px solid #7f7f7f;
+        border-radius: 10px;
+    }
+
+    .birthday-input-container {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 39px;
+    }
+
+    .birthday-prompt-text-style {
+        padding: 0;
+        margin: 0;
+        font: 400 16px Inter, sans-serif;
+        color: #7f7f7f;
+    }
+
+    .date-selection-buttons-container {
+        display: flex;
+        flex-direction: row;
+        gap: 18px;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 24px;
+    }
+
+    .date-selector-button {
+        box-sizing: border-box;
+        display: block;
+        flex: 0 0 auto;
+        width: 132px;
+        min-width: 132px;
+        height: 42px;
+        font: 400 16px Inter, sans-serif;
+        color: #7f7f7f;
+        cursor: pointer;
+        background: transparent;
+        border: 1px solid #7f7f7f;
+        border-radius: 10px;
+    }
+
+    .gender-selection-container {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 24.5px;
+    }
+
+    .gender-container {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: flex-start;
+        height: 16px;
+    }
+
+    .svg-container3 {
+        display: flex;
+        flex: 0 0 auto;
+        width: 16px;
+        height: 16px;
+    }
+
+    .vertical-center-text-group {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        margin-left: 3.5px;
+    }
+
+    .gender-label-text-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        font: 400 14px Inter, sans-serif;
+        color: black;
+    }
+
+    .male-text-display-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        margin-top: -10px;
+        font: 400 14px Inter, sans-serif;
+        color: black;
+    }
+
+    .gender-container1 {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 14.5px;
+    }
+
+    .avatar-icon {
+        box-sizing: border-box;
+        display: block;
+        width: 15px;
+        max-width: initial;
+        height: 15px;
+    }
+
+    .woman-card {
+        flex: 0 0 auto;
+        padding-top: 3px;
+        margin-left: 4px;
+    }
+
+    .gender-label {
+        padding: 0;
+        margin: 0;
+        font: 400 14px Inter, sans-serif;
+        color: black;
+    }
+
+    .elegant-woman-text-style {
+        padding: 0;
+        margin: 0;
+        margin-top: -10px;
+        font: 400 14px Inter, sans-serif;
+        color: black;
+    }
+
+    .contact-info-section {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 38px;
+    }
+
+    .contact-info-container3 {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 25px;
+    }
+
+    .contact-info-heading1 {
+        padding: 0;
+        margin: 0;
+        font: 400 16px Inter, sans-serif;
+        color: black;
+    }
+
+    .contact-info-container2 {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        height: 42px;
+        padding-right: 10px;
+        padding-left: 10px;
+        margin-top: 9px;
+        border: 1px solid #7f7f7f;
+        border-radius: 10px;
+    }
+
+    .contact-info-text {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 92.35%;
+        padding: 0;
+        margin: 0;
+        font: 400 16px Inter, sans-serif;
+        color: #7f7f7f;
+    }
+
+    .contact-info-container1 {
+        box-sizing: border-box;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+        width: 7.65%;
+        padding-left: 15px;
+    }
+
+    .svg-container4 {
+        display: flex;
+        width: 16px;
+        height: 16px;
+    }
+
+    .email-section {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 24px;
+    }
+
+    .email-container {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 42px;
+        padding-right: 10.5px;
+        padding-left: 10px;
+        margin-top: 9px;
+        border: 1px solid #7f7f7f;
+        border-radius: 10px;
+    }
+
+    .email-text-display-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        font: 400 16px Inter, sans-serif;
+        color: #7f7f7f;
+    }
+
+    .contact-info-heading {
+        padding: 0;
+        margin: 0;
+        margin-top: 24px;
+        font: 400 16px Inter, sans-serif;
+        color: black;
+    }
+
+    .contact-info-container {
+        padding-right: 48px;
+        padding-left: 73px;
+        margin-top: 27px;
+    }
+
+    .image-container {
+        box-sizing: border-box;
+        display: block;
+        width: 36px;
+        max-width: initial;
+        height: 36px;
+    }
+
+    .personal-info-container {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 42px;
+    }
+
+    .personal-info-container1 {
+        box-sizing: border-box;
+        width: 432px;
+        height: 122px;
+        margin-top: 24px;
+        border: 1px solid #7f7f7f;
+        border-radius: 10px;
+    }
+
+    .form-controls-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 39px;
+    }
+
+    .save-button {
+        box-sizing: border-box;
+        display: block;
+        flex: 0 0 auto;
+        width: 150px;
+        min-width: 150px;
+        height: 40px;
+        font: 500 18px Inter, sans-serif;
+        color: white;
+        cursor: pointer;
+        background: #a323ff;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .cancel-button-text-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        margin-left: 197px;
+        font: 500 20px Inter, sans-serif;
+        color: #7f7f7f;
+    }
+
+    .modal-body {
+        display: flex;
+        justify-content: center; /* Центрування по горизонталі */
+        align-items: center; /* Центрування по вертикалі */
+        height: 100px; /* Встановіть висоту на ваш розсуд */
+        font-size: 24px;
+    }
+</style>
+ 
+
+
+<div style="display: inline-block; width: 1440px; background: white">
+    <div class="user-profile-form-container">
+        <div class="profile-details-section">
+
+            <div class="flex-row-with-content">
+                <div class="profile-image-container-wrapper">
+                    <img src="~/images/no_avatar.png" class="profile-image-container" />
+                    <div class="status-indicator"></div> <!-- Зелена крапка -->
+                </div>
+                <div class="contact-info-container4" data-toggle="modal" data-target="#bonusAccountModal">
+                    <p class="personal-data-title">@Model.FirstName @Model.LastName</p>
+                    <p class="email-contact-info-text-style">@User.Identity.Name</p>
+                </div>
+            </div>
+
+            <div class="vertical-card-container">
+
+                 <div class="item-container-edit" style="transform: translateX(-60px);">
+                    <a type="button" class="nav-link text-black position-relative btn-lg"
+                       data-bs-toggle="modal"
+                       data-bs-target="#bonusAccountModal">                       
+                         <div class="bonus-account-container">
+                             <svg width="231" height="35" viewBox="0 0 231 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <circle cx="17.5" cy="17.5" r="16.6" stroke="#A323FF" stroke-width="1.8" />
+                                 <path d="M12.598 25V10.4545H21.6676V12.3438H14.7926V16.321H18.0455C19.125 16.321 20.0412 16.4962 20.794 16.8466C21.5516 17.197 22.1293 17.6918 22.527 18.331C22.9295 18.9702 23.1307 19.723 23.1307 20.5895C23.1307 21.456 22.9295 22.2206 22.527 22.8835C22.1293 23.5464 21.5516 24.0649 20.794 24.4389C20.0412 24.813 19.125 25 18.0455 25H12.598ZM14.7926 23.1534H18.0455C18.6705 23.1534 19.1984 23.0303 19.6293 22.7841C20.0649 22.5379 20.3939 22.2183 20.6165 21.8253C20.8438 21.4323 20.9574 21.0109 20.9574 20.5611C20.9574 19.9077 20.7064 19.3466 20.2045 18.8778C19.7027 18.4044 18.983 18.1676 18.0455 18.1676H14.7926V23.1534Z" fill="#A323FF" />
+                                  <path d="M51.598 25V10.4545H60.6676V12.3438H53.7926V16.321H57.0455C58.125 16.321 59.0412 16.4962 59.794 16.8466C60.5516 17.197 61.1293 17.6918 61.527 18.331C61.9295 18.9702 62.1307 19.723 62.1307 20.5895C62.1307 21.456 61.9295 22.2206 61.527 22.8835C61.1293 23.5464 60.5516 24.0649 59.794 24.4389C59.0412 24.813 58.125 25 57.0455 25H51.598ZM53.7926 23.1534H57.0455C57.6705 23.1534 58.1984 23.0303 58.6293 22.7841C59.0649 22.5379 59.3939 22.2183 59.6165 21.8253C59.8438 21.4323 59.9574 21.0109 59.9574 20.5611C59.9574 19.9077 59.7064 19.3466 59.2045 18.8778C58.7027 18.4044 57.983 18.1676 57.0455 18.1676H53.7926V23.1534ZM69.1477 25.2202C68.125 25.2202 67.2325 24.9858 66.4702 24.517C65.7079 24.0483 65.116 23.3925 64.6946 22.5497C64.2732 21.7069 64.0625 20.7221 64.0625 19.5952C64.0625 18.4635 64.2732 17.474 64.6946 16.6264C65.116 15.7789 65.7079 15.1207 66.4702 14.652C67.2325 14.1832 68.125 13.9489 69.1477 13.9489C70.1705 13.9489 71.063 14.1832 71.8253 14.652C72.5876 15.1207 73.1795 15.7789 73.6009 16.6264C74.0223 17.474 74.233 18.4635 74.233 19.5952C74.233 20.7221 74.0223 21.7069 73.6009 22.5497C73.1795 23.3925 72.5876 24.0483 71.8253 24.517C71.063 24.9858 70.1705 25.2202 69.1477 25.2202ZM69.1548 23.4375C69.8177 23.4375 70.367 23.2623 70.8026 22.9119C71.2382 22.5616 71.5601 22.0952 71.7685 21.5128C71.9815 20.9304 72.0881 20.2888 72.0881 19.5881C72.0881 18.892 71.9815 18.2528 71.7685 17.6705C71.5601 17.0833 71.2382 16.6122 70.8026 16.2571C70.367 15.902 69.8177 15.7244 69.1548 15.7244C68.4872 15.7244 67.9332 15.902 67.4929 16.2571C67.0573 16.6122 66.733 17.0833 66.5199 17.6705C66.3116 18.2528 66.2074 18.892 66.2074 19.5881C66.2074 20.2888 66.3116 20.9304 66.5199 21.5128C66.733 22.0952 67.0573 22.5616 67.4929 22.9119C67.9332 23.2623 68.4872 23.4375 69.1548 23.4375ZM83.9968 18.6293V20.4688H78.0877V18.6293H83.9968ZM78.6843 14.0909V25H76.6033V14.0909H78.6843ZM85.4812 14.0909V25H83.4073V14.0909H85.4812ZM89.2738 29.0909C88.9566 29.0909 88.6677 29.0649 88.4073 29.0128C88.1469 28.9654 87.9528 28.9134 87.8249 28.8565L88.3363 27.1165C88.7246 27.2206 89.0702 27.2656 89.3732 27.2514C89.6763 27.2372 89.9438 27.1236 90.1758 26.9105C90.4125 26.6974 90.6209 26.3494 90.8008 25.8665L91.0636 25.142L87.0721 14.0909H89.3448L92.1076 22.5568H92.2212L94.984 14.0909H97.2638L92.7681 26.456C92.5598 27.0241 92.2946 27.5047 91.9727 27.8977C91.6507 28.2955 91.2672 28.5938 90.8221 28.7926C90.377 28.9915 89.8609 29.0909 89.2738 29.0909ZM103.484 25.2202C102.428 25.2202 101.519 24.9811 100.756 24.5028C99.9988 24.0199 99.4164 23.3546 99.0092 22.5071C98.602 21.6596 98.3984 20.6889 98.3984 19.5952C98.3984 18.4872 98.6068 17.5095 99.0234 16.6619C99.4401 15.8097 100.027 15.1444 100.785 14.6662C101.542 14.188 102.435 13.9489 103.462 13.9489C104.291 13.9489 105.03 14.1027 105.678 14.4105C106.327 14.7135 106.85 15.1397 107.248 15.6889C107.65 16.2382 107.889 16.8797 107.965 17.6136H105.898C105.785 17.1023 105.524 16.6619 105.117 16.2926C104.715 15.9233 104.175 15.7386 103.498 15.7386C102.906 15.7386 102.388 15.8949 101.942 16.2074C101.502 16.5152 101.159 16.9555 100.913 17.5284C100.666 18.0966 100.543 18.7689 100.543 19.5455C100.543 20.3409 100.664 21.0275 100.906 21.6051C101.147 22.1828 101.488 22.6302 101.928 22.9474C102.373 23.2647 102.897 23.4233 103.498 23.4233C103.9 23.4233 104.265 23.3499 104.592 23.2031C104.923 23.0516 105.2 22.8362 105.423 22.5568C105.65 22.2775 105.808 21.9413 105.898 21.5483H107.965C107.889 22.2538 107.66 22.8835 107.276 23.4375C106.893 23.9915 106.379 24.4271 105.735 24.7443C105.096 25.0616 104.345 25.2202 103.484 25.2202ZM117.63 18.6293V20.4688H111.721V18.6293H117.63ZM112.317 14.0909V25H110.236V14.0909H112.317ZM119.114 14.0909V25H117.04V14.0909H119.114ZM124.036 22.0241L128.844 14.0909H131.131V25H129.05V17.0597L124.263 25H121.955V14.0909H124.036V22.0241ZM136.067 22.0241L140.875 14.0909H143.162V25H141.081V17.0597L136.294 25H133.986V14.0909H136.067V22.0241ZM139.966 10.3977H141.713C141.713 11.1979 141.429 11.849 140.861 12.3509C140.298 12.848 139.535 13.0966 138.574 13.0966C137.618 13.0966 136.858 12.848 136.294 12.3509C135.731 11.849 135.449 11.1979 135.449 10.3977H137.189C137.189 10.7528 137.293 11.0677 137.502 11.3423C137.71 11.6122 138.068 11.7472 138.574 11.7472C139.071 11.7472 139.426 11.6122 139.64 11.3423C139.857 11.0724 139.966 10.7576 139.966 10.3977ZM151.31 29.0909V14.0909H153.384V15.8594H153.562C153.685 15.6321 153.862 15.3693 154.094 15.071C154.326 14.7727 154.648 14.5123 155.06 14.2898C155.472 14.0625 156.017 13.9489 156.694 13.9489C157.575 13.9489 158.361 14.1714 159.052 14.6165C159.743 15.0616 160.285 15.7031 160.678 16.5412C161.076 17.3793 161.275 18.3878 161.275 19.5668C161.275 20.7457 161.078 21.7566 160.685 22.5994C160.292 23.4375 159.753 24.0838 159.066 24.5384C158.379 24.9882 157.596 25.2131 156.715 25.2131C156.052 25.2131 155.51 25.1018 155.089 24.8793C154.672 24.6567 154.345 24.3963 154.109 24.098C153.872 23.7997 153.69 23.5346 153.562 23.3026H153.434V29.0909H151.31ZM153.391 19.5455C153.391 20.3125 153.503 20.9848 153.725 21.5625C153.948 22.1402 154.27 22.5923 154.691 22.919C155.112 23.241 155.629 23.402 156.239 23.402C156.874 23.402 157.404 23.2339 157.83 22.8977C158.256 22.5568 158.578 22.0952 158.796 21.5128C159.019 20.9304 159.13 20.2746 159.13 19.5455C159.13 18.8258 159.021 18.1795 158.803 17.6065C158.59 17.0336 158.268 16.5814 157.837 16.25C157.411 15.9186 156.879 15.7528 156.239 15.7528C155.624 15.7528 155.103 15.9115 154.677 16.2287C154.255 16.5459 153.936 16.9886 153.718 17.5568C153.5 18.125 153.391 18.7879 153.391 19.5455ZM166.829 25.2415C166.138 25.2415 165.513 25.1136 164.954 24.858C164.395 24.5975 163.952 24.2211 163.626 23.7287C163.304 23.2363 163.143 22.6326 163.143 21.9176C163.143 21.3021 163.261 20.7955 163.498 20.3977C163.735 20 164.054 19.6851 164.457 19.4531C164.859 19.2211 165.309 19.0459 165.806 18.9276C166.303 18.8092 166.81 18.7192 167.326 18.6577C167.979 18.5819 168.51 18.5204 168.917 18.473C169.324 18.4209 169.62 18.3381 169.805 18.2244C169.989 18.1108 170.082 17.9261 170.082 17.6705V17.6207C170.082 17.0005 169.906 16.5199 169.556 16.179C169.21 15.8381 168.694 15.6676 168.008 15.6676C167.293 15.6676 166.729 15.8262 166.317 16.1435C165.91 16.456 165.629 16.804 165.472 17.1875L163.477 16.733C163.713 16.0701 164.059 15.535 164.513 15.1278C164.973 14.7159 165.501 14.4176 166.097 14.233C166.694 14.0436 167.321 13.9489 167.979 13.9489C168.415 13.9489 168.877 14.0009 169.364 14.1051C169.857 14.2045 170.316 14.3892 170.742 14.6591C171.173 14.929 171.526 15.3149 171.8 15.8168C172.075 16.3139 172.212 16.9602 172.212 17.7557V25H170.138V23.5085H170.053C169.916 23.7831 169.71 24.053 169.435 24.3182C169.161 24.5833 168.808 24.8035 168.377 24.9787C167.946 25.1539 167.43 25.2415 166.829 25.2415ZM167.29 23.5369C167.878 23.5369 168.379 23.4209 168.796 23.1889C169.218 22.9569 169.537 22.6539 169.755 22.2798C169.978 21.901 170.089 21.4962 170.089 21.0653V19.6591C170.013 19.7348 169.866 19.8059 169.648 19.8722C169.435 19.9337 169.192 19.9882 168.917 20.0355C168.642 20.0781 168.375 20.1184 168.114 20.1562C167.854 20.1894 167.636 20.2178 167.461 20.2415C167.049 20.2936 166.673 20.3812 166.332 20.5043C165.996 20.6274 165.726 20.8049 165.522 21.0369C165.323 21.2642 165.224 21.5672 165.224 21.946C165.224 22.4716 165.418 22.8693 165.806 23.1392C166.194 23.4044 166.689 23.5369 167.29 23.5369ZM176.717 14.0909L179.125 18.3381L181.554 14.0909H183.876L180.474 19.5455L183.904 25H181.582L179.125 20.9233L176.674 25H174.345L177.74 19.5455L174.387 14.0909H176.717ZM187.399 29.0909C187.082 29.0909 186.793 29.0649 186.532 29.0128C186.272 28.9654 186.078 28.9134 185.95 28.8565L186.461 27.1165C186.85 27.2206 187.195 27.2656 187.498 27.2514C187.801 27.2372 188.069 27.1236 188.301 26.9105C188.538 26.6974 188.746 26.3494 188.926 25.8665L189.189 25.142L185.197 14.0909H187.47L190.233 22.5568H190.346L193.109 14.0909H195.389L190.893 26.456C190.685 27.0241 190.42 27.5047 190.098 27.8977C189.776 28.2955 189.392 28.5938 188.947 28.7926C188.502 28.9915 187.986 29.0909 187.399 29.0909ZM204.778 18.6293V20.4688H198.869V18.6293H204.778ZM199.466 14.0909V25H197.385V14.0909H199.466ZM206.262 14.0909V25H204.189V14.0909H206.262ZM213.699 25.2202C212.676 25.2202 211.783 24.9858 211.021 24.517C210.259 24.0483 209.667 23.3925 209.245 22.5497C208.824 21.7069 208.613 20.7221 208.613 19.5952C208.613 18.4635 208.824 17.474 209.245 16.6264C209.667 15.7789 210.259 15.1207 211.021 14.652C211.783 14.1832 212.676 13.9489 213.699 13.9489C214.721 13.9489 215.614 14.1832 216.376 14.652C217.138 15.1207 217.73 15.7789 218.152 16.6264C218.573 17.474 218.784 18.4635 218.784 19.5952C218.784 20.7221 218.573 21.7069 218.152 22.5497C217.73 23.3925 217.138 24.0483 216.376 24.517C215.614 24.9858 214.721 25.2202 213.699 25.2202ZM213.706 23.4375C214.368 23.4375 214.918 23.2623 215.353 22.9119C215.789 22.5616 216.111 22.0952 216.319 21.5128C216.532 20.9304 216.639 20.2888 216.639 19.5881C216.639 18.892 216.532 18.2528 216.319 17.6705C216.111 17.0833 215.789 16.6122 215.353 16.2571C214.918 15.902 214.368 15.7244 213.706 15.7244C213.038 15.7244 212.484 15.902 212.044 16.2571C211.608 16.6122 211.284 17.0833 211.071 17.6705C210.862 18.2528 210.758 18.892 210.758 19.5881C210.758 20.2888 210.862 20.9304 211.071 21.5128C211.284 22.0952 211.608 22.5616 212.044 22.9119C212.484 23.2623 213.038 23.4375 213.706 23.4375ZM221.154 25V14.0909H223.278V18.6648H224.3L227.901 14.0909H230.529L226.303 19.3963L230.579 25H227.944L224.656 20.6392H223.278V25H221.154Z" fill="#3F3F3F" />
+                             </svg>
+                         </div>                     
+                    </a>
+                </div>                
+
+                <div class="center-column-with-items" style="transform: translateX(-30px);>
+
+                    <a type="button" class="nav-link text-black position-relative btn-lg"
+                       data-bs-toggle="modal"
+                       data-bs-target="#cartModal">
+                    <div class="item-container-edit">
+                        <div class="svg-container">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_397" data-node-id="41:2809" d="M26.5933,12.45h-21.185c-0.4286,0.001 -0.8516,0.099 -1.2373,0.287c-0.3857,0.188 -0.7243,0.461 -0.9906,0.798c-0.2645,0.338 -0.4494,0.731 -0.5406,1.15c-0.0913,0.419 -0.0866,0.854 0.0137,1.271l2.2715,9.345c0.3283,1.205 1.0425,2.267 2.032,3.022c0.9899,0.757 2.2018,1.167 3.4486,1.167h11.1875c1.2468,0 2.4587,-0.41 3.4486,-1.167c0.9896,-0.755 1.7037,-1.817 2.032,-3.022l2.2715,-9.343c0.1529,-0.63 0.0858,-1.294 -0.19,-1.88c-0.2759,-0.586 -0.7437,-1.059 -1.3253,-1.34c-0.3864,-0.189 -0.8101,-0.287 -1.2395,-0.288M10.3214,18.129v5.68M16.0008,18.129v5.68M21.6802,18.129v5.68M25.9401,12.45c-0.0005,-1.306 -0.2579,-2.6 -0.7576,-3.806c-0.4997,-1.206 -1.2316,-2.302 -2.1539,-3.223c-1.8676,-1.865 -4.3944,-2.912 -7.0278,-2.911c-2.6334,-0.001 -5.1601,1.046 -7.0278,2.911c-0.922,0.922 -1.6537,2.017 -2.1531,3.223c-0.4994,1.206 -0.7567,2.5 -0.757,3.806" stroke="#A323FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        <p class="item-label-text-style">Кошик</p>
+                    </div>
+                    </a>
+
+                    <div class="item-container-edit">
+                        <div class="svg-container" style="color: #a323ff">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_405" data-node-id="41:2843" d="M22.8359,2.8783c-2.8232,0 -5.2951,1.214 -6.8359,3.266c-1.5408,-2.052 -4.0127,-3.266 -6.8359,-3.266c-2.2474,0.002 -4.402,0.896 -5.9911,2.485c-1.5891,1.589 -2.483,3.744 -2.4855,5.991c0,9.571 14.19,17.317 14.7943,17.637c0.1593,0.086 0.3373,0.131 0.5182,0.131c0.1809,0 0.3589,-0.045 0.5182,-0.131c0.6043,-0.32 14.7943,-8.066 14.7943,-17.637c-0.0025,-2.247 -0.8964,-4.402 -2.4855,-5.991c-1.5891,-1.589 -3.7437,-2.483 -5.9911,-2.485zM16,26.7763c-2.4965,-1.454 -13.125,-8.081 -13.125,-15.422c0.0022,-1.667 0.6655,-3.265 1.8444,-4.444c1.179,-1.179 2.7774,-1.843 4.4447,-1.845c2.6591,0 4.8918,1.417 5.8242,3.692c0.0824,0.2 0.2226,0.372 0.4027,0.493c0.1802,0.12 0.3921,0.185 0.609,0.185c0.2169,0 0.4288,-0.065 0.609,-0.185c0.1801,-0.121 0.3203,-0.293 0.4027,-0.493c0.9324,-2.279 3.1651,-3.692 5.8242,-3.692c1.6673,0.002 3.2657,0.666 4.4447,1.845c1.1789,1.179 1.8422,2.777 1.8444,4.444c0,7.33 -10.6313,13.966 -13.125,15.422z" fill="currentColor" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        <p class="item-label-text-style">Обране</p>
+                    </div>
+
+                    <div class="item-container item-container:nth-child(3)">
+                        <div class="svg-container">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="Group_12" data-node-id="41:2813" xmlns="http://www.w3.org/2000/svg">
+                                    <path id="Vector_398" data-node-id="41:2814" d="M6.593,14.2774l-2.6629,2.355c-0.3577,0.315 -0.595,0.745 -0.6716,1.215c-0.0765,0.471 0.0123,0.954 0.2516,1.366l2.4106,4.229c0.2362,0.409 0.6065,0.724 1.0483,0.891c0.4417,0.167 0.9276,0.177 1.3754,0.027l3.3498,-1.142z" stroke="#A323FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path id="Vector_399" data-node-id="41:2815" d="M12.002,5.1934c-0.6658,2.045 -1.4999,4.031 -2.4937,5.938c-0.7454,1.238 -1.7383,2.309 -2.9167,3.146l5.1027,8.913c1.3198,-0.608 2.7502,-0.94 4.2029,-0.974c2.135,0.096 4.2584,0.364 6.3482,0.805" stroke="#A323FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path id="Vector_400" data-node-id="41:2816" d="M3.6924,19.5224l-0.8837,0.522c-0.2352,0.135 -0.4412,0.316 -0.606,0.531c-0.1647,0.215 -0.2849,0.461 -0.3536,0.724c-0.0698,0.262 -0.0865,0.536 -0.0491,0.805c0.0373,0.269 0.1278,0.527 0.2664,0.761c0.1333,0.235 0.312,0.442 0.5258,0.608c0.2138,0.165 0.4584,0.287 0.7196,0.357c0.2609,0.07 0.5333,0.087 0.8009,0.05c0.2675,-0.037 0.5249,-0.128 0.7566,-0.267l0.8269,-0.522M12.702,22.7954l2.4806,4.331c0.2653,0.475 0.3361,1.034 0.1977,1.559c-0.1385,0.526 -0.4754,0.978 -0.94,1.26c-0.2338,0.135 -0.492,0.222 -0.7596,0.257c-0.2677,0.035 -0.5397,0.016 -0.8002,-0.055c-0.2605,-0.07 -0.5044,-0.192 -0.7177,-0.357c-0.2134,-0.166 -0.3919,-0.372 -0.5254,-0.606l-2.8029,-4.979M27.1366,8.5504l-3.6429,2.114M30.2195,15.8144h-4.2044M22.1622,1.7804l-2.1029,3.668M11.9947,5.1944l1.7719,-1.029c0.2326,-0.136 0.4899,-0.224 0.7569,-0.26c0.267,-0.036 0.5384,-0.018 0.7985,0.052c0.2601,0.07 0.5036,0.192 0.7165,0.357c0.2129,0.165 0.3909,0.37 0.5237,0.605l8.1769,14.253c0.2656,0.473 0.3352,1.031 0.1936,1.555c-0.1415,0.524 -0.4828,0.971 -0.9505,1.245l-1.7719,1.031z" stroke="#A323FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                        </div>
+                        <p class="item-label-text-style">Мої оголошення</p>
+                    </div>
+
+                    <div class="item-container-edit item-container:nth-child(4)">
+                        <div class="svg-container" style="color: #a323ff">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_401" data-node-id="41:2820" d="M2.875,7.2497c0,-0.29 0.1152,-0.568 0.3204,-0.773c0.2051,-0.205 0.4833,-0.321 0.7734,-0.321h17.5c0.29,0 0.5682,0.116 0.7733,0.321c0.2052,0.205 0.3204,0.483 0.3204,0.773c0,0.29 -0.1152,0.569 -0.3204,0.774c-0.2051,0.205 -0.4833,0.32 -0.7733,0.32h-17.5c-0.2901,0 -0.5683,-0.115 -0.7734,-0.32c-0.2052,-0.205 -0.3204,-0.484 -0.3204,-0.774zM2.875,24.7497c0,-0.29 0.1152,-0.568 0.3204,-0.773c0.2051,-0.205 0.4833,-0.321 0.7734,-0.321h15.3124c0.2901,0 0.5683,0.116 0.7734,0.321c0.2052,0.205 0.3204,0.483 0.3204,0.773c0,0.29 -0.1152,0.569 -0.3204,0.774c-0.2051,0.205 -0.4833,0.32 -0.7734,0.32h-15.3124c-0.2901,0 -0.5683,-0.115 -0.7734,-0.32c-0.2052,-0.205 -0.3204,-0.484 -0.3204,-0.774zM3.9688,14.9057c-0.2901,0 -0.5683,0.116 -0.7734,0.321c-0.2052,0.205 -0.3204,0.483 -0.3204,0.773c0,0.29 0.1152,0.569 0.3204,0.774c0.2051,0.205 0.4833,0.32 0.7734,0.32h24.0624c0.2901,0 0.5683,-0.115 0.7735,-0.32c0.2051,-0.205 0.3203,-0.484 0.3203,-0.774c0,-0.29 -0.1152,-0.568 -0.3203,-0.773c-0.2052,-0.205 -0.4834,-0.321 -0.7735,-0.321z" fill="currentColor" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        <p class="item-label-text-style">Мої замовлення</p>
+                    </div>
+
+                </div>
+                <div class="friend-list-container">
+                    <img src="assets/image_d8b789f7.png" class="friend-list-icon" />
+                    <p class="bonus-account-text-style">Друзi</p>
+                </div>
+                <div class="vertical-center-with-gap">
+                    <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
+                    <div class="item-container-edit">
+                        <div class="svg-container1">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_403" data-node-id="41:2830" d="M11.6253,13.8095c0,-0.29 0.1153,-0.568 0.3204,-0.773c0.2051,-0.205 0.4833,-0.32 0.7734,-0.32h6.5625c0.2901,0 0.5683,0.115 0.7734,0.32c0.2051,0.205 0.3203,0.483 0.3203,0.773c0,0.291 -0.1152,0.569 -0.3203,0.774c-0.2051,0.205 -0.4833,0.32 -0.7734,0.32h-6.5625c-0.2901,0 -0.5683,-0.115 -0.7734,-0.32c-0.2051,-0.205 -0.3204,-0.483 -0.3204,-0.774zM12.7191,17.0915c-0.2901,0 -0.5683,0.115 -0.7734,0.32c-0.2051,0.205 -0.3204,0.483 -0.3204,0.773c0,0.291 0.1153,0.569 0.3204,0.774c0.2051,0.205 0.4833,0.32 0.7734,0.32h4.375c0.2901,0 0.5683,-0.115 0.7734,-0.32c0.2051,-0.205 0.3203,-0.483 0.3203,-0.774c0,-0.29 -0.1152,-0.568 -0.3203,-0.773c-0.2051,-0.205 -0.4833,-0.32 -0.7734,-0.32zM2.8753,15.9975c0.0006,-2.89 0.9547,-5.698 2.7144,-7.99c1.7597,-2.292 4.2265,-3.939 7.0179,-4.686c2.7914,-0.747 5.7512,-0.552 8.4204,0.555c2.6692,1.107 4.8985,3.063 6.3421,5.566c1.4436,2.504 2.0207,5.413 1.642,8.278c-0.3788,2.865 -1.6923,5.524 -3.7368,7.566c-2.0445,2.042 -4.7058,3.352 -7.5709,3.727c-2.8651,0.376 -5.774,-0.205 -8.2753,-1.652l-5.1144,1.706c-0.189,0.063 -0.3915,0.074 -0.5859,0.03c-0.1944,-0.044 -0.3731,-0.139 -0.517,-0.277c-0.1439,-0.138 -0.2474,-0.313 -0.2994,-0.505c-0.0519,-0.192 -0.0504,-0.395 0.0045,-0.586l1.5575,-5.45c-1.05,-1.927 -1.5998,-4.087 -1.5991,-6.282zM16.0003,5.0595c-1.9311,0 -3.8279,0.512 -5.4975,1.482c-1.6695,0.971 -3.0524,2.366 -4.0079,4.044c-0.9556,1.678 -1.4497,3.58 -1.4323,5.511c0.0174,1.931 0.5458,3.823 1.5315,5.483c0.0758,0.129 0.1246,0.271 0.1434,0.419c0.0188,0.148 0.0072,0.298 -0.0341,0.441l-1.1134,3.894l3.6269,-1.208c0.154,-0.051 0.3176,-0.067 0.4787,-0.048c0.1612,0.02 0.316,0.075 0.4532,0.162c1.4334,0.907 3.0581,1.469 4.7458,1.64c1.6877,0.171 3.392,-0.053 4.9783,-0.654c1.5863,-0.601 3.0111,-1.563 4.1617,-2.809c1.1506,-1.247 1.9955,-2.744 2.4679,-4.373c0.4725,-1.629 0.5595,-3.346 0.2542,-5.015c-0.3053,-1.668 -0.9946,-3.243 -2.0133,-4.599c-1.0187,-1.357 -2.3389,-2.458 -3.8563,-3.216c-1.5174,-0.758 -3.1904,-1.153 -4.8868,-1.154z" fill="currentColor" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        <p class="item-label-text-style">Чат</p>
+                    </div>
+                    <div class="item-container-edit">
+                        <div class="svg-container1">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="mingcute:settings-2-line" data-node-id="41:2823" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="Group_13" data-node-id="41:2824">
+                                        <path id="Vector_402" data-node-id="41:2826" fill-rule="evenodd" clip-rule="evenodd" d="M24.75,4.333c0,-0.386 -0.1536,-0.757 -0.4271,-1.031c-0.2735,-0.273 -0.6445,-0.427 -1.0312,-0.427c-0.3868,0 -0.7577,0.154 -1.0312,0.427c-0.2735,0.274 -0.4272,0.645 -0.4272,1.031v1.459h-17.5c-0.3867,0 -0.7577,0.153 -1.0312,0.427c-0.2735,0.273 -0.4271,0.644 -0.4271,1.031c0,0.387 0.1536,0.758 0.4271,1.031c0.2735,0.274 0.6445,0.427 1.0312,0.427h17.5v1.459c0,0.386 0.1537,0.757 0.4272,1.031c0.2735,0.273 0.6444,0.427 1.0312,0.427c0.3867,0 0.7577,-0.154 1.0312,-0.427c0.2735,-0.274 0.4271,-0.645 0.4271,-1.031v-1.459h2.9167c0.3867,0 0.7577,-0.153 1.0312,-0.427c0.2735,-0.273 0.4271,-0.644 0.4271,-1.031c0,-0.387 -0.1536,-0.758 -0.4271,-1.031c-0.2735,-0.274 -0.6445,-0.427 -1.0312,-0.427h-2.9167zM4.3333,14.542c-0.3867,0 -0.7577,0.153 -1.0312,0.427c-0.2735,0.273 -0.4271,0.644 -0.4271,1.031c0,0.387 0.1536,0.758 0.4271,1.031c0.2735,0.274 0.6445,0.427 1.0312,0.427h2.9167v1.459c0,0.386 0.1536,0.757 0.4271,1.031c0.2735,0.273 0.6445,0.427 1.0312,0.427c0.3868,0 0.7577,-0.154 1.0312,-0.427c0.2735,-0.274 0.4272,-0.645 0.4272,-1.031v-1.459h17.5c0.3867,0 0.7577,-0.153 1.0312,-0.427c0.2735,-0.273 0.4271,-0.644 0.4271,-1.031c0,-0.387 -0.1536,-0.758 -0.4271,-1.031c-0.2735,-0.274 -0.6445,-0.427 -1.0312,-0.427h-17.5v-1.459c0,-0.386 -0.1537,-0.757 -0.4272,-1.031c-0.2735,-0.273 -0.6444,-0.427 -1.0312,-0.427c-0.3867,0 -0.7577,0.154 -1.0312,0.427c-0.2735,0.274 -0.4271,0.645 -0.4271,1.031v1.459zM2.875,24.75c0,-0.387 0.1536,-0.758 0.4271,-1.031c0.2735,-0.274 0.6445,-0.427 1.0312,-0.427h17.5v-1.459c0,-0.386 0.1537,-0.757 0.4272,-1.031c0.2735,-0.273 0.6444,-0.427 1.0312,-0.427c0.3867,0 0.7577,0.154 1.0312,0.427c0.2735,0.274 0.4271,0.645 0.4271,1.031v1.459h2.9167c0.3867,0 0.7577,0.153 1.0312,0.427c0.2735,0.273 0.4271,0.644 0.4271,1.031c0,0.387 -0.1536,0.758 -0.4271,1.031c-0.2735,0.274 -0.6445,0.427 -1.0312,0.427h-2.9167v1.459c0,0.386 -0.1536,0.757 -0.4271,1.031c-0.2735,0.273 -0.6445,0.427 -1.0312,0.427c-0.3868,0 -0.7577,-0.154 -1.0312,-0.427c-0.2735,-0.274 -0.4272,-0.645 -0.4272,-1.031v-1.459h-17.5c-0.3867,0 -0.7577,-0.153 -1.0312,-0.427c-0.2735,-0.273 -0.4271,-0.644 -0.4271,-1.031z" fill="currentColor" />
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                        <p class="item-label-text-style">Налаштування</p>
+                    </div>
+                    <div class="item-container-edit">
+                        <div class="svg-container1">
+                            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_406" data-node-id="41:2846" fill-rule="evenodd" clip-rule="evenodd" d="M20.3751,2.8745c0.1915,0 0.3812,0.038 0.5581,0.111c0.1769,0.074 0.3377,0.181 0.4731,0.317c0.1354,0.135 0.2429,0.296 0.3161,0.473c0.0733,0.177 0.1111,0.366 0.1111,0.558c0,0.191 -0.0378,0.381 -0.1111,0.558c-0.0732,0.177 -0.1807,0.338 -0.3161,0.473c-0.1354,0.135 -0.2962,0.243 -0.4731,0.316c-0.1769,0.073 -0.3666,0.111 -0.5581,0.111h-13.125v18.958c0,0.387 0.1537,0.758 0.4272,1.032c0.2734,0.273 0.6444,0.427 1.0312,0.427h11.6666c0.3868,0 0.7577,0.153 1.0312,0.427c0.2735,0.273 0.4272,0.644 0.4272,1.031c0,0.387 -0.1537,0.758 -0.4272,1.031c-0.2735,0.274 -0.6444,0.427 -1.0312,0.427h-11.6666c-1.1604,0 -2.2732,-0.46 -3.0936,-1.281c-0.8205,-0.82 -1.2814,-1.933 -1.2814,-3.094v-20.416c0,-0.387 0.1536,-0.758 0.4271,-1.031c0.2735,-0.274 0.6444,-0.428 1.0312,-0.428zM22.8645,10.5935c-0.2039,-0.203 -0.4636,-0.342 -0.7463,-0.398c-0.2827,-0.057 -0.5757,-0.028 -0.8421,0.082c-0.2664,0.11 -0.4941,0.297 -0.6545,0.537c-0.1604,0.239 -0.2461,0.521 -0.2465,0.809v2.917h-8.75c-0.3868,0 -0.7577,0.153 -1.0312,0.427c-0.2735,0.273 -0.4271,0.644 -0.4271,1.031c0,0.387 0.1536,0.758 0.4271,1.031c0.2735,0.274 0.6444,0.427 1.0312,0.427h8.75v2.917c0.0001,0.288 0.0856,0.57 0.2459,0.81c0.1602,0.24 0.388,0.427 0.6544,0.537c0.2665,0.11 0.5596,0.139 0.8425,0.083c0.2828,-0.056 0.5426,-0.195 0.7466,-0.399l4.375,-4.375c0.2734,-0.273 0.427,-0.644 0.427,-1.031c0,-0.387 -0.1536,-0.758 -0.427,-1.031z" fill="currentColor" xmlns="http://www.w3.org/2000/svg" /></svg>
+                        </div>
+                        <p class="item-label-text-style">Вихiд</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container personal-info-section2">
+            <div class="personal-data-form-container">
+                <div class="d-flex flex-row align-items-center">
+                    <p class="personal-data-title1">Персональнi данi</p>
+                    <p class="personal-data-credentials-text-style ms-auto">Логiн та пароль</p>
+                </div>
+                <div class="border border-purple w-100"></div>
+            </div>
+            <div class="personal-info-form">
+                <p class="personal-info-text">Вкажiть вашi персональнi данi, щоб оформлення замовлення<br />чи вiдправка були зручнiше</p>
+                <div class="personal-info-section">
+                    <p class="personal-data-title">Аватар</p>
+                    <p class="personal-data-heading">Замініть системне зображення на ваше</p>
+                </div>
+                <div class="text-center personal-info-section1">
+                    <div class="svg-container2">
+                        <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Group 178">
+                                <circle cx="16" cy="16" r="15" fill="#A323FF" />
+                                <path d="M22.789,12.919c0.281,-0.281 0.281,-0.751 0,-1.018l-1.69,-1.69c-0.267,-0.281 -0.737,-0.281 -1.018,0l-1.329,1.322l2.708,2.708M10,20.292v2.708h2.708l7.987,-7.994l-2.708,-2.708z" fill="#F8F8F8" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <div class="personal-data-form">
+                    <p class="personal-data-title">Персональнi данi</p>
+                    <p class="personal-data-heading">Додайте ваш нікнейм та ім&apos;я</p>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <p class="user-info-card">Нiкнейм</p>
+                            <div class="profile-field-container"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="user-info-card">Iм&apos;я</p>
+                            <div class="profile-field-container"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="user-info-card">Прізвище</p>
+                            <div class="profile-field-container"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="birthday-input-container">
+                    <p class="birthday-prompt-text-style">Додайте вашу дату народження</p>
+                    <div class="d-flex gap-2">
+                        <!-- PLACEHOLDER for Date Buttons -->
+                    </div>
+                </div>
+                <div class="birthday-input-container">
+                    <p class="birthday-prompt-text-style">Вкажiть вашу стать</p>
+                    <div class="d-flex justify-content-between gender-selection-container">
+                        <div class="d-flex align-items-center gender-container">
+                            <div class="svg-container3 me-2">
+                                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="Group 210">
+                                        <g id="Group 209">
+                                            <circle cx="4.5" cy="4.5" r="4" transform="matrix(-1, 0, 0, 1, 12.5, 3.5)" fill="#A323FF" stroke="#A323FF" />
+                                            <circle cx="7.5" cy="7.5" r="6.75" transform="matrix(-1, 0, 0, 1, 15.5, 0.5)" stroke="#A323FF" stroke-width="1.5" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="gender-label-text-style">Чоловiк</p>
+                                <p class="male-text-display-style">Чоловiк</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gender-container1">
+                            <img src="assets/image_8a91eddd.png" class="avatar-icon me-2" />
+                            <div>
+                                <p class="gender-label">Жiнка</p>
+                                <p class="elegant-woman-text-style">Жiнка</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-info-section">
+                    <p class="birthday-prompt-text-style">Вкажіть контактні дані</p>
+                    <div class="contact-info-container3">
+                        <p class="contact-info-heading1">Телефон</p>
+                        <div class="d-flex align-items-center">
+                            <p class="contact-info-text">(380) - XX - XX - XXX</p>
+                            <div class="svg-container4 ms-2">
+                                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="Group 180">
+                                        <circle cx="8" cy="8" r="7.5" fill="#7F7F7F" />
+                                        <path d="M12.265,5.705c0.144,0.137 0.229,0.325 0.234,0.524c0.006,0.199 -0.068,0.391 -0.204,0.536l-4.25,4.5c-0.069,0.073 -0.152,0.131 -0.244,0.171c-0.091,0.041 -0.19,0.062 -0.29,0.063c-0.101,0.002 -0.2,-0.017 -0.293,-0.055c-0.093,-0.037 -0.177,-0.093 -0.248,-0.164l-2.25,-2.25c-0.133,-0.142 -0.205,-0.33 -0.201,-0.525c0.003,-0.194 0.082,-0.379 0.219,-0.517c0.138,-0.137 0.323,-0.216 0.517,-0.219c0.195,-0.004 0.383,0.069 0.525,0.201l1.705,1.704l3.72,-3.939c0.136,-0.144 0.325,-0.229 0.524,-0.234c0.198,-0.006 0.391,0.067 0.536,0.204z" fill="#D2D2D2" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="email-section mt-3">
+                        <p class="contact-info-heading1">Пошта</p>
+                        <div class="d-flex align-items-center">
+                            <p class="email-text-display-style">shvidkobuy@gmail.com</p>
+                            <div class="svg-container3 ms-2">
+                                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="Group 181">
+                                        <circle cx="8" cy="8" r="7.5" fill="#7F7F7F" />
+                                        <path d="M12.265,5.71c0.144,0.13 0.229,0.32 0.234,0.52c0.006,0.2 -0.068,0.39 -0.204,0.54l-4.25,4.5c-0.069,0.07 -0.152,0.13 -0.244,0.17c-0.091,0.04 -0.19,0.06 -0.29,0.06c-0.101,0 -0.2,-0.02 -0.293,-0.06c-0.093,-0.03 -0.177,-0.09 -0.248,-0.16l-2.25,-2.25c-0.133,-0.14 -0.205,-0.33 -0.201,-0.52c0.003,-0.2 0.082,-0.38 0.219,-0.52c0.138,-0.14 0.323,-0.22 0.517,-0.22c0.195,0 0.383,0.07 0.525,0.2l1.705,1.71l3.72,-3.94c0.136,-0.14 0.325,-0.23 0.524,-0.23c0.198,0 0.391,0.07 0.536,0.2z" fill="#D2D2D2" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
