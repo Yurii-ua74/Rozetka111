@@ -67,14 +67,28 @@
 
                 <!-- Пошук та Каталог -->
                 
-                <form class="d-flex mx-3 p-2 flex-fill" role="search" asp-controller="Products" asp-action="Searching">                           
+                <form class="d-flex mx-3 p-2 flex-fill" role="search" asp-controller="Home" asp-action="GetSearchResult">                           
                      <!-- Кнопка для відкриття панелі -->
                     <button class="d-none quick-find-button btn btn-outline-secondary me-2 d-lg-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
                          <i class="bi bi-grid"></i> Каталог
-                     </button>                       
-                
+                     </button>       
+
                      <!-- Поле пошуку -->
                      <div class="quick-search-container">
+                         <input class="form-control" type="search" placeholder="Знайти на ШвидкоBuy" aria-label="Search" name="inputSearching">
+                          <div class="vertical-divider"></div>
+                             <div class="svg-container1">
+                                 <i class="bi bi-mic fs-5"></i>
+                             </div>
+                        <button class="btn btn-success purple-box-with-text" type="submit">                         
+                                 <div class="svg-container2">
+                                     <i class="bi bi-search fs-5 white-icon"></i>
+                                 </div>                             
+                        </button>
+                     </div>                     
+
+
+                     @* <div class="quick-search-container">
                          <p class="quick-search-label">Знайти на ШвидкоBuy</p>
                          <div class="quick-search-container1">
                              <div class="vertical-divider"></div>
@@ -87,7 +101,7 @@
                                  </div>
                              </div>
                          </div>
-                     </div>
+                     </div> *@
                 </form>
                               
                 <div class="d-flex align-items-center">

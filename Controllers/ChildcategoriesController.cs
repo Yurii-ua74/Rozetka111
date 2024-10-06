@@ -246,6 +246,7 @@ namespace Rozetka.Controllers
                     .Include(p => p.Brand)
                     .Include(p => p.Childcategory)
                     .Include(p => p.ProductImages)
+                    .Include(p => p.ProductColor)
                     .Include(p => p.Reviews)
                     .Take(6) // Обмеження до 6 товарів
                     .ToListAsync();
