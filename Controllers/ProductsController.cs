@@ -153,7 +153,7 @@ namespace Rozetka.Controllers
             {
                 try
                 {
-                    var product = await _context.Products.FindAsync(id);
+                    var product = await _context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == viewModel.Product.Id);
                     if (product == null)
                     {
                         return NotFound();
@@ -280,6 +280,7 @@ namespace Rozetka.Controllers
                                         .Include(p => p.Brand)
                                         .Include(p => p.Childcategory)
                                         .Include(p => p.ProductImages)
+                                        .Include(p => p.ProductColor)
                                         .Include(p => p.Reviews)
                                         .FirstOrDefaultAsync(p => p.Id == id);
             if (product == null)
