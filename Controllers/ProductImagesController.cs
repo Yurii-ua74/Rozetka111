@@ -58,25 +58,36 @@ namespace Rozetka.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductImage productImage, IFormFile imageFile)
+        public async Task<IActionResult> Create(int productId, List<IFormFile> imageFiles)
         {
             if (ModelState.IsValid)
             {
-                if (imageFile != null && imageFile.Length > 0)
+                // Проверка наличия файлов для загрузки
+                if (imageFiles != null && imageFiles.Count > 0)
                 {
-                    using (var ms = new MemoryStream())
+                    foreach (var imageFile in imageFiles)
                     {
-                        await imageFile.CopyToAsync(ms);
-                        productImage.ImageData = ms.ToArray();
+                        if (imageFile.Length > 0)
+                        {
+                            using (var ms = new MemoryStream())
+                            {
+                                await imageFile.CopyToAsync(ms);
+                                var productImage = new ProductImage
+                                {
+                                    ProductId = productId,
+                                    ImageData = ms.ToArray()
+                                };
+                                _context.Add(productImage);
+                            }
+                        }
                     }
+                    await _context.SaveChangesAsync();
                 }
 
-                _context.Add(productImage);
-                await _context.SaveChangesAsync();
-                //return RedirectToAction("Details", "ProductImages", new { id = productImage.ProductId });
-                return View();
+                return RedirectToAction("Index");
             }
-            return View(productImage);
+
+            return View();
         }
 
         // GET: ProductImages/Edit/5
