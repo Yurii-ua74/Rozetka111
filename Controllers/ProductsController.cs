@@ -65,13 +65,15 @@ namespace Rozetka.Controllers
             var brands = await _context.Brands.ToListAsync();
             var colors = await _context.ProductColors.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
+            var subchildcategories = await _context.SubChildCategories.ToListAsync();
 
             var viewModel = new CreateProductVM
             {
                 ProductTypes = new SelectList(type, "Id", "Title"),
                 Brands = new SelectList(brands, "Id", "Title"),
                 ProductColors = new SelectList(colors, "Id", "Title"),
-                Childcategories = new SelectList(childcategories, "Id", "Name")
+                Childcategories = new SelectList(childcategories, "Id", "Name"),
+                SubChildCategories = new SelectList(subchildcategories, "Id", "Name")
                 //Product = new Product()
             };
             return View(viewModel);
@@ -96,11 +98,14 @@ namespace Rozetka.Controllers
             var brands = await _context.Brands.ToListAsync();
             var colors = await _context.ProductColors.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
+            var subchildcategories = await _context.SubChildCategories.ToListAsync();
+            
 
             viewModel.ProductTypes = new SelectList(type, "Id", "Title");
             viewModel.Brands = new SelectList(brands, "Id", "Title");
             viewModel.ProductColors = new SelectList(colors, "Id", "Title");
             viewModel.Childcategories = new SelectList(childcategories, "Id", "Name");
+            viewModel.SubChildCategories = new SelectList(subchildcategories, "Id", "Name");
 
             return View(viewModel);
         }

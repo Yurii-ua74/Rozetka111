@@ -278,11 +278,7 @@ namespace Rozetka.Controllers
 
         // TEST
 
-
-
-
-
-
+        // Get
         public async Task<IActionResult> Edit()
         {
             // Отримуємо ім'я користувача
@@ -304,5 +300,29 @@ namespace Rozetka.Controllers
             // Передаємо дані користувача до вьюшки
             return View(user);
         }
+
+
+        //[HttpPost]
+        //public IActionResult UpdatePersonalData(UserModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Отримуємо поточного користувача з бази
+        //        var user = _userManager.FindByIdAsync(User.Identity.GetUserId());
+
+        //        // Оновлюємо ім'я користувача
+        //        user.UserName = model.UserName;
+
+        //        // Зберігаємо зміни в базі даних
+        //        var result = _userManager.UpdateAsync(user);
+
+        //        if (result.Succeeded)
+        //        {
+        //            // Логіка після успішного оновлення
+        //        }
+        //    }
+        //    return View(model);
+        //}
+
     }
 }

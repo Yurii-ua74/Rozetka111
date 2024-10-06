@@ -1128,3 +1128,16 @@ a:hover{
     height: auto;
     object-fit: cover;
 }
+
+/* для адаптації вікна коригування особистих даних - Account/Edit */
+@media only screen and (max-width: 1000px) {
+    .hide-on-small-screens {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .moove-left-if-small-screens {
+        transform: translateX(-400px);
+    }
+}

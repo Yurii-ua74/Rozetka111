@@ -14,6 +14,8 @@ namespace Rozetka.Models.ViewModels.Products
 
         public SelectList? Childcategories { get; set; }
 
+        public SelectList? SubChildCategories { get; set; }
+
         public Product Product { get; set; } = new Product();
     }
 }
