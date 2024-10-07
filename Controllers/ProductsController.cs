@@ -230,6 +230,7 @@ namespace Rozetka.Controllers
         }
 
 
+
         // GET: /Products/Searching
         public async Task<IActionResult> Searching(string inputSearching)
         {
@@ -295,5 +296,73 @@ namespace Rozetka.Controllers
             HttpContext.Session.SetString("Product", product.Title);
             return View(product);
         }
+
+
+        // ///// пошук товарів з пошуковох строки header ///// //
+        [HttpGet]
+        public IActionResult Search(string search)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return View("Index"); // Повертаємо на основну сторінку, якщо запит порожній
+            }
+
+            // Спочатку шукаємо збіги в Childcategory
+            var productsFromChildcategory = _context.Childcategories
+                .Where(cc => cc.Name.Contains(search))
+                .SelectMany(cc => cc.SubChildCategories) // Отримуємо підкатегорії
+                .SelectMany(scc => scc.Products)    // Отримуємо продукти цих підкатегорій
+                .Include(p => p.ProductType)
+                .Include(p => p.Brand)
+                .Include(p => p.Childcategory)
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductColor)
+                .Include(p => p.Reviews)
+                .ToList();
+
+            if (productsFromChildcategory.Any())
+            {
+                // Якщо знайдено продукти через Childcategory, повертаємо їх
+                return View(productsFromChildcategory);
+            }
+
+
+            // Якщо нічого не знайдено в Childcategory, шукаємо в SubChildCategory
+            var productsFromSubChildCategory = _context.SubChildCategories
+                .Where(scc => scc.Name.Contains(search))
+                .SelectMany(scc => scc.Products)         // Отримуємо продукти цієї підкатегорії
+                .Include(p => p.ProductType)
+                .Include(p => p.Brand)
+                .Include(p => p.Childcategory)
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductColor)
+                .Include(p => p.Reviews)
+                .ToList();
+
+            if (productsFromSubChildCategory.Any())
+            {
+                // Якщо знайдено продукти через SubChildCategory, повертаємо їх
+                return View(productsFromSubChildCategory);
+            }
+
+
+
+            // Якщо не знайдено в категоріях, шукаємо безпосередньо в Products
+            var productsFromProducts = _context.Products
+                .Include(p => p.ProductImages) // Включаємо зображення продуктів
+                .Where(p => p.Title.Contains(search) || p.Description.Contains(search))
+                .ToList();
+
+            if (productsFromProducts.Any())
+            {
+                // Якщо знайдено продукти, повертаємо їх
+                return View(productsFromProducts);
+            }
+
+            // Якщо нічого не знайдено в усіх категоріях, виводимо повідомлення
+            ViewBag.Message = "Нічого не знайдено за вашим запитом.";
+            return View(new List<Product>()); // Повертаємо порожній список продуктів
+        }
     }
 }
+

@@ -353,13 +353,23 @@ a:hover{
         }
     }
 
-    .quick-search-label {
-        flex: 0 0 auto;
-        padding: 0;
-        margin: 0;
-        font: 400 16px Inter, sans-serif;
-        color: #959595;
-    }
+.ms-negetive {
+    margin-left: -17px;
+    width: 100%; /* Обеспечит, что поля не будут выходить за пределы */
+    max-width: 100%; /* Ограничит их до размеров контейнера */
+    height: 42px;
+    
+    border: 0px solid #FFFFFF;
+    border-radius: 12px;
+}
+
+.quick-search-label {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    font: 400 16px Inter, sans-serif;
+    color: #959595;
+}
 
     .quick-search-container1 {
         display: flex;
@@ -383,7 +393,7 @@ a:hover{
         flex: 0 0 auto;
         width: 24px;
         height: 24px;
-        color: #959595;
+        color:  #959595;
     }
 
     .purple-box-with-text {
@@ -644,16 +654,24 @@ a:hover{
         height: 24px;
     }
 
-    /*<-- випадаюче верхнє вікно КАТАЛОГ-->*/
-    .offcanvas-top {
-        width: calc(100% - 350px); /* ширина з кожного боку */
-        margin-left: auto;
-        margin-right: auto;
-        height: auto; /* висотa панелі */
-        max-height: 80vh; /* Максимум висоти екрану */
-        top: 100px; /* Зміщення на висоту хедера */
-        border-radius: 10px;
-    }
+/* <-- іконка аватарки профілю --> */
+.header-profile-image {
+    width: 50px; /*  ширинa */
+    height: 50px; /* висотa */
+    border-radius: 50%; /* Робить зображення круглим */
+    object-fit: cover; /* Щоб зображення обрізалось по колу */
+}
+
+/*<-- випадаюче верхнє вікно КАТАЛОГ-->*/
+.offcanvas-top {
+    width: calc(100% - 350px); /* ширина з кожного боку */
+    margin-left: auto;
+    margin-right: auto;
+    height: auto; /* висотa панелі */
+    max-height: 80vh; /* Максимум висоти екрану */
+    top: 100px; /* Зміщення на висоту хедера */
+    border-radius: 10px;
+}
 
     .offcanvas-backdrop { /* Кастомне затінення для offcanvas */
         position: fixed;
@@ -781,9 +799,7 @@ a:hover{
         border: 1px solid #C9C9C9;
         border-radius: 12px;
 
-       
-       
-    }
+    }                                                              ////////////////////////////////////////////////////////
 
 .enter-reg-text {
     display: block; /* Чтобы текст занимал всю ширину */

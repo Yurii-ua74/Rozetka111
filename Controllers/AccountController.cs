@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Rozetka.Data.Entity;
+using Rozetka.Models.UserModel;
 using Rozetka.Models.ViewModels.Account;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -275,8 +276,7 @@ namespace Rozetka.Controllers
 
             return RedirectToAction("AccessDenied");
         }
-
-        // TEST
+        
 
         // Get
         public async Task<IActionResult> Edit()
@@ -302,27 +302,179 @@ namespace Rozetka.Controllers
         }
 
 
-        //[HttpPost]
-        //public IActionResult UpdatePersonalData(UserModel model)
+        //public IActionResult Profile()  // для передачі повідомлень в тост вікно
         //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        // Отримуємо поточного користувача з бази
-        //        var user = _userManager.FindByIdAsync(User.Identity.GetUserId());
+        //    // Передаємо дані з TempData до представлення
+        //    // TempData автоматично зберігає дані для наступного запиту, як у вашому випадку після редиректу.
+        //    ViewBag.SuccessMessage = TempData["SuccessMessage"];
+        //    ViewBag.ErrorMessage = TempData["ErrorMessage"];
 
-        //        // Оновлюємо ім'я користувача
-        //        user.UserName = model.UserName;
-
-        //        // Зберігаємо зміни в базі даних
-        //        var result = _userManager.UpdateAsync(user);
-
-        //        if (result.Succeeded)
-        //        {
-        //            // Логіка після успішного оновлення
-        //        }
-        //    }
-        //    return View(model);
+        //    // Повертаємо представлення Profile.cshtml
+        //    return View();
         //}
+
+
+        // /////////  метод для зміни Email  ///////// //
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "Будь ласка, виправте помилки у формі.";
+                return RedirectToAction("Edit", "Account");
+            }
+
+            // Отримуємо поточного користувача
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Користувача не знайдено. Будь ласка, увійдіть знову.";
+                return RedirectToAction("Login", "Account");  // редирект на сторінку повторного входу
+
+            }      
+
+            // Перевіряємо правильність пароля
+            var passwordCheck = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+
+            if (!passwordCheck.Succeeded)
+            {
+                TempData["ErrorMessage"] = "Невірний пароль.";
+                return RedirectToAction("Edit", "Account");
+            }  //////
+
+            // Оновлюємо email
+            user.Email = model.Email;
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                // Повертаємо повідомлення про успішну зміну
+                TempData["SuccessMessage"] = "Електронну пошту успішно змінено!";               
+                return RedirectToAction("Edit", "Account");
+            }
+
+            // Якщо сталася помилка при оновленні
+            TempData["ErrorMessage"] = "Помилка при зміні номера телефону.";
+            return RedirectToAction("Edit", "Account");
+        }
+
+
+        // /////////  метод для зміни PhoneNumber  ///////// //
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePhoneNumber(ChangePhoneNumberViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {                
+                TempData["ErrorMessage"] = "Будь ласка, виправте помилки у формі.";
+                return RedirectToAction("Edit", "Account");
+            }
+
+            // Отримуємо поточного користувача
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Користувача не знайдено. Будь ласка, увійдіть знову.";
+                return RedirectToAction("Login", "Account");  // редирект на сторінку повторного входу
+
+            }
+
+            // Перевіряємо правильність пароля
+            var passwordCheck = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+
+            if (!passwordCheck.Succeeded)
+            {
+                TempData["ErrorMessage"] = "Невірний пароль.";
+                return RedirectToAction("Edit", "Account");
+            }
+
+            // Оновлюємо номер телефону
+            user.PhoneNumber = model.PhoneNumber;
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                // Повертаємо повідомлення про успішну зміну
+                TempData["SuccessMessage"] = "Номер телефону успішно змінено!";
+                return RedirectToAction("Edit", "Account"); 
+            }
+
+            // Якщо сталася помилка при оновленні
+            TempData["ErrorMessage"] = "Помилка при зміні номера телефону.";
+            return RedirectToAction("Edit", "Account");
+        }
+
+
+        // /////////  метод для зміни Password  ///////// //
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "Будь ласка, виправте помилки у формі.";
+                return RedirectToAction("Edit", "Account");
+            }
+
+            // Отримуємо поточного користувача
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Користувача не знайдено. Будь ласка, увійдіть знову.";
+                return RedirectToAction("Login", "Account");  // редирект на сторінку повторного входу
+            }
+
+            // Перевіряємо правильність пароля
+            var passwordCheck = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+            if (!passwordCheck.Succeeded)
+            {
+                TempData["ErrorMessage"] = "Невірний старий пароль.";
+                return RedirectToAction("Edit", "Account");
+            }
+
+            // Оновлюємо пароль
+            var result = await _userManager.ChangePasswordAsync(user, model.Password, model.NewPassword);
+            if (result.Succeeded)
+            {
+                // Повертаємо повідомлення про успішну зміну
+                TempData["SuccessMessage"] = "Пароль успішно змінено!";
+                return RedirectToAction("Edit", "Account");
+            }
+
+            // Якщо сталася помилка при оновленні
+            TempData["ErrorMessage"] = "Помилка при зміні пароля.";
+            return RedirectToAction("Edit", "Account");
+        }
+
+
+        // ////// видалення профілю користувача ///// //
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteProfile()
+        {
+            var user = await _userManager.GetUserAsync(User);  // Отримуємо поточного користувача
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Користувач не знайдений.";
+                return RedirectToAction("Index", "Home");  // Редірект на головну сторінку
+            }
+
+            var result = await _userManager.DeleteAsync(user);  // Видалення користувача
+
+            if (result.Succeeded)
+            {
+                await _signInManager.SignOutAsync();  // Вихід з системи після видалення
+                TempData["SuccessMessage"] = "Профіль видалено.";
+                return RedirectToAction("Index", "Home");  // Редірект на головну сторінку після успішного видалення
+            }
+
+            // Якщо виникла помилка під час видалення
+            TempData["ErrorMessage"] = "Не вдалося видалити профіль.";
+            return RedirectToAction("Edit", "Account");  // Повернення на сторінку редагування профілю
+        }
 
     }
 }

@@ -147,31 +147,9 @@ function updateCartCount() {
 }
 document.addEventListener('DOMContentLoaded', updateCartCount);
 
-
-// ////// отримання місцезнаходження ////// //
-// Додаємо функцію для отримання даних
-//function getLocation() {
-//    fetch('https://ipinfo.io/json?token=675fcbb92ab7c6') // Мій токен
-//        .then(response => {
-//            if (!response.ok) {
-//                throw new Error('Network response was not ok');
-//            }
-//            return response.json();
-//        })
-//        .then(data => {
-//            const location = data.city; // Отримуємо назву міста
-//            document.getElementById('location').innerHTML = `Ваше місце знаходження: <br>${location} ?`;
-//        })
-//        .catch(err => {
-//            console.error('Не вдалося отримати дані:', err);
-//            document.getElementById('location').innerText = 'Не вдалося отримати ваше місцезнаходження';
-//        });
-//}
-
-
-
+/*  для виводу карти  */
 function getLocationFromSession() {
-    // Робимо запит на сервер для отримання локації з сесії
+    // запит на сервер для отримання локації з сесії
     $.ajax({
         type: 'GET',
         url: '/Location/GetSessionLocation', // Адреса методу контролера
@@ -255,8 +233,7 @@ document.getElementById('dropdownIcon').addEventListener('click', function () {
 /*  ///////////////////////////////////////////////////////  */
 
 
-//3.10.24
-// Функція для обробки змін фільтрів субпідкатегорій та цін
+// скріпт для обробки змін фільтрів субпідкатегорій та цін //
 $(document).ready(function () {
     // Функція для обробки змін чекбоксів та цін
     function handleCheckboxChange() {
@@ -281,7 +258,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 // Оновлення часткового представлення продуктів
-                $('#productsPartial').html(response);
+                $('#productsPartial').html(response);   // Id з HTML в представленні
             },
             error: function (xhr, status, error) {
                 console.log('Помилка при отриманні фільтрованих даних:', error);

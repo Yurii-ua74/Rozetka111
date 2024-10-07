@@ -66,33 +66,43 @@
                   </div>
 
                 <!-- Пошук та Каталог -->
-                
-                <form class="d-flex mx-3 p-2 flex-fill" role="search" asp-controller="Products" asp-action="Searching">                           
-                     <!-- Кнопка для відкриття панелі -->
-                    <button class="d-none quick-find-button btn btn-outline-secondary me-2 d-lg-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-                         <i class="bi bi-grid"></i> Каталог
-                     </button>                       
-                
-                     <!-- Поле пошуку -->
-                     <div class="quick-search-container">
-                         <p class="quick-search-label">Знайти на ШвидкоBuy</p>
-                         <div class="quick-search-container1">
+                <!-- Каталог -->
+                 <div class="d-flex mx-3 p-2 flex-fill">
+                     <form  role="search" asp-controller="Products" asp-action="Searching">                           
+                          <!-- Кнопка для відкриття панелі -->
+                         <button class="d-none quick-find-button btn btn-outline-secondary me-2 d-lg-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+                              <i class="bi bi-grid"></i> Каталог
+                          </button>
+                     </form>
+                    
+                     <!-- Поле та форма пошуку -->
+                    <form class="quick-search-container" asp-controller="Products" asp-action="Search" method="get">
+                        <!-- Поле для вводу товару -->
+                        <input type="text" class="ms-negetive" id="search-product" placeholder="Знайти на ШвидкоBuy" name="search">
+                                          
+                         <div class="quick-search-container1">              
                              <div class="vertical-divider"></div>
                              <div class="svg-container1">
                                  <i class="bi bi-mic fs-5"></i>
-                             </div>
-                             <div class="purple-box-with-text">
+                             </div>                            
+                             <!-- Кнопка для пошуку -->
+                             <button type="submit" class="btn btn-link purple-box-with-text" aria-label="Search">
                                  <div class="svg-container2">
                                      <i class="bi bi-search fs-5 white-icon"></i>
                                  </div>
-                             </div>
+                             </button>
                          </div>
-                     </div>
-                </form>
+                     </form>
+                 </div>
                               
                 <div class="d-flex align-items-center">
                         @if (Context.User.Identity?.IsAuthenticated ?? false)
                         {
+                            @* іконка для аватарки в хедері *@
+                        @* <div class="header-profile-image">
+                            <img id="headerProfileImage" src="~/images/no_avatar.png" class="img-fluid rounded-circle" alt="Profile Image" />
+                        </div> *@
+
                             @* Переходить на сторінку з покупками користувача(метод Purchase в HomeController) *@
                             <a class="list-none nav-link text-black btn-lg position-relative btn-lg mt-2"
                            asp-area="" asp-controller="Purchase" asp-action="Index"
@@ -126,16 +136,6 @@
                                     0
                                 </span>
                             </a>
-
-                            @* вихід з акаунту *@
-                             <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout">
-                                <button type="submit" class="nav-link text-black btn-lg" id="auth-signout-button-nav"
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Вихід"
-                                        style="background-color: border: none;">
-                                    <i class="bi bi-box-arrow-right fs-4 fs-md-3 fs-sm-3"></i>
-                                </button>
-                                @Html.AntiForgeryToken()
-                            </form> 
                         }
                         else
                         {
@@ -150,7 +150,7 @@
                                 </div>
                             </a>
                         }
-
+                    
                         <!-- КОШИК -->
                         @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
                     <a type="button" class="nav-link text-black position-relative btn-lg"
@@ -179,8 +179,6 @@
                         </div>
                     </a> *@
 
-
-                   
 
                         @* <!-- АДМІНКА --> *@
                         <a class="nav-link text-black btn-lg admin-non"
@@ -726,10 +724,6 @@
 
                     <!-- Первый шаг -->
                   
-
-                  
-
-
                     <div id="step-1" class="form-step">
                         <span class="text-black" style="font-family: 'Inter', sans-serif; font-size: 14px;">Крок 1 з 2</span>
                         <div class="step-indicators">
@@ -1010,7 +1004,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>        
     </div>
     <div class="offcanvas-body">
-        <!-- Вміст модального вікна для каталогу -->
+        <!-- Вміст вікна для каталогу -->
         <div class="row">
             
             <div class="col-md-3 text-start border-end border-2" style="min-width: 320px">
@@ -1213,8 +1207,8 @@
     </div>
 </div>
 
-<!-- Модальне вікно бонусний рахунок -->
 
+<!-- Модальне вікно бонусний рахунок -->
 <div class="modal fade" id="bonusAccountModal" tabindex="-1" aria-labelledby="bonusAccountModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; width: 60%;">
 

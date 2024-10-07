@@ -267,7 +267,7 @@ namespace Rozetka.Controllers
 
 
 
-        //3.10.24
+       
         [HttpPost]
         public IActionResult GetProductsByFilter(List<int> subChildCategoryIds, decimal? minPrice, decimal? maxPrice)
         {           

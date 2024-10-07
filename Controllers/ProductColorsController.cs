@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Rozetka.Data;
+using Rozetka.Data.Entity;
 
-namespace Rozetka.Data.Entity
+namespace Rozetka.Controllers
 {
     public class ProductColorsController : Controller
     {
@@ -54,7 +56,7 @@ namespace Rozetka.Data.Entity
                 _context.Add(productColor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }            
+            }
             return View(productColor);
         }
 
@@ -102,7 +104,7 @@ namespace Rozetka.Data.Entity
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }            
+            }
             return View(productColor);
         }
 
