@@ -230,39 +230,42 @@ namespace Rozetka.Controllers
         }
 
 
+        //// GET: /Products/Searching
+        //public async Task<IActionResult> Searching(string inputSearching)
+        //{
+        //    if (string.IsNullOrEmpty(inputSearching))  // Якщо inputSearching є порожнім або null, 
+        //    {
+        //        //  метод повертає порожню модель ProductSearchViewModel до стандартного представлення
+        //        return View(new ProductSearchViewModel());
+        //    }
+        //    if (inputSearching.Length < 2)
+        //    {
+        //        return View(new ProductSearchViewModel());
+        //    }
 
-        // GET: /Products/Searching
-        public async Task<IActionResult> Searching(string inputSearching)
-        {
-            if (string.IsNullOrEmpty(inputSearching))  // Якщо inputSearching є порожнім або null, 
-            {
-                //  метод повертає порожню модель ProductSearchViewModel до стандартного представлення
-                return View(new ProductSearchViewModel());
-            }
-
-            // Якщо inputSearching не порожній, метод використовує контекст бази даних _context для виконання пошуку продуктів.
-            // Він здійснює запит до таблиці Products, щоб знайти продукти, у яких заголовок (Title) містить текст, який ввів користувач
-            var products = await _context.Products
-                .Include(p => p.Childcategory) 
-                .Where(p => p.Title.Contains(inputSearching))
-                .Select(p => new ProductSearchResult
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    Description = p.Description,
-                    Price = p.Price,
-                    CategoryName = p.Childcategory != null ? p.Childcategory.Name : "No Category" 
-                })
-                .ToListAsync();
-            // Результати пошуку (список продуктів) зберігаються у властивості Products об'єкта ProductSearchViewModel,
-            // який створюється для передачі даних у представлення
-            var viewModel = new ProductSearchViewModel
-            {
-                Products = products
-            };
-            // повертає представлення з назвою "Details", передаючи в нього модель viewModel, яка містить результати пошуку
-            return View("Details", viewModel); //
-        }
+        //    // Якщо inputSearching не порожній, метод використовує контекст бази даних _context для виконання пошуку продуктів.
+        //    // Він здійснює запит до таблиці Products, щоб знайти продукти, у яких заголовок (Title) містить текст, який ввів користувач
+        //    var products = await _context.Products
+        //        .Include(p => p.Childcategory) 
+        //        .Where(p => p.Title.Contains(inputSearching))
+        //        .Select(p => new ProductSearchResult
+        //        {
+        //            Id = p.Id,
+        //            Title = p.Title,
+        //            Description = p.Description,
+        //            Price = p.Price,
+        //            CategoryName = p.Childcategory != null ? p.Childcategory.Name : "No Category" 
+        //        })
+        //        .ToListAsync();
+        //    // Результати пошуку (список продуктів) зберігаються у властивості Products об'єкта ProductSearchViewModel,
+        //    // який створюється для передачі даних у представлення
+        //    var viewModel = new ProductSearchViewModel
+        //    {
+        //        Products = products
+        //    };
+        //    // повертає представлення з назвою "Details", передаючи в нього модель viewModel, яка містить результати пошуку
+        //    return View("Details", viewModel); //
+        //}
 
 
         private bool ProductExists(int id)

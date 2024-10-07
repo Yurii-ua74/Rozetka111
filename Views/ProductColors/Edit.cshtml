@@ -12,20 +12,28 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
+            <!-- Поле для ввода названия цвета -->
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
+
+            <!-- Поле для выбора цвета -->
             <div class="form-group">
                 <label asp-for="HexCode" class="control-label">Color</label>
-                <input type="color" name="hex" class="form-control" />
+                <input type="color" asp-for="HexCode" class="form-control" id="colorPicker" style="height: 100px;" />
                 <span asp-validation-for="HexCode" class="text-danger"></span>
             </div>
+
+            <!-- Отображение текущего цвета и обработка клика для изменения цвета в поле -->
             @if (Model.HexCode != null)
             {
-                <div class="btn me-2" style="background-color: @Model.HexCode; width: 200px; height: 100px;"></div>
+                <div class="btn me-2" id="colorDisplay" style="background-color: @Model.HexCode; width: 200px; height: 100px; cursor: pointer;">
+                    <!-- Текущий цвет -->
+                </div>
             }
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -41,4 +49,24 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        // Обработчик клика на блок с цветом
+        document.getElementById("colorDisplay").addEventListener("click", function () {
+            // Берём цвет текущего блока
+            var currentColor = this.style.backgroundColor;
+            // Преобразуем его в формат HEX
+            var hexColor = rgbToHex(currentColor);
+            // Устанавливаем его в поле выбора цвета
+            document.getElementById("colorPicker").value = hexColor;
+        });
+
+        // Функция для преобразования RGB в HEX
+        function rgbToHex(rgb) {
+            var rgbValues = rgb.match(/\d+/g).map(function (x) { return parseInt(x, 10); });
+            var hex = "#" + rgbValues.map(function (x) {
+                return x.toString(16).padStart(2, '0');
+            }).join('');
+            return hex;
+        }
+    </script>
 }
