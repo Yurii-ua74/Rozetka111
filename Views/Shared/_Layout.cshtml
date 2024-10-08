@@ -68,21 +68,39 @@
                 <!-- Пошук та Каталог -->
                 <!-- Каталог -->
                  <div class="d-flex mx-3 p-2 flex-fill">
-                     <form  role="search" asp-controller="Products" asp-action="Searching">                           
-                          <!-- Кнопка для відкриття панелі -->
-                         <button class="d-none quick-find-button btn btn-outline-secondary me-2 d-lg-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-                              <i class="bi bi-grid"></i> Каталог
-                          </button>
-                     </form>
-                    
-                     <!-- Поле та форма пошуку -->
-                    <form class="quick-search-container" asp-controller="Products" asp-action="Search" method="get">
+                    <!-- Кнопка для відкриття панелі -->
+                    <button class="d-none quick-find-button btn btn-outline-secondary me-2 d-lg-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+                        <i class="bi bi-grid"></i> Каталог
+                    </button>
+
+                    <form class="quick-search-container" role="search" asp-controller="Products" asp-action="GetSearchResult" id="searchForm">
                         <!-- Поле для вводу товару -->
-                        <input type="text" class="ms-negetive" id="search-product" placeholder="Знайти на ШвидкоBuy" name="search">
+                        <input type="search" class="ms-negetive" placeholder="Знайти на ШвидкоBuy" name="inputSearching" id="searchInput">
+
+                        <div class="quick-search-container1">
+                            <div class="vertical-divider"></div>
+                            <!-- Кнопка голосового поиска -->
+                            <div class="svg-container1" type="button" id="voiceSearchButton">
+                                <i class="bi bi-mic" id="micIcon"></i>
+                            </div>
+                            <!-- Кнопка для пошуку -->
+                            <button type="submit" class="btn btn-link purple-box-with-text" aria-label="Search">
+                                <div class="svg-container2">
+                                    <i class="bi bi-search fs-5 white-icon"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </form>
+                   
+                    @*  <!-- Поле та форма пошуку -->
+                    <form class="quick-search-container" role="search" asp-controller="Products" asp-action="Search" method="get">
+                        <!-- Поле для вводу товару -->
+                        <input type="search" class="ms-negetive" placeholder="Знайти на ШвидкоBuy" name="search" id="searchInput">
                                           
                          <div class="quick-search-container1">              
                              <div class="vertical-divider"></div>
-                                 <div class="svg-container1">
+                            <!-- Кнопка голосового поиска -->
+                            <div class="svg-container1" type="button" id="voiceSearchButton">
                                  <i class="bi bi-mic fs-5"></i>
                              </div>                            
                              <!-- Кнопка для пошуку -->
@@ -91,8 +109,8 @@
                                      <i class="bi bi-search fs-5 white-icon"></i>
                                  </div>
                             </button>
-                         </div>
-                     </form>
+                         </div>                        
+                     </form> *@
                 </div>
                               
                 <div class="d-flex align-items-center">
@@ -627,6 +645,200 @@
         });
    
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#cartModal').on('show.bs.modal', function () {
+                $('.custom-modal-body').html('<span>Loading...</span>');  // Показать индикатор загрузки
+                $.get('/Cart/LoadCartModal', function (data) {
+                    $('.custom-modal-body').html(data);  // Вставить данные в модальное окно
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // Двухшаговая регистрация
+        function nextStep() {
+            document.getElementById('step-1').style.display = 'none';
+            document.getElementById('step-2').style.display = 'block';
+        }
+
+        function prevStep() {
+            document.getElementById('step-2').style.display = 'none';
+            document.getElementById('step-1').style.display = 'block';
+        }
+
+
+        // Сброс на первый шаг при закрытии модального окна
+        document.getElementById('registerModal').addEventListener('hidden.bs.modal', function () {
+            // Показать первый шаг и скрыть второй
+            document.getElementById('step-1').style.display = 'block';
+            document.getElementById('step-2').style.display = 'none';
+        });
+    </script>
+
+    <script>
+        function validateForm() {
+            let valid = true;
+
+            // Очищаем предыдущие ошибки
+            document.getElementById("firstname-error").innerText = "";
+            document.getElementById("lastname-error").innerText = "";
+            document.getElementById("phone-error").innerText = "";
+            document.getElementById("email-error").innerText = "";
+            document.getElementById("password-error").innerText = "";
+            document.getElementById("confirm-password-error").innerText = "";
+
+            // Получаем значения полей
+            const firstName = document.getElementById("auth-firstname").value;
+            const lastName = document.getElementById("auth-lastname").value;
+            const phone = document.getElementById("auth-phone").value;
+            const email = document.getElementById("auth-email").value;
+            const password = document.getElementById("auth-password").value;
+            const confirmPassword = document.getElementById("auth-confirm-password").value;
+
+            // Проверяем каждое поле
+            if (firstName.length < 2) {
+                document.getElementById("firstname-error").innerText = "Ім'я повинно містити щонайменше 2 символи.";
+                valid = false;
+            }
+
+            if (lastName.length < 2) {
+                document.getElementById("lastname-error").innerText = "Прізвище повинно містити щонайменше 2 символи.";
+                valid = false;
+            }
+
+            if (!/^\d{10,15}$/.test(phone)) {
+                document.getElementById("phone-error").innerText = "Введіть дійсний номер телефону.";
+                valid = false;
+            }
+
+            const emailPattern = /^[a-zA-Z0-9._-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("email-error").innerText = "Введіть дійсну електронну адресу.";
+                valid = false;
+            }
+
+            if (password.length < 6) {
+                document.getElementById("password-error").innerText = "Пароль повинен містити щонайменше 6 символів.";
+                valid = false;
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById("confirm-password-error").innerText = "Паролі не співпадають.";
+                valid = false;
+            }
+
+            return valid;
+        }
+    </script>
+
+    <script>
+        // Закрытие модального окна авторизации при открытии регистрации
+        document.getElementById('openRegisterModal').addEventListener('click', function () {
+            var authModal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
+            if (authModal) {
+                authModal.hide(); // Закрыть авторизацию
+            }
+            var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+            registerModal.show(); // Открыть регистрацию
+        });
+
+        // Убедитесь, что модальные окна корректно закрываются
+        document.getElementById('registerModal').addEventListener('hidden.bs.modal', function () {
+            // Удаляем backdrop вручную, если он остался
+            var backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) {
+                backdrop.remove();
+            }
+
+            // Убедитесь, что тело страницы снова прокручивается
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = ''; // Разрешаем прокрутку страницы
+        });
+    </script>
+
+    <!-- JavaScript для активации голосового поиска -->
+    <script>
+        const voiceSearchButton = document.getElementById('voiceSearchButton');
+        const searchInput = document.getElementById('searchInput');
+        const searchForm = document.getElementById('searchForm');
+
+        if ('webkitSpeechRecognition' in window) {
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = 'uk-UA'; // язык, на котором будет работать голосовой поиск (например, 'uk-UA')
+
+            // Когда голос распознан
+            recognition.onresult = function (event) {
+                const transcript = event.results[0][0].transcript; // Получаем текст, который был распознан
+                searchInput.value = transcript; // Заполняем поле ввода текстом
+                searchForm.submit(); // Отправляем форму автоматически после распознавания
+            };
+
+            // Обработчик клика по кнопке микрофона
+            voiceSearchButton.addEventListener('click', function () {
+                recognition.start(); // Начать распознавание голоса
+            });
+        } else {
+            // Обработчик клика по кнопке микрофона
+            voiceSearchButton.addEventListener('click', function () {
+                alert('Ваш браузер не підтримує голосовий пошук.');
+            });
+
+        }
+    </script>
+
+
+    <!-- JavaScript для активации голосового поиска -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const voiceSearchButton = document.getElementById('voiceSearchButton');
+            const searchInput = document.getElementById('searchInput');
+            const searchForm = document.getElementById('searchForm');
+            const micIcon = document.getElementById('micIcon');
+
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.lang = 'uk-UA'; // Язык, на котором будет работать голосовой поиск
+
+                // Когда запись голоса начинается
+                recognition.onstart = function () {
+                    micIcon.classList.remove('bi-mic');
+                    micIcon.classList.add('bi-mic-fill'); // Меняем иконку на заполненный микрофон
+                };
+
+                // Когда запись голоса завершается
+                recognition.onend = function () {
+                    micIcon.classList.remove('bi-mic-fill');
+                    micIcon.classList.add('bi-mic'); // Возвращаем иконку обычного микрофона
+                };
+
+                // Когда голос распознан
+                recognition.onresult = function (event) {
+                    const transcript = event.results[0][0].transcript;
+                    searchInput.value = transcript; // Заполняем поле поиска текстом
+                    // Не отправляем форму автоматически, только заполняем поле ввода
+                    console.log('Распознанный текст: ', transcript);
+                };
+
+                // Обработчик клика по кнопке микрофона
+                voiceSearchButton.addEventListener('click', function () {
+                    recognition.start(); // Начать распознавание голоса
+                });
+            } else {
+                voiceSearchButton.addEventListener('click', function () {
+                    alert('Ваш браузер не підтримує голосовий пошук.');
+                });
+            }
+
+            // Обработчик отправки формы
+            searchForm.addEventListener('submit', function (event) {
+                // Обработка отправки формы
+                console.log('Форма отправлена.'); // Здесь можно добавить логику обработки
+            });
+        });
+    </script>
     
 </body>
 </html>
@@ -855,8 +1067,6 @@
 
 
 
-
-
 <!-- Модальне вікно для кошика -->
 <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; width: 60%;">
@@ -870,132 +1080,10 @@
             </div>
             <div class="horizontal-line"></div>
             <div class="modal-body custom-modal-body">
-                
-  
             </div>
         </div>
     </div>
 </div>
-
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#cartModal').on('show.bs.modal', function () {
-            $('.custom-modal-body').html('<span>Loading...</span>');  // Показать индикатор загрузки
-            $.get('/Cart/LoadCartModal', function (data) {
-                $('.custom-modal-body').html(data);  // Вставить данные в модальное окно
-            });
-        });
-    });
-</script>
-
-
-
-<script>
-    // Двухшаговая регистрация
-    function nextStep() {
-        document.getElementById('step-1').style.display = 'none';
-        document.getElementById('step-2').style.display = 'block';
-    }
-
-    function prevStep() {
-        document.getElementById('step-2').style.display = 'none';
-        document.getElementById('step-1').style.display = 'block';
-    }
-
-
-    // Сброс на первый шаг при закрытии модального окна
-    document.getElementById('registerModal').addEventListener('hidden.bs.modal', function () {
-        // Показать первый шаг и скрыть второй
-        document.getElementById('step-1').style.display = 'block';
-        document.getElementById('step-2').style.display = 'none';
-    });
-</script>
-
-
-<script>
-    function validateForm() {
-        let valid = true;
-
-        // Очищаем предыдущие ошибки
-        document.getElementById("firstname-error").innerText = "";
-        document.getElementById("lastname-error").innerText = "";
-        document.getElementById("phone-error").innerText = "";
-        document.getElementById("email-error").innerText = "";
-        document.getElementById("password-error").innerText = "";
-        document.getElementById("confirm-password-error").innerText = "";
-
-        // Получаем значения полей
-        const firstName = document.getElementById("auth-firstname").value;
-        const lastName = document.getElementById("auth-lastname").value;
-        const phone = document.getElementById("auth-phone").value;
-        const email = document.getElementById("auth-email").value;
-        const password = document.getElementById("auth-password").value;
-        const confirmPassword = document.getElementById("auth-confirm-password").value;
-
-        // Проверяем каждое поле 
-        if (firstName.length < 2) {
-            document.getElementById("firstname-error").innerText = "Ім'я повинно містити щонайменше 2 символи.";
-            valid = false;
-        }
-
-        if (lastName.length < 2) {
-            document.getElementById("lastname-error").innerText = "Прізвище повинно містити щонайменше 2 символи.";
-            valid = false;
-        }
-
-        if (!/^\d{10,15}$/.test(phone)) {
-            document.getElementById("phone-error").innerText = "Введіть дійсний номер телефону.";
-            valid = false;
-        }
-
-        const emailPattern = /^[a-zA-Z0-9._-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (!emailPattern.test(email)) {
-            document.getElementById("email-error").innerText = "Введіть дійсну електронну адресу.";
-            valid = false;
-        }
-
-        if (password.length < 6) {
-            document.getElementById("password-error").innerText = "Пароль повинен містити щонайменше 6 символів.";
-            valid = false;
-        }
-
-        if (password !== confirmPassword) {
-            document.getElementById("confirm-password-error").innerText = "Паролі не співпадають.";
-            valid = false;
-        }
-
-        return valid;
-    }
-</script>
-
-
-<script>
-    // Закрытие модального окна авторизации при открытии регистрации
-    document.getElementById('openRegisterModal').addEventListener('click', function () {
-        var authModal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
-        if (authModal) {
-            authModal.hide(); // Закрыть авторизацию
-        }
-        var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
-        registerModal.show(); // Открыть регистрацию
-    });
-
-    // Убедитесь, что модальные окна корректно закрываются
-    document.getElementById('registerModal').addEventListener('hidden.bs.modal', function () {
-        // Удаляем backdrop вручную, если он остался
-        var backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-            backdrop.remove();
-        }
-
-        // Убедитесь, что тело страницы снова прокручивается
-        document.body.classList.remove('modal-open');
-        document.body.style.overflow = ''; // Разрешаем прокрутку страницы
-    });
-</script>
-
-
 
 <!-- Верхня випадаюча панель -->
 <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
