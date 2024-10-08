@@ -2,77 +2,178 @@
 @using Rozetka.Data.Entity
 @model CartIndexVM
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Оформлення замовленняя";
     int index = 0;
 }
-<br />
-<br />
-<br />
-<h1 class="display-4 text-center">К О Ш И К</h1>
-<h1>Index</h1>
-<div class="col-3">
-</div>
-<div class="col">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Photo</th>
-                <th>Product Name</th>
-                <th>Product Price, UAH</th>
-                <th>
-                    Count
-                </th>
-                <th>Total Price, UAH</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (CartItem cartItem in Model.CartItems)
-            {
+
+<h1 class="display-5 f-st">Оформлення замовлення</h1>
+<h5>Ваші контактні дані</h5>
+<div class="row">
+    <!-- Левая колонка -->
+    <div class="col-md-4">
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="otherRecipient" id="forme">
+            <label class="form-check-label" for="otherRecipient">Замовити для себе</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="firstName" class="form-label">Ім’я</label>
+            <input type="text" class="enter-reg" id="firstName">
+        </div>
+
+        
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Мобільний телефон</label>
+            <input type="tel" class="enter-reg" id="phone">
+        </div>
+
+      
+
+        <div class="mb-3">
+           
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="otherRecipient" id="otherRecipient">
+                <label class="form-check-label" for="otherRecipient">Інший отримувач</label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="otherFirstName" class="form-label">Ім’я</label>
+            <input type="text" class="enter-reg" id="otherFirstName">
+        </div>
+
+      
+
+        <div class="mb-3">
+            <label for="otherPhone" class="form-label">Мобільний телефон</label>
+            <input type="tel" class="enter-reg" id="otherPhone">
+        </div>
+
+        <h5>Доставка</h5>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="delivery" id="pickup" value="pickup">
+            <label class="form-check-label" for="pickup">Самовивіз з наших магазинів</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="delivery" id="courier" value="courier">
+            <label class="form-check-label" for="courier">Кур'єр на вашу адресу</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="delivery" id="novaPoshta" value="novaPoshta">
+            <label class="form-check-label" for="novaPoshta">На відділення Нової пошти</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="city" class="form-label">Місто або населенний пункт</label>
+            <input type="text" class="enter-reg" id="city">
+        </div>
+
+        <div class="mb-3">
+            <label for="postOffice" class="form-label">Відділення</label>
+            <input type="text" class="enter-reg" id="postOffice">
+        </div>
+
+        <h5>Оплата</h5>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" id="paymentUponReceipt" value="paymentUponReceipt">
+            <label class="form-check-label" for="paymentUponReceipt">Оплата при отримані</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" id="onlinePayment" value="onlinePayment">
+            <label class="form-check-label" for="onlinePayment">Оплата онлайн</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" id="sellerCard" value="sellerCard">
+            <label class="form-check-label" for="sellerCard">На картку продавцю</label>
+        </div>
+    </div>
+
+    <!-- Центральная колонка -->
+    <div class="col-md-4">
+     
+        <div class="mb-3" style="margin-top: 25px">
+            <label for="lastName" class="form-label">Прізвище</label>
+            <input type="text" class="enter-reg" id="lastName">
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Електронна пошта</label>
+            <input type="email" class="enter-reg" id="email">
+        </div>
+     
+        <div class="mb-3" style="margin-top: 55px">
+            <label for="otherLastName" class="form-label">Прізвище</label>
+            <input type="text" class="enter-reg" id="otherLastName">
+        </div>
+
+
+    </div>
+
+    <!-- Правая колонка: Товары -->
+    <div class="col-md-4">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@(++index)</td>
-                    <td>
-                        @if (cartItem.Product.ProductImages!.Any())
-                        {
-                            <img src="data:image/*;base64,@(Convert.ToBase64String(cartItem.Product.ProductImages!.FirstOrDefault()!.ImageData!))" class="card-img-top" alt="@cartItem.Product.Title"
-                                 style="height: 100px;width: auto;object-fit: contain;">
-                        }
-                        else
-                        {
-                            <img src="~/images/No-Image-Placeholder.svg.png" alt="no-image"
-                                 style="height: 100px;width: auto;object-fit: contain;" />
-                        }
-                    </td>
-                    <td>@cartItem.Product.Title</td>
-                    <td>@cartItem.Product.Price</td>
-                    <td class="item-count" data-row-id="@cartItem.Product.Id">
-                        <div class="d-flex text-center">
-                            <span class="flex-fill rounded-start border p-2"
-                                  onclick="decCount(event, @cartItem.Product.Id)">-</span>
-                            <span class="flex-fill border p-2">@cartItem.Count</span>
-                            <span class="flex-fill rounded-end border p-2" onclick="incCount(event, @cartItem.Product.Id)">+</span>
-                        </div>
-                    </td>
-                    <td>@(cartItem.Count * cartItem.Product.Price) </td>
-                    <td>
-                        <form asp-action="RemoveFromCart" asp-controller="Cart"
-                              method="post">
-                            <input type="hidden" name="id" value="@cartItem.Product.Id" />
-                            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
-                            <button type="submit" class="btn btn-outline-dark">Remove</button>
-                        </form>
-                    </td>
+                    <th>#</th>
+                    <th>Фото</th>
+                    <th>Назва товару</th>
+                    <th>Ціна, грн</th>
+                    <th>Кількість</th>
+                    <th>Сума, грн</th>
+                    <th></th>
                 </tr>
-            }
-            <tr>
-                <td colspan="5"></td>
-                <td id="totalPrice">@Model.TotalPrice UAH</td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="@Model.ReturnUrl" class="btn btn-outline-secondary">Back</a>
+            </thead>
+            <tbody>
+                @foreach (CartItem cartItem in Model.CartItems)
+                {
+                    <tr>
+                        <td>@(++index)</td>
+                        <td>
+                            @if (cartItem.Product.ProductImages!.Any())
+                            {
+                                <img src="data:image/*;base64,@(Convert.ToBase64String(cartItem.Product.ProductImages!.FirstOrDefault()!.ImageData!))" class="card-img-top" alt="@cartItem.Product.Title" style="height: 100px;width: auto;object-fit: contain;">
+                            }
+                            else
+                            {
+                                <img src="~/images/No-Image-Placeholder.svg.png" alt="no-image" style="height: 100px;width: auto;object-fit: contain;" />
+                            }
+                        </td>
+                        <td>@cartItem.Product.Title</td>
+                        <td>@cartItem.Product.Price</td>
+                        <td class="item-count" data-row-id="@cartItem.Product.Id">
+                            <div class="d-flex text-center">
+                                <span class="flex-fill rounded-start border p-2" onclick="decCount(event, @cartItem.Product.Id)">-</span>
+                                <span class="flex-fill border p-2">@cartItem.Count</span>
+                                <span class="flex-fill rounded-end border p-2" onclick="incCount(event, @cartItem.Product.Id)">+</span>
+                            </div>
+                        </td>
+                        <td>@(cartItem.Count * cartItem.Product.Price) </td>
+                        <td>
+                            <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                                <input type="hidden" name="id" value="@cartItem.Product.Id" />
+                                <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                                <button type="submit" class="btn btn-outline-dark">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="5"></td>
+                    <td id="totalPrice">@Model.TotalPrice грн</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="@Model.ReturnUrl" class="btn btn-outline-secondary">На головну сторiнку</a>
+    </div>
 </div>
+
+
+
+
+
 @section Scripts {
     <script type="text/javascript">
         async function incCount(e, productId) {

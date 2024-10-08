@@ -801,6 +801,7 @@ a:hover{
         top: 511px;
         border: 1px solid #C9C9C9;
         border-radius: 12px;
+        padding-left: 10px;
 
     }                                                              ////////////////////////////////////////////////////////
 
@@ -1160,3 +1161,4 @@ a:hover{
         transform: translateX(-400px);
     }
 }
+
