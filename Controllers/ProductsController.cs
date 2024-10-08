@@ -301,7 +301,7 @@ namespace Rozetka.Controllers
         }
 
 
-        // ///// пошук товарів з пошуковох строки header ///// //
+        // ///// пошук товарів з пошукової строки header ///// //
         [HttpGet]
         public IActionResult Search(string search)
         {
@@ -356,7 +356,7 @@ namespace Rozetka.Controllers
             // Якщо не знайдено в категоріях, шукаємо безпосередньо в Products
             var productsFromProducts = _context.Products
                 .Include(p => p.ProductImages) // Включаємо зображення продуктів
-                .Where(p => p.Title.Contains(search) || p.Description.Contains(search))
+                .Where(p => p.Title.Contains(search))
                 .ToList();
 
             if (productsFromProducts.Any())
@@ -368,7 +368,9 @@ namespace Rozetka.Controllers
             // Якщо нічого не знайдено в усіх категоріях, виводимо повідомлення
             ViewBag.Message = "Нічого не знайдено за вашим запитом.";
             return View(new List<Product>()); // Повертаємо порожній список продуктів
-        }
+        }  
+
+
         // GET: /Product/GetSearchResult
         public async Task<IActionResult> GetSearchResult(string inputSearching)
         {
@@ -393,7 +395,7 @@ namespace Rozetka.Controllers
             var query = _context.Products
                     .Include(p => p.ProductType)
                     .Include(p => p.Brand)
-                    .Include(p => p.Childcategory)
+                    .Include(p => p.Childcategory)                    
                     .Include(p => p.ProductImages)
                     .Include(p => p.ProductColor)
                     .Include(p => p.Reviews)
