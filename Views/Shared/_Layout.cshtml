@@ -734,30 +734,7 @@
         }
     </script>
 
-    <script>
-        // Закрытие модального окна авторизации при открытии регистрации
-        document.getElementById('openRegisterModal').addEventListener('click', function () {
-            var authModal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
-            if (authModal) {
-                authModal.hide(); // Закрыть авторизацию
-            }
-            var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
-            registerModal.show(); // Открыть регистрацию
-        });
-
-        // Убедитесь, что модальные окна корректно закрываются
-        document.getElementById('registerModal').addEventListener('hidden.bs.modal', function () {
-            // Удаляем backdrop вручную, если он остался
-            var backdrop = document.querySelector('.modal-backdrop');
-            if (backdrop) {
-                backdrop.remove();
-            }
-
-            // Убедитесь, что тело страницы снова прокручивается
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = ''; // Разрешаем прокрутку страницы
-        });
-    </script>
+    
 
     <!-- JavaScript для активации голосового поиска -->
     <script>
@@ -1065,7 +1042,30 @@
     </div>
 </div>
 
+<script>
+    // Закрытие модального окна авторизации при открытии регистрации
+    document.getElementById('openRegisterModal').addEventListener('click', function () {
+        var authModal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
+        if (authModal) {
+            authModal.hide(); // Закрыть авторизацию
+        }
+        var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+        registerModal.show(); // Открыть регистрацию
+    });
 
+    // Убедитесь, что модальные окна корректно закрываются
+    document.getElementById('registerModal').addEventListener('hidden.bs.modal', function () {
+        // Удаляем backdrop вручную, если он остался
+        var backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+
+        // Убедитесь, что тело страницы снова прокручивается
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = ''; // Разрешаем прокрутку страницы
+    });
+</script>
 
 <!-- Модальне вікно для кошика -->
 <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">

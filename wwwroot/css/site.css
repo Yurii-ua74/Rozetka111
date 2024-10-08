@@ -358,7 +358,10 @@ a:hover{
     width: 100%; /* Обеспечит, что поля не будут выходить за пределы */
     max-width: 100%; /* Ограничит их до размеров контейнера */
     height: 42px;
-    
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
     border: 0px solid #FFFFFF;
     border-radius: 12px;
 }
