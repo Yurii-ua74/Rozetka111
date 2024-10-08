@@ -18,7 +18,7 @@
                 {
                     <li>
                         <!-- Створюємо посилання для субпідкатегорій -->
-                        <a href="@Url.Action("GetProducts", "SubChildCategory", new { subchildcategory = subChild.Name })">
+                        <a href="@Url.Action("GetProducts", "SubChildCategory", new { subchildcategoryId = subChild.Id })">
                             @subChild.Name
                         </a>
                     </li>

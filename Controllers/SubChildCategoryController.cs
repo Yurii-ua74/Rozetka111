@@ -159,20 +159,26 @@ namespace Rozetka.Controllers
 
 
         /* ///////////////  викликаєтьсяя з каталогу від субпідкатегорій  /////////////// */
-        public async Task<IActionResult> GetProducts(string subchildcategory)
+        public async Task<IActionResult> GetProducts(int subchildcategoryId)
         {
-            if (string.IsNullOrEmpty(subchildcategory))
+            if (subchildcategoryId <= 0)
             {
-                return BadRequest("Не знайдено назви SubChildCategory");
+                return BadRequest("Не знайдено такої SubChildCategory");
                 //return NotFound();
             }
+
             // Знайти товари за назвою SubChildCategory
-            var products = _context.Products
+            var products = await _context.Products
                 .Include(p => p.SubChildCategory)
                 .ThenInclude(scc => scc.Childcategory)
                 .ThenInclude(cc => cc.Category)
-                .Where(p => p.SubChildCategory.Name == subchildcategory)
-                .ToList();
+                .Include(p => p.ProductType)       // Включаємо ProductType
+                .Include(p => p.Brand)             // Включаємо Brand
+                .Include(p => p.ProductImages)     // Включаємо ProductImages
+                .Include(p => p.ProductColor)      // Включаємо ProductColor
+                .Include(p => p.Reviews)           // Включаємо Reviews
+                .Where(p => p.SubChildCategory.Id == subchildcategoryId)
+                .ToListAsync(); // Викликаємо ToListAsync() для отримання списку
 
             if (products == null || !products.Any())
             {

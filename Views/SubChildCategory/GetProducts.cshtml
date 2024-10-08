@@ -1,323 +1,87 @@
-﻿@using Rozetka.Data.Entity
+﻿ @using Rozetka.Data.Entity
 @model IEnumerable<Product>
+
 
 @{
     string? category = Context.Session.GetString("Category");
     string? childcategory = Context.Session.GetString("ChildCategory");
     string? subchildcategory = Context.Session.GetString("SubChildCategory");
 
-    decimal? minPrice = Model.Any() ? Model.Min(p => p.Price) : null;
-    decimal? maxPrice = Model.Any() ? Model.Max(p => p.Price) : null;
+    // decimal? minPrice = Model.Any() ? Model.Min(p => p.Price) : null;
+    // decimal? maxPrice = Model.Any() ? Model.Max(p => p.Price) : null;
 }
 @{
     ViewData["Title"] = subchildcategory;
 }
 
- @* ///////////////////////////////////////////////////////////
-    <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href=".."><i class="bi bi-house"></i></a></li>
-        <li class="breadcrumb-item"><a href="/Categories/GetChildCategories?category=@category">@category</a></li>
-        <li class="breadcrumb-item"><a href="/Childcategories/GetSubChildCategories?childcategory=@childcategory">@childcategory</a></li>
-        <li class="breadcrumb-item active" aria-current="page">@subchildcategory</li>
-    </ol>
-</nav>
-
-<h1 class="display-4">@subchildcategory</h1>
-
-<div class="sticky-top">
-    <ul class="list-group list-group-horizontal">
-
-        <li class="list-group-item">
-            Знайдено @Model.Count() товарів
-        </li>
-        @if (!string.IsNullOrEmpty(Context.Session.GetString("SelectedBrands")) || !string.IsNullOrEmpty(Context.Session.GetString("StartPrice")) || !string.IsNullOrEmpty(Context.Session.GetString("EndPrice")))
-        {
-            <li class="list-group-item">
-                <form asp-action="FullDeleteFilters" method="post">
-                    <button type="submit" class="btn btn-danger">
-                        Скинути
-                    </button>
-                </form>
-            </li>
-            @if (!string.IsNullOrEmpty(Context.Session.GetString("SelectedBrands")))
-            {
-                <li class="list-group-item">
-                    Бренды: @Context.Session.GetString("SelectedBrands")
-                    <form asp-action="DeleteFilterBrand" method="post">
-                        <button type="submit" class="btn-close" aria-label="Close"></button>
-                    </form>
-                </li>
-            }
-            @if (!string.IsNullOrEmpty(Context.Session.GetString("StartPrice")))
-            {
-                <li class="list-group-item">
-                    @Context.Session.GetString("StartPrice") - @Context.Session.GetString("EndPrice") грн
-                    <form asp-action="DeleteFilterPrice" method="post">
-                        <button type="submit" class="btn-close" aria-label="Close"></button>
-                    </form>
-                </li>
-            }
-        }
-
-    </ul>
-///////////////////////////////////////////////////////////////
  
- *@
 
 @* 
-     @if (filferBrand.Any() || filferPrice.Any())
+@model IEnumerable<Product>
+
+<h2>Products for @ViewData["SubChildCategoryName"]</h2>
+
+<ul>
+    @foreach (var product in Model)
     {
-    <ul class="list-group list-group-horizontal">
-    Фільтри:
-    @foreach (var filter in Model.Filters)
-    {
-    if (filter.StartPrace != null)
-    {
-    <li class="list-group-item">
-    від @filter.StartPrace, до @filter.EndPrace
-    <button type="button" class="btn-close" aria-label="Close" onclick="deleteFilter('@filter.Id')"></button>
-    </li>
+        <li>
+            <strong>Product Name:</strong> @product.Title <br />
+            <strong>SubChildcategoryId:</strong> @product.SubChildCategoryId <br />
+            <strong>ChildcategoryId:</strong> @product.SubChildCategory.ChildCategoryId <br />
+            <strong>CategoryId:</strong> @product.SubChildCategory.Childcategory.CategoryId
+        </li>
     }
-    if (filter.Brends != null)
+</ul> *@
+
+
+
+<div class="row mb-3" id="products-list">
+
+    @foreach (var product in Model.Where(p => p.QuantityInStock > 0))
     {
-    <li class="list-group-item">
-    Бренд:
-    @foreach (var brend in filter.Brends)
-    {
-    <span> @brend.Name; </span>
-    }
-    <button type="button" class="btn-close" aria-label="Close" onclick="deleteFilter('@filter.Id')"></button>
-    </li>
-    }
-    if (filter.Types != null)
-    {
-    <li class="list-group-item">
-    Тип:
-    @foreach (var type in filter.Types)
-    {
-    <span> @type.Name; </span>
-    }
-    <button type="button" class="btn-close" aria-label="Close" onclick="deleteFilter('@filter.Id')"></button>
-    </li>
-    }
-
-    }
-
-    </ul>
-    } 
- </div>  *@
-
- @* ////////////////////////////////////////////////
-    <div class="row">
-    <div class="col-sm-3 text-start border-end border-2" style="min-width: 300px">
-        @if (Model.Any())
-        {
-            <div class="accordion" id="accordionPanelsStayOpenExample"> 
-                ///////////////////////////////////////////
-                
-
-
-                <div class="accordion-item">
-            <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-            Тип товару
-            </button>
-            </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-            <div class="accordion-body">
-            <form method="post" asp-action="FilterType">
-            <ul class="list-group list-group-flush">
-            @foreach (var product in Model)
-            {
-            <li class="list-group-item">
-            <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="@product.Brand.Title" id="flexCheckDefault_@product.Brand.Title" name="selectedTypes">
-            <label class="form-check-label" for="flexCheckDefault_@product.Brand.Title">
-            @product.Brand.Title
-            </label>
-            </div>
-            </li>
-            }
-            </ul>
-            <button type="submit" class="btn btn-primary">Ok</button>
-            </form>
-            </div>
-            </div>
-            </div>
-
-              ////////////////////////////////////////////////////  
-            <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                            Бренд
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
-                        <div class="accordion-body">
-                            <form method="post" asp-action="AddFilter">
-                                <ul class="list-group list-group-flush">
-                                    @foreach (var product in Model)
-                                    {
-                                        <li class="list-group-item">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="@product.Brand.Title" id="brandCheckbox_@product.Brand.Title" name="selectedBrands">
-                                                <label class="form-check-label" for="brandCheckbox_@product.Brand.Title">
-                                                    @product.Brand.Title
-                                                </label>
-                                            </div>
-                                        </li>
-                                    }
-                                </ul>
-                                <button type="submit" class="btn btn-primary">Ok</button>
-                            </form>
-
-                        </div>
-                    </div>
+        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
+            <!-- Стилізований блок товару -->
+            <div class="product-card h-100 d-flex flex-column">
+                <div class="product-image">
+                    <a href="/Products/GetProduct?id=@product.Id">
+                        @if (product.ProductImages != null && product.ProductImages.Any())
+                        {
+                            var firstImage = product.ProductImages.FirstOrDefault();
+                            <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
+                                 class="img-fluid"
+                                 alt="Product Image"
+                                 style="max-height: 255px; width: auto; max-width: 100%;"
+                                 onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';"
+                                 onmouseover="this.src='data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)'"
+                                 onmouseout="this.src='data:image;base64,@Convert.ToBase64String(firstImage.ImageData)'" />
+                        }
+                        else
+                        {
+                            <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                        }
+                    </a>
                 </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                            Ціна
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">
-                        <div class="accordion-body">
-                            <form method="post" class="row g-3" asp-action="AddFilter">
-                                <!-- Добавляем скрытое поле для передачи параметра category -->
 
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control" placeholder="Від" aria-label="Від" id="startPrice" name="startPrice" value="@minPrice">
+                <!-- Обмежений блок опису, якщо багато тексту -->
+                <div class="mt-2 product-description-block flex-grow-1">
+                    <div class="product-title">@product.ProductType.Title @product.Brand.Title @product.Title</div>
+                    <div class="product-description">@product.Description</div>
+                </div>
 
-                                </div>
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control" placeholder="До" aria-label="До" id="endPrice" name="endPrice" value="@maxPrice">
-
-                                </div>
-                                <div class="col-2">
-                                    <button type="submit" class="btn btn-primary">Ok</button>
-                                </div>
-                            </form>
-                        </div>
+                <!-- Футер картки з фіксацією до низу -->
+                <div class="product-footer mt-2">
+                    <div class="d-flex align-items-center">
+                        <div class="product-price">@product.Price.ToString("0") ₴</div>
+                        <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">
+                            <i class="bi bi-cart-plus"></i>
+                        </a>
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="32" height="32" rx="9" fill="#F5E8FF" />
+                            <path d="M19.9215 8.78467C18.3458 8.78467 16.9473 9.40663 15.9999 10.4756C15.0524 9.40663 13.654 8.78467 12.0783 8.78467C10.706 8.78633 9.39026 9.33224 8.41984 10.3027C7.44943 11.2731 6.90352 12.5888 6.90186 13.9611C6.90186 19.6349 15.2007 24.1682 15.5536 24.3588C15.6908 24.4327 15.8441 24.4713 15.9999 24.4713C16.1557 24.4713 16.309 24.4327 16.4462 24.3588C16.7991 24.1682 25.0979 19.6349 25.0979 13.9611C25.0963 12.5888 24.5504 11.2731 23.5799 10.3027C22.6095 9.33224 21.2938 8.78633 19.9215 8.78467ZM19.4909 19.9502C18.3985 20.8771 17.2308 21.7113 15.9999 22.4443C14.769 21.7113 13.6013 20.8771 12.5089 19.9502C10.8093 18.4921 8.78421 16.2686 8.78421 13.9611C8.78421 13.0875 9.13127 12.2496 9.74903 11.6318C10.3668 11.0141 11.2047 10.667 12.0783 10.667C13.4744 10.667 14.643 11.4043 15.1285 12.5917C15.1992 12.7648 15.3198 12.913 15.475 13.0172C15.6302 13.1215 15.8129 13.1772 15.9999 13.1772C16.1869 13.1772 16.3696 13.1215 16.5248 13.0172C16.68 12.913 16.8006 12.7648 16.8713 12.5917C17.3568 11.4043 18.5254 10.667 19.9215 10.667C20.7951 10.667 21.633 11.0141 22.2508 11.6318C22.8685 12.2496 23.2156 13.0875 23.2156 13.9611C23.2156 16.2686 21.1905 18.4921 19.4909 19.9502Z" fill="#9C12FF" />
+                        </svg>
                     </div>
                 </div>
             </div>
-        }
-    </div> 
-    /////////////////////////////////////////////////////////
-   
-
-    
-       /////////////////////////////////////////////////////// 
-    <div class="col-sm-8">
-        @if (!Model.Any())
-        {
-            <div class="container d-flex align-items-center justify-content-center">
-                <h4><em>В зв'язку з тим, що сайт знаходиться в розробці, товари даної категорії ще відсутні! Але, якщо ви маєте права адміністратора, ви можете це виправити!:)</em></h4>
-            </div>
-        }
-        else
-        {
-            <div class="row row-cols-3 row-cols-md-5 g-1">
-                @foreach (var product in Model.Where(p => p.QuantityInStock > 0))
-                {
-                    <div class="col" style="min-width: 160px">
-                        <div class="card h-100">
-                            <div class="d-flex justify-content-center p-1">
-                                <a href="/Products/GetProduct?id=@product.Id">
-                                    @if (product.ProductImages != null && product.ProductImages.Any())
-                                    {
-                                        var firstImage = product.ProductImages.FirstOrDefault();
-                                        var lastImage = product.ProductImages.LastOrDefault();
-
-                                        <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
-                                             alt="Product Image"
-                                             style="max-height: 155px; width: auto; max-width: 100%;"
-                                             onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';"
-                                             onmouseover="this.src='data:image;base64,@Convert.ToBase64String(lastImage.ImageData)'"
-                                             onmouseout="this.src='data:image;base64,@Convert.ToBase64String(firstImage.ImageData)'" />
-                                    }
-                                    else
-                                    {
-                                        <img src="/photoproducts/no-image.jpg" alt="Photo" class="card-img-top" style="max-height: 155px;" />
-                                    }
-                                </a>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <a type="button" class="link btn" onclick="addListCompare('@product.Id')">
-
-                                        <img src="~/icons/balance_icon.png" alt="Balance Icon" class="icon-img">
-                                    </a>
-
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <a class="a-card" href="/Products/GetProduct?id=@product.Id">
-                                    <p class="card-text">@product.ProductType.Title @product.Brand.Title @product.Title</p>
-                                </a>
-                                <h5 class="card-title">@product.Price.ToString("0") ₴</h5>
-                            </div>
-
-                            <div class="product-item">
-                                <!-- Кнопка для додавання товару в кошик (бічне вікно)-->
-                                <button class="btn btn-primary"
-                                        onclick="addToCartAndOpenSidebar('@product.Id', '@product.Brand.Title', '@product.Title', '@product.ProductImages', '@product.Price')">
-                                    <i class="bi bi-cart-plus"></i> Add to Cart
-                                </button>
-                                /////////////////////////////////////////////////////////
-                               
-
-                                @* кнопка додавання до кошика *@
-
-    @*  /////////////////////////////////////////////////////
-                                   <div class="mt-3">
-                                    <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart">
-                                        
-                                        <i class="bi bi-cart-plus"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                }
-                @foreach (var product in Model.Where(p => p.QuantityInStock <= 0))
-                {
-                    <div class="col">
-                        <div class="card h-100" style="opacity: 0.8;">
-
-                            <div class="d-flex justify-content-center p-1">
-                                <a href="/Products/GetProduct?id=@product.Id">
-                                    @if (product.ProductImages != null && product.ProductImages.Any())
-                                    {
-                                        var firstImage = product.ProductImages.FirstOrDefault();
-
-                                        <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
-                                             alt="Product Image"
-                                             style="max-height: 155px; width: auto; max-width: 100%;"
-                                             onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';" />
-                                    }
-                                    else
-                                    {
-                                        <img src="/photoproducts/no-image.jpg" alt="Photo" class="card-img-top" style="max-height: 155px;" />
-                                    }
-                                </a>
-                            </div>
-
-                            <div class="card-body">
-                                <a class="a-card" href="/Products/GetProduct?id=@product.Id">
-                                    <p class="card-text">@product.ProductType.Title @product.BrandId @product.Title</p>
-                                </a>
-                                <h5 class="card-title">Немає в наявності</h5>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        }
-    </div>
+        </div>
+    }
 </div>
-/////////////////////////////////////////
-  *@

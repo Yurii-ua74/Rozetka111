@@ -185,6 +185,7 @@ namespace Rozetka.Controllers
             return View(childCategories);
         }
 
+
         // отримання підкатегорій та підпідкатегорій для КАТАЛОГУ
         public IActionResult GetChildAndSubChildCategories(string category)
         {
