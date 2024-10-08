@@ -408,7 +408,9 @@ namespace Rozetka.Controllers
                     query = query.Where(product =>
                        (product.Title != null && product.Title.ToLower().Contains(word.ToLower())) ||
                        (product.ProductType != null && product.ProductType.Title.ToLower().Contains(word.ToLower())) ||
-                       (product.Brand != null && product.Brand.Title.ToLower().Contains(word.ToLower())));
+                       (product.Brand != null && product.Brand.Title.ToLower().Contains(word.ToLower())) ||
+                       (product.Childcategory != null && product.Childcategory.Name.ToLower().Contains(word.ToLower())));
+
                 }
             }
 
