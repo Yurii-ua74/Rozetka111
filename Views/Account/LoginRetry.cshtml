@@ -1,34 +1,79 @@
 ﻿@model Rozetka.Models.ViewModels.Account.LoginViewModel
 
-@{
-    ViewData["Title"] = "Повторіть спробу входу";
-}
+
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Login" method="post">
-    @Html.AntiForgeryToken()
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password" class="control-label"></label>
-        <input asp-for="Password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input asp-for="RememberMe" class="form-check-input" />
-            <label asp-for="RememberMe" class="form-check-label"></label>
+<span style="font-size: 16px; font-family: 'Inter', sans-serif; display: block; text-align: center; color: red;">Не вiрний логiн або пароль. Повторіть спробу входу.</span>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px;">
+            <div class="modal-header">
+                <h5 class="enter-reg-tittle" id="authModalLabel">Вхiд</h5>
+
+                
+            </div>
+            <div class="horizontal-line"></div>
+            <div class="modal-body">
+                <form id="auth-form" method="post" action="/Account/Login">
+                    @Html.AntiForgeryToken() <!-- Токен захисту від підробки запитів -->
+                    <span class="enter-reg-text">Е-пошта</span>
+                    <div class="mb-3">
+                        <label for="auth-email" class="form-label"></label>
+                        <input type="email" class="enter-reg" id="auth-email" name="Email" required>
+                    </div>
+                    <span class="enter-reg-text">Пароль</span>
+                    <div class="mb-3">
+                        <label for="auth-password" class="form-label"></label>
+                        <input type="password" class="enter-reg" id="auth-password" name="Password" required>
+                    </div>
+                    @*      <div class="mb-3 remember-me-container">
+                    <label for="auth-remember" class="enter-reg-text">Запам'ятати мене</label>
+
+                    <input type="checkbox" id="auth-remember" name="RememberMe" class="check-box-margins">
+                    <br />
+                    <span>&nbsp;</span>
+                    <br />
+
+                    </div> *@
+                    <button type="submit" class="btn btn-purple w-100 btn-thicker">Увійти</button>
+                    <br />
+                    <div class="line-with-text">
+                        <span>aбо</span>
+                    </div>
+                    <br />
+                    @*  <div class="modal-footer">
+                    <div id="auth-message" class="alert alert-danger visually-hidden" role="alert"></div>
+                    </div>    *@
+                </form>
+            </div>
+            <div class="mb-3 d-flex justify-content-between no-margin-top">
+                <!-- Вхід Google -->
+                <a asp-action="GoogleLogin" asp-controller="Account" class="btn btn-gray w-100 d-flex align-items-center me-2 px-3 btn-margin">
+
+                    <svg width="20" height="20" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.8943 9.62343H20.1224V9.58366H11.4974V13.417H16.9134C16.1233 15.6485 14.0001 17.2503 11.4974 17.2503C8.32196 17.2503 5.7474 14.6758 5.7474 11.5003C5.7474 8.32489 8.32196 5.75033 11.4974 5.75033C12.9632 5.75033 14.2967 6.30328 15.312 7.20651L18.0227 4.49587C16.3111 2.90072 14.0216 1.91699 11.4974 1.91699C6.205 1.91699 1.91406 6.20793 1.91406 11.5003C1.91406 16.7927 6.205 21.0837 11.4974 21.0837C16.7898 21.0837 21.0807 16.7927 21.0807 11.5003C21.0807 10.8578 21.0146 10.2305 20.8943 9.62343Z" fill="#FFC107" />
+                        <path d="M3.02344 7.03976L6.17204 9.34887C7.024 7.23958 9.08729 5.75033 11.5018 5.75033C12.9676 5.75033 14.3011 6.30328 15.3165 7.20651L18.0271 4.49587C16.3155 2.90072 14.0261 1.91699 11.5018 1.91699C7.82085 1.91699 4.62865 3.99514 3.02344 7.03976Z" fill="#FF3D00" />
+                        <path d="M11.5003 21.0832C13.9757 21.0832 16.2249 20.1359 17.9255 18.5953L14.9594 16.0855C13.9651 16.8421 12.7498 17.2512 11.5003 17.2498C9.00769 17.2498 6.89121 15.6604 6.09388 13.4424L2.96875 15.8502C4.55479 18.9538 7.77575 21.0832 11.5003 21.0832Z" fill="#4CAF50" />
+                        <path d="M20.8969 9.62278H20.125V9.58301H11.5V13.4163H16.916C16.5381 14.4784 15.8572 15.4064 14.9577 16.0858L14.9591 16.0848L17.9251 18.5947C17.7153 18.7854 21.0833 16.2913 21.0833 11.4997C21.0833 10.8571 21.0172 10.2299 20.8969 9.62278Z" fill="#1976D2" />
+                    </svg>
+                    <span class="ms-2">Google</span>
+                </a>
+
+                <!-- Вхід Facebook -->
+                <a asp-action="FacebookLogin" asp-controller="Account" class="btn btn-gray w-100 d-flex align-items-center ms-2 px-3 btn-margin">
+
+                    <svg width="20" height="20" viewBox="0 0 12 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.19678 19H7.19678V10.99H10.8008L11.1968 7.01H7.19678V5C7.19678 4.73478 7.30214 4.48043 7.48967 4.29289C7.67721 4.10536 7.93156 4 8.19678 4H11.1968V0H8.19678C6.8707 0 5.59893 0.526784 4.66125 1.46447C3.72357 2.40215 3.19678 3.67392 3.19678 5V7.01H1.19678L0.800781 10.99H3.19678V19Z" fill="#537EFF" />
+                    </svg>
+                    <span class="ms-2">Facebook</span>
+                </a>
+            </div>
+            <!-- Реєстрація -->
+            <div class="text-center my-3">
+                <span class="text-black" style="font-family: 'Inter', sans-serif; font-size: 14px;">Немає профілю? </span>
+                <a href="#" class="text-primary" id="openRegisterModal">Зареєструйтеся</a>
+
+            </div>
+
         </div>
     </div>
-    <div class="form-group">
-        <input type="submit" value="Login" class="btn btn-primary" />
-    </div>
-    <div class="mb-3">
-        <span>&nbsp;</span>
-        <a asp-action="GoogleLogin" asp-controller="Account">Login with Google</a>
-    </div>
-</form>
