@@ -12,3 +12,70 @@
         <div id="locationText">...</div>
     </div>
 </div>
+
+<style>
+    #map {
+        height: 500px; /* Встановлюємо висоту карти */
+        width: 100%; /* Встановлюємо ширину карти */
+    }
+</style>
+
+<!-- Підключаємо стилі та скрипти для Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+<script>
+    // Ініціалізуємо карту
+    const map = L.map('map').setView([48.3794, 31.1656], 5); // Центр України з рівнем збільшення 5
+
+    // Додаємо шар з OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Змінна для збереження маркера
+    let marker;
+
+    // Ініціалізуємо геокодер
+    const geocoder = L.Control.Geocoder.nominatim();
+
+    // Додаємо обробник події для кліка на карті
+    map.on('click', function (e) {
+        const clickedCoords = e.latlng;
+
+        // Якщо маркер вже існує, оновлюємо його позицію
+        if (marker) {
+            marker.setLatLng(clickedCoords);
+        } else {
+            // Створюємо новий маркер
+            marker = L.marker(clickedCoords).addTo(map);
+        }
+
+        geocoder.reverse(clickedCoords, map.options.crs.scale(map.getZoom()), function (results) {
+            if (results && results.length > 0) {
+                const cityName = results[0].name; // Беремо назву міста
+                document.getElementById('locationText').innerText = `Ви обрали: ${cityName}`;
+
+                // Відправляємо назву міста на сервер через AJAX для збереження у сесію
+                $.ajax({
+                    type: 'POST',
+                    url: '/Location/SaveLocation', // Адреса  методу в контролері
+                    data: { location: cityName },
+                    success: function (response) {
+                        console.log('Геолокацію збережено в сесію');
+                    },
+                    error: function (error) {
+                        console.error('Помилка при збереженні геолокації в сесію', error);
+                    }
+                });
+            } else {
+                document.getElementById('locationText').innerText = 'Місто не знайдено';
+            }
+        });
+    });
+
+</script>

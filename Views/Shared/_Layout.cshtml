@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" /> *@
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
 </head>
 
@@ -297,7 +297,7 @@
                    </a>
                </div> 
                <div class="shop-cart-container">
-                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                   <a asp-area="" asp-controller="Home" asp-action="Test"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Списки порівнян" style="display: flex; align-items: center;">
                         <div class="svg-contnr2">
                             <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -346,19 +346,19 @@
                    </a>
                </div>
                <div class="shop-cart-container">
-                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                   <a asp-area="" asp-controller="Home" asp-action="Test"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Вакансії" style="display: flex; align-items: center;">
                        <p class="shop-cart-title mt-3 ml-5">Вакансії</p>
                    </a>
                </div>
                <div class="shop-cart-container">
-                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                   <a asp-area="" asp-controller="Home" asp-action="Test"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Контакти" style="display: flex; align-items: center;" class="cart-itm">
                        <p class="shop-cart-title mt-3 ml-5">Контакти</p>
                    </a>
                </div>
                <div class="shop-cart-container">
-                   <a asp-area="" asp-controller="Cart" asp-action="Index"
+                   <a asp-area="" asp-controller="Home" asp-action="Test"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Всі категорії" style="display: flex; align-items: center;">
                        <p class="shop-cart-title mt-3 ml-5">Всі категорії</p>
                    </a>
@@ -372,10 +372,10 @@
                    <i id="dropdownIcon" class="bi bi-chevron-down"></i> <!-- Клікабельна стрілка -->
                </div>
                <ul id="servicesList" style="display: none;">
-                  <li><a class="dropdown-item drop-dn-it" href="#">Бонусний рахунок</a></li>
-                  <li><a class="dropdown-item drop-dn-it" href="#">Подарункові сертифікати</a></li>
-                  <li><a class="dropdown-item drop-dn-it" href="#">ШвидкоBuy обмін</a></li>
-                  <li><a class="dropdown-item drop-dn-it" href="#">Корпоративним клієнтам</a></li>
+                  <li><a class="dropdown-item drop-dn-it" href="@Url.Action("Test", "Home")">Бонусний рахунок</a></li>
+                  <li><a class="dropdown-item drop-dn-it" href="@Url.Action("Test", "Home")">Подарункові сертифікати</a></li>
+                  <li><a class="dropdown-item drop-dn-it" href="@Url.Action("Test", "Home")">ШвидкоBuy обмін</a></li>
+                  <li><a class="dropdown-item drop-dn-it" href="@Url.Action("Test", "Home")">Корпоративним клієнтам</a></li>
                </ul>             
            </div>
            <hr>
@@ -580,7 +580,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"></script>
+   @*  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"></script> *@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
@@ -593,59 +593,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js"></script>
 
-    
-    <script>
-        // Ініціалізуємо карту
-        const map = L.map('map').setView([48.3794, 31.1656], 5); // Центр України з рівнем збільшення 5
-
-        // Додаємо шар з OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap'
-        }).addTo(map);     
-
-        // Змінна для збереження маркера
-        let marker;
-
-        // Ініціалізуємо геокодер
-        const geocoder = L.Control.Geocoder.nominatim();
-
-        // Додаємо обробник події для кліка на карті
-        map.on('click', function (e) {
-            const clickedCoords = e.latlng;
-
-            // Якщо маркер вже існує, оновлюємо його позицію
-            if (marker) {
-                marker.setLatLng(clickedCoords);
-            } else {
-                // Створюємо новий маркер
-                marker = L.marker(clickedCoords).addTo(map);
-            }
-
-            geocoder.reverse(clickedCoords, map.options.crs.scale(map.getZoom()), function (results) {
-                if (results && results.length > 0) {
-                    const cityName = results[0].name; // Беремо назву міста
-                    document.getElementById('locationText').innerText = `Ви обрали: ${cityName}`;
-
-                    // Відправляємо назву міста на сервер через AJAX для збереження у сесію
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Location/SaveLocation', // Адреса  методу в контролері
-                        data: { location: cityName },
-                        success: function (response) {
-                            console.log('Геолокацію збережено в сесію');
-                        },
-                        error: function (error) {
-                            console.error('Помилка при збереженні геолокації в сесію', error);
-                        }
-                    });
-                } else {
-                    document.getElementById('locationText').innerText = 'Місто не знайдено';
-                }
-            });
-        });
    
-    </script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -671,11 +619,25 @@
         }
 
 
-        // Сброс на первый шаг при закрытии модального окна
-        document.getElementById('registerModal').addEventListener('hidden.bs.modal', function () {
-            // Показать первый шаг и скрыть второй
-            document.getElementById('step-1').style.display = 'block';
-            document.getElementById('step-2').style.display = 'none';
+        document.addEventListener('DOMContentLoaded', function () {
+            // Сброс на первый шаг при закрытии модального окна
+            const registerModal = document.getElementById('registerModal');
+            if (registerModal) {
+                registerModal.addEventListener('hidden.bs.modal', function () {
+                    // Показати перший крок і приховати другий
+                    document.getElementById('step-1').style.display = 'block';
+                    document.getElementById('step-2').style.display = 'none';
+                });
+            } else {
+                console.error("Element with ID 'registerModal' not found.");
+            }
+
+
+            // document.getElementById('registerModal').addEventListener('hidden.bs.modal', function () {
+            //     // Показать первый шаг и скрыть второй
+            //     document.getElementById('step-1').style.display = 'block';
+            //     document.getElementById('step-2').style.display = 'none';
+            // });
         });
     </script>
 
