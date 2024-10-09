@@ -1242,3 +1242,53 @@ a:hover{
     border-radius: 10px; /* Закругление углов */
 }
 
+/* Основные стили для чекбокса */
+.custom-checkbox {
+    position: relative;
+    width: 20px; /* Ширина чекбокса */
+    height: 20px; /* Высота чекбокса */
+    appearance: none; /* Убираем стандартный вид чекбокса */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 2px solid #A323FF; /* Цвет внешнего круга */
+    border-radius: 50%; /* Делаем кнопку круглой */
+    cursor: pointer;
+    background-color: white; /* Цвет фона для не нажатого состояния */
+    outline: none; /* Убираем обводку при фокусе */
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+    /* Стили для состояния при фокусе */
+    .custom-checkbox:focus {
+        outline: none;
+        box-shadow: none; /* Убираем синий эффект при фокусировке */
+        border-radius: 50%;
+    }
+
+    /* Стиль для нажатого состояния (когда чекбокс выбран) */
+    .custom-checkbox:checked {
+        background-color: white; /* Белый фон между внешним и внутренним кругом */
+        border-color: #A323FF; /* Сохраняем цвет рамки */
+        border-radius: 50%;
+    }
+
+        /* Внутренний круг при выборе */
+        .custom-checkbox:checked::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px; /* Ширина внутреннего круга */
+            height: 10px; /* Высота внутреннего круга */
+            background-color: #A323FF; /* Цвет внутреннего круга */
+            border-radius: 50%; /* Делаем внутренний круг тоже круглым */
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+    /* Убираем стандартную синюю обводку при клике */
+    .custom-checkbox:checked {
+        border-color: #A323FF; /* Цвет рамки в нажатом состоянии */
+        border-radius: 50%;
+    }

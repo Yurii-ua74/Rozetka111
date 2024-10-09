@@ -36,9 +36,9 @@
         <div class="mb-3">
            
 
-            <div class="form-check">
-                <input class="form-check-input custom-radio" type="radio" name="otherRecipient" id="otherRecipient">
-                <label class="form-check-label" for="otherRecipient">Інший отримувач</label>
+            <div>
+                <input class="custom-checkbox" type="checkbox" name="otherRecipient" id="otherRecipient" style="margin: 0px">
+                <label class="form-check-label" for="otherRecipient" style="position: relative; top: -4px;">Інший отримувач</label>
             </div>
         </div>
 
@@ -144,7 +144,7 @@
                     </tr>
                 }
 
-                <!-- Новая таблица для бонусов и информации по оплате -->
+                <!--  таблица для бонусов и информации по оплате -->
                 <tr>
                     <td colspan="2">
                         <table style="width: 100%;">
@@ -276,6 +276,53 @@
                     location.reload(); // Обновление страницы
                 });
             });
+        </script>
+        
+        <script>
+            // Логика заполнения формы заказа
+           
+            const otherRecipientRadio = document.getElementById('otherRecipient');
+
+            const firstNameInput = document.getElementById('firstName');
+            const phoneInput = document.getElementById('phone');
+            const lastnameInput = document.getElementById('lastName');
+            const emailInput = document.getElementById('email');
+
+            const otherFirstNameInput = document.getElementById('otherFirstName');
+            const otherLastNameInput = document.getElementById('otherLastName');
+            const otherPhoneInput = document.getElementById('otherPhone');
+
+           
+
+            // Функция, которая будет вызываться при изменении радиокнопки
+            function toggleInputs() {
+                if (otherRecipientRadio.checked) {
+                    firstNameInput.disabled = true;
+                    phoneInput.disabled = true;
+                    lastnameInput.disabled = true;
+                    emailInput.disabled = true;
+
+                    otherFirstNameInput.disabled = false;
+                    otherLastNameInput.disabled = false;
+                    otherPhoneInput.disabled = false;
+                } 
+                if (!otherRecipientRadio.checked) {
+                    firstNameInput.disabled = false;
+                    phoneInput.disabled = false;
+                    lastnameInput.disabled = false;
+                    emailInput.disabled = false;
+
+                    otherFirstNameInput.disabled = true;
+                    otherLastNameInput.disabled = true;
+                    otherPhoneInput.disabled = true;
+                }
+            }
+
+            // Вешаем обработчик на изменение состояния радиокнопки
+            otherRecipientRadio.addEventListener('change', toggleInputs);
+
+            // Вызываем функцию при загрузке страницы, чтобы учесть текущее состояние
+            toggleInputs();
         </script>
 
 }
