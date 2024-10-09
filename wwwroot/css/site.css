@@ -1219,3 +1219,26 @@ a:hover{
 .cart-container td, .cart-container th {
     padding: 15px; /* Установить отступы в 15px со всех сторон */
 }
+.cart-items-container {
+    max-height: 400px; /* Максимальная высота блока с товарами */
+    overflow-y: auto; /* Вертикальная полоса прокрутки */
+    margin-bottom: 20px; /* Добавленное пространство снизу */
+    scrollbar-width: thin; /* Устанавливает ширину скроллбара на "тонкий" */
+    scrollbar-color: #A323FF #f1f1f1; /* Устанавливает цвет ползунка и цвет фона */
+}
+
+/* Стили для WebKit-браузеров (Chrome, Safari) */
+.cart-items-container::-webkit-scrollbar {
+    width: 12px; /* Ширина вертикального скроллбара */
+}
+
+.cart-items-container::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Цвет фона скроллбара */
+    border-radius: 10px; /* Закругление углов */
+}
+
+.cart-items-container::-webkit-scrollbar-thumb {
+    background: #A323FF; /* Цвет ползунка скроллбара */
+    border-radius: 10px; /* Закругление углов */
+}
+

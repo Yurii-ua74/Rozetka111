@@ -266,4 +266,16 @@
                 }
             });
         </script>
+
+
+        <script>
+            $(document).ready(function () {
+                // Обработчик события закрытия любого модального окна
+                $('body').on('hidden.bs.modal', '.modal', function () {
+                    console.log("Модальное окно закрыто"); // Проверка, работает ли обработчик
+                    location.reload(); // Обновление страницы
+                });
+            });
+        </script>
+
 }
