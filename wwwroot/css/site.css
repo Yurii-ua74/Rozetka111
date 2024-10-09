@@ -1162,3 +1162,60 @@ a:hover{
     }
 }
 
+/* Основные стили для радиокнопки */
+.custom-radio {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    appearance: none; /* Убираем стандартный вид радиокнопки */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 2px solid #A323FF; /* Цвет внешнего круга */
+    border-radius: 50%; /* Делаем кнопку круглой */
+    cursor: pointer;
+    background-color: white; /* Цвет фона для не нажатой кнопки */
+    outline: none; /* Убираем обводку при фокусе */
+    transition: background-color 0.2s, border-color 0.2s;
+    
+}
+
+    /* Стили для состояния при фокусе */
+    .custom-radio:focus {
+        outline: none;
+        box-shadow: none; /* Убираем синий эффект при фокусировке */
+    }
+
+    /* Стиль для нажатого состояния (когда радиокнопка выбрана) */
+    .custom-radio:checked {
+        background-color: white; /* Белый фон между внешним и внутренним кругом */
+        border-color: #A323FF; /* Сохраняем цвет рамки */
+    }
+
+        /* Внутренний круг при выборе */
+        .custom-radio:checked::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: #A323FF; /* Цвет внутреннего круга */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+    /* Убираем стандартную синею обводку при клике */
+    .custom-radio:checked {
+        border-color: #A323FF; /* Цвет рамки в нажатом состоянии */
+    }
+
+/* Дополнительные стили для текста рядом с радиокнопкой */
+.form-check-label {
+    margin-left: 10px; /* Отступ для текста */
+    cursor: pointer; /* Указатель-рука при наведении */
+}
+
+.cart-container td, .cart-container th {
+    padding: 15px; /* Установить отступы в 15px со всех сторон */
+}
