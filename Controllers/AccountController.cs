@@ -476,5 +476,45 @@ namespace Rozetka.Controllers
             return RedirectToAction("Edit", "Account");  // Повернення на сторінку редагування профілю
         }
 
+
+        // /////  для перевірки авторизації по кліку на Стати продавцем  ///// //
+        [HttpGet]
+        public IActionResult IsUserLoggedIn()
+        {
+            // Перевіряємо чи користувач авторизований
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+
+            return Json(new { isAuthenticated });
+        }
+
+
+        // ///// повернення даних користувача ///// //
+        [HttpGet]
+        public async Task<IActionResult> GetUserData()
+        {
+            // Отримання Id поточного користувача
+            var userId = _userManager.GetUserId(User);
+
+            if (userId != null)
+            {
+                // Отримання даних користувача через UserManager
+                var user = await _userManager.FindByIdAsync(userId);
+
+                if (user != null)
+                {
+                    // Повертаємо дані користувача як JSON
+                    return Json(new
+                    {
+                        Email = user.Email,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,                      
+                    });
+                }
+            }
+
+            // Якщо користувач не знайдений або не автентифікований, повертаємо помилку
+            return Json(new { error = "Користувач не знайдений або не автентифікований." });
+        }
+
     }
 }

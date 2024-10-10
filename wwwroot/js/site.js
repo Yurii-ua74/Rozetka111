@@ -273,3 +273,96 @@ $(document).ready(function () {
     $('#minPrice, #maxPrice').on('change', handleCheckboxChange);
 });
 
+
+
+///* для перевірки авторизації та відкриття модального вікна при кліку на кнопку Стати продавцем */
+//document.getElementById('becomeSellerButton').addEventListener('click', function () {
+//    // AJAX-запит для перевірки авторизації
+//    $.ajax({
+//        url: '/Account/IsUserLoggedIn', // Контролер, який перевіряє статус авторизації
+//        method: 'GET',
+//        success: function (response) {
+//            if (response.isAuthenticated) {
+//                // Якщо користувач увійшов, відкриваємо модальне вікно для Стати продавцем
+//                $('#sellerModal').modal('show');
+//            } else {
+//                // Якщо користувач не увійшов, відкриваємо модальне вікно для реєстрації
+//                $('#authModal').modal('show');
+//            }
+//        }
+//    });
+//});
+
+///* для заповнення полів форми Стати продавцем */
+//document.getElementById('becomeSellerButton').addEventListener('click', function () {
+//    // AJAX-запит для перевірки авторизації
+//    $.ajax({
+//        url: '/Account/IsUserLoggedIn',
+//        method: 'GET',
+//        success: function (response) {
+//            if (response.isAuthenticated) {
+//                // Якщо користувач авторизований, відкриваємо модальне вікно
+//                $('#sellerModal').modal('show');
+
+//                // AJAX-запит для отримання даних користувача
+//                $.ajax({
+//                    url: '/Account/GetUserData', // Метод для отримання даних
+//                    method: 'GET',
+//                    success: function (userData) {
+//                        // Заповнення полів даними користувача
+//                        document.getElementById('seller-email').value = userData.Email;
+//                        document.getElementById('seller_first_name').value = userData.FirstName;
+//                        document.getElementById('seller_second_name').value = userData.LastName;
+//                        // Поле NameSeller залишаємо пустим
+//                    }
+//                });
+//            } else {
+//                // Якщо не авторизований, відкриваємо модальне вікно реєстрації
+//                $('#registerModal').modal('show');
+//            }
+//        }
+//    });
+//});
+
+
+document.getElementById('becomeSellerButton').addEventListener('click', function () {
+    // AJAX-запит для перевірки авторизації
+    $.ajax({
+        url: '/Account/IsUserLoggedIn',
+        method: 'GET',
+        success: function (response) {
+            if (response.isAuthenticated) {
+                // Якщо користувач авторизований, відкриваємо модальне вікно
+                $('#sellerModal').modal('show');
+
+                // AJAX-запит для отримання даних користувача
+                $.ajax({
+                    url: '/Account/GetUserData',
+                    method: 'GET',
+                    success: function (userData) {
+                        console.log(userData);  // Додаємо це, щоб перевірити, що повертається з сервера
+
+                        // Переконайтеся, що JSON-об'єкт має правильні назви полів
+                        if (userData && userData.email && userData.firstName && userData.lastName) {
+                            document.getElementById('seller-email').value = userData.email;
+                            document.getElementById('seller_first_name').value = userData.firstName;
+                            document.getElementById('seller_second_name').value = userData.lastName;
+                        } else {
+                            console.error('Неправильні або відсутні дані користувача');
+                        }
+                    },
+                    error: function (err) {
+                        console.error('Помилка під час отримання даних користувача', err);
+                    }
+                });
+            } else {
+                // Якщо не авторизований, відкриваємо модальне вікно реєстрації
+                $('#registerModal').modal('show');
+            }
+        },
+        error: function (err) {
+            console.error('Помилка під час перевірки авторизації', err);
+        }
+    });
+});
+

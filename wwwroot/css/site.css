@@ -657,7 +657,7 @@ a:hover{
         height: 24px;
     }
 
-/* <-- іконка аватарки профілю --> */
+/* <-- іконка аватарки профілю ЗАКОМЕНТОВАНА--> */
 .header-profile-image {
     width: 50px; /*  ширинa */
     height: 50px; /* висотa */
@@ -752,543 +752,580 @@ a:hover{
     .text-block p {
         margin: 0;
     }
-    /* //////////////  кінець header /////////// */
 
-    /*<--////////////  головна сторінка /////////////-->*/
-.product-block, .product-block-products {
-    text-align: center;
-    position: relative;   
-    max-height: 300px; /* максимальна висота для картки */
-    min-height: 300px; /* мінімальна висота для вирівнювання */
-    overflow: hidden; /* Якщо контент перевищує висоту, приховати його */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Рівномірний розподіл елементів у картці */
+    /* нижній банер на головній сторінці */
+    /*.element.styles {
+        display: inline-block;
+        width: 658px;
+    }*/
+
+@media (max-width: 1768px) {
+    .marketplace-promo-heading {
+        font-size: 2vw;
+    }
+
+    .success-message-text-style {
+        font-size: 1.5vw;
+    }
+
+    .quick-find-button {
+        font-size: 1.5vw;
+        padding: 0.5vw 1vw;
+    }
+
+    .col-4 {
+        width: 60%;
+        top: 10%;
+    }
 }
-
-.product-block {
-    background-color: #f5f5dc;
-    padding: 20px;
-}
-
-.product-block-products {
-    background-color: #fbfaf9;
-    padding: 5px;
-}
-
-.product-title {
-    font-weight: bold;
-}
-
-    .product-price {
-        color: red;
-        font-size: 1.2rem;
-    }
-
-    .heart-icon {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-    }
-
-    /*Поля ввода регистрация */
-    .enter-reg {
-        width: 100%; /* Обеспечит, что поля не будут выходить за пределы */
-        max-width: 100%; /* Ограничит их до размеров контейнера */
-        height: 42px;
-        left: 499px;
-        top: 511px;
-        border: 1px solid #C9C9C9;
-        border-radius: 12px;
-        padding-left: 10px;
-
-    }                                                              ////////////////////////////////////////////////////////
-
-.enter-reg-text {
-    display: block; /* Чтобы текст занимал всю ширину */
-    margin-bottom: -20px;
-}
-
-
-    .enter-reg-text::after {
-        content: '\2022'; /* Unicode для точки */
-        color: red; /* Цвет точки */
-        margin-left: 5px; /* Отступ от текста */
-        font-size: 20px; /* Размер точки, можно регулировать */
-        vertical-align: middle; /* Вертикальное выравнивание */
-       
-    }
-
-    .btn-thicker {
-        padding-top: 10px; /* Отступ сверху */
-        padding-bottom: 10px; /* Отступ снизу */
-    }
-
-    .enter-reg-tittle {
-        font-size: 22px !important;
-    }
-    /* Линия "АБО", форма входа */
-    .line-with-text {
-        display: flex;
-        align-items: center;
-        text-align: center;
-        width: 100%; /* Ширина всей полосы */
-    }
-
-        .line-with-text::before,
-        .line-with-text::after {
-            content: '';
-            flex-grow: 1;
-            height: 1px;
-            margin-top: 1px; /* Отступ сверху */
-            margin-bottom: 1px; /* Отступ снизу */
-            background-color: #E8E8E8; /* Цвет линии */
-        }
-
-        .line-with-text::before {
-            margin-right: 1px; /* Отступ от текста до линии слева */
-        }
-
-        .line-with-text::after {
-            margin-left: 1px; /* Отступ от текста до линии справа */
-        }
-
-        .line-with-text span {
-            white-space: nowrap; /* Предотвращает перенос текста */
-            padding: 0 10px; /* Отступы вокруг текста */
-            color: #818181; /* Цвет текста */
-        }
-
-    .horizontal-line {
-        width: 100%; /* Толщина полоски */
-        height: 1px; /* Высота полоски */
-        background-color: #E8E8E8; /* Цвет полоски */
-        margin: 0 auto; /* Центровка */
-    }
-
-    .no-margin-top {
-        margin-top: 0 !important; /* Убирает верхний отступ с приоритетом */
-    }
-
-    .btn-gray {
-        background-color: #E0E0E0; /* Серый цвет фона */
-        color: black; /* Черный текст */
-        border-radius: 12px; /* Закругление углов */
-        padding: 10px 20px; /* Внутренние отступы */
-        text-decoration: none; /* Убираем подчеркивание */
-        display: inline-flex; /* Для выравнивания иконки и текста */
-        align-items: center; /* Вертикальное выравнивание */
-        transition: background-color 0.3s; /* Эффект при наведении */
-        margin-top: 0px;
-    }
-
-        .btn-gray:hover {
-            background-color: #B0B0B0; /* Цвет фона при наведении */
-        }
-
-        .btn-gray i {
-            color: inherit; /* Убираем стандартный цвет иконок */
-        }
-
-
-
-    /*<-- ліве  бокове  вікно  -->*/
-    .z-ind {
-        z-index: 2500;
-    }
-
-    .left-wind {
-        width: 100%;
-        max-width: 600px; /* Максимальна ширина блоку */
-        height: auto; /* Висота блоку */
-        padding: 10px;
-        border: 1px solid #ccc; /* Додаємо рамку для стилізації */
-        box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
-    }
-
-.logo-sz-left {
-    width: 100%;
-    margin-top: 15px;
-}
-
-    .btn-sz {
-        width: 95%;
-    }
-
-    .mr-top {
-        margin-top: 25px;
-        margin-left: 10px;
-    }
-
-    .reg-bl {
-        width: 96%;
-        height: 150px;
-        background-color: antiquewhite;
-        border-radius: 5px;
-        margin: 10px;
-    }
-
-    .entr-btn {
-        background-color: #e8daf4;
-        border-radius: 10px;
-        border: 3px solid #9C12FF;
-    }
-    /* для іконки порівняння */
-    .comp-list-container {
-        display: flex;
-        flex: 0 0 auto;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .shop-cart-title {
-        flex: 0 0 auto;
-        padding: 0;
-        margin: 0;
-        margin-left: 7px;
-        font: 400 22px Inter, sans-serif;
-    }
-    /* для іконки кошика */
-    .shop-cart-container {
-        display: flex;
-        flex: 0 0 auto;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .svg-contnr1, .svg-contnr2 {
-        display: flex;
-        flex: 0 0 auto;
-        width: 34px;
-        height: 34px;
-        margin: 10px 15px;
-    }
-
-    .icon-path {
-        transition: stroke 0.3s ease;
-    }
-
-    .cart-itm:hover .icon-path {
-        stroke: #800080; /* Фіолетовий колір іконки при наведенні */
-    }
-
-    .icon:hover .icon-path {
-        stroke: #800080;
-    }
-
-    .icon:hover .shop-cart-title {
-        color: #800080;
-    }
-    /*стрілка випадаючого списку Сервіс*/
-    .dropdown {
-        cursor: pointer;
-    }
-
-    .drop-dn-it, .services-text {
-        font: 400 22px Inter, sans-serif;
-    }
-
-    #servicesList {
-        list-style-type: none; /* Вимикає маркери списку */
-        padding: 0; /* Вимикає відступи зліва */
-        margin: 0; /* Вимикає відступи ззовні */
-    }
-    /*//////////////////////*/
-
-    .btn {
-        display: flex;
-        align-items: center; /* Центрирование по вертикали */
-        justify-content: center; /* Центрирование по горизонтали */
-    }
-
-        .btn svg {
-            margin-right: 8px; /* Отступ между значком и текстом */
-        }
-
-        .btn span {
-            display: flex; /* Для выравнивания текста */
-            align-items: center; /* Центрирование текста по вертикали */
-        }
-
-    /* соціальних контейнерів блок */
-    .social-media-container {
-        box-sizing: border-box;
-        width: 100%;
-        padding: 5px 5px 24px;
-    }
-
-    .city-location-text-style {
-        padding: 0;
-        margin: 0;
-        font: 100 22px Inter, sans-serif;
-        color: #2f2f2f;
-    }
-
-    .social-media-links-container {
-        display: flex;
-        flex-direction: row;
-        gap: 23px;
-        align-items: center;
-        justify-content: flex-start;
-        margin-top: 19px;
-    }
-
-    .svg-container4 {
-        display: flex;
-        flex: 0 0 auto;
-        width: 40px;
-        height: 40px;
-    }
-
-    .f-st {
-        font-weight: 600;
-    }
-
-    .f-sz {
-        font-size: 24px;
-    }
-    /* /////////  кінець ліве бокове вікно //////// */
-
-    /*анімація логотипу*/
-    .anime-logo-link svg {
-        transform-origin: center; /* Встановлюємо центр як точку початку трансформації */
-        animation: reveal 3s ease-in-out infinite; /* Застосовуємо анімацію */
-    }
-
-    @keyframes reveal {
-        0%, 100% {
-            transform: scaleX(0); /* Логотип стиснутий по горизонталі до центру */
-        }
-
-        50% {
-            transform: scaleX(1); /* Логотип розкритий до повної ширини */
-        }
-    }
-
-    /* мапа світу */
-    #map {
-        height: 600px; /*  висота карти */
-    }
-
-/* Даухшаговая регистрация */
-.step-indicators {
-    display: flex;
-    justify-content: space-between; /* Отступы между прямоугольниками */
-    margin: 3px; /* Отступы по бокам */
-}
-
-.step {
-    width: 48%; /* Ширина прямоугольников */
-    height: 4px; /* Высота прямоугольников */
-    border-radius: 12px;
-}
-
-.light-purple {
-    background-color: #ECD2FF; /* Светло-фиолетовый */
-}
-
-.dark-purple {
-    background-color: #9C12FF; /* Темно-фиолетовый */
-
-}
-/* Кошик модал */
-.total-price-container {
-    display: flex;
-    justify-content: flex-end; /* Прижимает все к правому краю */
-    align-items: center; /* Выравнивает элементы по вертикали */
-}
-
-.total-price-text {
-    margin-right: 10px; /* Отступ между текстом и кнопкой */
-    font-family: 'Inter', sans-serif; /* Устанавливает шрифт */
-    font-style: normal; /* Нормальный стиль текста */
-    font-size: 24px; /* Размер шрифта */
-}
-
-.total-price-button {
-    width: 20%; /* Задает кнопке ширину 20% от экрана */
-}
-
-
-
-
-
-/*  для футера карток з товарами  */
-.product-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid #ddd;
-    padding: 15px;
-    height: 100%;
-}
-
-.product-description-block {
-    overflow: hidden;
-    max-height: 90px; /*  потрібна висота */
-    position: relative;
-}
-
-    .product-description-block:hover {
-        overflow: auto;
-    }
-
-.product-footer {
-    position: relative;
-    margin-top: auto; /* Це дозволить футеру залишатися внизу */
-    padding-top: 5px;
-    border-top: 1px solid #ddd;
-}
-
-.product-image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
-/* для адаптації вікна коригування особистих даних - Account/Edit */
-@media only screen and (max-width: 1000px) {
-    .hide-on-small-screens {
+@media (max-width: 1768px) {
+    .txt_baner_non {
         display: none;
     }
 }
 
-@media only screen and (max-width: 1000px) {
-    .moove-left-if-small-screens {
-        transform: translateX(-400px);
+@media (max-width: 1150px) {
+    .txt_title_baner_non {
+        display: none;
     }
 }
 
-/* Основные стили для радиокнопки */
-.custom-radio {
-    position: relative;
-    width: 20px;
-    height: 20px;
-    appearance: none; /* Убираем стандартный вид радиокнопки */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: 2px solid #A323FF; /* Цвет внешнего круга */
-    border-radius: 50%; /* Делаем кнопку круглой */
-    cursor: pointer;
-    background-color: white; /* Цвет фона для не нажатой кнопки */
-    outline: none; /* Убираем обводку при фокусе */
-    transition: background-color 0.2s, border-color 0.2s;
-    
+ /* //////////////  кінець header /////////// */
+
+ /*<--////////////  головна сторінка /////////////-->*/
+ .product-block, .product-block-products {
+     text-align: center;
+     position: relative;
+     max-height: 300px; /* максимальна висота для картки */
+     min-height: 300px; /* мінімальна висота для вирівнювання */
+     overflow: hidden; /* Якщо контент перевищує висоту, приховати його */
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between; /* Рівномірний розподіл елементів у картці */
+ }
+
+.product-block {
+    background-color: #f5f5dc !important;
+    padding: 20px;
 }
 
-    /* Стили для состояния при фокусе */
-    .custom-radio:focus {
-        outline: none;
-        box-shadow: none; /* Убираем синий эффект при фокусировке */
-    }
-
-    /* Стиль для нажатого состояния (когда радиокнопка выбрана) */
-    .custom-radio:checked {
-        background-color: white; /* Белый фон между внешним и внутренним кругом */
-        border-color: #A323FF; /* Сохраняем цвет рамки */
-    }
-
-        /* Внутренний круг при выборе */
-        .custom-radio:checked::before {
-            content: "";
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 10px;
-            height: 10px;
-            background-color: #A323FF; /* Цвет внутреннего круга */
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-    /* Убираем стандартную синею обводку при клике */
-    .custom-radio:checked {
-        border-color: #A323FF; /* Цвет рамки в нажатом состоянии */
-    }
-
-/* Дополнительные стили для текста рядом с радиокнопкой */
-.form-check-label {
-    margin-left: 10px; /* Отступ для текста */
-    cursor: pointer; /* Указатель-рука при наведении */
+.product-block-products {
+    background-color: #fbfaf9 !important;
+    padding: 5px;
 }
 
-.cart-container td, .cart-container th {
-    padding: 15px; /* Установить отступы в 15px со всех сторон */
-}
-.cart-items-container {
-    max-height: 400px; /* Максимальная высота блока с товарами */
-    overflow-y: auto; /* Вертикальная полоса прокрутки */
-    margin-bottom: 20px; /* Добавленное пространство снизу */
-    scrollbar-width: thin; /* Устанавливает ширину скроллбара на "тонкий" */
-    scrollbar-color: #A323FF #f1f1f1; /* Устанавливает цвет ползунка и цвет фона */
-}
+            .product-title {
+                font-weight: bold;
+            }
 
-/* Стили для WebKit-браузеров (Chrome, Safari) */
-.cart-items-container::-webkit-scrollbar {
-    width: 12px; /* Ширина вертикального скроллбара */
-}
+            .product-price {
+                color: red;
+                font-size: 1.2rem;
+            }
 
-.cart-items-container::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Цвет фона скроллбара */
-    border-radius: 10px; /* Закругление углов */
-}
+            .heart-icon {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                cursor: pointer;
+            }
 
-.cart-items-container::-webkit-scrollbar-thumb {
-    background: #A323FF; /* Цвет ползунка скроллбара */
-    border-radius: 10px; /* Закругление углов */
-}
+            /*Поля ввода регистрация */
+            .enter-reg {
+                width: 100%; /* Обеспечит, что поля не будут выходить за пределы */
+                max-width: 100%; /* Ограничит их до размеров контейнера */
+                height: 42px;
+                left: 499px;
+                top: 511px;
+                border: 1px solid #C9C9C9;
+                border-radius: 12px;
+                padding-left: 10px;
+            }
 
-/* Основные стили для чекбокса */
-.custom-checkbox {
-    position: relative;
-    width: 20px; /* Ширина чекбокса */
-    height: 20px; /* Высота чекбокса */
-    appearance: none; /* Убираем стандартный вид чекбокса */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: 2px solid #A323FF; /* Цвет внешнего круга */
-    border-radius: 50%; /* Делаем кнопку круглой */
-    cursor: pointer;
-    background-color: white; /* Цвет фона для не нажатого состояния */
-    outline: none; /* Убираем обводку при фокусе */
-    transition: background-color 0.2s, border-color 0.2s;
-}
+            /*  //////////////////////////////////////////////////////// */
 
-    /* Стили для состояния при фокусе */
-    .custom-checkbox:focus {
-        outline: none;
-        box-shadow: none; /* Убираем синий эффект при фокусировке */
-        border-radius: 50%;
-    }
+            .enter-reg-text {
+                display: block; /* Чтобы текст занимал всю ширину */
+                margin-bottom: -20px;
+            }
 
-    /* Стиль для нажатого состояния (когда чекбокс выбран) */
-    .custom-checkbox:checked {
-        background-color: white; /* Белый фон между внешним и внутренним кругом */
-        border-color: #A323FF; /* Сохраняем цвет рамки */
-        border-radius: 50%;
-    }
 
-        /* Внутренний круг при выборе */
-        .custom-checkbox:checked::before {
-            content: "";
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 10px; /* Ширина внутреннего круга */
-            height: 10px; /* Высота внутреннего круга */
-            background-color: #A323FF; /* Цвет внутреннего круга */
-            border-radius: 50%; /* Делаем внутренний круг тоже круглым */
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-        }
+                .enter-reg-text::after {
+                    content: '\2022'; /* Unicode для точки */
+                    color: red; /* Цвет точки */
+                    margin-left: 5px; /* Отступ от текста */
+                    font-size: 20px; /* Размер точки, можно регулировать */
+                    vertical-align: middle; /* Вертикальное выравнивание */
+                }
 
-    /* Убираем стандартную синюю обводку при клике */
-    .custom-checkbox:checked {
-        border-color: #A323FF; /* Цвет рамки в нажатом состоянии */
-        border-radius: 50%;
-    }
+            .btn-thicker {
+                padding-top: 10px; /* Отступ сверху */
+                padding-bottom: 10px; /* Отступ снизу */
+            }
+
+            .enter-reg-tittle {
+                font-size: 22px !important;
+            }
+            /* Линия "АБО", форма входа */
+            .line-with-text {
+                display: flex;
+                align-items: center;
+                text-align: center;
+                width: 100%; /* Ширина всей полосы */
+            }
+
+                .line-with-text::before,
+                .line-with-text::after {
+                    content: '';
+                    flex-grow: 1;
+                    height: 1px;
+                    margin-top: 1px; /* Отступ сверху */
+                    margin-bottom: 1px; /* Отступ снизу */
+                    background-color: #E8E8E8; /* Цвет линии */
+                }
+
+                .line-with-text::before {
+                    margin-right: 1px; /* Отступ от текста до линии слева */
+                }
+
+                .line-with-text::after {
+                    margin-left: 1px; /* Отступ от текста до линии справа */
+                }
+
+                .line-with-text span {
+                    white-space: nowrap; /* Предотвращает перенос текста */
+                    padding: 0 10px; /* Отступы вокруг текста */
+                    color: #818181; /* Цвет текста */
+                }
+
+            .horizontal-line {
+                width: 100%; /* Толщина полоски */
+                height: 1px; /* Высота полоски */
+                background-color: #E8E8E8; /* Цвет полоски */
+                margin: 0 auto; /* Центровка */
+            }
+
+            .no-margin-top {
+                margin-top: 0 !important; /* Убирает верхний отступ с приоритетом */
+            }
+
+            .btn-gray {
+                background-color: #E0E0E0; /* Серый цвет фона */
+                color: black; /* Черный текст */
+                border-radius: 12px; /* Закругление углов */
+                padding: 10px 20px; /* Внутренние отступы */
+                text-decoration: none; /* Убираем подчеркивание */
+                display: inline-flex; /* Для выравнивания иконки и текста */
+                align-items: center; /* Вертикальное выравнивание */
+                transition: background-color 0.3s; /* Эффект при наведении */
+                margin-top: 0px;
+            }
+
+                .btn-gray:hover {
+                    background-color: #B0B0B0; /* Цвет фона при наведении */
+                }
+
+                .btn-gray i {
+                    color: inherit; /* Убираем стандартный цвет иконок */
+                }
+
+
+
+            /*<-- ліве  бокове  вікно  -->*/
+            .z-ind {
+                z-index: 2500;
+            }
+
+            .left-wind {
+                width: 100%;
+                max-width: 600px; /* Максимальна ширина блоку */
+                height: auto; /* Висота блоку */
+                padding: 10px;
+                border: 1px solid #ccc; /* Додаємо рамку для стилізації */
+                box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
+            }
+
+            .logo-sz-left {
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            .btn-sz {
+                width: 95%;
+            }
+
+            .mr-top {
+                margin-top: 25px;
+                margin-left: 10px;
+            }
+
+            .reg-bl {
+                width: 96%;
+                height: 150px;
+                background-color: antiquewhite;
+                border-radius: 5px;
+                margin: 10px;
+            }
+
+            .entr-btn {
+                background-color: #e8daf4;
+                border-radius: 10px;
+                border: 3px solid #9C12FF;
+            }
+            /* для іконки порівняння */
+            .comp-list-container {
+                display: flex;
+                flex: 0 0 auto;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+            }
+
+            .shop-cart-title {
+                flex: 0 0 auto;
+                padding: 0;
+                margin: 0;
+                margin-left: 7px;
+                font: 400 22px Inter, sans-serif;
+            }
+            /* для іконки кошика */
+            .shop-cart-container {
+                display: flex;
+                flex: 0 0 auto;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+            }
+
+            .svg-contnr1, .svg-contnr2 {
+                display: flex;
+                flex: 0 0 auto;
+                width: 34px;
+                height: 34px;
+                margin: 10px 15px;
+            }
+
+            .icon-path {
+                transition: stroke 0.3s ease;
+            }
+
+            .cart-itm:hover .icon-path {
+                stroke: #800080; /* Фіолетовий колір іконки при наведенні */
+            }
+
+            .icon:hover .icon-path {
+                stroke: #800080;
+            }
+
+            .icon:hover .shop-cart-title {
+                color: #800080;
+            }
+            /*стрілка випадаючого списку Сервіс*/
+            .dropdown {
+                cursor: pointer;
+            }
+
+            .drop-dn-it, .services-text {
+                font: 400 22px Inter, sans-serif;
+            }
+
+            #servicesList {
+                list-style-type: none; /* Вимикає маркери списку */
+                padding: 0; /* Вимикає відступи зліва */
+                margin: 0; /* Вимикає відступи ззовні */
+            }
+            /*//////////////////////*/
+
+            .btn {
+                display: flex;
+                align-items: center; /* Центрирование по вертикали */
+                justify-content: center; /* Центрирование по горизонтали */
+            }
+
+                .btn svg {
+                    margin-right: 8px; /* Отступ между значком и текстом */
+                }
+
+                .btn span {
+                    display: flex; /* Для выравнивания текста */
+                    align-items: center; /* Центрирование текста по вертикали */
+                }
+
+            /* соціальних контейнерів блок */
+            .social-media-container {
+                box-sizing: border-box;
+                width: 100%;
+                padding: 5px 5px 24px;
+            }
+
+            .city-location-text-style {
+                padding: 0;
+                margin: 0;
+                font: 100 22px Inter, sans-serif;
+                color: #2f2f2f;
+            }
+
+            .social-media-links-container {
+                display: flex;
+                flex-direction: row;
+                gap: 23px;
+                align-items: center;
+                justify-content: flex-start;
+                margin-top: 19px;
+            }
+
+            .svg-container4 {
+                display: flex;
+                flex: 0 0 auto;
+                width: 40px;
+                height: 40px;
+            }
+
+            .f-st {
+                font-weight: 600;
+            }
+
+            .f-sz {
+                font-size: 24px;
+            }
+            /* /////////  кінець ліве бокове вікно //////// */
+
+            /*анімація логотипу*/
+            .anime-logo-link svg {
+                transform-origin: center; /* Встановлюємо центр як точку початку трансформації */
+                animation: reveal 3s ease-in-out infinite; /* Застосовуємо анімацію */
+            }
+
+            @keyframes reveal {
+                0%, 100% {
+                    transform: scaleX(0); /* Логотип стиснутий по горизонталі до центру */
+                }
+
+                50% {
+                    transform: scaleX(1); /* Логотип розкритий до повної ширини */
+                }
+            }
+
+            /* мапа світу */
+            #map {
+                height: 600px; /*  висота карти */
+            }
+
+            /* Даухшаговая регистрация */
+            .step-indicators {
+                display: flex;
+                justify-content: space-between; /* Отступы между прямоугольниками */
+                margin: 3px; /* Отступы по бокам */
+            }
+
+            .step {
+                width: 48%; /* Ширина прямоугольников */
+                height: 4px; /* Высота прямоугольников */
+                border-radius: 12px;
+            }
+
+            .light-purple {
+                background-color: #ECD2FF; /* Светло-фиолетовый */
+            }
+
+            .dark-purple {
+                background-color: #9C12FF; /* Темно-фиолетовый */
+            }
+            /* Кошик модал */
+            .total-price-container {
+                display: flex;
+                justify-content: flex-end; /* Прижимает все к правому краю */
+                align-items: center; /* Выравнивает элементы по вертикали */
+            }
+
+            .total-price-text {
+                margin-right: 10px; /* Отступ между текстом и кнопкой */
+                font-family: 'Inter', sans-serif; /* Устанавливает шрифт */
+                font-style: normal; /* Нормальный стиль текста */
+                font-size: 24px; /* Размер шрифта */
+            }
+
+            .total-price-button {
+                width: 20%; /* Задает кнопке ширину 20% от экрана */
+            }
+
+
+
+
+
+            /*  для футера карток з товарами  */
+            .product-card {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                border: 1px solid #ddd;
+                padding: 15px;
+                height: 100%;
+            }
+
+            .product-description-block {
+                overflow: hidden;
+                max-height: 90px; /*  потрібна висота */
+                position: relative;
+            }
+
+                .product-description-block:hover {
+                    overflow: auto;
+                }
+
+            .product-footer {
+                position: relative;
+                margin-top: auto; /* Це дозволить футеру залишатися внизу */
+                padding-top: 5px;
+                border-top: 1px solid #ddd;
+            }
+
+            .product-image img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+
+            /* для адаптації вікна коригування особистих даних - Account/Edit */
+            @media only screen and (max-width: 1000px) {
+                .hide-on-small-screens {
+                    display: none;
+                }
+            }
+
+            @media only screen and (max-width: 1000px) {
+                .moove-left-if-small-screens {
+                    transform: translateX(-400px);
+                }
+            }
+
+            /* Основные стили для радиокнопки */
+            .custom-radio {
+                position: relative;
+                width: 20px;
+                height: 20px;
+                appearance: none; /* Убираем стандартный вид радиокнопки */
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                border: 2px solid #A323FF; /* Цвет внешнего круга */
+                border-radius: 50%; /* Делаем кнопку круглой */
+                cursor: pointer;
+                background-color: white; /* Цвет фона для не нажатой кнопки */
+                outline: none; /* Убираем обводку при фокусе */
+                transition: background-color 0.2s, border-color 0.2s;
+            }
+
+                /* Стили для состояния при фокусе */
+                .custom-radio:focus {
+                    outline: none;
+                    box-shadow: none; /* Убираем синий эффект при фокусировке */
+                }
+
+                /* Стиль для нажатого состояния (когда радиокнопка выбрана) */
+                .custom-radio:checked {
+                    background-color: white; /* Белый фон между внешним и внутренним кругом */
+                    border-color: #A323FF; /* Сохраняем цвет рамки */
+                }
+
+                    /* Внутренний круг при выборе */
+                    .custom-radio:checked::before {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 10px;
+                        height: 10px;
+                        background-color: #A323FF; /* Цвет внутреннего круга */
+                        border-radius: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                /* Убираем стандартную синею обводку при клике */
+                .custom-radio:checked {
+                    border-color: #A323FF; /* Цвет рамки в нажатом состоянии */
+                }
+
+            /* Дополнительные стили для текста рядом с радиокнопкой */
+            .form-check-label {
+                margin-left: 10px; /* Отступ для текста */
+                cursor: pointer; /* Указатель-рука при наведении */
+            }
+
+            .cart-container td, .cart-container th {
+                padding: 15px; /* Установить отступы в 15px со всех сторон */
+            }
+
+            .cart-items-container {
+                max-height: 400px; /* Максимальная высота блока с товарами */
+                overflow-y: auto; /* Вертикальная полоса прокрутки */
+                margin-bottom: 20px; /* Добавленное пространство снизу */
+                scrollbar-width: thin; /* Устанавливает ширину скроллбара на "тонкий" */
+                scrollbar-color: #A323FF #f1f1f1; /* Устанавливает цвет ползунка и цвет фона */
+            }
+
+                /* Стили для WebKit-браузеров (Chrome, Safari) */
+                .cart-items-container::-webkit-scrollbar {
+                    width: 12px; /* Ширина вертикального скроллбара */
+                }
+
+                .cart-items-container::-webkit-scrollbar-track {
+                    background: #f1f1f1; /* Цвет фона скроллбара */
+                    border-radius: 10px; /* Закругление углов */
+                }
+
+                .cart-items-container::-webkit-scrollbar-thumb {
+                    background: #A323FF; /* Цвет ползунка скроллбара */
+                    border-radius: 10px; /* Закругление углов */
+                }
+
+            /* Основные стили для чекбокса */
+            .custom-checkbox {
+                position: relative;
+                width: 20px; /* Ширина чекбокса */
+                height: 20px; /* Высота чекбокса */
+                appearance: none; /* Убираем стандартный вид чекбокса */
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                border: 2px solid #A323FF; /* Цвет внешнего круга */
+                border-radius: 50%; /* Делаем кнопку круглой */
+                cursor: pointer;
+                background-color: white; /* Цвет фона для не нажатого состояния */
+                outline: none; /* Убираем обводку при фокусе */
+                transition: background-color 0.2s, border-color 0.2s;
+            }
+
+                /* Стили для состояния при фокусе */
+                .custom-checkbox:focus {
+                    outline: none;
+                    box-shadow: none; /* Убираем синий эффект при фокусировке */
+                    border-radius: 50%;
+                }
+
+                /* Стиль для нажатого состояния (когда чекбокс выбран) */
+                .custom-checkbox:checked {
+                    background-color: white; /* Белый фон между внешним и внутренним кругом */
+                    border-color: #A323FF; /* Сохраняем цвет рамки */
+                    border-radius: 50%;
+                }
+
+                    /* Внутренний круг при выборе */
+                    .custom-checkbox:checked::before {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 10px; /* Ширина внутреннего круга */
+                        height: 10px; /* Высота внутреннего круга */
+                        background-color: #A323FF; /* Цвет внутреннего круга */
+                        border-radius: 50%; /* Делаем внутренний круг тоже круглым */
+                        transform: translate(-50%, -50%);
+                        border-radius: 50%;
+                    }
+
+                /* Убираем стандартную синюю обводку при клике */
+                .custom-checkbox:checked {
+                    border-color: #A323FF; /* Цвет рамки в нажатом состоянии */
+                    border-radius: 50%;
+                }
