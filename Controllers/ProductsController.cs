@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Rozetka.Models.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Rozetka.Migrations;
+using Rozetka.Models.ReviewModel;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 
 namespace Rozetka.Controllers
@@ -291,6 +294,7 @@ namespace Rozetka.Controllers
                                         .Include(p => p.ProductImages)
                                         .Include(p => p.ProductColor)
                                         .Include(p => p.Reviews)
+                                        .ThenInclude(r => r.User) // Загружаем связанные данные пользователя
                                         .FirstOrDefaultAsync(p => p.Id == id);
             if (product == null)
             {
@@ -298,6 +302,58 @@ namespace Rozetka.Controllers
             }
             HttpContext.Session.SetString("Product", product.Title);
             return View(product);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> NewReviewAsync(ReviewFormModel? formModel)
+        {
+            if (formModel == null)
+            {
+                return BadRequest("Неверные данные");
+            }
+
+            // Получаем текущего авторизованного пользователя
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Это ID пользователя в системе ASP.NET Identity
+
+            if (userId == null)
+            {
+                return BadRequest("Не удалось определить пользователя");
+            }
+
+            // Найдем продукт, для которого оставляется отзыв
+            var product = await _context.Products.FindAsync(formModel.IdProduct);
+            if (product == null)
+            {
+                return NotFound("Продукт не найден");
+            }
+
+            // Создаем новый отзыв (оценка пользователя за данный продукт)
+            var newReview = new Review
+            {
+                ProductId = formModel.IdProduct,
+                UserId = userId,
+                Rating = formModel.Rating, // Это индивидуальная оценка пользователя
+                Comment = formModel.Comment,
+                DateReview = DateTime.Now
+            };
+
+            // Добавляем отзыв в базу данных
+            _context.Reviews.Add(newReview);
+
+            // Увеличиваем количество отзывов у продукта
+            product.Amount += 1;
+
+            // Получаем все отзывы для данного продукта
+            var allReviews = await _context.Reviews.Where(r => r.ProductId == product.Id).ToListAsync();
+
+            // Рассчитываем новый средний рейтинг для продукта
+            product.Rating = allReviews.Average(r => (decimal?)r.Rating) ?? 0;  // Средний рейтинг
+
+            // Сохраняем изменения
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("GetProduct", new { id = formModel.IdProduct }); // Перенаправление на страницу продукта
         }
 
 

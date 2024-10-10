@@ -83,7 +83,15 @@
     <div class="col-md-6">
         <h4>@Model.ProductType.Title @Model.Brand.Title @Model.Title</h4>
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <p><i class="bi bi-star-fill rating"></i> 4.1 Рейтинг</p>
+            @if (Model.Reviews?.Count() > 2)
+            {
+                <p><i class="bi bi-star-fill rating"></i> @Model.Rating Рейтинг</p>
+            }
+            else
+            {
+                <p>Для визначення рейтингу недостатньо оцінок</p>
+            }
+            
             <p>Артикул: @Model.Id</p>
         </div>
         @if (Model.ProductColorId != null && Model.ProductColor != null)
@@ -159,12 +167,57 @@
     </div>
 </div>
 
-<!-- Reviews Section -->
+<!-- Секція відгуків -->
 <div class="row mt-5">
     <div class="col-md-12">
-        <h3>Відгуки (11)</h3>
+        <div class="d-flex justify-content-between">
+            <h3>Відгуки (@Model.Reviews?.Count())</h3>
+            @if (Context.User.Identity?.IsAuthenticated ?? false)
+            {
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844l2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565l6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" /></svg> Залишити відгук
+                </button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-light" id="liveAlertBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844l2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565l6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" /></svg> Залишити відгук
+                </button>
+            }
+            
+        </div>        
         <div class="row">
-            <div class="col-md-4">
+            @if (Model.Reviews != null && Model.Reviews.Any())
+            {
+                @foreach (var reviews in Model.Reviews)
+                {
+                    <div class="col-md-4">
+                        <div class="border p-3 mb-3">                            
+                            <!-- Защита от null для пользователя -->
+                            @if (reviews.User != null)
+                            {
+                                <h5>@reviews.User.FirstName @reviews.User.LastName<span class="rating"><i class="bi bi-star-fill"></i> @reviews.Rating</span></h5>
+                            }
+                            else
+                            {
+                                <h5>Анонімний користувач<span class="rating"><i class="bi bi-star-fill"></i> @reviews.Rating</span></h5>
+                            }
+                            <p class="text-secondary">@reviews.DateReview</p>
+                            <p>@reviews.Comment</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-md-12">
+                    <div class="border p-3 mb-3">
+                        <h4>Будьте першими, залиште відгук про товар</h4>
+                    </div>                    
+                </div>
+            }
+            @* <div class="col-md-4">
                 <div class="border p-3 mb-3">
                     <h5>Руслан Павлов <span class="rating"><i class="bi bi-star-fill"></i> 5</span></h5>
                     <p>Чудові навушники! Якість звуку на висоті.</p>
@@ -175,10 +228,18 @@
                     <h5>Яна Дмитрієва <span class="rating"><i class="bi bi-star-fill"></i> 4.5</span></h5>
                     <p>Класно виглядають і зручно сидять на голові!</p>
                 </div>
-            </div>
+            </div> *@
             <!-- Add more reviews -->
         </div>
     </div>
+    <script>
+        const alertTrigger = document.getElementById('liveAlertBtn')
+        if (alertTrigger) {
+            alertTrigger.addEventListener('click', () => {
+                alert('Щоб залишити відгук необхідна авторизація!')
+            })
+        }
+    </script>
 </div>
 
 <!-- Similar Products Section -->
@@ -200,9 +261,62 @@
 </div>
 
 
+<!-- Модальне вікно для відгуків -->
 
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content" style="border-radius: 15px">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="feedbackModalLabel">Написати відгук</h1>
+                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+            </div>
+            <form asp-action="NewReview" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="review-idproduct" value="@Model.Id" />
+                    <div class="mb-3">
+                        <label for="review-rating" class="form-label">Рейтинг</label>
+                        <input type="number" class="form-control" name="review-rating" id="review-rating" min="1" max="5" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="review-comment" class="form-label">Коментар</label>
+                        <textarea class="form-control" name="review-comment" id="review-comment" rows="3"></textarea>
+                    </div>
 
+                </div>
+                <div class="modal-footer ">
+                    <button type="submit" class="quick-find-button btn-sz btn btn-outline-secondary">Ок</button>
+                    <button type="button" class="entr-btn btn-sz opacity-75 btn btn-outline-secondary" data-bs-dismiss="modal">Відміна</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
+@* <!-- Модальное окно для оставления отзыва -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="border-radius: 15px">
+            <div class="modal-header">
+                <h5 class="modal-title" id="feedbackModalLabel">Залишити відгук</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="NewReview" method="post">
+                    <input type="hidden" name="review-idproduct" value="@Model.Id" />
+                    <div class="mb-3">
+                        <label for="review-rating" class="form-label">Рейтинг</label>
+                        <input type="number" class="form-control" name="review-rating" id="review-rating" min="1" max="5" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="review-comment" class="form-label">Коментар</label>
+                        <textarea class="form-control" name="review-comment" id="review-comment" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Відправити</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> *@
 
 
 
