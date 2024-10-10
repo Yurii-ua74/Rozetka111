@@ -145,15 +145,24 @@
                             </a> *@
 
                             <a class="d-none d-md-block nav-link text-black position-relative btn-lg mt-2"
-                               asp-area="" asp-controller="Favorites" asp-action="Index"
+                           asp-area="" asp-controller="Favorites" asp-action="Index"
                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Обране">
                                 <div class="text-center">
                                     <i class="bi bi-heart fs-4 fs-md-3 fs-sm-3"></i>
                                     <p class="menu-link-text-style mb-0">Обране</p>
                                 </div>
-                                <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
+                                @* @if (favorites != null)
+                                {
+                                    if (favorites.Count > 0)
+                                    {
+                                        <span class="position-absolute top-1 translate-middle badge rounded-pill bg-danger">
+                                        @favorites.Count
+                                        </span>
+                                    }
+                                } *@
+                                @* <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
                                     0
-                                </span>
+                                </span> *@
                             </a>
                         }
                         else

@@ -29,7 +29,7 @@ namespace Rozetka.Data.Entity
         public DateTime RegisterDt { get; set; }
         
         public ICollection<Review>? Reviews { get; set; }
-        public ICollection<WishList>? WishList { get; set; }
+        public ICollection<Favorites>? Favorites { get; set; }
         public ICollection<Cart>? Cart { get; set; }
         public ICollection<ShoppingList>? ShoppingList { get; set; }
     }

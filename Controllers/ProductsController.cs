@@ -300,6 +300,14 @@ namespace Rozetka.Controllers
             {
                 return NotFound();
             }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID пользователя
+            if (userId != null)
+            {
+                // Проверяем, есть ли товар в избранном
+                product.IsInFavorites = await _context.Favorites
+                    .AnyAsync(w => w.UserId == userId && w.ProductId == id);
+            }
             HttpContext.Session.SetString("Product", product.Title);
             return View(product);
         }
