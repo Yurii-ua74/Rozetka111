@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rozetka.Data;
+using Rozetka.Data.Entity;
 using Rozetka.Models;
 using Rozetka.Models.ViewModels.Products;
 using System.Diagnostics;
@@ -19,18 +20,30 @@ namespace Rozetka.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            List<Product> products = new List<Product>();
+
             try
             {
-                //HttpContext.Session.Clear();
-                return View();
+                // Получение списка продуктов с проверкой связей
+                products = await _context.Products
+                    .Include(p => p.ProductType)
+                    .Include(p => p.Brand)
+                    .Include(p => p.Childcategory)
+                    .Include(p => p.ProductImages)
+                    .Include(p => p.ProductColor)
+                    .Include(p => p.Reviews)
+                        .ThenInclude(r => r.User)
+                    .ToListAsync();
             }
-            catch (Exception ex)
+            catch (Exception ex) // Ловим возможные исключения
             {
-                _logger.LogError(ex, "An error occurred while loading the Index page.");
-                return StatusCode(500, "Internal server error");
-            }
+                // Логируем ошибку и возвращаем страницу ошибки
+                _logger.LogError(ex, "Ошибка при получении списка продуктов.");
+                return View("Error"); // Отображение страницы ошибки
+            }           
+            return View(products);
         }
 
         public IActionResult Test()

@@ -149,6 +149,7 @@
                                     <i class="bi bi-heart fs-4 fs-md-3 fs-sm-3"></i>
                                     <p class="menu-link-text-style mb-0">Обране</p>
                                 </div>
+                                @await Component.InvokeAsync("FavoritesCount") <!-- Вызов ViewComponent для количества избранных -->
                                 @* @if (favorites != null)
                                 {
                                     if (favorites.Count > 0)

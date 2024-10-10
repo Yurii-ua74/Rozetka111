@@ -67,6 +67,8 @@ builder.Services.AddIdentity<User, IdentityRole>()
 
 builder.Services.AddDistributedMemoryCache();
 
+builder.Services.AddHttpContextAccessor(); // для получения данных о пользователе в FavoritesCountViewComponent
+
 builder.Services.AddAuthentication()
     .AddGoogle(googleOptions =>
     {

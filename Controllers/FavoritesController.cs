@@ -65,7 +65,15 @@ namespace Rozetka.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("GetProduct", "Products", new { id = productId }); // Перенаправляем на страницу товара
+            // Вернемся на предыдущую страницу
+            string refererUrl = Request.Headers["Referer"].ToString();
+            if (!string.IsNullOrEmpty(refererUrl))
+            {
+                return Redirect(refererUrl);
+            }
+
+            // Если заголовок Referer пустой, можно вернуться на главную или другую дефолтную страницу
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]
@@ -87,7 +95,15 @@ namespace Rozetka.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("GetProduct", "Products", new { id = productId }); // Перенаправляем на страницу товара
+            // Вернемся на предыдущую страницу
+            string refererUrl = Request.Headers["Referer"].ToString();
+            if (!string.IsNullOrEmpty(refererUrl))
+            {
+                return Redirect(refererUrl);
+            }
+
+            // Если заголовок Referer пустой, можно вернуться на главную или другую дефолтную страницу
+            return RedirectToAction("Index", "Home");
         }
 
 
@@ -170,6 +186,24 @@ namespace Rozetka.Controllers
             {
                 return View();
             }
+        }
+
+        // Метод для получения количества избранных товаров
+        public async Task<int> GetFavoritesCount()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID текущего пользователя
+
+            if (userId == null)
+            {
+                return 0;
+            }
+
+            // Получаем количество товаров в избранном
+            var count = await _context.Favorites
+                .Where(f => f.UserId == userId)
+                .CountAsync();
+
+            return count;
         }
     }
 }

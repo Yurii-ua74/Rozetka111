@@ -1,0 +1,38 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Rozetka.Data;
+using Rozetka.Data.Entity;
+using System.Security.Claims;
+
+
+namespace Rozetka.Models.ViewModels.Favorites
+{
+    public class FavoritesCountViewComponent : ViewComponent
+    {
+        private readonly DataContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public FavoritesCountViewComponent(DataContext context, IHttpContextAccessor httpContextAccessor)
+        {
+            _context = context;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {            
+            var userId = _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return View(0); // Если пользователь не авторизован, возвращаем 0
+            }
+
+            // Получаем количество избранных товаров
+            var count = await _context.Favorites
+                .Where(f => f.UserId == userId)
+                .CountAsync();
+
+            return View(count); // Возвращаем количество
+        }
+    }
+}

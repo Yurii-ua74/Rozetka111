@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Rozetka.Data.Entity
+@model IEnumerable<Product>
+@{
     ViewData["Title"] = "Головна сторінка";
 }
 
@@ -71,6 +73,64 @@
                 </div>
             </div>
         }
+        @{
+            var randomProducts = Model.OrderBy(x => Guid.NewGuid()).Take(6); // Отбор 6 случайных товаров
+        }
+        <div class="row row-cols-1 row-cols-md-6 g-1">
+            @foreach (var product in randomProducts)
+            {
+                <div class="col">
+                    <div class="card" style="width: 16rem; height: 470px">
+                        <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                            @if (product.ProductImages != null && product.ProductImages.Any())
+                            {
+                                var firstImage = product.ProductImages.FirstOrDefault();
+                                <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
+                                     class="img-fluid"
+                                     alt="Product Image"
+                                     style="max-height: 255px; width: auto; max-width: 100%;"
+                                     onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';"
+                                     onmouseover="this.src='data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)'"
+                                     onmouseout="this.src='data:image;base64,@Convert.ToBase64String(firstImage.ImageData)'" />
+                            }
+                            else
+                            {
+                                <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">"@product.ProductType?.Title @product.Brand?.Title @product.Title"</h5>
+                                <p class="card-text col-2 text-truncate">@product.Description</p>
+                            </div>
+                        </a>
+                        <!-- Футер картки з фіксацією до низу -->
+                        <div class="product-footer mt-2" style="height:40px">
+                            <div class="d-flex align-items-center">
+                                <div class="product-price">@product.Price.ToString("0") ₴</div>
+                                <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">
+                                    <i class="bi bi-cart-plus"></i>
+                                </a>
+                                @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
+                                {
+                                <!-- Кнопка удаления из избранного -->
+                                    <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
+                                    <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
+                                    </a>
+                                }
+                                else
+                                {
+                                    <!-- Кнопка добавления в избранное -->
+                                    <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
+                                    <i class="bi bi-heart"></i> <!-- Иконка пустого сердечка (товар не в избранном) -->
+                                    </a>
+                                }
+
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            }            
+        </div>
+        
     </div>
 
     <div class="row mb-3">

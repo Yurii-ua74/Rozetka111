@@ -40,8 +40,8 @@ else
                     <div class="card-body">
                         <h5 class="card-title">@favorite.Product.Title</h5>
                         <p class="card-text">@favorite.Product.Price ₴</p>
-                        <a href="@Url.Action("GetProduct", "Products", new { id = favorite.ProductId })" class="btn btn-primary">Переглянути</a>
-                        <a href="@Url.Action("Delete", "Favorites", new { id = favorite.Id })" class="btn btn-danger">Видалити з обраного</a>
+                        <a href="@Url.Action("GetProduct", "Products", new { id = favorite.ProductId })" class="btn btn-secondary">Переглянути</a>
+                        <a href="@Url.Action("Delete", "Favorites", new { id = favorite.Id })" class="btn btn-dark">Видалити з обраного</a>
                     </div>
                 </div>
             </div>

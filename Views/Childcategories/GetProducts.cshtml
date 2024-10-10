@@ -148,7 +148,7 @@
                         <!-- Стилізований блок товару -->
                         <div>
                             <div class="product-block-products">
-                                <a href="/Products/GetProduct?id=@product.Id">
+                                <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
                                     @if (product.ProductImages != null && product.ProductImages.Any())
                                     {
                                         var firstImage = product.ProductImages.FirstOrDefault();
