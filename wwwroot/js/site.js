@@ -233,7 +233,7 @@ document.getElementById('dropdownIcon').addEventListener('click', function () {
 /*  ///////////////////////////////////////////////////////  */
 
 
-// скріпт для обробки змін фільтрів субпідкатегорій та цін //
+// /// скріпт для обробки змін фільтрів субпідкатегорій та цін /// //
 $(document).ready(function () {
     // Функція для обробки змін чекбоксів та цін
     function handleCheckboxChange() {
@@ -274,45 +274,51 @@ $(document).ready(function () {
 });
 
 
+// ///// скріпт для теми (кнопки) Стати продавцем ///// //
+document.addEventListener('DOMContentLoaded', function () {
+    const becomeSellerButton = document.getElementById('becomeSellerButton');
 
-document.getElementById('becomeSellerButton').addEventListener('click', function () {
-    // AJAX-запит для перевірки авторизації
-    $.ajax({
-        url: '/Account/IsUserLoggedIn',
-        method: 'GET',
-        success: function (response) {
-            if (response.isAuthenticated) {
-                // Якщо користувач авторизований, відкриваємо модальне вікно
-                $('#sellerModal').modal('show');
+    if (becomeSellerButton) {
+        becomeSellerButton.addEventListener('click', function () {
+            // AJAX-запит для перевірки авторизації
+            $.ajax({
+                url: '/Account/IsUserLoggedIn',
+                method: 'GET',
+                success: function (response) {
+                    if (response.isAuthenticated) {
+                        // Якщо користувач авторизований, відкриваємо модальне вікно
+                        $('#sellerModal').modal('show');
 
-                // AJAX-запит для отримання даних користувача
-                $.ajax({
-                    url: '/Account/GetUserData',
-                    method: 'GET',
-                    success: function (userData) {
-                        console.log(userData);  // Додаємо це, щоб перевірити, що повертається з сервера
+                        // AJAX-запит для отримання даних користувача
+                        $.ajax({
+                            url: '/Account/GetUserData',
+                            method: 'GET',
+                            success: function (userData) {
+                                console.log(userData);  // Додаємо це, щоб перевірити, що повертається з сервера
 
-                        // Переконайтеся, що JSON-об'єкт має правильні назви полів
-                        if (userData && userData.email && userData.firstName && userData.lastName) {
-                            document.getElementById('seller-email').value = userData.email;
-                            document.getElementById('seller_first_name').value = userData.firstName;
-                            document.getElementById('seller_second_name').value = userData.lastName;
-                        } else {
-                            console.error('Неправильні або відсутні дані користувача');
-                        }
-                    },
-                    error: function (err) {
-                        console.error('Помилка під час отримання даних користувача', err);
+                                // Переконайтеся, що JSON-об'єкт має правильні назви полів
+                                if (userData && userData.email && userData.firstName && userData.lastName) {
+                                    document.getElementById('seller-email').value = userData.email;
+                                    document.getElementById('seller_first_name').value = userData.firstName;
+                                    document.getElementById('seller_second_name').value = userData.lastName;
+                                } else {
+                                    console.error('Неправильні або відсутні дані користувача');
+                                }
+                            },
+                            error: function (err) {
+                                console.error('Помилка під час отримання даних користувача', err);
+                            }
+                        });
+                    } else {
+                        // Якщо не авторизований, відкриваємо модальне вікно реєстрації
+                        $('#registerModal').modal('show');
                     }
-                });
-            } else {
-                // Якщо не авторизований, відкриваємо модальне вікно реєстрації
-                $('#registerModal').modal('show');
-            }
-        },
-        error: function (err) {
-            console.error('Помилка під час перевірки авторизації', err);
-        }
-    });
+                },
+                error: function (err) {
+                    console.error('Помилка під час перевірки авторизації', err);
+                }
+            });
+        });
+    }
 });
 
