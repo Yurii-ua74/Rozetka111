@@ -959,18 +959,18 @@ a:hover{
                 margin-left: 10px;
             }
 
-            .reg-bl {
-                width: 96%;
-                height: 150px;
-                background-color: antiquewhite;
-                border-radius: 5px;
-                margin: 10px;
-            }
+.reg-bl {
+    width: 96%;
+    height: 150px;
+    background-color: #F6F6F6;
+    border-radius: 5px;
+    margin: 10px;
+}
 
             .entr-btn {
                 background-color: #e8daf4;
                 border-radius: 10px;
-                border: 3px solid #9C12FF;
+                border: 1px solid #9C12FF;
             }
             /* для іконки порівняння */
             .comp-list-container {

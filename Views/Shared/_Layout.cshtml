@@ -240,7 +240,7 @@
     @* ліве бічне меню, яке відкривається по кліку на сендвіч *@
     <div class="offcanvas offcanvas-start z-ind" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 
-        <div class="offcanvas-header" style="background-color:floralwhite">
+        <div class="offcanvas-header" style="background-color:#FFFFFF">
             <div class="col-4 col-md-9 col-ms-9">
                 <a class="logo-link" asp-area="" asp-controller="Home" asp-action="Index">
                     <svg class="logo-sz-left" viewBox="0 0 288 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -253,9 +253,9 @@
         </div>
 
            <div class="offcanvas-body" style="overflow-y: auto; max-height: 100vh;">
-                <div class="left-wind">
+            <div class="left-wind" style="border: 0px solid;">
                 <button class="quick-find-button btn-sz btn btn-outline-secondary me-2 ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-                    <i class="bi bi-grid"></i> Каталог
+                    <i class="bi bi-grid"></i> Каталог товарів
                 </button>
                 </div>
            
@@ -279,7 +279,7 @@
             }
             else
             {
-                <div class="left-wind reg-bl">
+                <div class="left-wind reg-bl" style="border-radius: 16px; border: 0px solid;">
                     <h6>Увійдіть, щоб отримувати рекомендації,
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;персональні бонуси і знижки
                     </h6>
@@ -1058,7 +1058,7 @@
 
 <!-- Верхня випадаюча панель -->
 <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-    <div class="offcanvas-header">
+    <div class="offcanvas-header" style="color: FFFFFF;>
         <h5 class="offcanvas-title" id="offcanvasTopLabel">Каталог товарів</h5>       
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>        
     </div>
