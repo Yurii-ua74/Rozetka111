@@ -304,6 +304,8 @@ namespace Rozetka.Controllers
             return View(product);
         }
 
+
+        // метод додавання рейтингу та відгуків
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> NewReviewAsync(ReviewFormModel? formModel)
@@ -328,21 +330,35 @@ namespace Rozetka.Controllers
                 return NotFound("Продукт не найден");
             }
 
-            // Создаем новый отзыв (оценка пользователя за данный продукт)
-            var newReview = new Review
+            // перевірка, чи залишав цей користувач вже відгук для цього продукту
+            var existingReview = await _context.Reviews
+                .FirstOrDefaultAsync(r => r.ProductId == formModel.IdProduct && r.UserId == userId);
+
+            if (existingReview != null)
             {
-                ProductId = formModel.IdProduct,
-                UserId = userId,
-                Rating = formModel.Rating, // Это индивидуальная оценка пользователя
-                Comment = formModel.Comment,
-                DateReview = DateTime.Now
-            };
+                // Якщо відгук вже є, оновлюємо його
+                existingReview.Rating = formModel.Rating;
+                existingReview.Comment = formModel.Comment;
+                existingReview.DateReview = DateTime.Now;
+            }
+            else
+            {
+                // Создаем новый отзыв (оценка пользователя за данный продукт)
+                var newReview = new Review
+                {
+                    ProductId = formModel.IdProduct,
+                    UserId = userId,
+                    Rating = formModel.Rating, // Это индивидуальная оценка пользователя
+                    Comment = formModel.Comment,
+                    DateReview = DateTime.Now
+                };
 
-            // Добавляем отзыв в базу данных
-            _context.Reviews.Add(newReview);
+                // Добавляем отзыв в базу данных
+                _context.Reviews.Add(newReview);
 
-            // Увеличиваем количество отзывов у продукта
-            product.Amount += 1;
+                // Увеличиваем количество отзывов у продукта
+                product.Amount += 1;
+            }
 
             // Получаем все отзывы для данного продукта
             var allReviews = await _context.Reviews.Where(r => r.ProductId == product.Id).ToListAsync();
