@@ -1,15 +1,50 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Rozetka.Data.Entity
+@model IEnumerable<Favorites>
+
+@{
+    ViewData["Title"] = "Моє обране";
+}
+
+<h2>Моє обране</h2>
+
 <style>
-.centered-text {
-    display: flex;
-    justify-content: center; /* Центрує по горизонталі */
-    align-items: center;     /* Центрує по вертикалі */
-    height: 100vh;          /* Висота контейнера на всю висоту вікна браузера */
-    text-align: center;      /* Центрує текст */
+    .centered-text {
+        display: flex;
+        justify-content: center; /* Центрує по горизонталі */
+        align-items: center; /* Центрує по вертикалі */
+        height: 100vh; /* Висота контейнера на всю висоту вікна браузера */
+        text-align: center; /* Центрує текст */
     }
 </style>
-@{
-    <h2 class="centered-text"> Ви ще не обрали улюблені товари </h2>
+
+@if (!Model.Any())
+{
+    <h2 class="centered-text"> Ваш список обраних товарів порожній </h2>    
+}
+else
+{
+    <div class="row">
+        @foreach (var favorite in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    @if (favorite.Product != null && favorite.Product.ProductImages != null && favorite.Product.ProductImages.Any())
+                    {
+                        <img src="data:image;base64,@Convert.ToBase64String(favorite.Product.ProductImages.FirstOrDefault()?.ImageData)" class="card-img-top" alt="Product Image">
+                    }
+                    else
+                    {
+                        <img src="/images/no-image-icon.png" class="img-fluid mb-3" alt="No Product Image">
+                    }
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">@favorite.Product.Title</h5>
+                        <p class="card-text">@favorite.Product.Price ₴</p>
+                        <a href="@Url.Action("GetProduct", "Products", new { id = favorite.ProductId })" class="btn btn-secondary">Переглянути</a>
+                        <a href="@Url.Action("Delete", "Favorites", new { id = favorite.Id })" class="btn btn-dark">Видалити з обраного</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }

@@ -47,7 +47,7 @@ namespace Rozetka.Data
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<WishList> WishList { get; set; }
+        public DbSet<Favorites> Favorites { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<ShoppingList> ShoppingList { get; set; }
         //public DbSet<LoginJournalItem> LoginJournal { get; set; }
