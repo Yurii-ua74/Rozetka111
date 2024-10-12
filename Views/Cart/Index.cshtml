@@ -169,14 +169,19 @@
                 <!-- Кнопка подтверждения заказа -->
                 <tr>
                     <td colspan="2" style="padding: 15px;">
-                        <button type="submit" class="btn btn-purple" style="width: 90%;">Замовлення підтверджую</button>
+                        <button type="button" class="btn btn-purple" style="width: 90%;" onclick="redirectToSuccess()">Замовлення підтверджую</button>
                     </td>
                 </tr>
+                
             </tbody>
         </table>
     </div>
 
-
+    <script>
+        function redirectToSuccess() {
+            window.location.href = '/Order/SuccessOrder'; 
+        }
+    </script>
 
 
 
