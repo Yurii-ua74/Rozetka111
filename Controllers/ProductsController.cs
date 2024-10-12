@@ -499,6 +499,11 @@ namespace Rozetka.Controllers
 
             return View(productViewModel);
         }
+
+        public async Task<IActionResult> CreateAdvertisement ()
+        {
+            return View();
+        }
     }
 }
 

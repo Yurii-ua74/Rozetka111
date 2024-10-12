@@ -1,0 +1,1522 @@
+﻿
+
+   @*  <style>
+        .product-upload-form-layout {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            max-width: 1440px;
+            padding: 40px 37px 40px 36px;
+        }
+
+        .advertisement-creation-section {
+            box-sizing: border-box;
+            flex: 0 0 1137px;
+        }
+
+        .brand-logo-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .announcement-image-style {
+            box-sizing: border-box;
+            display: block;
+            width: 22px;
+            max-width: initial;
+            height: 4px;
+        }
+
+        .announcement-title {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            margin-left: 17px;
+            font: 600 24px Inter, sans-serif;
+            color: #2f2f2f;
+        }
+
+        .product-details-form {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: 100%;
+            margin-top: 35px;
+        }
+
+        .flexible-content-container {
+            flex: 1 0 auto;
+        }
+
+        .file-upload-container {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            border: 1px dashed #a3a3a3;
+            border-radius: 12px;
+        }
+
+        .file-upload-container1 {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            width: 239px;
+            padding-top: 66px;
+            padding-bottom: 66px;
+        }
+
+        .image-container-with-title {
+            display: block;
+            flex: 0 0 auto;
+            max-width: initial;
+            height: 154px;
+        }
+
+        .file-upload-container2 {
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-right: 3px;
+            padding-left: 5px;
+            margin-top: 40px;
+        }
+
+        .file-upload-message {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            font: 600 20px/26px Inter, sans-serif;
+            color: #2f2f2f;
+            text-align: center;
+        }
+
+        .file-upload-info-container {
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-right: 16px;
+            padding-left: 16px;
+            margin-top: 20px;
+        }
+
+        .image-format-info {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            font: 400 13px Inter, sans-serif;
+            color: #b5b5b5;
+        }
+
+        .image-format-info1 {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            margin-top: 11px;
+            font: 400 13px Inter, sans-serif;
+            color: #b5b5b5;
+        }
+
+        .flex-row-with-icons {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            gap: 19px;
+            align-items: stretch;
+            justify-content: space-between;
+            width: 100%;
+            height: 84px;
+            margin-top: 20px;
+        }
+
+        .card-container {
+            box-sizing: border-box;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-right: 36px;
+            padding-left: 36px;
+            border: 1px dashed #a3a3a3;
+            border-radius: 12px;
+        }
+
+        .svg-container {
+            display: flex;
+            flex: 0 0 auto;
+            width: 24px;
+            height: 24px;
+        }
+
+        .content-wrapper {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .text-block {
+            flex: 0 0 auto;
+            align-self: center;
+            padding: 0;
+            margin: 0;
+            font: 400 15px Inter, sans-serif;
+            color: #828282;
+        }
+
+        .flex-container-with-image {
+            box-sizing: border-box;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: flex-start;
+            height: 42px;
+            margin-top: 15px;
+        }
+
+        .input-container {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+            height: 42px;
+            padding-left: 15px;
+            font: 400 15px Inter, sans-serif;
+            color: #b7b7b7;
+            border: 1px solid #c9c9c9;
+            border-radius: 12px;
+        }
+
+        .transparent-input-style {
+            box-sizing: border-box;
+            width: 100%;
+            font: 400 15px Inter, sans-serif;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .input-style-8bc68c0e::placeholder {
+            color: #b7b7b7;
+        }
+
+        .flex-column-container {
+            box-sizing: border-box;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            width: 46px;
+            padding-right: 12.5px;
+            padding-left: 12.5px;
+            margin-left: 10px;
+            border: 1px solid #c9c9c9;
+            border-radius: 12px;
+        }
+
+        .micro-image-container {
+            display: block;
+            flex: 0 0 auto;
+            max-width: initial;
+            height: 3.5px;
+        }
+
+        .product-info-form-layout {
+            flex: 0 0 auto;
+            margin-left: 19px;
+        }
+
+        .product-info-container2 {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            height: 44px;
+            padding-right: 15px;
+            padding-left: 15px;
+            background: #f9f9f9;
+            border: 1px solid #e9e9e9;
+            border-radius: 12px;
+        }
+
+        .svg-container1 {
+            display: flex;
+            flex: 0 0 auto;
+            width: 20px;
+            height: 20px;
+        }
+
+        .seller-info-text {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            margin-left: 6px;
+            font: 400 15px Inter, sans-serif;
+            color: #2f2f2f;
+        }
+
+        .product-details-container {
+            margin-top: 30px;
+        }
+
+        .main-info-heading {
+            padding: 0;
+            margin: 0;
+            font: 600 18px Inter, sans-serif;
+            color: #2f2f2f;
+        }
+
+        .product-info-container5 {
+            box-sizing: border-box;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            width: 443px;
+        }
+
+        .product-info-container {
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .brand-label {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            color: #828282;
+        }
+
+        .brand-title-style {
+            font: 500 15px Inter, sans-serif;
+        }
+
+        .brand-label1 {
+            font: 500 15px Inter, sans-serif;
+            color: #ff2e20;
+        }
+
+        .svg-container2 {
+            display: flex;
+            flex: 0 0 auto;
+            width: 18px;
+            height: 18px;
+            margin-left: 4px;
+            color: #cecece;
+        }
+
+        .product-info-container1 {
+            box-sizing: border-box;
+            flex: 0 0 auto;
+            height: 42px;
+            margin-top: 11px;
+            border: 1px solid #c9c9c9;
+            border-radius: 12px;
+        }
+
+        .product-info-panel {
+            box-sizing: border-box;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            width: 212px;
+            margin-left: 19px;
+        }
+
+        .svg-container3 {
+            display: flex;
+            flex: 0 0 auto;
+            width: 18px;
+            height: 18px;
+            margin-left: 3px;
+            color: #cecece;
+        }
+
+        .brand-section {
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .svg-container4 {
+            display: flex;
+            flex: 0 0 auto;
+            width: 18px;
+            height: 18px;
+            margin-left: 2px;
+            color: #cecece;
+        }
+
+        .brand-container {
+            box-sizing: border-box;
+            width: 100%;
+            height: 42px;
+            margin-top: 11px;
+            border: 1px solid #c9c9c9;
+            border-radius: 12px;
+        }
+
+        .color-section {
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 23px;
+        }
+
+        .color-label {
+            padding: 0;
+            margin: 0;
+            font: 500 15px Inter, sans-serif;
+            color: #828282;
+        }
+
+        .color-box {
+            box-sizing: border-box;
+            width: 100%;
+            height: 42px;
+            margin-top: 15px;
+            border: 1px solid #c9c9c9;
+            border-radius: 12px;
+        }
+
+        .fullwidth-container {
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 26px;
+        }
+
+        .description-section {
+            padding: 0;
+            margin: 0;
+            color: #828282;
+        }
+
+        .vertical-flex-container {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .flex-column-end-align {
+            box-sizing: border-box;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 165px 2.5px 2.25px;
+            border: 1px solid #c9c9c9;
+            border-radius: 12px;
+        }
+
+        .svg-container5 {
+            display: flex;
+            flex: 0 0 auto;
+            width: 18px;
+            height: 18px;
+            color: #5d5d5d;
+        }
+
+        .progress-counter {
+            flex: 0 0 auto;
+            align-self: flex-end;
+            padding: 0;
+            margin: 0;
+            margin-top: 14px;
+            font: 400 13px Inter, sans-serif;
+            color: #2f2f2f;
+        }
+
+        .category-label-container {
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: -1.5px;
+        }
+
+        .main-content-container {
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 19px;
+        }
+
+        .header-text {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            font: 500 15px Inter, sans-serif;
+            color: #828282;
+        }
+
+        .border-box-container {
+            box-sizing: border-box;
+            width: 100%;
+            height: 42px;
+            margin-top: 12px;
+            border: 1px solid #c9c9c9;
+            border-radius: 12px;
+        }
+
+        .price-and-barcode-section {
+            margin-top: 40px;
+        }
+
+        .price-barcode-section {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 30px;
+        }
+
+        .price-section-container {
+            box-sizing: border-box;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            width: 212px;
+        }
+
+        .price-tag-container {
+            box-sizing: border-box;
+            flex: 0 0 auto;
+            height: 42px;
+            margin-top: 15px;
+            border: 1px solid #c9c9c9;
+            border-radius: 12px;
+        }
+
+        .barcode-info-container {
+            box-sizing: border-box;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            width: 443px;
+            margin-left: 19px;
+        }
+
+        .product-search-widget {
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 38px;
+        }
+
+        .product-search-info {
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .location-heading {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            font: 600 18px Inter, sans-serif;
+            color: #2f2f2f;
+        }
+
+        .search-query-description-text-style {
+            padding: 0;
+            margin: 0;
+            margin-top: 12px;
+            font: 400 13px Inter, sans-serif;
+            color: #acacac;
+        }
+
+        .product-search-query-container {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            width: 100%;
+            height: 42px;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-top: 15px;
+            border: 1px solid #c9c9c9;
+            border-radius: 12px;
+        }
+
+        .product-search-query-suggestions {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            font: 400 15px Inter, sans-serif;
+            color: #b7b7b7;
+        }
+
+        .marketplace-category-section {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            width: 100%;
+            margin-top: 23px;
+        }
+
+        .vertical-margin-container {
+            flex: 0 0 auto;
+            margin-top: 11px;
+        }
+
+        .fullwidth-select {
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .select-options-dropdown {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            font: 400 15px Inter, sans-serif;
+            color: #2f2f2f;
+        }
+
+        .small-square-with-options {
+            display: flex;
+            flex: 0 0 auto;
+            width: 10px;
+            height: 10px;
+            color: #111111;
+        }
+
+        .selectable-options-container {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 673px;
+            height: 42px;
+            padding-right: 15px;
+            padding-left: 15px;
+            border: 1px solid #c9c9c9;
+            border-radius: 12px;
+        }
+
+        .form-layout-container {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            width: 100%;
+            margin-top: 23px;
+        }
+
+        .product-dimensions-info {
+            flex: 0 0 auto;
+        }
+
+        .dimension-info-container {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            gap: 19px;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .width-label-span {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            font: 400 15px Inter, sans-serif;
+            color: #828282;
+        }
+
+        .product-weight-label-marker {
+            font: 400 15px Inter, sans-serif;
+            color: #ff2e20;
+        }
+
+        .save-publish-buttons-container {
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: row;
+            align-items: center;
+            align-self: flex-end;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .save-draft-button {
+            box-sizing: border-box;
+            display: block;
+            flex: 0 0 auto;
+            width: 211px;
+            min-width: 211px;
+            height: 42px;
+            margin-right: 20px;
+            font: 500 15px Inter, sans-serif;
+            color: #2f2f2f;
+            cursor: pointer;
+            background: #efefef;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .publish-button-style {
+            box-sizing: border-box;
+            display: block;
+            flex: 0 0 auto;
+            width: 211px;
+            min-width: 211px;
+            height: 42px;
+            font: 500 15px Inter, sans-serif;
+            color: white;
+            cursor: pointer;
+            background: #9c12ff;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .sidebar-panel {
+            box-sizing: border-box;
+            flex: 0 1 211px;
+            margin-left: 19px;
+        }
+
+        .product-info-container3 {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            gap: 7.5px;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            height: 33px;
+            padding-right: 15px;
+            padding-left: 15px;
+            background: white;
+            border: 1px solid #e9e9e9;
+            border-radius: 16.5px;
+        }
+
+        .purple-text-heading {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            font: 500 14px Inter, sans-serif;
+            color: #9c12ff;
+        }
+
+        .progress-bar {
+            box-sizing: border-box;
+            display: block;
+            width: 119px;
+            max-width: initial;
+            height: 6px;
+        }
+
+        .svg-container6 {
+            display: flex;
+            flex: 0 0 auto;
+            width: 20px;
+            height: 20px;
+            color: #cecece;
+        }
+
+        .feedback-panel {
+            box-sizing: border-box;
+            width: 100%;
+            padding-right: 15.5px;
+            padding-left: 15.5px;
+            margin-top: 20px;
+            background: #f9f9f9;
+            border: 1px solid #e9e9e9;
+            border-radius: 12px;
+        }
+
+        .header-with-icon {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            height: 45px;
+            border-bottom: 1px solid #e9e9e9;
+        }
+
+        .svg-container7 {
+            display: flex;
+            flex: 0 0 auto;
+            width: 18px;
+            height: 18px;
+        }
+
+        .improvement-notice {
+            flex: 0 0 auto;
+            padding: 0;
+            margin: 0;
+            margin-left: 6px;
+            font: 500 15px Inter, sans-serif;
+            color: #2f2f2f;
+        }
+
+        .product-info-container4 {
+            box-sizing: border-box;
+            width: 100%;
+            padding-top: 14.5px;
+            padding-bottom: 22px;
+        }
+
+        .input-field-container {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+            height: 33px;
+            padding-left: 7px;
+            font: 500 13px Inter, sans-serif;
+            color: #2f2f2f;
+            background: whitesmoke;
+            border: 1px solid #e9e9e9;
+            border-radius: 5px;
+        }
+
+        .transparent-input-style1 {
+            box-sizing: border-box;
+            width: 100%;
+            font: 500 13px Inter, sans-serif;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .input-style-7a28d32f::placeholder {
+            color: #2f2f2f;
+        }
+
+        .product-description-container {
+            margin-top: 15px;
+        }
+
+        .highlighted-text {
+            padding: 0;
+            margin: 0;
+            font: 500 13px Inter, sans-serif;
+            color: #ff9518;
+        }
+
+        .product-description-text-style {
+            padding: 0;
+            margin: 0;
+            margin-top: 15px;
+            font: 400 13px/17.5px Inter, sans-serif;
+            color: #2f2f2f;
+            text-align: justify;
+        }
+
+        .hierarchical-box {
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .product-description-text-style1 {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            margin-top: 15px;
+            font: 400 13px/17.5px Inter, sans-serif;
+            color: #2f2f2f;
+            text-align: left;
+        }
+    </style>  *@
+
+    
+        @* <div style="display: inline-block; width: 1440px; background: white" data-ignore="used only for top most containter width">
+            <div class="product-upload-form-layout">
+                <div class="advertisement-creation-section">
+                    <div class="brand-logo-container">
+                        <img src="assets/image_81d38a6.png" class="announcement-image-style" />
+                        <p class="announcement-title">Створення оголошення</p>
+                    </div>
+                    <div class="product-details-form">
+                        <div class="flexible-content-container">
+                            <div class="file-upload-container">
+                                <div class="file-upload-container1">
+                                    <img src="assets/image_8877d7e8.png" class="image-container-with-title" />
+                                    <div class="file-upload-container2">
+                                        <p class="file-upload-message">Завантажте файли або<br />перетягніть їх сюди</p>
+                                        <div class="file-upload-info-container">
+                                            <p class="image-format-info">Формати: JPG, GIF, PNG, WEBP</p>
+                                            <p class="image-format-info1">Максимальний розмір: 10 МБ.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-row-with-icons">
+                                <div class="card-container">
+                                    <div class="svg-container">
+                                        <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="lucide:plus" data-node-id="I168:3218;2:21361" xmlns="http://www.w3.org/2000/svg">
+                                                <path id="Vector_6" data-node-id="I168:3218;2:21362" d="M5,12h14M12,5v14" stroke="#B4B4B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="card-container">
+                                    <div class="svg-container">
+                                        <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="lucide:plus_2" data-node-id="I168:3219;2:21361" xmlns="http://www.w3.org/2000/svg">
+                                                <path id="Vector_7" data-node-id="I168:3219;2:21362" d="M5,12h14M12,5v14" stroke="#B4B4B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="card-container">
+                                    <div class="svg-container">
+                                        <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="lucide:plus_3" data-node-id="I168:3220;2:21361" xmlns="http://www.w3.org/2000/svg">
+                                                <path id="Vector_8" data-node-id="I168:3220;2:21362" d="M5,12h14M12,5v14" stroke="#B4B4B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="card-container">
+                                    <div class="svg-container">
+                                        <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="lucide:plus_4" data-node-id="I168:3221;2:21361" xmlns="http://www.w3.org/2000/svg">
+                                                <path id="Vector_9" data-node-id="I168:3221;2:21362" d="M5,12h14M12,5v14" stroke="#B4B4B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-wrapper">
+                                <p class="text-block">або додати за посиланням</p>
+                                <div class="flex-container-with-image">
+                                    <div class="flexible-content-container">
+                                        <!-- PLACEHOLDER - Input Component detected here. Go to "React Code" via right click menu to see code generated -->
+                                    </div>
+                                    <div class="flex-column-container">
+                                        <img src="assets/image_4844dd1f.png" class="micro-image-container" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info-form-layout">
+                            <div>
+                                <div class="product-info-container2">
+                                    <div class="svg-container1">
+                                        <svg viewBox="0 0 20 20" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <defs>
+                                                <clipPath id="clip3_168_3213" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect width="20" height="20" fill="white" transform="translate(0, 0)" />
+                                                </clipPath>
+                                            </defs>
+                                            <g id="icon-park-outline:attention" data-node-id="168:3226" clip-path="url(#clip3_168_3213)" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="Group_3" data-node-id="168:3227">
+                                                    <path id="Vector_10" data-node-id="168:3228" d="M10.001,18.333c1.095,0.002 2.179,-0.213 3.19,-0.632c1.011,-0.419 1.93,-1.034 2.703,-1.808c0.775,-0.773 1.389,-1.692 1.808,-2.703c0.419,-1.011 0.634,-2.095 0.633,-3.19c0.001,-1.095 -0.214,-2.179 -0.633,-3.19c-0.419,-1.011 -1.033,-1.929 -1.808,-2.702c-0.773,-0.775 -1.692,-1.39 -2.703,-1.809c-1.011,-0.419 -2.095,-0.634 -3.19,-0.632c-1.094,-0.002 -2.178,0.213 -3.189,0.632c-1.012,0.419 -1.93,1.034 -2.703,1.809c-0.775,0.773 -1.39,1.691 -1.809,2.702c-0.418,1.011 -0.633,2.095 -0.632,3.19c-0.001,1.095 0.214,2.179 0.632,3.19c0.419,1.011 1.034,1.93 1.809,2.703c0.773,0.774 1.691,1.389 2.703,1.808c1.011,0.419 2.095,0.634 3.189,0.632z" stroke="#9C12FF" stroke-width="1.83333" stroke-linejoin="round" />
+                                                    <path id="Vector_11" data-node-id="168:3229" fill-rule="evenodd" clip-rule="evenodd" d="M10.003,15.417c0.276,0 0.541,-0.11 0.736,-0.305c0.196,-0.196 0.305,-0.461 0.305,-0.737c0,-0.276 -0.109,-0.541 -0.305,-0.737c-0.195,-0.195 -0.46,-0.305 -0.736,-0.305c-0.277,0 -0.542,0.11 -0.737,0.305c-0.195,0.196 -0.305,0.461 -0.305,0.737c0,0.276 0.11,0.541 0.305,0.737c0.195,0.195 0.46,0.305 0.737,0.305z" fill="#9C12FF" />
+                                                    <path id="Vector_12" data-node-id="168:3230" d="M10,5v6.667" stroke="#9C12FF" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round" />
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <p class="seller-info-text">Додайте фото, назву, опис та категорію продавця</p>
+                                </div>
+                                <div class="product-details-container">
+                                    <p class="main-info-heading">Основна інформація</p>
+                                    <div class="product-details-container">
+                                        <div class="brand-logo-container">
+                                            <div class="product-info-container5">
+                                                <div class="product-info-container">
+                                                    <p class="brand-label"><span class="brand-title-style">Назва </span><span class="brand-label1">•</span></p>
+                                                    <div class="svg-container2">
+                                                        <svg viewBox="0 0 18 18" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="ep:question-filled" data-node-id="168:3251" xmlns="http://www.w3.org/2000/svg">
+                                                                <path id="Vector_13" data-node-id="168:3252" d="M9,1.125c2.089,0 4.092,0.83 5.568,2.307c1.477,1.476 2.307,3.479 2.307,5.568c0,2.089 -0.83,4.092 -2.307,5.568c-1.476,1.477 -3.479,2.307 -5.568,2.307c-2.089,0 -4.092,-0.83 -5.568,-2.307c-1.477,-1.476 -2.307,-3.479 -2.307,-5.568c0,-2.089 0.83,-4.092 2.307,-5.568c1.476,-1.477 3.479,-2.307 5.568,-2.307zM9.417,4.491c-0.915,0 -1.633,0.26 -2.165,0.78c-0.545,0.519 -0.805,1.237 -0.805,2.153h1.411c0,-0.52 0.099,-0.928 0.31,-1.213c0.235,-0.346 0.618,-0.507 1.163,-0.507c0.42,0 0.755,0.111 0.99,0.346c0.222,0.235 0.346,0.557 0.346,0.966c0,0.309 -0.111,0.606 -0.334,0.878l-0.148,0.173c-0.805,0.718 -1.287,1.238 -1.448,1.572c-0.174,0.334 -0.248,0.743 -0.248,1.213v0.173h1.423v-0.173c0,-0.297 0.062,-0.557 0.186,-0.805c0.111,-0.222 0.272,-0.433 0.495,-0.618c0.594,-0.52 0.953,-0.854 1.064,-0.978c0.297,-0.396 0.458,-0.903 0.458,-1.522c0,-0.755 -0.247,-1.349 -0.742,-1.782c-0.495,-0.446 -1.151,-0.656 -1.956,-0.656zM9.195,11.631c-0.253,-0.006 -0.497,0.087 -0.681,0.26c-0.091,0.086 -0.162,0.189 -0.209,0.305c-0.047,0.115 -0.068,0.239 -0.063,0.363c0,0.273 0.086,0.496 0.272,0.669c0.182,0.177 0.427,0.274 0.681,0.272c0.272,0 0.495,-0.087 0.68,-0.26c0.093,-0.087 0.166,-0.193 0.215,-0.31c0.049,-0.117 0.073,-0.243 0.07,-0.371c0.002,-0.124 -0.021,-0.247 -0.067,-0.362c-0.047,-0.115 -0.117,-0.219 -0.205,-0.306c-0.189,-0.173 -0.437,-0.267 -0.693,-0.26z" fill="currentColor" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info-container1"></div>
+                                            </div>
+                                            <div class="product-info-panel">
+                                                <div class="product-info-container">
+                                                    <p class="brand-label"><span class="brand-title-style">Артикул </span><span class="brand-label1">•</span></p>
+                                                    <div class="svg-container3">
+                                                        <svg viewBox="0 0 18 18" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="ep:question-filled_2" data-node-id="168:3253" xmlns="http://www.w3.org/2000/svg">
+                                                                <path id="Vector_14" data-node-id="168:3254" d="M9,1.125c2.09,0 4.09,0.83 5.57,2.307c1.48,1.476 2.31,3.479 2.31,5.568c0,2.089 -0.83,4.092 -2.31,5.568c-1.48,1.477 -3.48,2.307 -5.57,2.307c-2.09,0 -4.09,-0.83 -5.57,-2.307c-1.48,-1.476 -2.31,-3.479 -2.31,-5.568c0,-2.089 0.83,-4.092 2.31,-5.568c1.48,-1.477 3.48,-2.307 5.57,-2.307zM9.42,4.491c-0.92,0 -1.64,0.26 -2.17,0.78c-0.54,0.519 -0.8,1.237 -0.8,2.153h1.41c0,-0.52 0.1,-0.928 0.31,-1.213c0.23,-0.346 0.62,-0.507 1.16,-0.507c0.42,0 0.76,0.111 0.99,0.346c0.22,0.235 0.35,0.557 0.35,0.966c0,0.309 -0.11,0.606 -0.34,0.878l-0.15,0.173c-0.8,0.718 -1.28,1.238 -1.44,1.572c-0.18,0.334 -0.25,0.743 -0.25,1.213v0.173h1.42v-0.173c0,-0.297 0.06,-0.557 0.19,-0.805c0.11,-0.222 0.27,-0.433 0.49,-0.618c0.6,-0.52 0.96,-0.854 1.07,-0.978c0.29,-0.396 0.46,-0.903 0.46,-1.522c0,-0.755 -0.25,-1.349 -0.75,-1.782c-0.49,-0.446 -1.15,-0.656 -1.95,-0.656zM9.19,11.631c-0.25,-0.006 -0.49,0.087 -0.68,0.26c-0.09,0.086 -0.16,0.189 -0.2,0.305c-0.05,0.115 -0.07,0.239 -0.07,0.363c0,0.273 0.09,0.496 0.27,0.669c0.19,0.177 0.43,0.274 0.68,0.272c0.28,0 0.5,-0.087 0.69,-0.26c0.09,-0.087 0.16,-0.193 0.21,-0.31c0.05,-0.117 0.07,-0.243 0.07,-0.371c0,-0.124 -0.02,-0.247 -0.07,-0.362c-0.04,-0.115 -0.11,-0.219 -0.2,-0.306c-0.19,-0.173 -0.44,-0.267 -0.7,-0.26z" fill="currentColor" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info-container1"></div>
+                                            </div>
+                                        </div>
+                                        <div class="brand-section">
+                                            <div class="brand-logo-container">
+                                                <p class="brand-label"><span class="brand-title-style">Бренд </span><span class="brand-label1">• </span></p>
+                                                <div class="svg-container4">
+                                                    <svg viewBox="0 0 18 18" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <g id="ep:question-filled_3" data-node-id="168:3255" xmlns="http://www.w3.org/2000/svg">
+                                                            <path id="Vector_15" data-node-id="168:3256" d="M9,1.125c2.089,0 4.092,0.83 5.568,2.307c1.477,1.476 2.307,3.479 2.307,5.568c0,2.089 -0.83,4.092 -2.307,5.568c-1.476,1.477 -3.479,2.307 -5.568,2.307c-2.089,0 -4.092,-0.83 -5.568,-2.307c-1.477,-1.476 -2.307,-3.479 -2.307,-5.568c0,-2.089 0.83,-4.092 2.307,-5.568c1.476,-1.477 3.479,-2.307 5.568,-2.307zM9.417,4.491c-0.915,0 -1.633,0.26 -2.165,0.78c-0.545,0.519 -0.805,1.237 -0.805,2.153h1.411c0,-0.52 0.099,-0.928 0.31,-1.213c0.235,-0.346 0.618,-0.507 1.163,-0.507c0.42,0 0.755,0.111 0.99,0.346c0.222,0.235 0.346,0.557 0.346,0.966c0,0.309 -0.111,0.606 -0.334,0.878l-0.148,0.173c-0.805,0.718 -1.287,1.238 -1.448,1.572c-0.174,0.334 -0.248,0.743 -0.248,1.213v0.173h1.423v-0.173c0,-0.297 0.062,-0.557 0.186,-0.805c0.111,-0.222 0.272,-0.433 0.495,-0.618c0.594,-0.52 0.953,-0.854 1.064,-0.978c0.297,-0.396 0.458,-0.903 0.458,-1.522c0,-0.755 -0.247,-1.349 -0.742,-1.782c-0.495,-0.446 -1.151,-0.656 -1.956,-0.656zM9.195,11.631c-0.253,-0.006 -0.497,0.087 -0.681,0.26c-0.091,0.086 -0.162,0.189 -0.209,0.305c-0.047,0.115 -0.068,0.239 -0.063,0.363c0,0.273 0.086,0.496 0.272,0.669c0.182,0.177 0.427,0.274 0.681,0.272c0.272,0 0.495,-0.087 0.68,-0.26c0.093,-0.087 0.166,-0.193 0.215,-0.31c0.049,-0.117 0.073,-0.243 0.07,-0.371c0.002,-0.124 -0.021,-0.247 -0.067,-0.362c-0.047,-0.115 -0.117,-0.219 -0.205,-0.306c-0.189,-0.173 -0.437,-0.267 -0.693,-0.26z" fill="currentColor" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="brand-container"></div>
+                                        </div>
+                                        <div class="color-section">
+                                            <p class="color-label">Колір</p>
+                                            <div class="color-box"></div>
+                                        </div>
+                                        <div class="fullwidth-container">
+                                            <p class="description-section"><span class="brand-title-style">Опис </span><span class="brand-label1">•</span></p>
+                                            <div class="vertical-flex-container">
+                                                <div class="flex-column-end-align">
+                                                    <div class="svg-container5">
+                                                        <svg viewBox="0 0 18 18" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Polygon 1" data-node-id="168:3248" d="M12.0913,10.9051c-0.02,0.647 -0.54,1.167 -1.19,1.184l-5.22,0.134c-1.1,0.028 -1.67,-1.298 -0.89,-2.074l5.36,-5.357c0.77,-0.777 2.1,-0.207 2.07,0.89z" fill="currentColor" xmlns="http://www.w3.org/2000/svg" /></svg>
+                                                    </div>
+                                                </div>
+                                                <p class="progress-counter">0 / 1500</p>
+                                            </div>
+                                        </div>
+                                        <div class="category-label-container">
+                                            <p class="description-section"><span class="brand-title-style">Категорія товару </span><span class="brand-label1">•</span></p>
+                                            <div class="color-box"></div>
+                                        </div>
+                                        <div class="color-section">
+                                            <p class="color-label">Висота предмету (см)</p>
+                                            <div class="color-box"></div>
+                                        </div>
+                                        <div class="color-section">
+                                            <p class="color-label">Матеріал виробу</p>
+                                            <div class="color-box"></div>
+                                        </div>
+                                        <div class="color-section">
+                                            <p class="color-label">Країна виробника</p>
+                                            <div class="color-box"></div>
+                                        </div>
+                                        <div class="color-section">
+                                            <p class="color-label">Ширина предмету (см)</p>
+                                            <div class="color-box"></div>
+                                        </div>
+                                        <div class="main-content-container">
+                                            <div class="brand-logo-container">
+                                                <p class="header-text">ІКПП</p>
+                                                <div class="svg-container3">
+                                                    <svg viewBox="0 0 18 18" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <g id="ep:question-filled_4" data-node-id="168:3276" xmlns="http://www.w3.org/2000/svg">
+                                                            <path id="Vector_16" data-node-id="168:3277" d="M9,1.12c2.089,0 4.092,0.83 5.568,2.31c1.477,1.48 2.307,3.48 2.307,5.57c0,2.09 -0.83,4.09 -2.307,5.57c-1.476,1.48 -3.479,2.31 -5.568,2.31c-2.089,0 -4.092,-0.83 -5.568,-2.31c-1.477,-1.48 -2.307,-3.48 -2.307,-5.57c0,-2.09 0.83,-4.09 2.307,-5.57c1.476,-1.48 3.479,-2.31 5.568,-2.31zM9.417,4.49c-0.915,0 -1.633,0.26 -2.165,0.78c-0.545,0.52 -0.805,1.24 -0.805,2.15h1.411c0,-0.52 0.099,-0.92 0.31,-1.21c0.235,-0.35 0.618,-0.51 1.163,-0.51c0.42,0 0.755,0.12 0.99,0.35c0.222,0.24 0.346,0.56 0.346,0.97c0,0.3 -0.111,0.6 -0.334,0.87l-0.148,0.18c-0.805,0.72 -1.287,1.23 -1.448,1.57c-0.174,0.33 -0.248,0.74 -0.248,1.21v0.18h1.423v-0.18c0,-0.3 0.062,-0.56 0.186,-0.8c0.111,-0.23 0.272,-0.44 0.495,-0.62c0.594,-0.52 0.953,-0.86 1.064,-0.98c0.297,-0.39 0.458,-0.9 0.458,-1.52c0,-0.76 -0.247,-1.35 -0.742,-1.78c-0.495,-0.45 -1.151,-0.66 -1.956,-0.66zM9.195,11.63c-0.253,-0.01 -0.497,0.09 -0.681,0.26c-0.091,0.09 -0.162,0.19 -0.209,0.31c-0.047,0.11 -0.068,0.24 -0.063,0.36c0,0.27 0.086,0.49 0.272,0.67c0.182,0.17 0.427,0.27 0.681,0.27c0.272,0 0.495,-0.09 0.68,-0.26c0.093,-0.09 0.166,-0.19 0.215,-0.31c0.049,-0.12 0.073,-0.24 0.07,-0.37c0.002,-0.12 -0.021,-0.25 -0.067,-0.36c-0.047,-0.12 -0.117,-0.22 -0.205,-0.31c-0.189,-0.17 -0.437,-0.27 -0.693,-0.26z" fill="currentColor" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="border-box-container"></div>
+                                        </div>
+                                        <div class="brand-section">
+                                            <div class="brand-logo-container">
+                                                <p class="header-text">Код упакування</p>
+                                                <div class="svg-container3">
+                                                    <svg viewBox="0 0 18 18" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <g id="ep:question-filled_5" data-node-id="168:3278" xmlns="http://www.w3.org/2000/svg">
+                                                            <path id="Vector_17" data-node-id="168:3279" d="M9,1.12c2.089,0 4.092,0.83 5.568,2.31c1.477,1.48 2.307,3.48 2.307,5.57c0,2.09 -0.83,4.09 -2.307,5.57c-1.476,1.48 -3.479,2.31 -5.568,2.31c-2.089,0 -4.092,-0.83 -5.568,-2.31c-1.477,-1.48 -2.307,-3.48 -2.307,-5.57c0,-2.09 0.83,-4.09 2.307,-5.57c1.476,-1.48 3.479,-2.31 5.568,-2.31zM9.417,4.49c-0.915,0 -1.633,0.26 -2.165,0.78c-0.545,0.52 -0.805,1.24 -0.805,2.15h1.411c0,-0.52 0.099,-0.92 0.31,-1.21c0.235,-0.35 0.618,-0.51 1.163,-0.51c0.42,0 0.755,0.12 0.99,0.35c0.222,0.24 0.346,0.56 0.346,0.97c0,0.3 -0.111,0.6 -0.334,0.87l-0.148,0.18c-0.805,0.72 -1.287,1.23 -1.448,1.57c-0.174,0.33 -0.248,0.74 -0.248,1.21v0.18h1.423v-0.18c0,-0.3 0.062,-0.56 0.186,-0.8c0.111,-0.23 0.272,-0.44 0.495,-0.62c0.594,-0.52 0.953,-0.86 1.064,-0.98c0.297,-0.39 0.458,-0.9 0.458,-1.52c0,-0.76 -0.247,-1.35 -0.742,-1.78c-0.495,-0.45 -1.151,-0.66 -1.956,-0.66zM9.195,11.63c-0.253,-0.01 -0.497,0.09 -0.681,0.26c-0.091,0.09 -0.162,0.19 -0.209,0.31c-0.047,0.11 -0.068,0.24 -0.063,0.36c0,0.27 0.086,0.49 0.272,0.67c0.182,0.17 0.427,0.27 0.681,0.27c0.272,0 0.495,-0.09 0.68,-0.26c0.093,-0.09 0.166,-0.19 0.215,-0.31c0.049,-0.12 0.073,-0.24 0.07,-0.37c0.002,-0.12 -0.021,-0.25 -0.067,-0.36c-0.047,-0.12 -0.117,-0.22 -0.205,-0.31c-0.189,-0.17 -0.437,-0.27 -0.693,-0.26z" fill="currentColor" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="brand-container"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="price-and-barcode-section">
+                                <p class="main-info-heading">Штрихкод та ціна</p>
+                                <div class="price-barcode-section">
+                                    <div class="price-section-container">
+                                        <p class="brand-label"><span class="brand-title-style">Ціна, грн </span><span class="brand-label1">•</span></p>
+                                        <div class="price-tag-container"></div>
+                                    </div>
+                                    <div class="barcode-info-container">
+                                        <p class="brand-label"><span class="brand-title-style">Штрихкод </span><span class="brand-label1">•</span></p>
+                                        <div class="price-tag-container"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-search-widget">
+                                <div class="product-search-info">
+                                    <div class="brand-logo-container">
+                                        <p class="location-heading">Розміщення</p>
+                                        <div class="svg-container3">
+                                            <svg viewBox="0 0 18 18" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="ep:question-filled_6" data-node-id="168:3291" xmlns="http://www.w3.org/2000/svg">
+                                                    <path id="Vector_18" data-node-id="168:3292" d="M9,1.12c2.089,0 4.092,0.83 5.568,2.31c1.477,1.48 2.307,3.48 2.307,5.57c0,2.09 -0.83,4.09 -2.307,5.57c-1.476,1.48 -3.479,2.31 -5.568,2.31c-2.089,0 -4.092,-0.83 -5.568,-2.31c-1.477,-1.48 -2.307,-3.48 -2.307,-5.57c0,-2.09 0.83,-4.09 2.307,-5.57c1.476,-1.48 3.479,-2.31 5.568,-2.31zM9.417,4.49c-0.915,0 -1.633,0.26 -2.165,0.78c-0.545,0.52 -0.805,1.24 -0.805,2.15h1.411c0,-0.52 0.099,-0.92 0.31,-1.21c0.235,-0.35 0.618,-0.51 1.163,-0.51c0.42,0 0.755,0.12 0.99,0.35c0.222,0.24 0.346,0.56 0.346,0.97c0,0.3 -0.111,0.6 -0.334,0.87l-0.148,0.18c-0.805,0.72 -1.287,1.23 -1.448,1.57c-0.174,0.33 -0.248,0.74 -0.248,1.21v0.18h1.423v-0.18c0,-0.3 0.062,-0.56 0.186,-0.8c0.111,-0.23 0.272,-0.44 0.495,-0.62c0.594,-0.52 0.953,-0.86 1.064,-0.98c0.297,-0.39 0.458,-0.9 0.458,-1.52c0,-0.76 -0.247,-1.35 -0.742,-1.78c-0.495,-0.45 -1.151,-0.66 -1.956,-0.66zM9.195,11.63c-0.253,-0.01 -0.497,0.09 -0.681,0.26c-0.091,0.09 -0.162,0.19 -0.209,0.31c-0.047,0.11 -0.068,0.24 -0.063,0.36c0,0.27 0.086,0.49 0.272,0.67c0.182,0.17 0.427,0.27 0.681,0.27c0.272,0 0.495,-0.09 0.68,-0.26c0.093,-0.09 0.166,-0.19 0.215,-0.31c0.049,-0.12 0.073,-0.24 0.07,-0.37c0.002,-0.12 -0.021,-0.25 -0.067,-0.36c-0.047,-0.12 -0.117,-0.22 -0.205,-0.31c-0.189,-0.17 -0.437,-0.27 -0.693,-0.26z" fill="currentColor" />
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p class="search-query-description-text-style">Пошукові запити використовуються для пошуку товару в каталозі Швидкобай</p>
+                                </div>
+                                <div class="color-section">
+                                    <div class="product-search-info">
+                                        <p class="color-label">Пошукові записи</p>
+                                        <div class="product-search-query-container">
+                                            <p class="product-search-query-suggestions">Додайте не менше 8 запитів, за якими покупці шукатимуть товар</p>
+                                        </div>
+                                    </div>
+                                    <div class="marketplace-category-section">
+                                        <div class="product-info-container">
+                                            <p class="header-text"><span>Категорія на маркетплейсі </span><span class="brand-label1">•</span></p>
+                                            <div class="svg-container3">
+                                                <svg viewBox="0 0 18 18" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="ep:question-filled_7" data-node-id="168:3294" xmlns="http://www.w3.org/2000/svg">
+                                                        <path id="Vector_19" data-node-id="168:3295" d="M9,1.12c2.089,0 4.092,0.83 5.568,2.31c1.477,1.48 2.307,3.48 2.307,5.57c0,2.09 -0.83,4.09 -2.307,5.57c-1.476,1.48 -3.479,2.31 -5.568,2.31c-2.089,0 -4.092,-0.83 -5.568,-2.31c-1.477,-1.48 -2.307,-3.48 -2.307,-5.57c0,-2.09 0.83,-4.09 2.307,-5.57c1.476,-1.48 3.479,-2.31 5.568,-2.31zM9.417,4.49c-0.915,0 -1.633,0.26 -2.165,0.78c-0.545,0.52 -0.805,1.24 -0.805,2.15h1.411c0,-0.52 0.099,-0.92 0.31,-1.21c0.235,-0.35 0.618,-0.51 1.163,-0.51c0.42,0 0.755,0.12 0.99,0.35c0.222,0.24 0.346,0.56 0.346,0.97c0,0.3 -0.111,0.6 -0.334,0.87l-0.148,0.18c-0.805,0.72 -1.287,1.23 -1.448,1.57c-0.174,0.33 -0.248,0.74 -0.248,1.21v0.18h1.423v-0.18c0,-0.3 0.062,-0.56 0.186,-0.8c0.111,-0.23 0.272,-0.44 0.495,-0.62c0.594,-0.52 0.953,-0.86 1.064,-0.98c0.297,-0.39 0.458,-0.9 0.458,-1.52c0,-0.76 -0.247,-1.35 -0.742,-1.78c-0.495,-0.45 -1.151,-0.66 -1.956,-0.66zM9.195,11.63c-0.253,-0.01 -0.497,0.09 -0.681,0.26c-0.091,0.09 -0.162,0.19 -0.209,0.31c-0.047,0.11 -0.068,0.24 -0.063,0.36c0,0.27 0.086,0.49 0.272,0.67c0.182,0.17 0.427,0.27 0.681,0.27c0.272,0 0.495,-0.09 0.68,-0.26c0.093,-0.09 0.166,-0.19 0.215,-0.31c0.049,-0.12 0.073,-0.24 0.07,-0.37c0.002,-0.12 -0.021,-0.25 -0.067,-0.36c-0.047,-0.12 -0.117,-0.22 -0.205,-0.31c-0.189,-0.17 -0.437,-0.27 -0.693,-0.26z" fill="currentColor" />
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-margin-container">
+                                            <!-- PLACEHOLDER - Select Component detected here. Go to "React Code" via right click menu to see code generated -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-search-widget">
+                                <div class="product-search-info">
+                                    <div class="brand-logo-container">
+                                        <p class="location-heading">Габаритні розміри</p>
+                                        <div class="svg-container3">
+                                            <svg viewBox="0 0 18 18" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="ep:question-filled_8" data-node-id="168:3302" xmlns="http://www.w3.org/2000/svg">
+                                                    <path id="Vector_21" data-node-id="168:3303" d="M9,1.12c2.089,0 4.092,0.83 5.568,2.31c1.477,1.48 2.307,3.48 2.307,5.57c0,2.09 -0.83,4.09 -2.307,5.57c-1.476,1.48 -3.479,2.31 -5.568,2.31c-2.089,0 -4.092,-0.83 -5.568,-2.31c-1.477,-1.48 -2.307,-3.48 -2.307,-5.57c0,-2.09 0.83,-4.09 2.307,-5.57c1.476,-1.48 3.479,-2.31 5.568,-2.31zM9.417,4.49c-0.915,0 -1.633,0.26 -2.165,0.78c-0.545,0.52 -0.805,1.24 -0.805,2.15h1.411c0,-0.52 0.099,-0.92 0.31,-1.21c0.235,-0.35 0.618,-0.51 1.163,-0.51c0.42,0 0.755,0.12 0.99,0.35c0.222,0.24 0.346,0.56 0.346,0.97c0,0.3 -0.111,0.6 -0.334,0.87l-0.148,0.18c-0.805,0.72 -1.287,1.23 -1.448,1.57c-0.174,0.33 -0.248,0.74 -0.248,1.21v0.18h1.423v-0.18c0,-0.3 0.062,-0.56 0.186,-0.8c0.111,-0.23 0.272,-0.44 0.495,-0.62c0.594,-0.52 0.953,-0.86 1.064,-0.98c0.297,-0.39 0.458,-0.9 0.458,-1.52c0,-0.76 -0.247,-1.35 -0.742,-1.78c-0.495,-0.45 -1.151,-0.66 -1.956,-0.66zM9.195,11.63c-0.253,-0.01 -0.497,0.09 -0.681,0.26c-0.091,0.09 -0.162,0.19 -0.209,0.31c-0.047,0.11 -0.068,0.24 -0.063,0.36c0,0.27 0.086,0.49 0.272,0.67c0.182,0.17 0.427,0.27 0.681,0.27c0.272,0 0.495,-0.09 0.68,-0.26c0.093,-0.09 0.166,-0.19 0.215,-0.31c0.049,-0.12 0.073,-0.24 0.07,-0.37c0.002,-0.12 -0.021,-0.25 -0.067,-0.36c-0.047,-0.12 -0.117,-0.22 -0.205,-0.31c-0.189,-0.17 -0.437,-0.27 -0.693,-0.26z" fill="currentColor" />
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p class="search-query-description-text-style">Спростіть розрахунок вартості доставки для вас та покупця</p>
+                                </div>
+                                <div class="form-layout-container">
+                                    <div class="product-dimensions-info">
+                                        <div class="dimension-info-container">
+                                            <div class="price-section-container">
+                                                <p class="width-label-span"><span class="brand-title-style">Ширина, см</span><span> </span><span class="product-weight-label-marker">•</span></p>
+                                                <div class="price-tag-container"></div>
+                                            </div>
+                                            <div class="price-section-container">
+                                                <p class="header-text"><span>Висота, см </span><span class="brand-label1">•</span></p>
+                                                <div class="price-tag-container"></div>
+                                            </div>
+                                            <div class="price-section-container">
+                                                <p class="header-text"><span>Довжина, см </span><span class="brand-label1">•</span></p>
+                                                <div class="price-tag-container"></div>
+                                            </div>
+                                        </div>
+                                        <div class="color-section">
+                                            <p class="description-section"><span class="brand-title-style">Вага товару з упаковкою </span><span class="product-weight-label-marker">•</span></p>
+                                            <div class="color-box"></div>
+                                        </div>
+                                    </div>
+                                    <div class="save-publish-buttons-container">
+                                        <!-- PLACEHOLDER - Button Component detected here. Go to "React Code" via right click menu to see code generated -->
+                                        <!-- PLACEHOLDER - Button Component detected here. Go to "React Code" via right click menu to see code generated -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-panel">
+                    <div class="product-info-container3">
+                        <p class="purple-text-heading">10%</p>
+                        <img src="assets/image_abfed216.png" class="progress-bar" />
+                        <div class="svg-container6">
+                            <svg viewBox="0 0 20 20" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="ep:question-filled_9" data-node-id="168:3354" xmlns="http://www.w3.org/2000/svg">
+                                    <path id="Vector_32" data-node-id="168:3355" d="M10,1.688c2.2,0 4.32,0.875 5.88,2.434c1.56,1.559 2.43,3.673 2.43,5.878c0,2.205 -0.87,4.319 -2.43,5.878c-1.56,1.559 -3.68,2.434 -5.88,2.434c-2.2,0 -4.32,-0.875 -5.88,-2.434c-1.56,-1.559 -2.43,-3.673 -2.43,-5.878c0,-2.205 0.87,-4.319 2.43,-5.878c1.56,-1.559 3.68,-2.434 5.88,-2.434zM10.44,5.241c-0.97,0 -1.72,0.274 -2.29,0.822c-0.57,0.549 -0.84,1.307 -0.84,2.273h1.48c0,-0.548 0.11,-0.979 0.33,-1.28c0.25,-0.366 0.65,-0.535 1.23,-0.535c0.44,0 0.8,0.117 1.04,0.365c0.24,0.249 0.37,0.588 0.37,1.019c0,0.327 -0.12,0.64 -0.35,0.928l-0.16,0.183c-0.85,0.757 -1.36,1.306 -1.53,1.658c-0.18,0.353 -0.26,0.784 -0.26,1.281v0.182h1.5v-0.182c0,-0.314 0.07,-0.588 0.2,-0.849c0.12,-0.236 0.29,-0.458 0.52,-0.654c0.63,-0.548 1.01,-0.901 1.12,-1.031c0.32,-0.418 0.49,-0.954 0.49,-1.607c0,-0.797 -0.26,-1.424 -0.79,-1.881c-0.52,-0.47 -1.21,-0.692 -2.06,-0.692zM10.21,12.778c-0.27,-0.008 -0.53,0.091 -0.72,0.274c-0.1,0.09 -0.17,0.2 -0.22,0.321c-0.05,0.122 -0.08,0.253 -0.07,0.384c0,0.288 0.09,0.523 0.29,0.706c0.19,0.186 0.45,0.29 0.72,0.287c0.28,0 0.52,-0.091 0.71,-0.274c0.1,-0.092 0.18,-0.204 0.23,-0.328c0.05,-0.123 0.08,-0.257 0.07,-0.391c0.01,-0.131 -0.02,-0.261 -0.07,-0.382c-0.05,-0.121 -0.12,-0.231 -0.21,-0.323c-0.2,-0.183 -0.46,-0.282 -0.73,-0.274z" fill="currentColor" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="feedback-panel">
+                        <div class="header-with-icon">
+                            <div class="svg-container7">
+                                <svg viewBox="0 0 18 18" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <clipPath id="clip4_168_3213" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="18" height="18" fill="white" transform="translate(0, 0)" />
+                                        </clipPath>
+                                        <mask id="mask0_168_3213" style="mask-type: luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="Group_5" data-node-id="168:3347">
+                                                <g id="Group_6" data-node-id="168:3348">
+                                                    <path id="Vector_28" data-node-id="168:3349" d="M9,16.5c0.99,0.001 1.96,-0.192 2.87,-0.569c0.91,-0.377 1.74,-0.93 2.43,-1.628c0.7,-0.695 1.25,-1.522 1.63,-2.432c0.38,-0.91 0.57,-1.886 0.57,-2.871c0,-0.985 -0.19,-1.961 -0.57,-2.871c-0.38,-0.91 -0.93,-1.737 -1.63,-2.432c-0.69,-0.698 -1.52,-1.251 -2.43,-1.628c-0.91,-0.377 -1.88,-0.57 -2.87,-0.569c-0.99,-0.001 -1.96,0.192 -2.87,0.569c-0.91,0.377 -1.74,0.93 -2.43,1.628c-0.7,0.695 -1.25,1.522 -1.63,2.432c-0.38,0.91 -0.57,1.886 -0.57,2.871c0,0.985 0.19,1.961 0.57,2.871c0.38,0.91 0.93,1.737 1.63,2.432c0.69,0.698 1.52,1.251 2.43,1.628c0.91,0.377 1.88,0.57 2.87,0.569z" fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round" />
+                                                    <path id="Vector_29" data-node-id="168:3350" fill-rule="evenodd" clip-rule="evenodd" d="M9,13.875c0.25,0 0.49,-0.099 0.66,-0.275c0.18,-0.175 0.28,-0.414 0.28,-0.662c0,-0.249 -0.1,-0.488 -0.28,-0.663c-0.17,-0.176 -0.41,-0.275 -0.66,-0.275c-0.25,0 -0.49,0.099 -0.66,0.275c-0.18,0.175 -0.28,0.414 -0.28,0.663c0,0.248 0.1,0.487 0.28,0.662c0.17,0.176 0.41,0.275 0.66,0.275z" fill="black" />
+                                                    <path id="Vector_30" data-node-id="168:3351" d="M9,4.5v6" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                </g>
+                                            </g>
+                                        </mask>
+                                    </defs>
+                                    <g id="icon-park-solid:attention" data-node-id="168:3345" clip-path="url(#clip4_168_3213)" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="Mask group" data-node-id="168:3346">
+                                            <mask id="mask0_168_3213" style="mask-type: luminance" maskUnits="userSpaceOnUse" x="1208" y="196" width="18" height="18">
+                                                <g id="Group_5" data-node-id="168:3347">
+                                                    <g id="Group_6" data-node-id="168:3348">
+                                                        <path id="Vector_28" data-node-id="168:3349" d="M1217 212.5C1217.99 212.501 1218.96 212.308 1219.87 211.931C1220.78 211.554 1221.61 211.001 1222.3 210.303C1223 209.608 1223.55 208.781 1223.93 207.871C1224.31 206.961 1224.5 205.985 1224.5 205C1224.5 204.015 1224.31 203.039 1223.93 202.129C1223.55 201.219 1223 200.392 1222.3 199.697C1221.61 198.999 1220.78 198.446 1219.87 198.069C1218.96 197.692 1217.99 197.499 1217 197.5C1216.01 197.499 1215.04 197.692 1214.13 198.069C1213.22 198.446 1212.39 198.999 1211.7 199.697C1211 200.392 1210.45 201.219 1210.07 202.129C1209.69 203.039 1209.5 204.015 1209.5 205C1209.5 205.985 1209.69 206.961 1210.07 207.871C1210.45 208.781 1211 209.608 1211.7 210.303C1212.39 211.001 1213.22 211.554 1214.13 211.931C1215.04 212.308 1216.01 212.501 1217 212.5Z" fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round" />
+                                                        <path id="Vector_29" data-node-id="168:3350" fill-rule="evenodd" clip-rule="evenodd" d="M1217 209.875C1217.25 209.875 1217.49 209.776 1217.66 209.6C1217.84 209.425 1217.94 209.186 1217.94 208.938C1217.94 208.689 1217.84 208.45 1217.66 208.275C1217.49 208.099 1217.25 208 1217 208C1216.75 208 1216.51 208.099 1216.34 208.275C1216.16 208.45 1216.06 208.689 1216.06 208.938C1216.06 209.186 1216.16 209.425 1216.34 209.6C1216.51 209.776 1216.75 209.875 1217 209.875Z" fill="black" />
+                                                        <path id="Vector_30" data-node-id="168:3351" d="M1217 200.5V206.5" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                    </g>
+                                                </g>
+                                            </mask>
+                                            <g mask="url(#mask0_168_3213)">
+                                                <path id="Vector_31" data-node-id="168:3352" d="M0,0h18v18h-18z" fill="#FF9518" />
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <p class="improvement-notice">Що покращити:</p>
+                        </div>
+                        <div class="product-info-container4">
+                            <div>
+                                <div class="product-search-info">
+                                    <!-- PLACEHOLDER - Input Component detected here. Go to "React Code" via right click menu to see code generated -->
+                                </div>
+                                <div class="product-description-container">
+                                    <p class="highlighted-text">Доповніть опис</p>
+                                    <p class="product-description-text-style">Розкажіть покупцям про<br />переваги товару. Опис<br />повинен бути зрозумілим<br />правдивим та ємним.</p>
+                                </div>
+                            </div>
+                            <div class="hierarchical-box">
+                                <div class="product-search-info">
+                                    <!-- PLACEHOLDER - Input Component detected here. Go to "React Code" via right click menu to see code generated -->
+                                </div>
+                                <div class="hierarchical-box">
+                                    <p class="highlighted-text">Незаповненні габарити</p>
+                                    <p class="product-description-text-style">Заповніть всі поля <br />габариту аби уникнути <br />штрафу.</p>
+                                </div>
+                            </div>
+                            <div class="hierarchical-box">
+                                <div class="product-search-info">
+                                    <!-- PLACEHOLDER - Input Component detected here. Go to "React Code" via right click menu to see code generated -->
+                                </div>
+                                <div class="hierarchical-box">
+                                    <p class="highlighted-text">Недостатньо фото</p>
+                                    <p class="product-description-text-style1">Додати фотографії щоб покупці могли розглянути товар з різних сторін.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> *@
+
+
+
+<style>
+    .file-upload-cntr {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        width: 239px;
+        padding-top: 66px;
+        padding-bottom: 66px;
+    }
+
+    .file-upload-cntr-txt {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-right: 3px;
+        padding-left: 5px;
+        margin-top: 40px;
+    }
+
+     .square {
+        width: 90%;
+        height: 100px; 
+        display: flex;
+        align-items: center;
+        justify-content: center;        
+        color: white;
+        margin-bottom: 10px; 
+        border-radius: 15px;
+        border: 1px dashed #a3a3a3;
+    }
+
+    .icon-container {
+        display: flex;
+        justify-content: space-between; 
+    }
+
+    .long-input {
+        width: 100%;
+    }
+
+     /* .small-input {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #007bff; 
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }  */
+
+        .small-input i {
+            font-size: 20px; 
+        }
+
+        .big_foto {
+            height: 500px;
+            border-radius: 20px;
+            border: 1px dashed #a3a3a3;
+        } 
+
+        .b-radius {
+            border-radius: 5px;
+        }
+
+    .image-container-with-title {
+        display: block;
+        flex: 0 0 auto;
+        max-width: initial;
+        height: 154px;
+    }
+
+    .btn-size {
+        width: 35px;
+        height: 35px;
+    }
+
+    /* центральний блок сторінки  */
+    .icn-txt-block {
+        display: flex;
+        align-items: center; /* Вирівнює іконку та текст по вертикалі */
+        border: 2px solid #ccc;
+        background-color: #f9f9f9; 
+        border-radius: 15px; 
+    }
+
+    
+
+        
+</style>
+
+<h4 class="ms-5 mb-5">Створення оголошення</h4>
+<div class="container-fluid">
+    <div class="row">        
+        <div class="col-4">           
+            <div class="row">
+                <div class="col-12">
+                   <!-- Великий прямокутний контейнер під фото -->
+                    
+                    <div class="big_foto p-3 mb-3 d-flex justify-content-center">
+                        <div class="file-upload-cntr">
+                            
+                            <svg width="239" height="155" viewBox="0 0 239 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="170" y="16.2266" width="70.7986" height="105.576" rx="11.5" transform="rotate(15 170 16.2266)" fill="#F3F3F3" stroke="#B4B4B4" stroke-dasharray="2 2" />
+                                <g clip-path="url(#clip0_467_8343)">
+                                    <path d="M202.565 76.8248L198.98 90.2055M198.98 90.2055L197.307 96.4499L174.114 90.2353L175.787 83.9909M198.98 90.2055L205.224 91.8787L208.81 78.498C209.527 75.8218 208.579 72.2216 206.501 69.2744C204.422 66.3272 200.973 64.9251 200.973 64.9251L191.925 70.1493M175.787 83.9909L169.542 82.3177L173.128 68.937C173.845 66.2609 176.466 63.6167 179.739 62.1037C183.013 60.5906 186.701 61.1007 186.701 61.1007L191.925 70.1493M175.787 83.9909L179.372 70.6102M191.925 70.1493L189.774 78.1777" stroke="#C3C3C3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M179.74 62.1041C183.014 60.5911 186.702 61.1012 186.702 61.1012L191.926 70.1497L200.975 64.9255C200.975 64.9255 204.423 66.3277 206.502 69.2749L209.361 65.7387L208.653 61.2464L181.892 54.0757L179.032 57.6119L179.74 62.1041Z" stroke="#C3C3C3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                                <rect x="-0.353553" y="0.612372" width="70.7986" height="105.576" rx="11.5" transform="matrix(-0.965926 0.258819 0.258819 0.965926 68.5195 15.3497)" fill="#F3F3F3" stroke="#B4B4B4" stroke-dasharray="2 2" />
+                                <g clip-path="url(#clip1_467_8343)">
+                                    <path d="M58.9156 66.3619L63.9978 85.329M63.9978 85.329L65.7766 91.9675L41.1193 98.5744L39.3405 91.9359M63.9978 85.329L70.6363 83.5502L65.554 64.5831C64.7917 61.7381 62.0056 58.927 58.5253 57.3185C55.0449 55.7099 48.9736 55.8121 48.9736 55.8121L37.5934 58.8614C37.5934 58.8614 32.2844 61.8086 30.0746 64.9418C27.8648 68.075 26.8575 71.9025 27.6198 74.7476L32.7021 93.7147L39.3405 91.9359M39.3405 91.9359L34.2583 72.9688" stroke="#C3C3C3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M48.976 55.812C49.3803 57.3211 49.1686 58.9291 48.3875 60.2821C47.6063 61.6351 46.3196 62.6224 44.8105 63.0268C43.3014 63.4312 41.6934 63.2195 40.3404 62.4383C38.9874 61.6571 38.0001 60.3704 37.5957 58.8613" stroke="#C3C3C3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                                <rect x="69.873" y="1.15332" width="102.211" height="152.694" rx="11.5" fill="#F3F3F3" stroke="#B4B4B4" stroke-dasharray="2 2" />
+                                <path d="M139.303 64.9731V59.7377H134.068V57.1201H139.303V51.8848H141.921V57.1201H147.156V59.7377H141.921V64.9731H139.303ZM118.362 90.4429C121.096 90.4429 123.408 89.4996 125.296 87.6132C127.184 85.7267 128.128 83.4153 128.128 80.679C128.128 77.9427 127.184 75.6313 125.296 73.7448C123.408 71.8584 121.096 70.9143 118.362 70.9125C115.627 70.9108 113.316 71.8549 111.427 73.7448C109.539 75.6348 108.595 77.9462 108.595 80.679C108.595 83.4118 109.539 85.7232 111.427 87.6132C113.316 89.5031 115.627 90.4472 118.362 90.4455M118.362 87.8278C116.329 87.8278 114.629 87.1446 113.262 85.7782C111.896 84.4118 111.213 82.712 111.213 80.679C111.213 78.646 111.896 76.9462 113.262 75.5798C114.629 74.2134 116.329 73.5302 118.362 73.5302C120.395 73.5302 122.094 74.2134 123.461 75.5798C124.827 76.9462 125.51 78.646 125.51 80.679C125.51 82.712 124.827 84.4118 123.461 85.7782C122.094 87.1446 120.395 87.8278 118.362 87.8278ZM99.0329 99.0026C97.827 99.0026 96.8209 98.5995 96.0147 97.7932C95.2085 96.987 94.8045 95.9801 94.8027 94.7725V66.5855C94.8027 65.3797 95.2067 64.3736 96.0147 63.5674C96.8227 62.7611 97.8287 62.3571 99.0329 62.3554H106.773L111.616 57.1201H127.827V65.9809H133.062V71.2162H141.921V94.7751C141.921 95.9792 141.517 96.9853 140.711 97.7932C139.905 98.6012 138.898 99.0043 137.69 99.0026H99.0329Z" fill="#C3C3C3" />
+                                <defs>
+                                    <clipPath id="clip0_467_8343">
+                                        <rect width="44.3288" height="44.3288" fill="white" transform="translate(174.814 48.3564) rotate(15)" />
+                                    </clipPath>
+                                    <clipPath id="clip1_467_8343">
+                                        <rect width="47.1268" height="47.1268" fill="white" transform="translate(19.502 59.6436) rotate(-15)" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+
+                            <div class="file-upload-cntr-txt">
+                                <h5 class="file-upload-message fw-bold">Завантажте файли або<br />&nbsp;&nbsp;перетягніть їх сюди</h5>
+                                <div class="file-upload-info-container">
+                                    <p class="image-format-info">Формати: JPG, GIF, PNG, WEBP</p>
+                                    <p class="image-format-info1">Максимальний розмір: 10 МБ.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </div>
+            </div>           
+                   <!-- Чотири квадратні контейнери під фото -->
+             <div class="container-fluid">
+                <div class="row">
+                    <div class="col-3">
+                         <div class="square me-4">Іконка 1</div>
+                    </div>
+                    <div class="col-3">
+                         <div class="square me-4">Іконка 2</div>
+                    </div>
+                    <div class="col-3">
+                         <div class="square me-4">Іконка 3</div>
+                    </div>
+                    <div class="col-3">
+                         <div class="square me-4">Іконка 4</div>
+                    </div>
+                </div>
+            </div>
+                <h5 class="text-center mb-3 mt-3">Або додати за посиланням</h5>
+            <div class="container-floid">
+                <div class="row">
+                    <div class="col-11">
+                        <!-- Поле для введення посилання -->
+                        <input type="text" class="form-control long-input mb-2 b-radius" placeholder="Введіть посилання">
+                    </div>
+                    <div class="col-1">
+                        <!-- Маленьке квадратне поле з іконкою -->
+                        <button class="small-input b-radius btn-size">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+   
+        @* центральний блок сторінки *@
+        <div class="col-6">
+            <div class="pt-3 icn-txt-block">
+                <svg class="ms-2 mb-3" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_2_20132)">
+                        <path d="M10.0013 18.3337C11.0959 18.335 12.1799 18.1201 13.1911 17.7012C14.2023 17.2823 15.1208 16.6678 15.8938 15.8928C16.6687 15.1198 17.2833 14.2014 17.7022 13.1901C18.1211 12.1789 18.336 11.0949 18.3346 10.0003C18.336 8.90579 18.1211 7.82176 17.7022 6.81054C17.2833 5.79931 16.6687 4.88082 15.8938 4.10783C15.1208 3.3329 14.2023 2.71834 13.1911 2.29946C12.1799 1.88059 11.0959 1.66565 10.0013 1.667C8.90676 1.66565 7.82274 1.88059 6.81151 2.29946C5.80029 2.71834 4.8818 3.3329 4.10881 4.10783C3.33388 4.88082 2.71932 5.79931 2.30044 6.81054C1.88156 7.82176 1.66663 8.90579 1.66798 10.0003C1.66663 11.0949 1.88156 12.1789 2.30044 13.1901C2.71932 14.2014 3.33388 15.1198 4.10881 15.8928C4.8818 16.6678 5.80029 17.2823 6.81151 17.7012C7.82274 18.1201 8.90676 18.335 10.0013 18.3337Z" stroke="#9C12FF" stroke-width="1.83333" stroke-linejoin="round" />
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0026 15.4173C10.2789 15.4173 10.5438 15.3076 10.7392 15.1122C10.9345 14.9169 11.0443 14.6519 11.0443 14.3757C11.0443 14.0994 10.9345 13.8344 10.7392 13.6391C10.5438 13.4437 10.2789 13.334 10.0026 13.334C9.72634 13.334 9.46139 13.4437 9.26603 13.6391C9.07068 13.8344 8.96094 14.0994 8.96094 14.3757C8.96094 14.6519 9.07068 14.9169 9.26603 15.1122C9.46139 15.3076 9.72634 15.4173 10.0026 15.4173Z" fill="#9C12FF" />
+                        <path d="M10 5V11.6667" stroke="#9C12FF" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round" />
+                    </g> 
+                    <defs>
+                        <clipPath id="clip0_2_20132">
+                            <rect width="20" height="20" fill="white" />
+                        </clipPath>
+                    </defs>
+                </svg>
+                <p class="ms-3">Додайте фото, назву, опис та категорію товару</p>
+            </div>
+            <br />
+            <h4 class="fw-bold">Основна інформація</h4>
+
+            <div class="conteiner-fluid">
+                <div class="row">
+                    <div class="col-8">
+                         <div class="mb-3">
+                             <span class="enter-reg-text">Назва</span>
+                             <label for="name_product" class="form-label"></label>
+                             <input type="text" class="enter-reg" id="name_product" name="NameProduct" minlength="2" maxlength="20" required>
+                             <span class="text-danger" id="name_product_error"></span>
+                         </div>
+                     </div>
+                    <div class="col-4">
+                         <div class="mb-3">
+                             <span class="enter-reg-text">Тип товару</span>
+                             <label for="type_product" class="form-label"></label>
+                             <input type="text" class="enter-reg" id="type_product" name="TypeProduct" minlength="2" maxlength="20" required>
+                             <span class="text-danger" id="type_product_error"></span>
+                         </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <span class="enter-reg-text">Бренд</span>
+                    <label for="brad_product" class="form-label"></label>
+                    <input type="text" class="enter-reg" id="brad_producte" name="BrandProduct" minlength="2" maxlength="20" required>
+                    <span class="text-danger" id="brad_product-error"></span>
+                </div>
+                <div class="mb-3">
+                    <span class="enter-reg-text">Колір</span>
+                    <label for="color_product" class="form-label"></label>
+                    <input type="text" class="enter-reg" id="color_product" name="ColorProduct" minlength="2" maxlength="20" required>
+                    <span class="text-danger" id="color_product_error"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="description_product" class="form-label">Опис товару</label>
+                    <textarea class="form-control" id="description_product" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="characteristic_product" class="form-label">Характеристика товару</label>
+                    <textarea class="form-control" id="characteristic_product" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <span class="enter-reg-text">Ціна</span>
+                    <label for="price_product" class="form-label"></label>
+                    <input type="text" class="enter-reg" id="price_producte" name="PriceProduct" minlength="2" maxlength="20" required>
+                    <span class="text-danger" id="price_product-error"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Childcategory</label>
+                    <select  class="form-control"></select>
+                    <span  class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label  class="control-label">SubChildcategory</label>
+                    <select  class="form-control"></select>
+                    <span  class="text-danger"></span>
+                </div>
+                <button class="quick-find-button btn-sz btn btn-outline-secondary mt-5 me-2 ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+                    <i></i> Опублікувати
+                </button>
+
+            </div>
+           
+        </div>
+        
+
+        <div class="col-2">
+            <div class="bg-warning text-dark p-3">
+                <h5 ckass="fw-bold">Що покращити:</h5>
+                <hr />
+
+            </div>
+        </div>
+    </div>
+</div>

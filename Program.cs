@@ -61,11 +61,15 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 ////////// Add ASP.NET Identity services //////////////
-builder.Services.AddIdentity<User, IdentityRole>()
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    // Ваші опції для користувачів і паролів
+    options.User.RequireUniqueEmail = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+})
     .AddEntityFrameworkStores<DataContext>()
     .AddDefaultTokenProviders();
-
-builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddHttpContextAccessor(); // для получения данных о пользователе в FavoritesCountViewComponent
 
@@ -98,13 +102,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
-app.MapControllers();
+app.UseSession(); // мідлвер для роботи з сесіями
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseSession(); // мідлвер для роботи з сесіями
+app.MapControllers();
 
 //app.UseMiddleware<AuthSessionMiddleware>();   // строка видає помилку
 

@@ -18,11 +18,13 @@ namespace Rozetka.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -516,5 +518,48 @@ namespace Rozetka.Controllers
             return Json(new { error = "Користувач не знайдений або не автентифікований." });
         }
 
+
+        // Метод для отримання даних від користувача і зміни ролі
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BecomeSeller(BecomeSellerViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = "Неправильні дані." });
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Оновлюємо ім'я користувача (UserName) на введену назву продавця
+            user.UserName = model.NameSeller;
+            user.NormalizedUserName = model.NameSeller.ToUpper(); // Оновлюємо NormalizedUserName
+            var updateResult = await _userManager.UpdateAsync(user);
+
+            if (!updateResult.Succeeded)
+            {
+                return StatusCode(500, new { message = "Не вдалося оновити користувача." });
+            }
+
+            // Додаємо роль "Seller" користувачу
+            var roleExists = await _roleManager.RoleExistsAsync("Seller");
+            if (!roleExists)
+            {
+                await _roleManager.CreateAsync(new IdentityRole("Seller"));
+            }
+
+            var addRoleResult = await _userManager.AddToRoleAsync(user, "Seller");
+            if (!addRoleResult.Succeeded)
+            {
+                return StatusCode(500, new { message = "Не вдалося додати роль продавця." });
+            }
+
+            return Ok(new { message = "Ви стали продавцем!" });
+        }
     }
+
 }

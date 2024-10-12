@@ -789,8 +789,8 @@ a:hover{
         display: none;
     }
 }
-
  /* //////////////  кінець header /////////// */
+
 
  /*<--////////////  головна сторінка /////////////-->*/
  .product-block, .product-block-products {
@@ -814,120 +814,119 @@ a:hover{
     padding: 5px;
 }
 
-            .product-title {
-                font-weight: bold;
-            }
+.product-title {
+    font-weight: bold;
+}
 
-            .product-price {
-                color: red;
-                font-size: 1.2rem;
-            }
+.product-price {
+    color: red;
+    font-size: 1.2rem;
+}
 
-            .heart-icon {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                cursor: pointer;
-            }
+.heart-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
 
-            /*Поля ввода регистрация */
-            .enter-reg {
-                width: 100%; /* Обеспечит, что поля не будут выходить за пределы */
-                max-width: 100%; /* Ограничит их до размеров контейнера */
-                height: 42px;
-                left: 499px;
-                top: 511px;
-                border: 1px solid #C9C9C9;
-                border-radius: 12px;
-                padding-left: 10px;
-            }
+/*Поля ввода регистрация */
+.enter-reg {
+    width: 100%; /* Обеспечит, что поля не будут выходить за пределы */
+    max-width: 100%; /* Ограничит их до размеров контейнера */
+    height: 42px;
+    left: 499px;
+    top: 511px;
+    border: 1px solid #C9C9C9;
+    border-radius: 12px;
+    padding-left: 10px;
+}
 
-            /*  //////////////////////////////////////////////////////// */
+ /*  //////////////////////////////////////////////////////// */
 
-            .enter-reg-text {
-                display: block; /* Чтобы текст занимал всю ширину */
-                margin-bottom: -20px;
-            }
+ .enter-reg-text {
+     display: block; /* Чтобы текст занимал всю ширину */
+     margin-bottom: -20px;
+ }
 
+.enter-reg-text::after {
+    content: '\2022'; /* Unicode для точки */
+    color: red; /* Цвет точки */
+    margin-left: 5px; /* Отступ от текста */
+    font-size: 20px; /* Размер точки, можно регулировать */
+    vertical-align: middle; /* Вертикальное выравнивание */
+}
 
-                .enter-reg-text::after {
-                    content: '\2022'; /* Unicode для точки */
-                    color: red; /* Цвет точки */
-                    margin-left: 5px; /* Отступ от текста */
-                    font-size: 20px; /* Размер точки, можно регулировать */
-                    vertical-align: middle; /* Вертикальное выравнивание */
-                }
+.btn-thicker {
+    padding-top: 10px; /* Отступ сверху */
+    padding-bottom: 10px; /* Отступ снизу */
+}
 
-            .btn-thicker {
-                padding-top: 10px; /* Отступ сверху */
-                padding-bottom: 10px; /* Отступ снизу */
-            }
+.enter-reg-tittle {
+    font-size: 22px !important;
+}
+/* Линия "АБО", форма входа */
+.line-with-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%; /* Ширина всей полосы */
+}
 
-            .enter-reg-tittle {
-                font-size: 22px !important;
-            }
-            /* Линия "АБО", форма входа */
-            .line-with-text {
-                display: flex;
-                align-items: center;
-                text-align: center;
-                width: 100%; /* Ширина всей полосы */
-            }
+.line-with-text::before,
+.line-with-text::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    margin-top: 1px; /* Отступ сверху */
+    margin-bottom: 1px; /* Отступ снизу */
+    background-color: #E8E8E8; /* Цвет линии */
+}
 
-                .line-with-text::before,
-                .line-with-text::after {
-                    content: '';
-                    flex-grow: 1;
-                    height: 1px;
-                    margin-top: 1px; /* Отступ сверху */
-                    margin-bottom: 1px; /* Отступ снизу */
-                    background-color: #E8E8E8; /* Цвет линии */
-                }
+.line-with-text::before {
+    margin-right: 1px; /* Отступ от текста до линии слева */
+}
 
-                .line-with-text::before {
-                    margin-right: 1px; /* Отступ от текста до линии слева */
-                }
+.line-with-text::after {
+    margin-left: 1px; /* Отступ от текста до линии справа */
+}
 
-                .line-with-text::after {
-                    margin-left: 1px; /* Отступ от текста до линии справа */
-                }
+.line-with-text span {
+    white-space: nowrap; /* Предотвращает перенос текста */
+    padding: 0 10px; /* Отступы вокруг текста */
+    color: #818181; /* Цвет текста */
+}
 
-                .line-with-text span {
-                    white-space: nowrap; /* Предотвращает перенос текста */
-                    padding: 0 10px; /* Отступы вокруг текста */
-                    color: #818181; /* Цвет текста */
-                }
+.horizontal-line {
+    width: 100%; /* Толщина полоски */
+    height: 1px; /* Высота полоски */
+    background-color: #E8E8E8; /* Цвет полоски */
+    margin: 0 auto; /* Центровка */
+}
 
-            .horizontal-line {
-                width: 100%; /* Толщина полоски */
-                height: 1px; /* Высота полоски */
-                background-color: #E8E8E8; /* Цвет полоски */
-                margin: 0 auto; /* Центровка */
-            }
+.no-margin-top {
+    margin-top: 0 !important; /* Убирает верхний отступ с приоритетом */
+}
 
-            .no-margin-top {
-                margin-top: 0 !important; /* Убирает верхний отступ с приоритетом */
-            }
+.btn-gray {
+    background-color: #E0E0E0; /* Серый цвет фона */
+    color: black; /* Черный текст */
+    border-radius: 12px; /* Закругление углов */
+    padding: 10px 20px; /* Внутренние отступы */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: inline-flex; /* Для выравнивания иконки и текста */
+    align-items: center; /* Вертикальное выравнивание */
+    transition: background-color 0.3s; /* Эффект при наведении */
+    margin-top: 0px;
+}
 
-            .btn-gray {
-                background-color: #E0E0E0; /* Серый цвет фона */
-                color: black; /* Черный текст */
-                border-radius: 12px; /* Закругление углов */
-                padding: 10px 20px; /* Внутренние отступы */
-                text-decoration: none; /* Убираем подчеркивание */
-                display: inline-flex; /* Для выравнивания иконки и текста */
-                align-items: center; /* Вертикальное выравнивание */
-                transition: background-color 0.3s; /* Эффект при наведении */
-                margin-top: 0px;
-            }
+.btn-gray:hover {
+    background-color: #B0B0B0; /* Цвет фона при наведении */
+}
 
-                .btn-gray:hover {
-                    background-color: #B0B0B0; /* Цвет фона при наведении */
-                }
-
-                .btn-gray i {
-                    color: inherit; /* Убираем стандартный цвет иконок */
-                }
+.btn-gray i {
+    color: inherit; /* Убираем стандартный цвет иконок */
+}
 
 
 
@@ -959,13 +958,13 @@ a:hover{
                 margin-left: 10px;
             }
 
-.reg-bl {
-    width: 96%;
-    height: 150px;
-    background-color: #F6F6F6;
-    border-radius: 5px;
-    margin: 10px;
-}
+           .reg-bl {
+               width: 96%;
+               height: 150px;
+               background-color: #F6F6F6;
+               border-radius: 5px;
+               margin: 10px;
+           }
 
             .entr-btn {
                 background-color: #e8daf4;
@@ -1020,6 +1019,7 @@ a:hover{
             .icon:hover .shop-cart-title {
                 color: #800080;
             }
+
             /*стрілка випадаючого списку Сервіс*/
             .dropdown {
                 cursor: pointer;
@@ -1042,14 +1042,14 @@ a:hover{
                 justify-content: center; /* Центрирование по горизонтали */
             }
 
-                .btn svg {
-                    margin-right: 8px; /* Отступ между значком и текстом */
-                }
+            .btn svg {
+                margin-right: 8px; /* Отступ между значком и текстом */
+            }
 
-                .btn span {
-                    display: flex; /* Для выравнивания текста */
-                    align-items: center; /* Центрирование текста по вертикали */
-                }
+            .btn span {
+                display: flex; /* Для выравнивания текста */
+                align-items: center; /* Центрирование текста по вертикали */
+            }
 
             /* соціальних контейнерів блок */
             .social-media-container {
@@ -1088,10 +1088,12 @@ a:hover{
             .f-sz {
                 font-size: 24px;
             }
-            /* /////////  кінець ліве бокове вікно //////// */
 
-            /*анімація логотипу*/
-            .anime-logo-link svg {
+    /* /////////  кінець ліве бокове вікно //////// */
+
+
+    /*анімація логотипу*/
+    .anime-logo-link svg {
                 transform-origin: center; /* Встановлюємо центр як точку початку трансформації */
                 animation: reveal 3s ease-in-out infinite; /* Застосовуємо анімацію */
             }
@@ -1107,9 +1109,9 @@ a:hover{
             }
 
             /* мапа світу */
-            #map {
-                height: 600px; /*  висота карти */
-            }
+            /*#map {
+                height: 600px;*/ /*  висота карти */
+            /*}*/
 
             /* Даухшаговая регистрация */
             .step-indicators {
@@ -1151,8 +1153,6 @@ a:hover{
 
 
 
-
-
             /*  для футера карток з товарами  */
             .product-card {
                 display: flex;
@@ -1169,9 +1169,9 @@ a:hover{
                 position: relative;
             }
 
-                .product-description-block:hover {
-                    overflow: auto;
-                }
+            .product-description-block:hover {
+                overflow: auto;
+            }
 
             .product-footer {
                 position: relative;
@@ -1329,3 +1329,8 @@ a:hover{
                     border-color: #A323FF; /* Цвет рамки в нажатом состоянии */
                     border-radius: 50%;
                 }
+
+
+.header-profile-image {
+    display: none;
+}
