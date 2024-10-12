@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 method: 'GET',
                 success: function (response) {
                     if (response.isAuthenticated) {
-                        // Якщо користувач авторизований, відкриваємо модальне вікно
+                        // Якщо користувач авторизований, відкриваємо модальне вікно Стати продавцем
                         $('#sellerModal').modal('show');
 
                         // AJAX-запит для отримання даних користувача
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                     } else {
                         // Якщо не авторизований, відкриваємо модальне вікно реєстрації
-                        $('#registerModal').modal('show');
+                        $('#authModal').modal('show');
                     }
                 },
                 error: function (err) {

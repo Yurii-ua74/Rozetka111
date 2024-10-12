@@ -91,25 +91,6 @@
                         </div>
                     </form>
                    
-                    @*  <!-- Поле та форма пошуку -->
-                    <form class="quick-search-container" role="search" asp-controller="Products" asp-action="Search" method="get">
-                        <!-- Поле для вводу товару -->
-                        <input type="search" class="ms-negetive" placeholder="Знайти на ШвидкоBuy" name="search" id="searchInput">
-                                          
-                         <div class="quick-search-container1">              
-                             <div class="vertical-divider"></div>
-                            <!-- Кнопка голосового поиска -->
-                            <div class="svg-container1" type="button" id="voiceSearchButton">
-                                 <i class="bi bi-mic fs-5"></i>
-                             </div>                            
-                             <!-- Кнопка для пошуку -->
-                             <button type="submit" class="btn btn-link purple-box-with-text" aria-label="Search">
-                                 <div class="svg-container2">
-                                     <i class="bi bi-search fs-5 white-icon"></i>
-                                 </div>
-                            </button>
-                         </div>                        
-                     </form> *@
                 </div>
                               
                 <div class="d-flex align-items-center">
@@ -240,7 +221,7 @@
     @* ліве бічне меню, яке відкривається по кліку на сендвіч *@
     <div class="offcanvas offcanvas-start z-ind" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 
-        <div class="offcanvas-header" style="background-color:#FFFFFF">
+        <div class="offcanvas-header" style="background-color:#fbfbfb; border: 2px solid #e3d3d3;">
             <div class="col-4 col-md-9 col-ms-9">
                 <a class="logo-link" asp-area="" asp-controller="Home" asp-action="Index">
                     <svg class="logo-sz-left" viewBox="0 0 288 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -252,13 +233,15 @@
             <button type="button" class="btn-close btn-light" style="margin-left: 5px" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
 
-           <div class="offcanvas-body" style="overflow-y: auto; max-height: 100vh;">
+
+        <div class="offcanvas-body" style="overflow-y: auto; max-height: 100vh;">
             <div class="left-wind" style="border: 0px solid;">
                 <button class="quick-find-button btn-sz btn btn-outline-secondary me-2 ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
                     <i class="bi bi-grid"></i> Каталог товарів
                 </button>
-                </div>
-           
+             </div>
+            <hr sstyle="border: 2px solid #e3d3d3;">
+
             @if (User.Identity.IsAuthenticated)
             {
                 <!-- Якщо користувач авторизований, показуємо блок з іконкою чоловічка та nik користувача -->
@@ -1284,7 +1267,7 @@
     </div>
 </div>
 
-
+<!-- Модальне вікно Стати продавцем -->
 <div class="modal fade" id="sellerModal" tabindex="-1" aria-labelledby="sellerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="border-radius: 15px;">
@@ -1295,7 +1278,7 @@
             </div>
             <div class="horizontal-line"></div>
             <div class="modal-body">
-                <form id="auth-form" method="post" action="/Account/GetUserData">
+                <form id="seller-form" method="post" action="/Account/GetUserData">
                     @Html.AntiForgeryToken() <!-- Токен захисту від підробки запитів -->
                     <span class="enter-reg-text">Е-пошта</span>
                     <div class="mb-3">
