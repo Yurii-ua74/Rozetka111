@@ -281,6 +281,7 @@ namespace Rozetka.Controllers
         
 
         // Get
+        // /////  сторінка редагування даних користувача  ///// //
         public async Task<IActionResult> Edit()
         {
             // Отримуємо ім'я користувача
@@ -296,8 +297,10 @@ namespace Rozetka.Controllers
 
             if (user == null)
             {
-                return NotFound(); // Якщо користувача немає в базі даних, повертаємо 404
-            }
+                TempData["Message"] = "користувача не знайдено!";
+                return RedirectToAction("Edit"); // або на іншу сторінку
+                //return NotFound(); // Якщо користувача немає в базі даних, повертаємо 404
+            }  
 
             // Передаємо дані користувача до вьюшки
             return View(user);
@@ -559,6 +562,26 @@ namespace Rozetka.Controllers
             }
 
             return Ok(new { message = "Ви стали продавцем!" });
+        }
+
+        // ///// викликається із сторінки редагування даних кнопкою ///// //
+        [HttpPost]
+        public async Task<IActionResult> UpdatePersonalData()
+        {
+            // Отримуємо поточного користувача
+            var user = await _userManager.GetUserAsync(User);
+
+            
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Користувач не знайдений.";
+                return RedirectToAction("Index", "Home");  // Редірект на головну сторінку
+            }
+
+            TempData["SuccessMessage"] = "Вітаю! Ваша заявка на зміну даних успішно оформлена, після перевірки модератором дані будуть змінені";
+
+            //return RedirectToAction("Edit"); 
+            return RedirectToAction("Edit", "Account");
         }
     }
 

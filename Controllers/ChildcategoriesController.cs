@@ -286,7 +286,7 @@ namespace Rozetka.Controllers
             bool hasMinPrice = minPrice.HasValue;
             bool hasMaxPrice = maxPrice.HasValue;
 
-            if (!hasSelectedSubCategories && !hasMinPrice || !hasMaxPrice)
+            if (!hasSelectedSubCategories && (!hasMinPrice || !hasMaxPrice))
             {                                
                 // Передаємо змінну у View, щоб визначити, чи були застосовані фільтри
                 ViewBag.FiltersApplied = hasSelectedSubCategories || hasMinPrice || hasMaxPrice;
