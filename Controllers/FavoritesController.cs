@@ -41,6 +41,35 @@ namespace Rozetka.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddToFavoritesAjax(int productId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return Json(new { success = false, message = "Не удалось определить пользователя." });
+            }
+
+            var existingWish = await _context.Favorites
+                .FirstOrDefaultAsync(w => w.UserId == userId && w.ProductId == productId);
+
+            if (existingWish == null)
+            {
+                var favoritesItem = new Data.Entity.Favorites
+                {
+                    UserId = userId,
+                    ProductId = productId
+                };
+
+                _context.Favorites.Add(favoritesItem);
+                await _context.SaveChangesAsync();
+            }
+
+            return Json(new { success = true, message = "Товар добавлен в избранное." });
+        }
+
+
+        [Authorize]
         public async Task<IActionResult> AddToFavorites(int productId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID пользователя

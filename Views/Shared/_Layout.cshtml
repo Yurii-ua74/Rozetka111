@@ -143,7 +143,7 @@
 
                         <!-- КОШИК -->
                         @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
-                        <a type="button" class="nav-link text-black position-relative btn-lg"
+                        <a type="button" href="" class="nav-link text-black position-relative btn-lg"
                            data-bs-toggle="modal"
                            data-bs-target="#cartModal">
 
@@ -152,6 +152,9 @@
                                 <p class="menu-link-text-style mb-0">Кошик</p>
                             </div>
                             @await Component.InvokeAsync("CartCount")
+                            @* <span id="cart-count" class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger" style="display:none;">
+                                0
+                            </span> *@
                         </a>
                     }
                     else
@@ -168,7 +171,7 @@
                         </a>
                         <!-- КОШИК -->
                         @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
-                        <a type="button" class="nav-link text-black position-relative btn-lg"
+                        <a type="button" href="" class="nav-link text-black position-relative btn-lg"
                            data-bs-toggle="modal"
                            data-bs-target="#cartModal">
 

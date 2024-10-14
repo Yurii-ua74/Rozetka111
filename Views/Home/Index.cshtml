@@ -131,6 +131,9 @@
                                 <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                     <i class="bi bi-heart"></i> <!-- Иконка пустого сердечка (товар не в избранном) -->
                                 </a>
+                                @* <a href="javascript:void(0)" onclick="addToFavorites(@product.Id)" class="btn btn-outline-purple">
+                                    <i class="bi bi-heart"></i>
+                                </a> *@
                             }
                         </div>
                     </div>

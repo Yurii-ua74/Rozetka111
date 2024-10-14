@@ -27,7 +27,6 @@ namespace Rozetka.Data.Entity
         public SubChildCategory? SubChildCategory { get; set; }
 
 
-
         [NotMapped]
         public bool IsInFavorites { get; set; } // Булево поле для отслеживания состояния избранного
     }

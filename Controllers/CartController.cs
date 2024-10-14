@@ -29,6 +29,28 @@ namespace Rozetka.Controllers
         //Викликається фреймворком при створенні екземпляра контролера.
         //Контекст бази даних ін'єктується через конструктор.
 
+        // GET: CartController
+        public async Task<IActionResult> Index()
+        {
+            // Получаем ID текущего пользователя
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Проверяем, что пользователь авторизован
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Получаем список избранных товаров для пользователя
+            var carts = await _context.Carts
+                .Where(c => c.UserId == userId)
+                .Include(c => c.Product) // Подгружаем информацию о продукте
+                .ThenInclude(p => p.ProductImages)
+                .ToListAsync();
+
+            // Возвращаем представление с данными
+            return View(carts);
+        }
 
         // GET: CartController
         public IActionResult Index(string? returnUrl)
@@ -90,9 +112,14 @@ namespace Rozetka.Controllers
                     await _context.SaveChangesAsync();
                     return Json(new { success = true, cartItem });
                 }
-            }
-
-            return View();
+                else
+                {
+                    existingCart.Quantity++;
+                    _context.Carts.Add(existingCart);
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, existingCart });
+                }
+            }            
         }
         //Додає товар до кошика.
         //Викликається при додаванні товару до кошика за URL Cart/AddToCart/{ id}.

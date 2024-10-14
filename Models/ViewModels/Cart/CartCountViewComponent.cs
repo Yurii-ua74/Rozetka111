@@ -27,7 +27,7 @@ namespace Rozetka.Models.ViewModels.Cart
             // Получаем количество избранных товаров
             var count = await _context.Carts
                 .Where(c => c.UserId == userId)
-                .SumAsync(c => c.Quantity);
+                .CountAsync();
 
             return View(count); // Возвращаем количество
         }

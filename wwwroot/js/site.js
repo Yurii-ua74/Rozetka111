@@ -323,4 +323,19 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
+function addToFavorites(productId) {
+    $.ajax({
+        url: '/Favorites/AddToFavoritesAjax',  // путь к вашему действию
+        type: 'POST',
+        data: { productId: productId },
+        success: function (response) {
+            if (response.success) {
+                alert(response.message); // сообщение об успехе
+                // здесь можно обновить UI, например, сменить иконку избранного
+            } else {
+                alert(response.message); // сообщение об ошибке
+            }
+            //window.location.reload();
+        }
+    });
+}
