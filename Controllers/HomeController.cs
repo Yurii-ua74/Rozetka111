@@ -6,6 +6,7 @@ using Rozetka.Models;
 using Rozetka.Models.ViewModels.Products;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Rozetka.Controllers
 {
@@ -36,6 +37,22 @@ namespace Rozetka.Controllers
                     .Include(p => p.Reviews)
                         .ThenInclude(r => r.User)
                     .ToListAsync();
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID текущего пользователя
+
+                if (userId != null)
+                {
+                    // Получаем список избранных товаров для текущего пользователя
+                    var favoriteProductIds = await _context.Favorites
+                        .Where(f => f.UserId == userId)
+                        .Select(f => f.ProductId)
+                        .ToListAsync();
+
+                    // Добавляем информацию о том, находится ли каждый продукт в избранном
+                    foreach (var product in products)
+                    {
+                        product.IsInFavorites = favoriteProductIds.Contains(product.Id);
+                    }
+                }
             }
             catch (Exception ex) // Ловим возможные исключения
             {
