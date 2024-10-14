@@ -324,3 +324,72 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+/* для заповнення списків на сторінці Подати оголошення - метод GetAdvertisement */
+$(document).ready(function () {
+    $('#category-select').change(function () {
+        var categoryId = $(this).val();
+
+        // Очищуємо і відключаємо поля Childcategory та SubChildcategory
+        $('#childcategory-select').empty().prop('disabled', true);
+        $('#subchildcategory-select').empty().prop('disabled', true);
+
+        // Очищуємо і відключаємо поля Childcategory та SubChildcategory
+        //$('#childcategory-select').empty().append('<option value="">Оберіть категорію спочатку</option>').prop('disabled', true);
+        //$('#subchildcategory-select').empty().append('<option value="">Оберіть розділ категорії спочатку</option>').prop('disabled', true);
+
+        if (categoryId) {
+            $.ajax({
+                url: '/Advertisement/GetChildCategories', // Вкажіть правильний маршрут контролера
+                type: 'GET',
+                data: { categoryId: categoryId },
+                success: function (data) {
+                    if (data.length > 0) {
+                        $('#childcategory-select').prop('disabled', false).append('<option value="">Оберіть розділ категорії</option>');
+                        $.each(data, function (i, item) {
+                            $('#childcategory-select').append($('<option>', {
+                                value: item.id,
+                                text: item.name
+                            }));
+                        });
+                    } else {
+                        /*$('#childcategory-select').append('<option value="">Немає розділів категорії</option>');*/
+                        $('#childcategory-select').append('<option value="">Оберіть категорію спочатку</option>');
+                        $('#subchildcategory-select').append('<option value="">Оберіть розділ категорії спочатку</option>');
+                    }
+                }
+            });
+        }
+    });
+
+    $('#childcategory-select').change(function () {
+        var childCategoryId = $(this).val();
+
+        // Очищуємо і відключаємо поле SubChildcategory
+        //$('#subchildcategory-select').empty().append('<option value="">Оберіть розділ категорії спочатку</option>').prop('disabled', true);
+        $('#subchildcategory-select').empty().prop('disabled', true);
+
+        if (childCategoryId) {
+            $.ajax({
+                url: '/Advertisement/GetSubChildCategories', // Вкажіть правильний маршрут контролера
+                type: 'GET',
+                data: { childCategoryId: childCategoryId },
+                success: function (data) {
+                    if (data.length > 0) {
+                        $('#subchildcategory-select').prop('disabled', false).append('<option value="">Оберіть розділ підкатегорії</option>');
+                        $.each(data, function (i, item) {
+                            $('#subchildcategory-select').append($('<option>', {
+                                value: item.id,
+                                text: item.name
+                            }));
+                        });
+                    } else {
+                        $('#subchildcategory-select').append('<option value="">Немає розділів підкатегорії</option>');
+                    }
+                }
+            });
+        } else {
+            $('#subchildcategory-select').append('<option value="">Оберіть розділ категорії спочатку</option>');
+        }
+    });
+});
+

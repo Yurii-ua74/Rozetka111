@@ -16,6 +16,8 @@ namespace Rozetka.Data.Entity
         public Brand? Brand { get; set; }
         public int? ProductTypeId { get; set; }
         public ProductType? ProductType { get; set; }
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; }
         public int? ChildcategoryId { get; set; }
         public Childcategory? Childcategory { get; set; }
         public int? ProductColorId { get; set; }
@@ -25,6 +27,7 @@ namespace Rozetka.Data.Entity
         public ICollection<Review>? Reviews { get; set; }
         public int SubChildCategoryId { get; set; }
         public SubChildCategory? SubChildCategory { get; set; }
+       
 
 
 

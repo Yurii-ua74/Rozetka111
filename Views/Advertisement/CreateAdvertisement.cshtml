@@ -1,0 +1,571 @@
+﻿
+<style>
+    .file-upload-cntr {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        width: 239px;
+        padding-top: 66px;
+        padding-bottom: 66px;
+    }
+
+    .file-upload-cntr-txt {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-right: 3px;
+        padding-left: 5px;
+        margin-top: 40px;
+    }
+
+     .square {
+        width: 90%;
+        height: 100px; 
+        display: flex;
+        align-items: center;
+        justify-content: center;        
+        background-color: #f0f0f0;
+        margin-bottom: 10px; 
+        border-radius: 15px;
+        border: 1px dashed #a3a3a3;
+    }
+
+    .icon-container {
+        display: flex;
+        justify-content: space-between; 
+    }
+
+    .long-input {
+        width: 100%;
+    }
+
+     /* .small-input {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #007bff; 
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }  */
+
+        .small-input i {
+            font-size: 20px; 
+        }
+
+        .big_foto {
+            height: 500px;
+            border-radius: 20px;
+            border: 1px dashed #a3a3a3;
+        } 
+
+        .b-radius {
+            border-radius: 5px;
+        }
+
+    .image-container-with-title {
+        display: block;
+        flex: 0 0 auto;
+        max-width: initial;
+        height: 154px;
+    }
+
+    .btn-size {
+        width: 35px;
+        height: 35px;
+    }
+
+    /* центральний блок сторінки  */
+    .icn-txt-block {
+        display: flex;
+        align-items: center; /* Вирівнює іконку та текст по вертикалі */
+        border: 2px solid #ccc;
+        background-color: #f9f9f9; 
+        border-radius: 15px; 
+    }
+
+    /* загрузка фотографій малі квадрати */
+    .square {
+        border: 2px dashed #ccc; /* Для виділення контейнерів */
+        height: 100px; /* Встановіть висоту */
+        position: relative;
+    }
+
+    .drag-over {
+        border-color: #007bff; /* Колір при перетягуванні */
+    }
+
+    .uploaded-image {
+        max-height: 100%; /* Висота зображення не перевищує контейнер */
+        object-fit: cover; /* Для кращого відображення зображення */
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    /* Для іконок та центрування елементів */
+    .square, .big_foto {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+</style>
+
+@model Rozetka.Models.ViewModels.Products.ProductAdvertisementVM
+
+<h4 class="ms-5 mb-5">Створення оголошення</h4>
+<div class="container-fluid">   
+    <div class="row">
+        <div class="col-10">
+            <form asp-action="CreateAdvertisement" enctype="multipart/form-data" method="post">
+                 <div class="container-fluid">
+                     <div class="row">
+                         <div class="col-5">           
+                             <div class="row">
+                                 <div class="col-12"  onclick="openFileDialog(5);">
+                                    <!-- Великий прямокутний контейнер під фото -->
+                                    
+                                     <div class="big_foto p-3 mb-3 d-flex justify-content-center" >
+                                         <div class="file-upload-cntr" id="image-container-5">
+                                             <div class="form-group" >
+                 
+                                                 <span>
+                                                     <div class="big-foto-placeholder">
+                                                         <svg width="239" height="155" viewBox="0 0 239 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                             <rect x="170" y="16.2266" width="70.7986" height="105.576" rx="11.5" transform="rotate(15 170 16.2266)" fill="#F3F3F3" stroke="#B4B4B4" stroke-dasharray="2 2" />
+                                                             <g clip-path="url(#clip0_467_8343)">
+                                                                 <path d="M202.565 76.8248L198.98 90.2055M198.98 90.2055L197.307 96.4499L174.114 90.2353L175.787 83.9909M198.98 90.2055L205.224 91.8787L208.81 78.498C209.527 75.8218 208.579 72.2216 206.501 69.2744C204.422 66.3272 200.973 64.9251 200.973 64.9251L191.925 70.1493M175.787 83.9909L169.542 82.3177L173.128 68.937C173.845 66.2609 176.466 63.6167 179.739 62.1037C183.013 60.5906 186.701 61.1007 186.701 61.1007L191.925 70.1493M175.787 83.9909L179.372 70.6102M191.925 70.1493L189.774 78.1777" stroke="#C3C3C3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                 <path d="M179.74 62.1041C183.014 60.5911 186.702 61.1012 186.702 61.1012L191.926 70.1497L200.975 64.9255C200.975 64.9255 204.423 66.3277 206.502 69.2749L209.361 65.7387L208.653 61.2464L181.892 54.0757L179.032 57.6119L179.74 62.1041Z" stroke="#C3C3C3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                             </g>
+                                                             <rect x="-0.353553" y="0.612372" width="70.7986" height="105.576" rx="11.5" transform="matrix(-0.965926 0.258819 0.258819 0.965926 68.5195 15.3497)" fill="#F3F3F3" stroke="#B4B4B4" stroke-dasharray="2 2" />
+                                                             <g clip-path="url(#clip1_467_8343)">
+                                                                 <path d="M58.9156 66.3619L63.9978 85.329M63.9978 85.329L65.7766 91.9675L41.1193 98.5744L39.3405 91.9359M63.9978 85.329L70.6363 83.5502L65.554 64.5831C64.7917 61.7381 62.0056 58.927 58.5253 57.3185C55.0449 55.7099 48.9736 55.8121 48.9736 55.8121L37.5934 58.8614C37.5934 58.8614 32.2844 61.8086 30.0746 64.9418C27.8648 68.075 26.8575 71.9025 27.6198 74.7476L32.7021 93.7147L39.3405 91.9359M39.3405 91.9359L34.2583 72.9688" stroke="#C3C3C3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                 <path d="M48.976 55.812C49.3803 57.3211 49.1686 58.9291 48.3875 60.2821C47.6063 61.6351 46.3196 62.6224 44.8105 63.0268C43.3014 63.4312 41.6934 63.2195 40.3404 62.4383C38.9874 61.6571 38.0001 60.3704 37.5957 58.8613" stroke="#C3C3C3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                             </g>
+                                                             <rect x="69.873" y="1.15332" width="102.211" height="152.694" rx="11.5" fill="#F3F3F3" stroke="#B4B4B4" stroke-dasharray="2 2" />
+                                                             <path d="M139.303 64.9731V59.7377H134.068V57.1201H139.303V51.8848H141.921V57.1201H147.156V59.7377H141.921V64.9731H139.303ZM118.362 90.4429C121.096 90.4429 123.408 89.4996 125.296 87.6132C127.184 85.7267 128.128 83.4153 128.128 80.679C128.128 77.9427 127.184 75.6313 125.296 73.7448C123.408 71.8584 121.096 70.9143 118.362 70.9125C115.627 70.9108 113.316 71.8549 111.427 73.7448C109.539 75.6348 108.595 77.9462 108.595 80.679C108.595 83.4118 109.539 85.7232 111.427 87.6132C113.316 89.5031 115.627 90.4472 118.362 90.4455M118.362 87.8278C116.329 87.8278 114.629 87.1446 113.262 85.7782C111.896 84.4118 111.213 82.712 111.213 80.679C111.213 78.646 111.896 76.9462 113.262 75.5798C114.629 74.2134 116.329 73.5302 118.362 73.5302C120.395 73.5302 122.094 74.2134 123.461 75.5798C124.827 76.9462 125.51 78.646 125.51 80.679C125.51 82.712 124.827 84.4118 123.461 85.7782C122.094 87.1446 120.395 87.8278 118.362 87.8278ZM99.0329 99.0026C97.827 99.0026 96.8209 98.5995 96.0147 97.7932C95.2085 96.987 94.8045 95.9801 94.8027 94.7725V66.5855C94.8027 65.3797 95.2067 64.3736 96.0147 63.5674C96.8227 62.7611 97.8287 62.3571 99.0329 62.3554H106.773L111.616 57.1201H127.827V65.9809H133.062V71.2162H141.921V94.7751C141.921 95.9792 141.517 96.9853 140.711 97.7932C139.905 98.6012 138.898 99.0043 137.69 99.0026H99.0329Z" fill="#C3C3C3" />
+                                                             <defs>
+                                                                 <clipPath id="clip0_467_8343">
+                                                                     <rect width="44.3288" height="44.3288" fill="white" transform="translate(174.814 48.3564) rotate(15)" />
+                                                                 </clipPath>
+                                                                 <clipPath id="clip1_467_8343">
+                                                                     <rect width="47.1268" height="47.1268" fill="white" transform="translate(19.502 59.6436) rotate(-15)" />
+                                                                 </clipPath>
+                                                             </defs>
+                                                         </svg>
+                                                        
+                                                         <div class="file-upload-cntr-txt">
+                                                             <h5 class="file-upload-message fw-bold">Завантажте файли або<br />&nbsp;&nbsp;перетягніть їх сюди</h5>
+                                                             <div class="file-upload-info-container">
+                                                                 <p class="image-format-info">Формати: JPG, GIF, PNG, WEBP</p>
+                                                                 <p class="image-format-info1">Максимальний розмір: 10 МБ.</p>
+                                                             </div>
+                                                         </div> 
+                                                     </div>
+                                                 </span>
+                 
+                                                 <label for="imageData"></label>
+                                                 <input type="file" asp-for="ImageData" id="file-input-5" name="images" multiple accept="image/*" style="display: none;" />
+                                                 <span asp-validation-for="ImageData" class="text-danger"></span>
+                                             </div>
+                                         </div>                       
+                        
+                                     </div>                    
+                                 </div>
+                             </div>           
+                                    <!-- Чотири квадратні контейнери під фото -->
+                              <div class="container-fluid">
+                                 <div class="row">
+                 
+                                     <div class="col-3">
+                                         <div class="square  d-flex justify-content-center align-items-center" onclick="openFileDialog(1);">
+                                             <div class="form-group" id="image-container-1">
+                                                     <span class="bi bi-plus-lg"></span>
+                                                     <label for="imageData"></label>
+                                                     <input type="file" asp-for="ImageData" id="file-input-1" name="images" multiple accept="image/*" style="display: none;" />
+                                                     <span asp-validation-for="ImageData" class="text-danger"></span>
+                                             </div>
+                                         </div>                       
+                                     </div>
+                        
+                                     <div class="col-3">
+                                         <div class="square  d-flex justify-content-center align-items-center" onclick="openFileDialog(2);">
+                                             <div class="form-group" id="image-container-2">
+                                                     <span class="bi bi-plus-lg"></span>
+                                                     <label for="imageData"></label>
+                                                     <input type="file" asp-for="ImageData" id="file-input-2" name="images" multiple accept="image/*" style="display: none;" />
+                                                     <span asp-validation-for="ImageData" class="text-danger"></span>
+                                             </div>
+                                         </div>
+                                     </div>
+                        
+                                     <div class="col-3">
+                                         <div class="square  d-flex justify-content-center align-items-center" onclick="openFileDialog(3);">
+                                             <div class="form-group" id="image-container-3">
+                                                     <span class="bi bi-plus-lg"></span>
+                                                     <label for="imageData"></label>
+                                                     <input type="file" asp-for="ImageData" id="file-input-3" name="images" multiple accept="image/*" style="display: none;" />
+                                                     <span asp-validation-for="ImageData" class="text-danger"></span>
+                                             </div>
+                                         </div>
+                                     </div>
+                 
+                                         
+                        
+                                     <div class="col-3">
+                                         <div class="square  d-flex justify-content-center align-items-center" onclick="openFileDialog(4);">
+                                                 @* <i class="bi bi-plus-lg"></i>
+                                                    <div class="image-container" id="image-container-4">
+                                                    <input type="file" id="file-input-4" multiple accept="image/*" style="display: none;" />
+                                                    </div> *@
+                                             <div class="form-group" id="image-container-4">
+                                                     <span class="bi bi-plus-lg"></span>
+                                                     <label for="imageData"></label>
+                                                     <input type="file" asp-for="ImageData"  id="file-input-4" name="images" multiple accept="image/*" style="display: none;" />
+                                                     <span asp-validation-for="ImageData" class="text-danger"></span>
+                                             </div>
+                                         </div>
+                                     </div>
+                        
+                                 </div>
+                             </div>
+                                 <h5 class="text-center mb-3 mt-3">Або додати за посиланням</h5>
+                             <div class="container-floid">
+                                 <div class="row">
+                                     <div class="col-11">
+                                         <!-- Поле для введення посилання -->
+                                         <input type="text" class="form-control long-input mb-2 b-radius" placeholder="Введіть посилання">
+                                     </div>
+                                     <div class="col-1">
+                                         <!-- Маленьке квадратне поле з іконкою -->
+                                         <button class="small-input b-radius btn-size">
+                                             <i class="fas fa-arrow-right"></i>
+                                         </button>
+                                     </div>
+                                 </div>
+                             </div>
+                        
+                         </div>
+                        
+                         @* центральний блок сторінки *@
+                         <div class="col-7">
+                             <div class="pt-3 icn-txt-block">
+                                 <svg class="ms-2 mb-3" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                     <g clip-path="url(#clip0_2_20132)">
+                                         <path d="M10.0013 18.3337C11.0959 18.335 12.1799 18.1201 13.1911 17.7012C14.2023 17.2823 15.1208 16.6678 15.8938 15.8928C16.6687 15.1198 17.2833 14.2014 17.7022 13.1901C18.1211 12.1789 18.336 11.0949 18.3346 10.0003C18.336 8.90579 18.1211 7.82176 17.7022 6.81054C17.2833 5.79931 16.6687 4.88082 15.8938 4.10783C15.1208 3.3329 14.2023 2.71834 13.1911 2.29946C12.1799 1.88059 11.0959 1.66565 10.0013 1.667C8.90676 1.66565 7.82274 1.88059 6.81151 2.29946C5.80029 2.71834 4.8818 3.3329 4.10881 4.10783C3.33388 4.88082 2.71932 5.79931 2.30044 6.81054C1.88156 7.82176 1.66663 8.90579 1.66798 10.0003C1.66663 11.0949 1.88156 12.1789 2.30044 13.1901C2.71932 14.2014 3.33388 15.1198 4.10881 15.8928C4.8818 16.6678 5.80029 17.2823 6.81151 17.7012C7.82274 18.1201 8.90676 18.335 10.0013 18.3337Z" stroke="#9C12FF" stroke-width="1.83333" stroke-linejoin="round" />
+                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0026 15.4173C10.2789 15.4173 10.5438 15.3076 10.7392 15.1122C10.9345 14.9169 11.0443 14.6519 11.0443 14.3757C11.0443 14.0994 10.9345 13.8344 10.7392 13.6391C10.5438 13.4437 10.2789 13.334 10.0026 13.334C9.72634 13.334 9.46139 13.4437 9.26603 13.6391C9.07068 13.8344 8.96094 14.0994 8.96094 14.3757C8.96094 14.6519 9.07068 14.9169 9.26603 15.1122C9.46139 15.3076 9.72634 15.4173 10.0026 15.4173Z" fill="#9C12FF" />
+                                         <path d="M10 5V11.6667" stroke="#9C12FF" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round" />
+                                     </g> 
+                                     <defs>
+                                         <clipPath id="clip0_2_20132">
+                                             <rect width="20" height="20" fill="white" />
+                                         </clipPath>
+                                     </defs>
+                                 </svg>
+                                 <p class="ms-3">Додайте фото, назву, опис та категорію товару</p>
+                             </div>
+                             <br />
+                 
+                             <h4 class="fw-bold">Основна інформація</h4>
+                        
+                             <div class="conteiner-fluid">
+                                 <div class="row">
+                 
+                                     <div class="col-8">
+                                          <div class="mb-3">
+                                                 @*   <span class="enter-reg-text">Назва</span>
+                                              <label for="name_product" class="form-label"></label>
+                                              <input type="text" class="enter-reg" id="name_product" name="NameProduct" minlength="2" maxlength="20" required>
+                                              <span class="text-danger" id="name_product_error"></span> *@
+                 
+                                                 <div class="form-group">
+                                                     <span class="enter-reg-text">Назва товару</span>
+                                                     <label for="name_product" class="form-label"></label>
+                                                     <input type="text" asp-for="Title" class="enter-reg" id="name_product" minlength="2" maxlength="20" required />
+                                                     <span asp-validation-for="Title" class="text-danger"></span>
+                                                 </div>
+                                          </div>
+                                      </div>
+                 
+                                     <div class="col-4">
+                                          <div class="mb-3">
+                                               <div class="form-group">
+                                                   <span class="enter-reg-text">Тип товару</span>
+                                                   <label for="type_product" class="form-label"></label>
+                                                   <input type="text" asp-for="ProductType" class="enter-reg" id="type_product"  minlength="2" maxlength="20" required />
+                                                   <span asp-validation-for="ProductType" class="text-danger" id="type_product_error"></span>
+                                               </div>
+                                          </div>
+                                     </div>
+                                 </div>
+                 
+                                 <div class="mb-3">
+                                     <span class="enter-reg-text">Бренд</span>
+                                     <label for="brand_product" class="form-label"></label>
+                                      <input type="text" asp-for="Brand" class="enter-reg" id="brand_product"  minlength="2" maxlength="20" required>
+                                      <span asp-validation-for="Brand" class="text-danger" id="brand_product-error"></span>
+                                 </div>
+                 
+                                 <div class="mb-3">
+                                     <span class="enter-reg-text">Колір</span>
+                                     <label for="color_product" class="form-label"></label>
+                                    @*  <input type="text" asp-for="ProductColor" class="enter-reg" id="color_product" name="colorProduct" minlength="2" maxlength="20" required /> *@
+                                    <select asp-for="ProductColorId" class="form-control" id="color_product" asp-items="@(new SelectList(Model.ProductColors, "Id", "Title"))">
+                                        <option value="">Оберіть колір</option>
+                                    </select>
+                                     <span asp-validation-for="ProductColorId" class="text-danger" id="color_product_error"></span>
+                                 </div>
+                 
+                                 <div class="mb-3">
+                                     <label for="description_product" class="form-label">Опис товару</label>
+                                     <textarea asp-for="Description" class="form-control" id="description_product" rows="3"></textarea>
+                                     <span asp-validation-for="Description" class="text-danger"></span>                                
+                                  </div>
+                 
+                                 <div class="mb-3">
+                                     <label for="characteristic_product" class="form-label">Характеристика товару</label>
+                                         <textarea asp-for="Characteristic" class="form-control" id="characteristic_product" rows="3"></textarea>
+                                         <span asp-validation-for="Characteristic" class="text-danger"></span>
+                                 </div>
+                 
+                                 <div class="mb-3">
+                                     <span class="enter-reg-text">Ціна</span>
+                                     <label for="price_product" class="form-label"></label>
+                                     <input type="text" asp-for="Price" class="enter-reg" id="price_product" minlength="2" maxlength="20" required>
+                                     <span asp-validation-for="Price" class="text-danger" id="price_product-error"></span>
+                                 </div>
+                        
+                                  <div class="form-group mt-5">
+                                      <label asp-for="CategoryId" class="control-label">Оберіть категорію</label>
+                                      <select asp-for="CategoryId" class="form-control" id="category-select" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))">
+                                             <option value="">Оберіть категорію</option>
+                                      </select>
+                                      <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                  </div>
+                        
+                                  <div class="form-group mt-5">
+                                      <label asp-for="ChildcategoryId" class="control-label">Оберіть розділ категорії</label>
+                                         <select asp-for="ChildcategoryId" class="form-control" id="childcategory-select" disabled>
+                                             <option value="">Оберіть категорію спочатку</option>
+                                         </select>
+                                      <span asp-validation-for="ChildcategoryId" class="text-danger"></span>
+                                  </div>
+                 
+                                  <div class="form-group mt-5">
+                                      <label asp-for="SubChildCategoryId" class="control-label">Оберіть розділ підкатегорії</label>
+                                         <select asp-for="SubChildCategoryId" class="form-control" id="subchildcategory-select" disabled>
+                                             <option value="">Оберіть розділ категорії спочатку</option>
+                                         </select>
+                                      <span asp-validation-for="SubChildCategoryId" class="text-danger"></span>
+                                  </div>
+                        
+                                 <button id="submit-button" class="quick-find-button btn-sz btn btn-outline-secondary mt-5 me-2 ms-2" type="submit">
+                                     <i></i> Опублікувати
+                                 </button>
+                        
+                             </div>
+                            
+                         </div>
+                     </div>
+                 </div>
+             </form>
+        </div>
+                    
+        <div class="col-2">
+            <div class="bg-warning text-dark p-3">
+                <h5 ckass="fw-bold">Що покращити:</h5>
+                <hr />
+        
+            </div>
+        </div>
+        
+
+    </div>
+</div>
+
+
+<script>
+    let currentContainerIndex; // Змінна для відстеження поточного контейнера
+
+    // перевірка загрузки файлів 
+    document.getElementById('file-input-5').addEventListener('change', function (event) {
+        if (this.files.length > 0) {
+            console.log(this.files); // Перевірка вибраних файлів в консолі
+        }
+    });
+
+
+    function openFileDialog(containerIndex) {
+        currentContainerIndex = containerIndex; // Визначаємо контейнер, куди додавати зображення
+        document.getElementById(`file-input-${containerIndex}`).click(); // Відкриваємо відповідний input для вибору файлів
+    }
+
+    function handleFiles(files) {
+        const fileUploadCntr = document.getElementById(`image-container-${currentContainerIndex}`);
+
+        if (!fileUploadCntr) {
+            console.error(`Контейнер з ID image-container-${currentContainerIndex} не знайдено.`);
+            return;
+        }
+
+        // Приховуємо іконки та інші елементи
+        if (currentContainerIndex === 5) {
+            // Для великого блоку
+            const bigFotoPlaceholder = fileUploadCntr.querySelector('.big-foto-placeholder');
+            if (bigFotoPlaceholder) {
+                bigFotoPlaceholder.classList.add('hidden'); // Ховаємо всі іконки та написи
+            }
+        } else {
+            // Для маленьких блоків
+            const plusIcon = fileUploadCntr.parentElement.querySelector('.bi-plus-lg');
+            if (plusIcon) {
+                plusIcon.classList.add('hidden'); // Ховаємо іконку
+            }
+        }
+
+
+        // Очищення контейнера перед додаванням нових зображень
+        fileUploadCntr.innerHTML = '';
+
+
+        // Вибрані файли додаються у відповідний контейнер
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+
+            // Створюємо елемент для відображення файлу
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.style.width = '99%'; // Ширина зображення
+            img.style.height = '99%';
+            img.classList.add('img-fluid', 'uploaded-image'); // Клас для стилізації
+
+            // Додаємо зображення у контейнер
+            fileUploadCntr.appendChild(img);
+        }
+
+        // Очищення значення input після обробки
+        const fileInputElement = document.getElementById(`file-input-${currentContainerIndex}`);
+        if (fileInputElement) {
+            fileInputElement.value = ''; // Очищуємо input, щоб дозволити повторне завантаження того ж файлу
+        } else {
+            console.error(`Елемент з ID file-input-${currentContainerIndex} не знайдено.`);
+        }
+    }
+
+    // Додаємо обробку вибору файлів для кожного input
+    for (let i = 1; i <= 5; i++) {
+        const fileInput = document.getElementById(`file-input-${i}`);
+
+        if (fileInput) {
+            fileInput.addEventListener('change', (event) => {
+                if (event.target.files.length > 0) {
+                    handleFiles(event.target.files);
+                }
+            });
+        } else {
+            console.error(`Елемент з ID file-input-${i} не знайдено.`);
+        }
+    }
+
+
+
+
+
+    // Підтримка drag-and-drop
+    // const dropArea = document.querySelector('.big_foto');
+
+    // dropArea.addEventListener('dragover', (event) => {
+    //     event.preventDefault();
+    //     dropArea.classList.add('drag-over');
+    // });
+
+    // dropArea.addEventListener('dragleave', () => {
+    //     dropArea.classList.remove('drag-over');
+    // });
+
+    // dropArea.addEventListener('drop', (event) => {
+    //     event.preventDefault();
+    //     dropArea.classList.remove('drag-over');
+    //     handleFiles(event.dataTransfer.files);
+    // });
+
+    // // Обробка вибору файлів з діалогового вікна
+    // document.getElementById('file-input').addEventListener('change', (event) => {
+    //     if (event.target.files.length > 0) {
+    //         handleFiles(event.target.files);
+    //     }
+    // });
+
+
+    // для передачі даниз даниз сторінки на сервер
+    // document.getElementById('submit-button').addEventListener('click', function () {
+    //     const formData = new FormData();
+
+    //     // Додаємо дані з полів форми
+    //     formData.append('NameProduct', document.getElementById('name_product').value);
+    //     formData.append('TypeProduct', document.getElementById('type_product').value);
+    //     formData.append('BrandProduct', document.getElementById('brad_producte').value);
+    //     formData.append('ColorProduct', document.getElementById('color_product').value);
+    //     formData.append('DescriptionProduct', document.getElementById('description_product').value);
+    //     formData.append('CharacteristicProduct', document.getElementById('characteristic_product').value);
+    //     formData.append('PriceProduct', document.getElementById('price_product').value);
+    //     // formData.append('ChaildCategory', document.getElementById('chaildcategory').value);
+    //     // formData.append('SubChaildCategory', document.getElementById('subchaildcategory').value);
+
+    //     // Додаємо файли (припустимо, що файли завантажуються в елементи з ідентифікаторами file-input-1, file-input-2, ...)
+    //     for (let i = 1; i <= 5; i++) {
+    //         const fileInput = document.getElementById(`file-input-${i}`);
+    //         if (fileInput && fileInput.files.length > 0) {
+    //             formData.append('images', fileInput.files[0]); // додаємо перший файл з кожного input
+    //         }
+    //     }
+
+    //     // Відправляємо дані через AJAX
+    //     fetch('/Products/CreateAdvertisement', {
+    //         method: 'POST',
+    //         body: formData,
+    //         headers: {
+    //             'X-Requested-With': 'XMLHttpRequest'
+    //         }
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.success) {
+    //                 showToast("Дані успішно надіслані!");
+    //             } else {
+    //                 showToast("Виникла помилка при надсиланні даних!");
+    //             }
+    //         })
+    //         .catch(error => {
+    //             showToast("Виникла помилка при надсиланні даних!");
+    //             console.error('Error:', error);
+    //         });
+    // });
+
+    // // Функція для показу тостів
+    // function showToast(message) {
+    //     const toastContainer = document.createElement('div');
+    //     toastContainer.classList.add('toast');
+    //     toastContainer.innerHTML = `<div class="toast-body">${message}</div>`;
+    //     document.body.appendChild(toastContainer);
+
+    //     const toast = new bootstrap.Toast(toastContainer);
+    //     toast.show();
+
+    //     setTimeout(() => {
+    //         toastContainer.remove();
+    //     }, 3000);
+    // }
+
+
+</script>

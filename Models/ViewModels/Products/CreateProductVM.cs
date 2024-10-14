@@ -12,10 +12,17 @@ namespace Rozetka.Models.ViewModels.Products
 
         public SelectList? ProductColors { get; set; }
 
+        public SelectList? Categories { get; set; }
+
         public SelectList? Childcategories { get; set; }
 
         public SelectList? SubChildCategories { get; set; }
 
         public Product Product { get; set; } = new Product();
+
+
+        public int CategoryId { get; set; }
+        public int ChildcategoryId { get; set; }
+        public int SubChildCategoryId { get; set; }
     }
 }
