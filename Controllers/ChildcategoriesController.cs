@@ -6,6 +6,7 @@ using Rozetka.Data;
 using Rozetka.Data.Entity;
 using Rozetka.Extensions;
 using Rozetka.Models.ViewModels.ProductAndSubChildCategory;
+using System.Security.Claims;
 
 namespace Rozetka.Controllers
 {
@@ -253,6 +254,25 @@ namespace Rozetka.Controllers
 
                 products.AddRange(subProducts);
             }
+
+            // Получаем идентификатор текущего пользователя
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId != null)
+            {
+                // Получаем список товаров, которые находятся в избранном для этого пользователя
+                var favoriteProductIds = await _context.Favorites
+                    .Where(f => f.UserId == userId)
+                    .Select(f => f.ProductId)
+                    .ToListAsync();
+
+                // Для каждого продукта проверяем, находится ли он в избранном
+                foreach (var product in products)
+                {
+                    product.IsInFavorites = favoriteProductIds.Contains(product.Id);
+                }
+            }
+
             // Створити ViewModel та передати його у View
             var viewModel = new ProductAndSubChildCategoryViewModel
             {

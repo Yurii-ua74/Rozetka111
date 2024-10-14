@@ -112,7 +112,7 @@
                 <h4 class="price">@Model.Price ₴</h4>
             </div>
             <div class="col">
-                <a class="btn btn-purple btn-add-to-cart btn-lg w-100" href="@Url.Action("AddToCart", "Cart", new { id = Model.Id })">Додати до кошика</a>
+                <a class="btn btn-purple btn-add-to-cart btn-lg w-100" href="@Url.Action("AddToCart", "Cart", new { productId = Model.Id })">Додати до кошика</a>
             </div>
             <div class="col col-lg-1">               
                 @if (Model.IsInFavorites) // Проверяем, находится ли товар в избранном

@@ -73,7 +73,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                           Фыльтр
+                           Фільтр
                         </button>
                     </h2>
                    @* чекбокси для вибору субпідкатегорій  *@
@@ -177,23 +177,23 @@
                             <div class="product-footer mt-2">
                                 <div class="d-flex align-items-center">
                                     <div class="product-price">@product.Price.ToString("0") ₴</div>
-                                    <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">
+                                    <a href="@Url.Action("AddToCart", "Cart", new { productId = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">
                                         <i class="bi bi-cart-plus"></i>
                                     </a>
-                                    @* @if (Model.IsInFavorites) // Проверяем, находится ли товар в избранном
+                                    @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
                                     {
                                         <!-- Кнопка удаления из избранного -->
-                                            <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = Model.Id })" class="btn btn-outline-purple">
+                                        <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                             <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
                                         </a>
                                     }
                                     else
                                     {
                                         <!-- Кнопка добавления в избранное -->
-                                            <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = Model.Id })" class="btn btn-outline-purple">
+                                        <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                             <i class="bi bi-heart"></i> <!-- Иконка пустого сердечка (товар не в избранном) -->
                                         </a>
-                                    } *@
+                                    }                                   
 
                                 </div>
                             </div>

@@ -95,8 +95,8 @@
                 </div>
                               
                 <div class="d-flex align-items-center">
-                        @if (Context.User.Identity?.IsAuthenticated ?? false)
-                        {
+                    @if (Context.User.Identity?.IsAuthenticated ?? false)
+                    {
                         @* іконка для аватарки в хедері *@
                         @* <div class="header-profile-image">
                                    <img id="headerProfileImage" src="~/images/no_avatar.png" class="img-fluid rounded-circle" alt="Profile Image" />
@@ -105,82 +105,87 @@
                         @if (User.IsInRole("Seller"))
                         {
                             <div class="header-profile-image" style="display: block;">
-                                <img id="headerIconSeller" src="~/images/icon_seller.png" class="img-fluid rounded-circle" alt="Profile Image" />                               
+                                <img id="headerIconSeller" src="~/images/icon_seller.png" class="img-fluid rounded-circle" alt="Profile Image" />
                             </div>
-                        }
+                        }                        
 
-                            @* Переходить на сторінку з покупками користувача(метод Purchase в HomeController) *@
-                            <a class="list-none nav-link text-black btn-lg position-relative btn-lg mt-2"
-                               asp-area="" asp-controller="Purchase" asp-action="Index"
-                               data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
-                                <div class="text-center">
-                                    <i class="bi bi-card-list fs-4 fs-md-3 fs-sm-3"></i>
-                                    <p class="menu-link-text-style mb-0">Покупки</p>
-                                </div>
-                            </a>
-                            @*  Переходить на сторінку з акціями(метод Shares в HomeController) *@
-                            @* <a class="nav-link text-black btn-lg"
-                               asp-area="" asp-controller="Home" asp-action="Shares"
-                               data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">
-                                <i class="bi bi-bell fs-4 fs-md-3 fs-sm-3"></i>
-                            </a> *@
-                            @* Переходить на сторінку з порівняннями(метод Compare в HomeController) *@
-                            @* <a type="button" class="d-none d-md-block nav-link text-black btn-lg"
-                               asp-area="" asp-controller="Home" asp-action="Compare"
-                               data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Список порівнянь">
-                                <img src="~/icons/balance_icon.png" alt="Balance Icon" class="icon-img-white">
-                            </a> *@
+                        @* Переходить на сторінку з покупками користувача(метод Purchase в HomeController) *@
+                        <a class="list-none nav-link text-black btn-lg position-relative btn-lg mt-2"
+                           asp-area="" asp-controller="Purchase" asp-action="Index"
+                           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
+                            <div class="text-center">
+                                <i class="bi bi-card-list fs-4 fs-md-3 fs-sm-3"></i>
+                                <p class="menu-link-text-style mb-0">Покупки</p>
+                            </div>
+                        </a>
+                        @*  Переходить на сторінку з акціями(метод Shares в HomeController) *@
+                        @* <a class="nav-link text-black btn-lg"
+                           asp-area="" asp-controller="Home" asp-action="Shares"
+                           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">
+                            <i class="bi bi-bell fs-4 fs-md-3 fs-sm-3"></i>
+                        </a> *@
+                        @* Переходить на сторінку з порівняннями(метод Compare в HomeController) *@
+                        @* <a type="button" class="d-none d-md-block nav-link text-black btn-lg"
+                           asp-area="" asp-controller="Home" asp-action="Compare"
+                           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Список порівнянь">
+                            <img src="~/icons/balance_icon.png" alt="Balance Icon" class="icon-img-white">
+                        </a> *@
 
-                            <a class="d-none d-md-block nav-link text-black position-relative btn-lg mt-2"
-                           asp-area="" asp-controller="Favorites" asp-action="Index"
-                               data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Обране">
-                                <div class="text-center">
-                                    <i class="bi bi-heart fs-4 fs-md-3 fs-sm-3"></i>
-                                    <p class="menu-link-text-style mb-0">Обране</p>
-                                </div>
-                                @await Component.InvokeAsync("FavoritesCount") <!-- Вызов ViewComponent для количества избранных -->
-                                @* @if (favorites != null)
-                                {
-                                    if (favorites.Count > 0)
-                                    {
-                                        <span class="position-absolute top-1 translate-middle badge rounded-pill bg-danger">
-                                        @favorites.Count
-                                        </span>
-                                    }
-                                } *@
-                                @* <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
-                                    0
-                                </span> *@
-                            </a>
-                        }
-                        else
-                        {
-                            @* Відкриває модальне вікно для авторизації(модальне вікно з ID authModal) *@
-                            <!-- ВХІД РЕЄСТРАЦІЯ -->
-                            <a type="button" href="" class="d-none d-md-block nav-link text-black btn-lg"
-                               data-bs-toggle="modal"
-                               data-bs-target="#authModal">
-                                <div class="me-3 text-center">
-                                    <i class="bi bi-person fs-4 fs-md-3 fs-sm-3"></i>
-                                    <p class="menu-link-text-style mb-0">Увійти</p>
-                                </div>
-                            </a>
-                        }
-                    
+                        <a class="d-none d-md-block nav-link text-black position-relative btn-lg mt-2"
+                        asp-area="" asp-controller="Favorites" asp-action="Index"
+                           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Обране">
+                            <div class="text-center">
+                                <i class="bi bi-heart fs-4 fs-md-3 fs-sm-3"></i>
+                                <p class="menu-link-text-style mb-0">Обране</p>
+                            </div>
+                            @await Component.InvokeAsync("FavoritesCount") <!-- Вызов ViewComponent для количества избранных -->                                
+                        </a>
+
                         <!-- КОШИК -->
                         @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
-                    <a type="button" class="nav-link text-black position-relative btn-lg"
-                       data-bs-toggle="modal"
-                       data-bs-target="#cartModal">
+                        <a type="button" href="" class="nav-link text-black position-relative btn-lg"
+                           data-bs-toggle="modal"
+                           data-bs-target="#cartModal">
 
                             <div class="text-center">
                                 <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
                                 <p class="menu-link-text-style mb-0">Кошик</p>
                             </div>
-                            <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;">
+                            @await Component.InvokeAsync("CartCount")
+                            @* <span id="cart-count" class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger" style="display:none;">
+                                0
+                            </span> *@
+                        </a>
+                    }
+                    else
+                    {
+                        @* Відкриває модальне вікно для авторизації(модальне вікно з ID authModal) *@
+                        <!-- ВХІД РЕЄСТРАЦІЯ -->
+                        <a type="button" href="" class="d-none d-md-block nav-link text-black btn-lg"
+                           data-bs-toggle="modal"
+                           data-bs-target="#authModal">
+                            <div class="me-3 text-center">
+                                <i class="bi bi-person fs-4 fs-md-3 fs-sm-3"></i>
+                                <p class="menu-link-text-style mb-0">Увійти</p>
+                            </div>
+                        </a>
+                        <!-- КОШИК -->
+                        @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
+                        <a type="button" href="" class="nav-link text-black position-relative btn-lg"
+                           data-bs-toggle="modal"
+                           data-bs-target="#cartModal">
+
+                            <div class="text-center">
+                                <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
+                                <p class="menu-link-text-style mb-0">Кошик</p>
+                            </div>                              
+                            <span id="cart-count" class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger" style="display:none;">
                                 0
                             </span>
                         </a>
+                    }
+                    
+                       
 
                     <!-- КОШИК ТЕСТОВИЙ, ТИМЧАСОВИЙ -->
                     @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
@@ -721,39 +726,6 @@
             return valid;
         }
     </script>
-
-    
-
-    <!-- JavaScript для активации голосового поиска -->
-    <script>
-        const voiceSearchButton = document.getElementById('voiceSearchButton');
-        const searchInput = document.getElementById('searchInput');
-        const searchForm = document.getElementById('searchForm');
-
-        if ('webkitSpeechRecognition' in window) {
-            const recognition = new webkitSpeechRecognition();
-            recognition.lang = 'uk-UA'; // язык, на котором будет работать голосовой поиск (например, 'uk-UA')
-
-            // Когда голос распознан
-            recognition.onresult = function (event) {
-                const transcript = event.results[0][0].transcript; // Получаем текст, который был распознан
-                searchInput.value = transcript; // Заполняем поле ввода текстом
-                searchForm.submit(); // Отправляем форму автоматически после распознавания
-            };
-
-            // Обработчик клика по кнопке микрофона
-            voiceSearchButton.addEventListener('click', function () {
-                recognition.start(); // Начать распознавание голоса
-            });
-        } else {
-            // Обработчик клика по кнопке микрофона
-            voiceSearchButton.addEventListener('click', function () {
-                alert('Ваш браузер не підтримує голосовий пошук.');
-            });
-
-        }
-    </script>
-
 
     <!-- JavaScript для активации голосового поиска -->
     <script>

@@ -8,6 +8,8 @@ using System;
 using System.Security.Policy;
 using Microsoft.AspNetCore.Http;
 using Rozetka.Extensions;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Rozetka.Controllers
 {
@@ -17,16 +19,38 @@ namespace Rozetka.Controllers
         //Контроллер CartController відповідає за управління кошиком покупок у програмі.
         //Він містить методи для перегляду, додавання, видалення товарів з кошика та інших операцій, пов'язаних з кошиком.
 
-        private readonly DataContext context;
+        private readonly DataContext _context;
 
         public CartController(DataContext context)
         {
-            this.context = context;
+            _context = context;
         }
         //Ініціалізує контроллер з контекстом бази даних DataContext, що дозволяє взаємодіяти з базою даних.
         //Викликається фреймворком при створенні екземпляра контролера.
         //Контекст бази даних ін'єктується через конструктор.
 
+        // GET: CartController
+        public async Task<IActionResult> Index()
+        {
+            // Получаем ID текущего пользователя
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Проверяем, что пользователь авторизован
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Получаем список избранных товаров для пользователя
+            var carts = await _context.Carts
+                .Where(c => c.UserId == userId)
+                .Include(c => c.Product) // Подгружаем информацию о продукте
+                .ThenInclude(p => p.ProductImages)
+                .ToListAsync();
+
+            // Возвращаем представление с данными
+            return View(carts);
+        }
 
         // GET: CartController
         public IActionResult Index(string? returnUrl)
@@ -46,26 +70,56 @@ namespace Rozetka.Controllers
         //і передає її до представлення.
 
 
-        public async Task<IActionResult> AddToCart(int id, string? returnUrl)
+        public async Task<IActionResult> AddToCart(int productId)
         {
-            //var cart = GetCart();
-            Product? product = await context.Products.FindAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID текущего пользователя
 
-            if (product == null)   return NotFound();
+            if (userId == null)
+            {
+                //var cart = GetCart();
+                Product? product = await _context.Products.FindAsync(productId);
 
-            // Завантаження зображень товару
-            await context.Entry(product).Collection(t => t.ProductImages!).LoadAsync();
+                if (product == null) return NotFound();
 
-            Cart cart = GetCart(); //отримання кошика з сесії
-            cart.AddToCart(new CartItem { Product = product, Count = 1 });
+                // Завантаження зображень товару
+                await _context.Entry(product).Collection(t => t.ProductImages!).LoadAsync();
 
-            SetCart(cart);  // додавання кошика в сесію
-            //return Redirect(returnUrl);                              
-            //return Redirect(returnUrl ?? Url.Action("Index", "Cart"));
-            var cartCount = cart.GetTotalCount();
-            HttpContext.Session.SetInt32("CartItemCount", cartCount);
+                Cart cart = GetCart(); //отримання кошика з сесії
+                cart.AddToCart(new CartItem { Product = product, Count = 1 });
 
-            return Json(new { success = true, cartCount });
+                SetCart(cart);  // додавання кошика в сесію
+                                //return Redirect(returnUrl);                              
+                                //return Redirect(returnUrl ?? Url.Action("Index", "Cart"));
+                var cartCount = cart.GetTotalCount();
+                HttpContext.Session.SetInt32("CartItemCount", cartCount);
+
+                return Json(new { success = true, cartCount });
+            }
+            else
+            {
+                // Проверяем, есть ли уже этот товар в корзине
+                var existingCart = await _context.Carts
+                    .FirstOrDefaultAsync(w => w.UserId == userId && w.ProductId == productId);
+                if (existingCart == null) 
+                {
+                    var cartItem = new Cart
+                    {
+                        UserId = userId,
+                        ProductId = productId
+                    };
+
+                    _context.Carts.Add(cartItem);
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, cartItem });
+                }
+                else
+                {
+                    existingCart.Quantity++;
+                    _context.Carts.Add(existingCart);
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, existingCart });
+                }
+            }            
         }
         //Додає товар до кошика.
         //Викликається при додаванні товару до кошика за URL Cart/AddToCart/{ id}.
@@ -202,11 +256,30 @@ namespace Rozetka.Controllers
         //Отримує загальну ціну товарів у кошику та повертає її.
 
         // отримувати кількість товарів у кошику з сесії
-        [HttpGet]
-        public IActionResult GetCartCount()
+        //[HttpGet]
+        //public IActionResult GetCartCount()
+        //{
+        //    int? cartCount = HttpContext.Session.GetInt32("CartItemCount");
+        //    return Json(new { cartCount = cartCount ?? 0 });
+        //}
+
+
+        // Метод для получения количества избранных товаров
+        public async Task<int> GetCartCount()
         {
-            int? cartCount = HttpContext.Session.GetInt32("CartItemCount");
-            return Json(new { cartCount = cartCount ?? 0 });
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID текущего пользователя
+
+            if (userId == null)
+            {
+                return 0;
+            }
+
+            // Получаем количество товаров в избранном
+            var count = await _context.Carts
+                .Where(f => f.UserId == userId)
+                .CountAsync();
+
+            return count;
         }
     }
 }
