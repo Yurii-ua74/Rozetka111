@@ -722,39 +722,6 @@
         }
     </script>
 
-    
-
-    <!-- JavaScript для активации голосового поиска -->
-    <script>
-        const voiceSearchButton = document.getElementById('voiceSearchButton');
-        const searchInput = document.getElementById('searchInput');
-        const searchForm = document.getElementById('searchForm');
-
-        if ('webkitSpeechRecognition' in window) {
-            const recognition = new webkitSpeechRecognition();
-            recognition.lang = 'uk-UA'; // язык, на котором будет работать голосовой поиск (например, 'uk-UA')
-
-            // Когда голос распознан
-            recognition.onresult = function (event) {
-                const transcript = event.results[0][0].transcript; // Получаем текст, который был распознан
-                searchInput.value = transcript; // Заполняем поле ввода текстом
-                searchForm.submit(); // Отправляем форму автоматически после распознавания
-            };
-
-            // Обработчик клика по кнопке микрофона
-            voiceSearchButton.addEventListener('click', function () {
-                recognition.start(); // Начать распознавание голоса
-            });
-        } else {
-            // Обработчик клика по кнопке микрофона
-            voiceSearchButton.addEventListener('click', function () {
-                alert('Ваш браузер не підтримує голосовий пошук.');
-            });
-
-        }
-    </script>
-
-
     <!-- JavaScript для активации голосового поиска -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {

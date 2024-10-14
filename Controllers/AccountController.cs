@@ -108,6 +108,14 @@ namespace Rozetka.Controllers
 
                     if (result.Succeeded)
                     {
+                        // Вернемся на предыдущую страницу
+                        string refererUrl = Request.Headers["Referer"].ToString();
+                        if (!string.IsNullOrEmpty(refererUrl))
+                        {
+                            return Redirect(refererUrl);
+                        }
+
+                        // Если заголовок Referer пустой, можно вернуться на главную или другую дефолтную страницу
                         return RedirectToAction("Index", "Home");
                     }
                     else if (result.IsLockedOut)
@@ -164,6 +172,13 @@ namespace Rozetka.Controllers
                 IsPersistent = false
             };
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme, authProperties);
+            // Вернемся на предыдущую страницу
+            string refererUrl = Request.Headers["Referer"].ToString();
+            if (!string.IsNullOrEmpty(refererUrl))
+            {
+                return Redirect(refererUrl);
+            }
+            // Если заголовок Referer пустой, можно вернуться на главную или другую дефолтную страницу
             return RedirectToAction("Index", "Home");
         }
 
