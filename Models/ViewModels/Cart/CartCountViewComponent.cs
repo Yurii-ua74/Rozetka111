@@ -9,8 +9,8 @@ namespace Rozetka.Models.ViewModels.Cart
     {
         private readonly DataContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        
-        CartCountViewComponent(DataContext context, IHttpContextAccessor httpContextAccessor)
+
+        public CartCountViewComponent(DataContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
@@ -26,8 +26,8 @@ namespace Rozetka.Models.ViewModels.Cart
 
             // Получаем количество избранных товаров
             var count = await _context.Carts
-                .Where(f => f.UserId == userId)
-                .CountAsync();
+                .Where(c => c.UserId == userId)
+                .SumAsync(c => c.Quantity);
 
             return View(count); // Возвращаем количество
         }

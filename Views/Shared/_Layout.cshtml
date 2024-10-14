@@ -105,9 +105,9 @@
                         @if (User.IsInRole("Seller"))
                         {
                             <div class="header-profile-image" style="display: block;">
-                                <img id="headerIconSeller" src="~/images/icon_seller.png" class="img-fluid rounded-circle" alt="Profile Image" />                               
+                                <img id="headerIconSeller" src="~/images/icon_seller.png" class="img-fluid rounded-circle" alt="Profile Image" />
                             </div>
-                        }
+                        }                        
 
                         @* Переходить на сторінку з покупками користувача(метод Purchase в HomeController) *@
                         <a class="list-none nav-link text-black btn-lg position-relative btn-lg mt-2"
@@ -151,7 +151,7 @@
                                 <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
                                 <p class="menu-link-text-style mb-0">Кошик</p>
                             </div>
-                           @*  @await Component.InvokeAsync("CartCount")     *@                        
+                            @await Component.InvokeAsync("CartCount")
                         </a>
                     }
                     else
@@ -175,7 +175,7 @@
                             <div class="text-center">
                                 <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
                                 <p class="menu-link-text-style mb-0">Кошик</p>
-                            </div>                            
+                            </div>                              
                             <span id="cart-count" class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger" style="display:none;">
                                 0
                             </span>
