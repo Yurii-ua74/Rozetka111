@@ -35,109 +35,171 @@ namespace Rozetka.Controllers
 
             if (userId != null)
             {
-                cart = await _context.Carts
-                    .Include(c => c.Items)
-                    .ThenInclude(ci => ci.Product)
-                    .FirstOrDefaultAsync(c => c.UserId == userId);
-
-                if (cart == null)
+                try
                 {
-                    cart = new Cart { UserId = userId };
-                    _context.Carts.Add(cart);
-                    await _context.SaveChangesAsync();
+                    cart = await _context.Carts
+                        .Include(c => c.Items)
+                        .ThenInclude(ci => ci.Product)
+                        .FirstOrDefaultAsync(c => c.UserId == userId);
+
+                    if (cart == null)
+                    {
+                        Console.WriteLine($"Корзина для пользователя {userId} не найдена.");
+                        cart = new Cart { UserId = userId, Items = new List<CartItem>() }; // Инициализация пустого списка Items
+                        _context.Carts.Add(cart);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Корзина найдена. Количество товаров: {cart.Items.Count}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ошибка при выполнении запроса: {ex.Message}");
+                    cart = new Cart { Items = new List<CartItem>() }; // В случае ошибки возвращаем пустую корзину
                 }
             }
             else
             {
                 var cartSession = HttpContext.Session.GetString("Cart");
-                cart = string.IsNullOrEmpty(cartSession) ? new Cart() : JsonConvert.DeserializeObject<Cart>(cartSession);
+                cart = string.IsNullOrEmpty(cartSession) ? new Cart { Items = new List<CartItem>() } : JsonConvert.DeserializeObject<Cart>(cartSession);
             }
 
+            // Убедитесь, что Items не равен null, чтобы избежать ошибок
+            if (cart.Items == null)
+            {
+                cart.Items = new List<CartItem>();
+            }
+
+            // Подсчет общей суммы товаров в корзине
             double totalPrice = cart.Items.Sum(item => item.TotalPrice ?? 0);
 
+            // Подготовка данных для передачи в представление
             var viewModel = new CartViewModel
             {
                 CartItems = cart.Items,
                 TotalPrice = totalPrice
             };
 
+            // Сохраняем корзину в сессии, если пользователь не авторизован
             if (userId == null)
             {
                 HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
             }
 
-            return PartialView("_CartModalPartial", viewModel); // Возвращаем частичное представление с данными корзины
+            // Возвращаем частичное представление с данными корзины
+            return PartialView("_CartModalPartial", viewModel);
         }
 
         //Метод добавления товара в корзину
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productId, int count = 1)
         {
-            // Если пользователь авторизован
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Cart cart;
+            //try
+            //{
+            //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //    Cart cart;
 
-            if (userId != null)
-            {
-                // Поиск корзины пользователя
-                cart = await _context.Carts.Include(c => c.Items).FirstOrDefaultAsync(c => c.UserId == userId);
+            //    if (userId != null)
+            //    {
+            //        // Поиск корзины пользователя
+            //        cart = await _context.Carts.Include(c => c.Items).FirstOrDefaultAsync(c => c.UserId == userId);
 
-                if (cart == null)
-                {
-                    // Создание корзины, если её нет
-                    cart = new Cart { UserId = userId };
-                    _context.Carts.Add(cart);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            else
+            //        if (cart == null)
+            //        {
+            //            cart = new Cart { UserId = userId, Items = new List<CartItem>() };
+            //            _context.Carts.Add(cart);
+            //            await _context.SaveChangesAsync();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        // Работаем с сессионной корзиной для неавторизованного пользователя
+            //        var cartSession = HttpContext.Session.GetString("Cart");
+            //        if (string.IsNullOrEmpty(cartSession))
+            //        {
+            //            cart = new Cart { Items = new List<CartItem>() }; // Инициализируем пустую корзину
+            //            HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+            //        }
+            //        else
+            //        {
+            //            cart = JsonConvert.DeserializeObject<Cart>(cartSession);
+            //        }
+            //    }
+
+            //    // Проверяем, есть ли товар в корзине
+            //    var existingCartItem = cart.Items.FirstOrDefault(i => i.ProductId == productId);
+            //    if (existingCartItem != null)
+            //    {
+            //        // Если товар уже в корзине, обновляем количество
+            //        existingCartItem.Count += count;
+            //    }
+            //    else
+            //    {
+            //        var product = await _context.Products.FindAsync(productId);
+            //        if (product == null) return NotFound("Товар не найден");
+
+            //        cart.Items.Add(new CartItem
+            //        {
+            //            ProductId = productId,
+            //            Count = count,
+            //            Product = product
+            //        });
+            //    }
+
+            //    if (userId != null)
+            //    {
+            //        // Сохраняем изменения в базе данных для авторизованного пользователя
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    else
+            //    {
+            //        // Сохраняем корзину в сессии для неавторизованного пользователя
+            //        HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+            //    }
+
+            //    return Json(new { count = cart.Items.Sum(i => i.Count) });
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Ошибка при добавлении товара в корзину: {ex.Message}");
+            //    return StatusCode(500, "Произошла ошибка при добавлении товара в корзину");
+            //}
+            try
             {
-                // Если пользователь не авторизован, работаем с сессионной корзиной
-                var cartSession = HttpContext.Session.GetString("Cart");
-                if (string.IsNullOrEmpty(cartSession))
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                Cart cart;
+
+                if (userId != null)
                 {
-                    cart = new Cart();
-                    HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+                    cart = await _context.Carts
+                        .Include(c => c.Items)
+                        .ThenInclude(ci => ci.Product)
+                        .FirstOrDefaultAsync(c => c.UserId == userId);
+
+                    if (cart == null)
+                    {
+                        Console.WriteLine("Корзина для данного пользователя не найдена.");
+                        return Json(new { success = false, message = "Корзина не найдена." });
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Найдена корзина с {cart.Items.Count} элементами.");
+                        return Json(new { success = true, itemCount = cart.Items.Count });
+                    }
                 }
                 else
                 {
-                    cart = JsonConvert.DeserializeObject<Cart>(cartSession);
+                    Console.WriteLine("Не удалось получить идентификатор пользователя.");
+                    return BadRequest("Не удалось получить идентификатор пользователя.");
                 }
             }
-
-            // Проверяем, есть ли уже этот товар в корзине
-            var existingCartItem = cart.Items.FirstOrDefault(i => i.ProductId == productId);
-            if (existingCartItem != null)
+            catch (Exception ex)
             {
-                // Если товар уже в корзине, обновляем количество
-                existingCartItem.Count += count;
+                Console.WriteLine($"Ошибка при выполнении запроса к корзине: {ex.Message}");
+                return StatusCode(500, $"Ошибка при получении данных корзины: {ex.Message}");
             }
-            else
-            {
-                // Иначе добавляем новый товар
-                var product = await _context.Products.FindAsync(productId);
-                if (product == null) return NotFound("Товар не найден");
-
-                cart.Items.Add(new CartItem
-                {
-                    ProductId = productId,
-                    Count = count,
-                    Product = product
-                });
-            }
-
-            if (userId != null)
-            {
-                // Если пользователь авторизован, сохраняем изменения в БД
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                // Если пользователь не авторизован, сохраняем корзину в сессии
-                HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
-            }
-
-            return Json(new { count = cart.Items.Sum(i => i.Count) });
         }
 
         //Метод удаления товара из корзины
@@ -235,19 +297,63 @@ namespace Rozetka.Controllers
             return Json(new { count = cart.Items.Sum(i => i.Count), totalPrice });
         }
 
-        // Эагрузка корзины в модальном окне
-        //public IActionResult LoadCartModal()
-        //{
-        //    Cart cart = new Cart();
-        //    cart.Items = new List<CartItem>();
-        //    //Cart cart = GetCart(); // Получаем корзину из сессии
-        //    //CartIndexVM cartIndexVM = new CartIndexVM
-        //    //{
-        //    //    CartItems = cart.CartItems,
-        //    //    TotalPrice = cart.GetTotalPrice()
-        //    //};
-        //    return PartialView("_CartModalPartial", cart.Items);  // Возвращаем частичное представление
-        //}
+        [HttpGet]
+        public async Task<IActionResult> LoadCartModal()
+        {
+            Cart cart;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId != null)
+            {
+                try
+                {
+                    // Загрузка корзины для авторизованного пользователя
+                    cart = await _context.Carts
+                        .Include(c => c.Items)
+                        .ThenInclude(ci => ci.Product)
+                        .FirstOrDefaultAsync(c => c.UserId == userId);
+
+                    //Получаем список избранных товаров для пользователя
+                    if (cart == null)
+                    {
+                        cart = new Cart { UserId = userId, Items = new List<CartItem>() };
+                        _context.Carts.Add(cart);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ошибка при выполнении запроса: {ex.Message}");
+                    cart = new Cart { Items = new List<CartItem>() };
+                }
+            }
+            else
+            {
+                // Логика для работы с сессионной корзиной
+                var cartSession = HttpContext.Session.GetString("Cart");
+                cart = string.IsNullOrEmpty(cartSession) ? new Cart { Items = new List<CartItem>() } : JsonConvert.DeserializeObject<Cart>(cartSession);
+            }
+
+            if (cart.Items == null)
+            {
+                cart.Items = new List<CartItem>();
+            }
+
+            double totalPrice = cart.Items.Sum(item => item.TotalPrice ?? 0);
+
+            var viewModel = new CartViewModel
+            {
+                CartItems = cart.Items,
+                TotalPrice = totalPrice
+            };
+
+            if (userId == null)
+            {
+                HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+            }
+
+            return PartialView("_CartModalPartial", viewModel);
+        }
     }
 
     //public class CartController : Controller

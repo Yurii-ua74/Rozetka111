@@ -3,20 +3,19 @@
 namespace Rozetka.Data.Entity
 {
      public class Cart
-    {
-        public int Id { get; set; }
-        public ICollection<CartItem> Items { get; set; } = new List<CartItem>();
-
+     {
+        public int Id { get; set; }    
         // Связь с пользователем
         public string UserId { get; set; } = default!;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public decimal TotalPrice { get; set; } = 0;
+        public bool IsActive { get; set; } = false;
         public User? User { get; set; }
 
+        public ICollection<CartItem> Items { get; set; } = new List<CartItem>();
         // Расчет общей стоимости корзины
-        public double TotalCartPrice => Items.Sum(item => item.TotalPrice ?? 0);
-
-        //// Добавьте тестовое поле для проверки изменений
-        //public DateTime CreatedDate { get; set; } = DateTime.Now;  // Пример нового поля
-    }
+        public double TotalCartPrice => Items.Sum(item => item.TotalPrice ?? 0);        
+     }
 
 
 

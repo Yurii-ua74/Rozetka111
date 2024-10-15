@@ -137,15 +137,15 @@ function updateCartSidebar(cartData) {
 
 
 // для оновлення лічильника
-function updateCartCount() {
-    fetch('/Cart/GetCartCount')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('cart-count').innerText = data.cartCount;
-            document.getElementById('cart-count').style.display = data.cartCount > 0 ? 'block' : 'none';
-        });
-}
-document.addEventListener('DOMContentLoaded', updateCartCount);
+//function updateCartCount() {
+//    fetch('/Cart/GetCartCount')
+//        .then(response => response.json())
+//        .then(data => {
+//            document.getElementById('cart-count').innerText = data.cartCount;
+//            document.getElementById('cart-count').style.display = data.cartCount > 0 ? 'block' : 'none';
+//        });
+//}
+//document.addEventListener('DOMContentLoaded', updateCartCount);
 
 /*  для виводу карти  */
 function getLocationFromSession() {
@@ -395,6 +395,20 @@ $(document).ready(function () {
 });
 
 //////////////// Сектор изменения и обновления избранных товаров ///////////////////
+$(document).ready(function () {
+    $('#cartModal').on('show.bs.modal', function () {
+        $.ajax({
+            url: '/Cart/LoadCartModal', // Обращение к методу LoadCartModal
+            type: 'GET',
+            success: function (data) {
+                $('#cartModal .modal-content').html(data); // Заполняем модальное окно содержимым
+            },
+            error: function (xhr, status, error) {
+                console.error("Ошибка при загрузке корзины: ", status, error);
+            }
+        });
+    });
+});
 
 $(document).ready(function () {
     // Обработчик для добавления в избранное
@@ -418,15 +432,27 @@ $(document).ready(function () {
 });
 
 //////////////// Сектор изменения и обновления корзины ///////////////////
+//function updateCart(productId, action) {
+//    let url = '/Cart/' + action; // Либо AddToCart, либо RemoveFromCart
+//    $.post(url, { productId: productId }, function (data) {
+//        $('#cart-count').text(data.count);
+//        if (data.count > 0) {
+//            $('#cart-count').show();
+//        } else {
+//            $('#cart-count').hide();
+//        }
+//        //window.location.reload();
+//    });
+//}
 function updateCart(productId, action) {
-    let url = '/Cart/' + action; // Либо AddToCart, либо RemoveFromCart
-    $.post(url, { productId: productId }, function (data) {
-        $('#cart-count').text(data.count);
-        if (data.count > 0) {
-            $('#cart-count').show();
+    $.post('/Cart/AddToCart', { productId: productId }, function (data) {
+        if (data.success) {
+            $('#cart-count').text(data.itemCount);
         } else {
-            $('#cart-count').hide();
+            alert(data.message || "Произошла ошибка.");
         }
+    }).fail(function (xhr, status, error) {
+        alert("Ошибка: " + xhr.responseText);
     });
 }
 

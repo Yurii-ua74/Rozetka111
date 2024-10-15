@@ -19,14 +19,14 @@ namespace Rozetka.Data.Entity
         public int Id { get; set; }
         public int ProductId { get; set; } = default!;
         public int Count { get; set; } = 1;
-        public double? TotalPrice => Product != null ? (double)(Product.Price * Count) : null;
+        public int CartId { get; set; }  // Связь с корзиной       
 
         // Связь с продуктом
         public Product? Product { get; set; }
-
-        // Связь с корзиной
-        public int CartId { get; set; }  // Связь с корзиной
+        // Связь с корзиной       
         public Cart Cart { get; set; } = default!;
+
+        public double? TotalPrice => Product != null ? (double)(Product.Price * Count) : null;
     }
    
 
