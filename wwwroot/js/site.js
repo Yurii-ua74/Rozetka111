@@ -113,27 +113,27 @@ function updateCartSidebar(cartData) {
 
 
 // додавання кількості товару над кошиком
-$(document).ready(function() {
-    // Handle 'Add to Cart' button click
-    $('.btn-add-to-cart').on('click', function (event) {
-        event.preventDefault();
-        var $button = $(this);
-        var url = $button.attr('href');
-        $.ajax({
-            url: url,
-            type: 'POST',
-            success: function (response) {
-                if (response.success) {
-                    // Update cart count
-                    $('#cart-count').text(response.cartCount).show();
-                }
-            },
-            error: function () {
-                alert('Error adding item to cart.');
-            }
-        });
-    });
-});
+//$(document).ready(function() {
+//    // Handle 'Add to Cart' button click
+//    $('.btn-add-to-cart').on('click', function (event) {
+//        event.preventDefault();
+//        var $button = $(this);
+//        var url = $button.attr('href');
+//        $.ajax({
+//            url: url,
+//            type: 'POST',
+//            success: function (response) {
+//                if (response.success) {
+//                    // Update cart count
+//                    $('#cart-count').text(response.cartCount).show();
+//                }
+//            },
+//            error: function () {
+//                alert('Error adding item to cart.');
+//            }
+//        });
+//    });
+//});
 
 
 // для оновлення лічильника
@@ -321,8 +321,49 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+//////////////// Сектор изменения и обновления корзины ///////////////////
+function updateCart(productId, action) {
+    let url = '/Cart/' + action; // Либо AddToCart, либо RemoveFromCart
+    $.post(url, { productId: productId }, function (data) {
+        $('#cart-count').text(data.count);
+        if (data.count > 0) {
+            $('#cart-count').show();
+        } else {
+            $('#cart-count').hide();
+        }
+    });
+}
+
+$(document).on('change', '.quantity-input', function () {
+    var productId = $(this).data('product-id');
+    var newCount = $(this).val();
+
+    $.post('/Cart/UpdateCartItem', { productId: productId, newCount: newCount }, function (data) {
+        $('#total-price').text(data.totalPrice.toFixed(2) + '₴');
+        if (data.count > 0) {
+            $('#cart-count').show().text(data.count);
+        } else {
+            $('#cart-count').hide();
+        }
+    });
+});
+
+$(document).on('click', '.remove-item', function () {
+    var productId = $(this).data('product-id');
+
+    $.post('/Cart/RemoveFromCart', { productId: productId }, function (data) {
+        $('tr[data-product-id="' + productId + '"]').remove();
+        $('#total-price').text(data.totalPrice.toFixed(2) + '₴');
+        if (data.count > 0) {
+            $('#cart-count').show().text(data.count);
+        } else {
+            $('#cart-count').hide();
+        }
+    });
+});
 
 
+//////////////// Сектор изменения и обновления избранных товаров ///////////////////
 function addToFavorites(productId) {
     $.ajax({
         url: '/Favorites/AddToFavoritesAjax',  // путь к вашему действию
@@ -330,12 +371,25 @@ function addToFavorites(productId) {
         data: { productId: productId },
         success: function (response) {
             if (response.success) {
-                alert(response.message); // сообщение об успехе
-                // здесь можно обновить UI, например, сменить иконку избранного
+                /*alert(response.message); // сообщение об успехе*/
+                // Перезагружаем ViewComponent для обновления количества избранных
+                //updateFavoritesCount();
+                window.location.reload();
             } else {
                 alert(response.message); // сообщение об ошибке
             }
-            //window.location.reload();
+            
         }
     });
 }
+// Функция для обновления количества избранных
+//function updateFavoritesCount() {
+//    $.ajax({
+//        url: '/Favorites/GetFavoritesCount',  // контроллер, возвращающий количество избранных
+//        type: 'GET',
+//        success: function (result) {
+//            // Находим элемент с вызовом ViewComponent и обновляем его содержимое
+//            $('#favorites-count').html(result);
+//        }
+//    });
+//}

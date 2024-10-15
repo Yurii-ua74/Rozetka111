@@ -5,13 +5,13 @@ using Rozetka.Data.Entity;
 
 namespace Rozetka.ModelBinders
 {
-    public class CartBinderProvider : IModelBinderProvider
-    {
-        public IModelBinder? GetBinder(ModelBinderProviderContext context)
-        {
-            return context.Metadata.ModelType == typeof(Cart) ? new CartModelBinder() : null;
-        }
-    }
+    //public class CartBinderProvider : IModelBinderProvider
+    //{
+    //    public IModelBinder? GetBinder(ModelBinderProviderContext context)
+    //    {
+    //        return context.Metadata.ModelType == typeof(Cart) ? new CartModelBinder() : null;
+    //    }
+    //}
 }
 
 

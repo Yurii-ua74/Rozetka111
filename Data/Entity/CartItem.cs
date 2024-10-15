@@ -2,13 +2,32 @@
 
 namespace Rozetka.Data.Entity
 {  
-    [Keyless]
+    //[Keyless]
+    //public class CartItem
+    //{
+    //    public Product Product { get; set; } = default!;
+
+    //    public int Count { get; set; }
+
+    //    public double TotalPrice => (double)(Product.Price * Count);
+    //}
+
+
+
     public class CartItem
     {
-        public Product Product { get; set; } = default!;
+        public int Id { get; set; }
+        public int ProductId { get; set; } = default!;
+        public int Count { get; set; } = 1;
+        public double? TotalPrice => Product != null ? (double)(Product.Price * Count) : null;
 
-        public int Count { get; set; }
+        // Связь с продуктом
+        public Product? Product { get; set; }
 
-        public double TotalPrice => (double)(Product.Price * Count);
+        // Связь с корзиной
+        public int CartId { get; set; }  // Связь с корзиной
+        public Cart Cart { get; set; } = default!;
     }
+   
+
 }

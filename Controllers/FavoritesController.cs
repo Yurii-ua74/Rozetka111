@@ -217,7 +217,7 @@ namespace Rozetka.Controllers
             }
         }
 
-        // Метод для получения количества избранных товаров
+        //Метод для получения количества избранных товаров
         public async Task<int> GetFavoritesCount()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID текущего пользователя
@@ -234,5 +234,9 @@ namespace Rozetka.Controllers
 
             return count;
         }
+        //public async Task<IActionResult> GetFavoritesCount()
+        //{
+        //    return ViewComponent("FavoritesCount");
+        //}
     }
 }

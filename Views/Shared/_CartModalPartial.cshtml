@@ -1,18 +1,68 @@
 ﻿@using Rozetka.Models.ViewModels.Cart
 @using Rozetka.Data.Entity
-@model CartIndexVM
+@model CartViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<div class="cart-container">
+<div class="modal-header">
+    <h5 class="modal-title">Ваш кошик</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    @if (Model.CartItems.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Ціна</th>
+                    <th>Кількість</th>
+                    <th>Загальна ціна</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr data-product-id="@item.ProductId">
+                        <td>@item.Product.Title</td>
+                        <td>@item.Product.Price.ToString("0") ₴</td>
+                        <td>
+                            <input type="number" value="@item.Count" class="form-control quantity-input" min="1" data-product-id="@item.ProductId" style="width: 70px;">
+                        </td>
+                        @* <td>@item.Count</td> *@
+                        <td>@item.TotalPrice?.ToString("0") ₴</td>
+                        <td>
+                            <button class="btn btn-danger remove-item" data-product-id="@item.ProductId">Видалити</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-end">
+            <h3>Підсумкова сума: @Model.TotalPrice.ToString("0") ₴</h3>
+        </div>
+    }
+    else
+    {
+        <!-- Если корзина изначально пустая, показываем сообщение -->
+        <div class="text-center mt-5 empty-cart-message">
+            <h3>Ваш кошик порожнiй</h3>
+            <p>Додайте товари у кошик, щоб продовжити.</p>
+            <i class="bi bi-emoji-frown" style="font-size: 240px; color: #ccc;"></i>
+        </div>
+    }
+</div>
+
+@* <div class="cart-container">
     <!-- Общий контейнер для корзины -->
-    @if (Model.CartItems != null && Model.CartItems.Any())
+    @if (Model.Items != null && Model.Items.Any())
     {
         <div class="cart-items-container" style="max-height: 500px; overflow-y: auto;">
             <table class="table">
                 <tbody>
-                    @foreach (CartItem cartItem in Model.CartItems)
+                    @foreach (CartItem cartItem in Model.Items)
                     {
                         <tr data-row-id="@cartItem.Product.Id">
                             <td style="border: none;">
@@ -50,7 +100,7 @@
         </div>
         <div class="d-flex justify-content-end align-items-center total-price-container">
             <div class="total-price-text me-3" id="totalPrice">
-                @Model.TotalPrice ₴
+                @Model.TotalCartPrice ₴
             </div>
             <a class="btn btn-purple w-20 total-price-button" asp-controller="Cart" asp-action="Index">
                 Сформувати замовлення
@@ -74,8 +124,8 @@
     <p>Додайте товари у кошик, щоб продовжити.</p>
     <i class="bi bi-emoji-frown" style="font-size: 240px; color: #ccc;"></i>
 </div>
-<!-- Удаление товара из модальной корзины -->
-<script>
+<!-- Удаление товара из модальной корзины --> *@
+@* <script>
     $(document).on('click', '.remove-from-cart', function (e) {
         e.preventDefault(); // Отменяем стандартное поведение ссылки/кнопки
 
@@ -121,4 +171,4 @@
             }
         });
     });
-</script>
+</script> *@
