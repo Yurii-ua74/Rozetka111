@@ -321,46 +321,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-//////////////// Сектор изменения и обновления корзины ///////////////////
-function updateCart(productId, action) {
-    let url = '/Cart/' + action; // Либо AddToCart, либо RemoveFromCart
-    $.post(url, { productId: productId }, function (data) {
-        $('#cart-count').text(data.count);
-        if (data.count > 0) {
-            $('#cart-count').show();
-        } else {
-            $('#cart-count').hide();
-        }
-    });
-}
 
-$(document).on('change', '.quantity-input', function () {
-    var productId = $(this).data('product-id');
-    var newCount = $(this).val();
-
-    $.post('/Cart/UpdateCartItem', { productId: productId, newCount: newCount }, function (data) {
-        $('#total-price').text(data.totalPrice.toFixed(2) + '₴');
-        if (data.count > 0) {
-            $('#cart-count').show().text(data.count);
-        } else {
-            $('#cart-count').hide();
-        }
-    });
-});
-
-$(document).on('click', '.remove-item', function () {
-    var productId = $(this).data('product-id');
-
-    $.post('/Cart/RemoveFromCart', { productId: productId }, function (data) {
-        $('tr[data-product-id="' + productId + '"]').remove();
-        $('#total-price').text(data.totalPrice.toFixed(2) + '₴');
-        if (data.count > 0) {
-            $('#cart-count').show().text(data.count);
-        } else {
-            $('#cart-count').hide();
-        }
-    });
-});
 
 
 
@@ -434,32 +395,65 @@ $(document).ready(function () {
 });
 
 //////////////// Сектор изменения и обновления избранных товаров ///////////////////
-function addToFavorites(productId) {
-    $.ajax({
-        url: '/Favorites/AddToFavoritesAjax',  // путь к вашему действию
-        type: 'POST',
-        data: { productId: productId },
-        success: function (response) {
-            if (response.success) {
-                /*alert(response.message); // сообщение об успехе*/
-                // Перезагружаем ViewComponent для обновления количества избранных
-                //updateFavoritesCount();
+
+$(document).ready(function () {
+    // Обработчик для добавления в избранное
+    $('.add-to-favorites').on('click', function () {
+        var productId = $(this).data('product-id');
+
+        $.post('/Favorites/AddToFavorites', { productId: productId }, function (data) {
+            if (data.success) {
+                // Показать сообщение об успехе
                 window.location.reload();
+                //alert(data.message);
             } else {
-                alert(response.message); // сообщение об ошибке
+                // Показать сообщение об ошибке
+                alert(data.message);
             }
-            
+        }).fail(function () {
+            // Обработка ошибок при AJAX запросе
+            alert('Сталася помилка при додаванні товару в обране.');
+        });
+    });
+});
+
+//////////////// Сектор изменения и обновления корзины ///////////////////
+function updateCart(productId, action) {
+    let url = '/Cart/' + action; // Либо AddToCart, либо RemoveFromCart
+    $.post(url, { productId: productId }, function (data) {
+        $('#cart-count').text(data.count);
+        if (data.count > 0) {
+            $('#cart-count').show();
+        } else {
+            $('#cart-count').hide();
         }
     });
 }
-// Функция для обновления количества избранных
-//function updateFavoritesCount() {
-//    $.ajax({
-//        url: '/Favorites/GetFavoritesCount',  // контроллер, возвращающий количество избранных
-//        type: 'GET',
-//        success: function (result) {
-//            // Находим элемент с вызовом ViewComponent и обновляем его содержимое
-//            $('#favorites-count').html(result);
-//        }
-//    });
-//}
+
+$(document).on('change', '.quantity-input', function () {
+    var productId = $(this).data('product-id');
+    var newCount = $(this).val();
+
+    $.post('/Cart/UpdateCartItem', { productId: productId, newCount: newCount }, function (data) {
+        $('#total-price').text(data.totalPrice.toFixed(2) + '₴');
+        if (data.count > 0) {
+            $('#cart-count').show().text(data.count);
+        } else {
+            $('#cart-count').hide();
+        }
+    });
+});
+
+$(document).on('click', '.remove-item', function () {
+    var productId = $(this).data('product-id');
+
+    $.post('/Cart/RemoveFromCart', { productId: productId }, function (data) {
+        $('tr[data-product-id="' + productId + '"]').remove();
+        $('#total-price').text(data.totalPrice.toFixed(2) + '₴');
+        if (data.count > 0) {
+            $('#cart-count').show().text(data.count);
+        } else {
+            $('#cart-count').hide();
+        }
+    });
+});

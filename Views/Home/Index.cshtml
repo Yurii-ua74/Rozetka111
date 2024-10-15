@@ -131,13 +131,13 @@
                             else
                             {
                                 <!-- Кнопка добавления в избранное -->
-                                <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
+                               @*  <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                     <i class="bi bi-heart"></i> <!-- Иконка пустого сердечка (товар не в избранном) -->
-                                </a>
-                                <!-- Кнопка добавления в избранное  Тест ajax -->
-                                @* <a href="javascript:void(0)" onclick="addToFavorites(@product.Id)" class="btn btn-outline-purple">
-                                    <i class="bi bi-heart"></i>
                                 </a> *@
+                                <!-- Кнопка добавления в избранное  Тест ajax -->
+                                <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
+                                    <i class="bi bi-heart"></i>
+                                </a>                                
                             }
                         </div>
 
