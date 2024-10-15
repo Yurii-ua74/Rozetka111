@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Facebook;
+using Rozetka.Servises;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ int TimeBeforeLogout = 60;
 // Додавання  MVC
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IDataService, DataService>();
 
 ////////// Налаштування сессій ////////////
 builder.Services.AddDistributedMemoryCache();

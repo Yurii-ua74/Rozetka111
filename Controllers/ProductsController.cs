@@ -498,12 +498,8 @@ namespace Rozetka.Controllers
             productViewModel.SearchingResults = await query.ToListAsync();
 
             return View(productViewModel);
-        }
+        }      
 
-        public async Task<IActionResult> CreateAdvertisement ()
-        {
-            return View();
-        }
     }
 }
 

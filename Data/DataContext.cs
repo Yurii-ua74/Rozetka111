@@ -41,7 +41,7 @@ namespace Rozetka.Data
 
             builder.Entity<SubChildCategory>()
             .HasOne(s => s.Childcategory)
-            .WithMany(c => c.SubChildCategories)  // Убедитесь, что это соответствует
+            .WithMany(c => c.SubChildCategories)  
             .HasForeignKey(s => s.ChildCategoryId);
         }
 
