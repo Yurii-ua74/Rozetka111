@@ -299,8 +299,7 @@
                         <div class="text-center">
                             <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
                             <p class="menu-link-text-style mb-0">Кошик</p>
-                        </div>
-                        @* @await Component.InvokeAsync("CartCount") *@
+                        </div>                        
                         <span id="cart-count" class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger" style="display:none;">
                             0
                         </span>
@@ -1313,7 +1312,34 @@
     </div>
 </div>
 
+@* <-- тост вікна --> *@
+<div id="toastContainer" class="toast-style">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" id="successToast" data-bs-autohide="true" data-bs-delay="5000">
+            <div class="toast-header">
+                <strong class="me-auto">Успіх</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрити"></button>
+            </div>
+            <div class="toast-body">
+                @TempData["SuccessMessage"]
+            </div>
+        </div>
+    }
 
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" id="errorToast" data-bs-autohide="false" data-bs-delay="5000">
+            <div class="toast-header">
+                <strong class="me-auto">Помилка</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрити"></button>
+            </div>
+            <div class="toast-body">
+                @TempData["ErrorMessage"]
+            </div>
+        </div>
+    }
+</div>
 
 
 
