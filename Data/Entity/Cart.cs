@@ -11,6 +11,8 @@ namespace Rozetka.Data.Entity
         public decimal TotalPrice { get; set; } = 0;
         public bool IsActive { get; set; } = false;
         public User? User { get; set; }
+        // Связь с ShoppingList
+        public ShoppingList? ShoppingList { get; set; }
 
         public ICollection<CartItem> Items { get; set; } = new List<CartItem>();
         // Расчет общей стоимости корзины

@@ -96,76 +96,6 @@ namespace Rozetka.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productId, int count = 1)
         {
-            //try
-            //{
-            //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //    Cart cart;
-
-            //    if (userId != null)
-            //    {
-            //        // Поиск корзины пользователя
-            //        cart = await _context.Carts.Include(c => c.Items).FirstOrDefaultAsync(c => c.UserId == userId);
-
-            //        if (cart == null)
-            //        {
-            //            cart = new Cart { UserId = userId, Items = new List<CartItem>() };
-            //            _context.Carts.Add(cart);
-            //            await _context.SaveChangesAsync();
-            //        }
-            //    }
-            //    else
-            //    {
-            //        // Работаем с сессионной корзиной для неавторизованного пользователя
-            //        var cartSession = HttpContext.Session.GetString("Cart");
-            //        if (string.IsNullOrEmpty(cartSession))
-            //        {
-            //            cart = new Cart { Items = new List<CartItem>() }; // Инициализируем пустую корзину
-            //            HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
-            //        }
-            //        else
-            //        {
-            //            cart = JsonConvert.DeserializeObject<Cart>(cartSession);
-            //        }
-            //    }
-
-            //    // Проверяем, есть ли товар в корзине
-            //    var existingCartItem = cart.Items.FirstOrDefault(i => i.ProductId == productId);
-            //    if (existingCartItem != null)
-            //    {
-            //        // Если товар уже в корзине, обновляем количество
-            //        existingCartItem.Count += count;
-            //    }
-            //    else
-            //    {
-            //        var product = await _context.Products.FindAsync(productId);
-            //        if (product == null) return NotFound("Товар не найден");
-
-            //        cart.Items.Add(new CartItem
-            //        {
-            //            ProductId = productId,
-            //            Count = count,
-            //            Product = product
-            //        });
-            //    }
-
-            //    if (userId != null)
-            //    {
-            //        // Сохраняем изменения в базе данных для авторизованного пользователя
-            //        await _context.SaveChangesAsync();
-            //    }
-            //    else
-            //    {
-            //        // Сохраняем корзину в сессии для неавторизованного пользователя
-            //        HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
-            //    }
-
-            //    return Json(new { count = cart.Items.Sum(i => i.Count) });
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine($"Ошибка при добавлении товара в корзину: {ex.Message}");
-            //    return StatusCode(500, "Произошла ошибка при добавлении товара в корзину");
-            //}
             try
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -173,6 +103,7 @@ namespace Rozetka.Controllers
 
                 if (userId != null)
                 {
+                    // Поиск корзины пользователя
                     cart = await _context.Carts
                         .Include(c => c.Items)
                         .ThenInclude(ci => ci.Product)
@@ -180,25 +111,69 @@ namespace Rozetka.Controllers
 
                     if (cart == null)
                     {
-                        Console.WriteLine("Корзина для данного пользователя не найдена.");
-                        return Json(new { success = false, message = "Корзина не найдена." });
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Найдена корзина с {cart.Items.Count} элементами.");
-                        return Json(new { success = true, itemCount = cart.Items.Count });
+                        // Создание корзины, если она не найдена
+                        cart = new Cart { UserId = userId };
+                        cart.IsActive = true; // делаем корзину активной до добавлення в ShoppingList
+                        _context.Carts.Add(cart);
+                        await _context.SaveChangesAsync();
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Не удалось получить идентификатор пользователя.");
-                    return BadRequest("Не удалось получить идентификатор пользователя.");
+                    // Работа с сессионной корзиной для неавторизованного пользователя
+                    var cartSession = HttpContext.Session.GetString("Cart");
+                    if (string.IsNullOrEmpty(cartSession))
+                    {
+                        cart = new Cart();
+                        HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+                    }
+                    else
+                    {
+                        cart = JsonConvert.DeserializeObject<Cart>(cartSession);
+                    }
                 }
+
+                // Проверяем, есть ли товар в корзине
+                var existingCartItem = cart.Items.FirstOrDefault(i => i.ProductId == productId);
+                if (existingCartItem != null)
+                {
+                    // Обновляем количество, если товар уже в корзине
+                    existingCartItem.Count += count;
+                }
+                else
+                {
+                    var product = await _context.Products.FindAsync(productId);
+                    if (product == null)
+                    {
+                        return NotFound("Товар не найден");
+                    }
+
+                    cart.Items.Add(new CartItem
+                    {
+                        ProductId = productId,
+                        Count = count,
+                        Product = product
+                    });
+                }
+
+                if (userId != null)
+                {
+                    // Сохраняем изменения в базе данных
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    // Сохраняем изменения в сессии для неавторизованного пользователя
+                    HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+                }
+
+                return Json(new { count = cart.Items.Sum(i => i.Count) });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при выполнении запроса к корзине: {ex.Message}");
-                return StatusCode(500, $"Ошибка при получении данных корзины: {ex.Message}");
+                // Логируем ошибку и возвращаем статус 500
+                Console.WriteLine($"Ошибка при добавлении товара в корзину: {ex.Message}");
+                return StatusCode(500, $"Произошла ошибка: {ex.Message}");
             }
         }
 
@@ -258,8 +233,8 @@ namespace Rozetka.Controllers
                 // Если пользователь авторизован, ищем его корзину в базе данных
                 cart = await _context.Carts
                     .Include(c => c.Items)
-                    .ThenInclude(ci => ci.Product)
-                    .FirstOrDefaultAsync(c => c.UserId == userId);
+                    .ThenInclude(ci => ci.Product)                    
+                    .FirstOrDefaultAsync(c => c.UserId == userId);               
             }
             else
             {
@@ -275,6 +250,7 @@ namespace Rozetka.Controllers
             if (cartItem != null)
             {
                 cartItem.Count = newCount; // Обновляем количество товара
+                //cartItem.TotalPrice = (double)(cartItem.Product.Price * newCount); ;
                 if (cartItem.Count <= 0)
                 {
                     cart.Items.Remove(cartItem); // Удаляем товар, если количество 0 или меньше
@@ -291,10 +267,12 @@ namespace Rozetka.Controllers
                 HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
             }
 
-            // Подсчитываем обновлённую итоговую сумму
+            //// Подсчитываем обновлённую итоговую сумму
             double totalPrice = cart.Items.Sum(i => i.TotalPrice ?? 0);
+            //return Json(new { count = cart.Items.Sum(i => i.Count), totalPrice });
 
-            return Json(new { count = cart.Items.Sum(i => i.Count), totalPrice });
+            //Возвращаем новую цену товара и общую сумму корзины
+            return Json(new { itemTotalPrice = cartItem.TotalPrice, totalPrice });
         }
 
         [HttpGet]
@@ -312,6 +290,18 @@ namespace Rozetka.Controllers
                         .Include(c => c.Items)
                         .ThenInclude(ci => ci.Product)
                         .FirstOrDefaultAsync(c => c.UserId == userId);
+
+                    //cart = await _context.Carts
+                    //    .Include(c => c.Items)
+                    //    .ThenInclude(ci => ci.Product)
+                    //    .ThenInclude(p => p.Brand)  // Подгружаем информацию из Brand
+                    //    .Include(c => c.Items)
+                    //    .ThenInclude(ci => ci.Product)
+                    //    .ThenInclude(p => p.ProductType)  // Подгружаем информацию из ProductType
+                    //    .Include(c => c.Items)
+                    //    .ThenInclude(ci => ci.Product)
+                    //    .ThenInclude(p => p.ProductColor)  // Подгружаем информацию из ProductColor
+                    //    .FirstOrDefaultAsync(c => c.UserId == userId);
 
                     //Получаем список избранных товаров для пользователя
                     if (cart == null)

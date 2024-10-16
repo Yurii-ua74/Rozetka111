@@ -27,6 +27,7 @@ namespace Rozetka.Data.Entity
         public Cart Cart { get; set; } = default!;
 
         public double? TotalPrice => Product != null ? (double)(Product.Price * Count) : null;
+        //public decimal? TotalPrice { get; set; } = 0;
     }
    
 

@@ -37,6 +37,12 @@ namespace Rozetka.Data
                 .HasForeignKey(ci => ci.CartId)
                 .OnDelete(DeleteBehavior.Cascade);  // Если корзина удаляется, удаляем связанные элементы
 
+            builder.Entity<ShoppingList>()
+                .HasOne(s => s.Cart)
+                .WithOne(c => c.ShoppingList)
+                .HasForeignKey<ShoppingList>(s => s.CartId)
+                .OnDelete(DeleteBehavior.SetNull); // Выбор поведения при удалении
+
             //////////////////////////////////////
 
             builder.Entity<SubChildCategory>()
