@@ -393,3 +393,19 @@ $(document).ready(function () {
     });
 });
 
+
+// для тост вікон -повідомлення //
+document.addEventListener('DOMContentLoaded', function () {
+    var successToastEl = document.getElementById('successToast');
+    if (successToastEl) {
+        var successToast = new bootstrap.Toast(successToastEl);
+        successToast.show(); // Ініціалізуємо та показуємо тост успіху
+    }
+
+    var errorToastEl = document.getElementById('errorToast');
+    if (errorToastEl) {
+        var errorToast = new bootstrap.Toast(errorToastEl);
+        errorToast.show(); // Ініціалізуємо та показуємо тост помилки
+    }
+});
+

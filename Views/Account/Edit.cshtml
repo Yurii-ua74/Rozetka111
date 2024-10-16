@@ -1,26 +1,7 @@
 ﻿@using Rozetka.Models.UserModel
 @model Rozetka.Data.Entity.User
 
-@* <form asp-action="Edit" method="post">
-    <div class="form-group">
-        <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="LastName"></label>
-        <input asp-for="LastName" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-    </div>
-    
-    <button type="submit" class="btn btn-primary">Зберегти</button>
-</form> *@
-
-
-
-                   @*  /* ********************************* */ *@
+@*  /* ********************************* */ *@
 
  <style>
     .user-profile-form-container {           
@@ -738,38 +719,7 @@
         cursor: pointer;
     }
 
-    /* -- тост вікна -- */
-    .toast-style {
-        position: fixed;
-        top: 250px;
-        right: 250px;
-        z-index: 2550;              
-    }
   
-    /* -- стилі для тост вікон -- */
-    .toast {
-        /* Збільшення розміру тостового вікна */
-        width: 300px; /* Задайте бажану ширину */
-        font-size: 16px; /* Збільште шрифт для тіла */
-    }
-
-    .toast-header {
-        /* Задання кольору для успіху */
-        background-color: #28a745; /* Зелений для успіху */
-        color: white; /* Білий текст */
-        font-size: 18px; /* Збільште шрифт заголовка */
-    }
-
-    .toast-error-header {
-        /* Задання кольору для помилки */
-        background-color: #dc3545; /* Червоний для помилки */
-        color: white; /* Білий текст */
-    }
-
-    /* Задайте колір для тіла тосту, якщо потрібно */
-    .toast-body {
-        font-size: 16px; /* Збільште шрифт тіла */
-    }
 </style>
  
 
@@ -1334,35 +1284,6 @@
     </form>
 </div>
 
-@* <-- тост вікна --> *@
-<div id="toastContainer" class="toast-style">
-@if (TempData["SuccessMessage"] != null)
-{
-    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" id="successToast" data-bs-autohide="true" data-bs-delay="5000">
-        <div class="toast-header">
-            <strong class="me-auto">Успіх</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрити"></button>
-        </div>
-        <div class="toast-body">
-            @TempData["SuccessMessage"]
-        </div>
-    </div>
-}
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" id="errorToast" data-bs-autohide="false" data-bs-delay="5000">
-        <div class="toast-header">
-            <strong class="me-auto">Помилка</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрити"></button>
-        </div>
-        <div class="toast-body">
-            @TempData["ErrorMessage"]
-        </div>
-    </div>
-}
-</div>
-
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -1371,22 +1292,6 @@
 @section Scripts {
  <script>
   
-     // для тост вікон -повідомлення //
-    document.addEventListener('DOMContentLoaded', function () {
-        var successToastEl = document.getElementById('successToast');
-        if (successToastEl) {
-            var successToast = new bootstrap.Toast(successToastEl);
-            successToast.show(); // Ініціалізуємо та показуємо тост успіху
-        }
-
-        var errorToastEl = document.getElementById('errorToast');
-        if (errorToastEl) {
-            var errorToast = new bootstrap.Toast(errorToastEl);
-            errorToast.show(); // Ініціалізуємо та показуємо тост помилки
-        }
-    });
-    
-
     const rangeInput = document.getElementById('customRange2');
     const personalDataLink = document.getElementById('personal-data');
     const loginPasswordLink = document.getElementById('login-password');

@@ -12,7 +12,7 @@ namespace Rozetka.Models.ViewModels.Products
         [Required]
         public string Title { get; set; }
 
-        public List<IFormFile>? ImageData { get; set; }
+        public List<IFormFile> ImageData { get; set; }
 
         
         public string? ProductType { get; set; }
@@ -31,6 +31,8 @@ namespace Rozetka.Models.ViewModels.Products
 
         [Required]
         public string Brand { get; set; }
+        public int BrandId { get; set; }
+
 
         public int ProductTypeId { get; set; }
         public int ProductColorId { get; set; }

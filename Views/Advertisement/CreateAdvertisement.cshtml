@@ -132,12 +132,12 @@
                      <div class="row">
                          <div class="col-5">           
                              <div class="row">
-                                 <div class="col-12"  onclick="openFileDialog(5);">
+                                 <div class="col-12"  onclick="openFileDialog(1);">
                                     <!-- Великий прямокутний контейнер під фото -->
                                     
                                      <div class="big_foto p-3 mb-3 d-flex justify-content-center" >
-                                         <div class="file-upload-cntr" id="image-container-5">
-                                             <div class="form-group" >
+                                         <div class="file-upload-cntr">
+                                            <div class="form-group" id="image-container-1">
                  
                                                  <span>
                                                      <div class="big-foto-placeholder">
@@ -173,11 +173,12 @@
                                                          </div> 
                                                      </div>
                                                  </span>
-                 
-                                                 <label for="imageData"></label>
-                                                 <input type="file" asp-for="ImageData" id="file-input-5" name="images" multiple accept="image/*" style="display: none;" />
+
+                                                <label asp-for="ImageData" class="control-label" style="display: none;"></label>
+                                                <input type="file" id="file-input-1" name="ImageData" multiple accept="image/*" onchange="previewImages(event)" style="width: 0px; height: 0px; border: none;" />
                                                  <span asp-validation-for="ImageData" class="text-danger"></span>
                                              </div>
+                                            <div id="image-preview-container"></div>
                                          </div>                       
                         
                                      </div>                    
@@ -188,55 +189,54 @@
                                  <div class="row">
                  
                                      <div class="col-3">
-                                         <div class="square  d-flex justify-content-center align-items-center" onclick="openFileDialog(1);">
-                                             <div class="form-group" id="image-container-1">
-                                                     <span class="bi bi-plus-lg"></span>
-                                                     <label for="imageData"></label>
-                                                     <input type="file" asp-for="ImageData" id="file-input-1" name="images" multiple accept="image/*" style="display: none;" />
-                                                     <span asp-validation-for="ImageData" class="text-danger"></span>
-                                             </div>
-                                         </div>                       
-                                     </div>
-                        
-                                     <div class="col-3">
                                          <div class="square  d-flex justify-content-center align-items-center" onclick="openFileDialog(2);">
                                              <div class="form-group" id="image-container-2">
-                                                     <span class="bi bi-plus-lg"></span>
-                                                     <label for="imageData"></label>
-                                                     <input type="file" asp-for="ImageData" id="file-input-2" name="images" multiple accept="image/*" style="display: none;" />
-                                                     <span asp-validation-for="ImageData" class="text-danger"></span>
+                                                 <span class="bi bi-plus-lg"></span>
+                                                <label asp-for="ImageData" class="control-label" style="display: none;"></label>
+                                                <input type="file" id="file-input-2" name="ImageData" multiple accept="image/*" onchange="previewImages(event)" style="width: 0px; height: 0px; border: none;" />
+                                                 <span asp-validation-for="ImageData" class="text-danger"></span>
                                              </div>
-                                         </div>
+                                            <div id="image-preview-container"></div>
+                                         </div>                       
                                      </div>
                         
                                      <div class="col-3">
                                          <div class="square  d-flex justify-content-center align-items-center" onclick="openFileDialog(3);">
                                              <div class="form-group" id="image-container-3">
-                                                     <span class="bi bi-plus-lg"></span>
-                                                     <label for="imageData"></label>
-                                                     <input type="file" asp-for="ImageData" id="file-input-3" name="images" multiple accept="image/*" style="display: none;" />
-                                                     <span asp-validation-for="ImageData" class="text-danger"></span>
+                                                <span class="bi bi-plus-lg"></span>
+                                                <label asp-for="ImageData" class="control-label" style="display: none;"></label>
+                                                <input type="file" id="file-input-3" name="ImageData" multiple accept="image/*" onchange="previewImages(event)" style="width: 0px; height: 0px; border: none;" />
+                                                <span asp-validation-for="ImageData" class="text-danger"></span>
                                              </div>
+                                            <div id="image-preview-container"></div>
                                          </div>
                                      </div>
-                 
-                                         
                         
                                      <div class="col-3">
                                          <div class="square  d-flex justify-content-center align-items-center" onclick="openFileDialog(4);">
-                                                 @* <i class="bi bi-plus-lg"></i>
-                                                    <div class="image-container" id="image-container-4">
-                                                    <input type="file" id="file-input-4" multiple accept="image/*" style="display: none;" />
-                                                    </div> *@
                                              <div class="form-group" id="image-container-4">
-                                                     <span class="bi bi-plus-lg"></span>
-                                                     <label for="imageData"></label>
-                                                     <input type="file" asp-for="ImageData"  id="file-input-4" name="images" multiple accept="image/*" style="display: none;" />
-                                                     <span asp-validation-for="ImageData" class="text-danger"></span>
+                                                <span class="bi bi-plus-lg"></span>
+                                                <label asp-for="ImageData" class="control-label" style="display: none;"></label>
+                                                <input type="file" id="file-input-4" name="ImageData" multiple accept="image/*" onchange="previewImages(event)" style="width: 0px; height: 0px; border: none;" />
+                                                <span asp-validation-for="ImageData" class="text-danger"></span>
                                              </div>
+                                            <div id="image-preview-container"></div>
                                          </div>
                                      </div>
-                        
+
+                                     <div class="col-3">
+                                         <div class="square  d-flex justify-content-center align-items-center" onclick="openFileDialog(5);">
+                                           
+                                            <div class="form-group" id="image-container-5">
+                                                <span class="bi bi-plus-lg"></span>
+                                                <label asp-for="ImageData" class="control-label" style="display: none;"></label>
+                                                <input type="file" id="file-input-5" name="ImageData" multiple accept="image/*" onchange="previewImages(event)" style="width: 0px; height: 0px; border: none;" />
+                                                <span asp-validation-for="ImageData" class="text-danger"></span>
+                                            </div>
+                                            <div id="image-preview-container" ></div>
+                                         </div>
+                                     </div>
+                                    
                                  </div>
                              </div>
                                  <h5 class="text-center mb-3 mt-3">Або додати за посиланням</h5>
@@ -394,15 +394,17 @@
 </div>
 
 
+
+
 <script>
     let currentContainerIndex; // Змінна для відстеження поточного контейнера
 
     // перевірка загрузки файлів 
-    document.getElementById('file-input-5').addEventListener('change', function (event) {
-        if (this.files.length > 0) {
-            console.log(this.files); // Перевірка вибраних файлів в консолі
-        }
-    });
+    // document.getElementById('file-input-5').addEventListener('change', function (event) {
+    //     if (this.files.length > 0) {
+    //         console.log(this.files); // Перевірка вибраних файлів в консолі
+    //     }
+    // });
 
 
     function openFileDialog(containerIndex) {
@@ -419,23 +421,16 @@
         }
 
         // Приховуємо іконки та інші елементи
-        if (currentContainerIndex === 5) {
+        if (currentContainerIndex === 1) {
             // Для великого блоку
             const bigFotoPlaceholder = fileUploadCntr.querySelector('.big-foto-placeholder');
             if (bigFotoPlaceholder) {
                 bigFotoPlaceholder.classList.add('hidden'); // Ховаємо всі іконки та написи
             }
-        } else {
-            // Для маленьких блоків
-            const plusIcon = fileUploadCntr.parentElement.querySelector('.bi-plus-lg');
-            if (plusIcon) {
-                plusIcon.classList.add('hidden'); // Ховаємо іконку
-            }
-        }
-
-
+         } 
+        
         // Очищення контейнера перед додаванням нових зображень
-        fileUploadCntr.innerHTML = '';
+        //fileUploadCntr.innerHTML = '';
 
 
         // Вибрані файли додаються у відповідний контейнер
@@ -445,21 +440,21 @@
             // Створюємо елемент для відображення файлу
             const img = document.createElement('img');
             img.src = URL.createObjectURL(file);
-            img.style.width = '99%'; // Ширина зображення
-            img.style.height = '99%';
-            img.classList.add('img-fluid', 'uploaded-image'); // Клас для стилізації
+            img.style.width = '100%'; // Ширина зображення
+            img.style.height = '100%';
+            img.classList.add('img-fluid', 'uploaded-image', 'mb-4'); // Клас для стилізації
 
             // Додаємо зображення у контейнер
             fileUploadCntr.appendChild(img);
         }
 
         // Очищення значення input після обробки
-        const fileInputElement = document.getElementById(`file-input-${currentContainerIndex}`);
-        if (fileInputElement) {
-            fileInputElement.value = ''; // Очищуємо input, щоб дозволити повторне завантаження того ж файлу
-        } else {
-            console.error(`Елемент з ID file-input-${currentContainerIndex} не знайдено.`);
-        }
+        // const fileInputElement = document.getElementById(`file-input-${currentContainerIndex}`);
+        // if (fileInputElement) {
+        //     fileInputElement.value = ''; // Очищуємо input, щоб дозволити повторне завантаження того ж файлу
+        // } else {
+        //     console.error(`Елемент з ID file-input-${currentContainerIndex} не знайдено.`);
+        // }
     }
 
     // Додаємо обробку вибору файлів для кожного input
@@ -506,66 +501,6 @@
     //     }
     // });
 
-
-    // для передачі даниз даниз сторінки на сервер
-    // document.getElementById('submit-button').addEventListener('click', function () {
-    //     const formData = new FormData();
-
-    //     // Додаємо дані з полів форми
-    //     formData.append('NameProduct', document.getElementById('name_product').value);
-    //     formData.append('TypeProduct', document.getElementById('type_product').value);
-    //     formData.append('BrandProduct', document.getElementById('brad_producte').value);
-    //     formData.append('ColorProduct', document.getElementById('color_product').value);
-    //     formData.append('DescriptionProduct', document.getElementById('description_product').value);
-    //     formData.append('CharacteristicProduct', document.getElementById('characteristic_product').value);
-    //     formData.append('PriceProduct', document.getElementById('price_product').value);
-    //     // formData.append('ChaildCategory', document.getElementById('chaildcategory').value);
-    //     // formData.append('SubChaildCategory', document.getElementById('subchaildcategory').value);
-
-    //     // Додаємо файли (припустимо, що файли завантажуються в елементи з ідентифікаторами file-input-1, file-input-2, ...)
-    //     for (let i = 1; i <= 5; i++) {
-    //         const fileInput = document.getElementById(`file-input-${i}`);
-    //         if (fileInput && fileInput.files.length > 0) {
-    //             formData.append('images', fileInput.files[0]); // додаємо перший файл з кожного input
-    //         }
-    //     }
-
-    //     // Відправляємо дані через AJAX
-    //     fetch('/Products/CreateAdvertisement', {
-    //         method: 'POST',
-    //         body: formData,
-    //         headers: {
-    //             'X-Requested-With': 'XMLHttpRequest'
-    //         }
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.success) {
-    //                 showToast("Дані успішно надіслані!");
-    //             } else {
-    //                 showToast("Виникла помилка при надсиланні даних!");
-    //             }
-    //         })
-    //         .catch(error => {
-    //             showToast("Виникла помилка при надсиланні даних!");
-    //             console.error('Error:', error);
-    //         });
-    // });
-
-    // // Функція для показу тостів
-    // function showToast(message) {
-    //     const toastContainer = document.createElement('div');
-    //     toastContainer.classList.add('toast');
-    //     toastContainer.innerHTML = `<div class="toast-body">${message}</div>`;
-    //     document.body.appendChild(toastContainer);
-
-    //     const toast = new bootstrap.Toast(toastContainer);
-    //     toast.show();
-
-    //     setTimeout(() => {
-    //         toastContainer.remove();
-    //     }, 3000);
-    // }
 
 
 </script>

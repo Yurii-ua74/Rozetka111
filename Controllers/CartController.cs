@@ -41,7 +41,7 @@ namespace Rozetka.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            // Получаем список избранных товаров для пользователя
+            // Получаем список избранных товаров для пользователя                    
             var carts = await _context.Carts
                 .Where(c => c.UserId == userId)
                 .Include(c => c.Product) // Подгружаем информацию о продукте
@@ -49,7 +49,7 @@ namespace Rozetka.Controllers
                 .ToListAsync();
 
             // Возвращаем представление с данными
-            return View(carts);
+            return View(/*carts*/);
         }
 
         // GET: CartController
@@ -100,7 +100,7 @@ namespace Rozetka.Controllers
                 // Проверяем, есть ли уже этот товар в корзине
                 var existingCart = await _context.Carts
                     .FirstOrDefaultAsync(w => w.UserId == userId && w.ProductId == productId);
-                if (existingCart == null) 
+                if (existingCart == null)
                 {
                     var cartItem = new Cart
                     {
@@ -119,7 +119,7 @@ namespace Rozetka.Controllers
                     await _context.SaveChangesAsync();
                     return Json(new { success = true, existingCart });
                 }
-            }            
+            }
         }
         //Додає товар до кошика.
         //Викликається при додаванні товару до кошика за URL Cart/AddToCart/{ id}.
@@ -141,7 +141,7 @@ namespace Rozetka.Controllers
             {
                 success = true,
                 cartItemCount = cart.GetTotalCount(),
-                totalPrice = cart.GetTotalPrice() 
+                totalPrice = cart.GetTotalPrice()
             });
         }
         //Видаляє товар з кошика.
