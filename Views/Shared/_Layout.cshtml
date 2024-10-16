@@ -155,7 +155,7 @@
                         </a>                       
                     }
                     <!-- КОШИК -->
-                        @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
+                    @*  Переходить на сторінку з кошиком (метод LoadCartModal в CartController) *@
                         <a type="button" href="#" class="nav-link text-black position-relative btn-lg"
                            data-bs-toggle="modal"
                            data-bs-target="#cartModal">
@@ -759,25 +759,7 @@
                 console.log('Форма отправлена.'); // Здесь можно добавить логику обработки
             });
         });
-    </script>
-    <!-- JavaScript AJAX-запрос, который загрузит данные корзины в модальное окно -->
-
-    @* <script>
-        $(document).ready(function () {
-            $('#cartModal').on('show.bs.modal', function (e) {
-                $.ajax({
-                    url: '@Url.Action("Index", "Cart")', // URL для получения данных корзины
-                    type: 'GET',
-                    success: function (data) {
-                        $('#cartModal .modal-content').html(data); // Загружаем данные в модальное окно
-                    },
-                    error: function () {
-                        alert('Не удалось загрузить данные корзины.');
-                    }
-                });
-            });
-        });
-    </script> *@
+    </script>   
     
 </body>
 </html>

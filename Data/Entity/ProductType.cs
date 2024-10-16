@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Rozetka.Data.Entity
 {
@@ -7,7 +8,7 @@ namespace Rozetka.Data.Entity
         public int Id { get; set; }
 
         [Required]
-        public string Title { get; set; } = default!;      
+        public string Title { get; set; } = default!;
         public ICollection<Product>? Products { get; set; }
     }
 }

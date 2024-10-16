@@ -89,6 +89,12 @@ builder.Services.AddAuthentication()
          facebookOptions.AppSecret = builder.Configuration["Facebook:AppSecret"];
      });
 
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    {
+        // Игнорируем циклические ссылки
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
 
 var app = builder.Build();
 

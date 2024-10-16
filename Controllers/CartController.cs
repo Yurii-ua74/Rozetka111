@@ -113,7 +113,7 @@ namespace Rozetka.Controllers
                     {
                         // Создание корзины, если она не найдена
                         cart = new Cart { UserId = userId };
-                        cart.IsActive = true; // делаем корзину активной до добавлення в ShoppingList
+                        cart.IsActive = true; // делаем корзину активной до добавления в ShoppingList
                         _context.Carts.Add(cart);
                         await _context.SaveChangesAsync();
                     }
@@ -125,7 +125,6 @@ namespace Rozetka.Controllers
                     if (string.IsNullOrEmpty(cartSession))
                     {
                         cart = new Cart();
-                        HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
                     }
                     else
                     {
@@ -142,17 +141,24 @@ namespace Rozetka.Controllers
                 }
                 else
                 {
-                    var product = await _context.Products.FindAsync(productId);
+                    // Загружаем продукт с его связанными данными
+                    var product = await _context.Products
+                        .Include(p => p.Brand)
+                        .Include(p => p.ProductType)
+                        .Include(p => p.ProductImages)  // Подгружаем изображения
+                        .FirstOrDefaultAsync(p => p.Id == productId);
+
                     if (product == null)
                     {
                         return NotFound("Товар не найден");
                     }
 
+                    // Добавляем новый товар в корзину
                     cart.Items.Add(new CartItem
                     {
                         ProductId = productId,
                         Count = count,
-                        Product = product
+                        Product = product // Сохраняем полный объект продукта с его связями
                     });
                 }
 
@@ -164,7 +170,14 @@ namespace Rozetka.Controllers
                 else
                 {
                     // Сохраняем изменения в сессии для неавторизованного пользователя
-                    HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+                    var settings = new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    };
+
+                    HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart, settings));
+                    
+                    //HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
                 }
 
                 return Json(new { count = cart.Items.Sum(i => i.Count) });
@@ -212,7 +225,14 @@ namespace Rozetka.Controllers
             }
             else
             {
-                HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+                // Сохраняем изменения в сессии для неавторизованного пользователя
+                var settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart, settings));
+                //HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
             }
 
             // Подсчитываем обновлённую итоговую сумму
@@ -264,7 +284,13 @@ namespace Rozetka.Controllers
             }
             else
             {
-                HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+                var settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart, settings));
+                //HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
             }
 
             //// Подсчитываем обновлённую итоговую сумму
@@ -272,7 +298,7 @@ namespace Rozetka.Controllers
             //return Json(new { count = cart.Items.Sum(i => i.Count), totalPrice });
 
             //Возвращаем новую цену товара и общую сумму корзины
-            return Json(new { itemTotalPrice = cartItem.TotalPrice, totalPrice });
+            return Json(new { itemTotalPrice = cartItem.TotalPrice, totalPrice, count = cart.Items.Sum(i => i.Count) });
         }
 
         [HttpGet]
@@ -286,22 +312,23 @@ namespace Rozetka.Controllers
                 try
                 {
                     // Загрузка корзины для авторизованного пользователя
-                    cart = await _context.Carts
-                        .Include(c => c.Items)
-                        .ThenInclude(ci => ci.Product)
-                        .FirstOrDefaultAsync(c => c.UserId == userId);
-
                     //cart = await _context.Carts
                     //    .Include(c => c.Items)
                     //    .ThenInclude(ci => ci.Product)
-                    //    .ThenInclude(p => p.Brand)  // Подгружаем информацию из Brand
-                    //    .Include(c => c.Items)
-                    //    .ThenInclude(ci => ci.Product)
-                    //    .ThenInclude(p => p.ProductType)  // Подгружаем информацию из ProductType
-                    //    .Include(c => c.Items)
-                    //    .ThenInclude(ci => ci.Product)
-                    //    .ThenInclude(p => p.ProductColor)  // Подгружаем информацию из ProductColor
+                    //    .ThenInclude(p => p.Brand)  // Только связь с брендом
                     //    .FirstOrDefaultAsync(c => c.UserId == userId);
+
+                    cart = await _context.Carts
+                        .Include(c => c.Items)
+                        .ThenInclude(ci => ci.Product)
+                        .ThenInclude(p => p.Brand)  // Подгружаем информацию из Brand
+                        .Include(c => c.Items)
+                        .ThenInclude(ci => ci.Product)
+                        .ThenInclude(p => p.ProductType)  // Подгружаем информацию из ProductType
+                        .Include(c => c.Items)
+                        .ThenInclude(ci => ci.Product)
+                        .ThenInclude(p => p.ProductColor)  // Подгружаем информацию из ProductColor
+                        .FirstOrDefaultAsync(c => c.UserId == userId);
 
                     //Получаем список избранных товаров для пользователя
                     if (cart == null)
@@ -322,6 +349,22 @@ namespace Rozetka.Controllers
                 // Логика для работы с сессионной корзиной
                 var cartSession = HttpContext.Session.GetString("Cart");
                 cart = string.IsNullOrEmpty(cartSession) ? new Cart { Items = new List<CartItem>() } : JsonConvert.DeserializeObject<Cart>(cartSession);
+
+                // Загрузка полной информации для товаров в корзине
+                foreach (var item in cart.Items)
+                {
+                    // Загрузим продукт из базы данных, чтобы получить информацию о Brand, ProductType и ProductImage
+                    var product = await _context.Products
+                        .Include(p => p.Brand)
+                        .Include(p => p.ProductType)
+                        .Include(p => p.ProductImages) // Подгружаем изображения продуктов
+                        .FirstOrDefaultAsync(p => p.Id == item.ProductId);
+
+                    if (product != null)
+                    {
+                        item.Product = product; // Обновляем продукт в корзине полной информацией
+                    }
+                }
             }
 
             if (cart.Items == null)
@@ -339,10 +382,45 @@ namespace Rozetka.Controllers
 
             if (userId == null)
             {
-                HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+                var settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart, settings));
+                //HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
             }
 
             return PartialView("_CartModalPartial", viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCartCount()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Cart cart;
+
+            if (userId != null)
+            {
+                // Если пользователь авторизован, загружаем корзину из базы данных
+                cart = await _context.Carts
+                    .Include(c => c.Items)
+                    .FirstOrDefaultAsync(c => c.UserId == userId);
+
+                if (cart == null)
+                {
+                    return Json(new { count = 0 });
+                }
+            }
+            else
+            {
+                // Если пользователь не авторизован, используем сессионную корзину
+                var cartSession = HttpContext.Session.GetString("Cart");
+
+                cart = string.IsNullOrEmpty(cartSession) ? new Cart() : JsonConvert.DeserializeObject<Cart>(cartSession);
+            }
+
+            return Json(new { count = cart.Items.Sum(i => i.Count) });
         }
     }
 

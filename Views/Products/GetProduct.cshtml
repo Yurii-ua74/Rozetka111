@@ -112,7 +112,7 @@
                 <h4 class="price">@Model.Price ₴</h4>
             </div>
             <div class="col">
-                <a class="btn btn-purple btn-add-to-cart btn-lg w-100" href="@Url.Action("AddToCart", "Cart", new { productId = Model.Id })">Додати до кошика</a>
+                <button class="btn btn-purple btn-add-to-cart btn-lg w-100" href="#" onclick="updateCart(@Model.Id, 'AddToCart')">Додати до кошика</button>
             </div>
             <div class="col col-lg-1">               
                 @if (Model.IsInFavorites) // Проверяем, находится ли товар в избранном
@@ -125,8 +125,11 @@
                 else
                 {
                     <!-- Кнопка добавления в избранное -->
-                    <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = Model.Id })" class="btn btn-purple btn-outline-purple btn-lg">
+                    @* <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = Model.Id })" class="btn btn-purple btn-outline-purple btn-lg">
                         <i class="bi bi-heart"></i> <!-- Иконка пустого сердечка (товар не в избранном) -->
+                    </a> *@
+                    <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites btn-lg" data-product-id="@Model.Id">
+                        <i class="bi bi-heart"></i>
                     </a>
                 }
             </div>
