@@ -12,22 +12,11 @@ namespace Rozetka.Controllers
 {
     public class AdvertisementController : Controller
     {
-        private readonly DataContext _context;
-        private readonly IDataService _dataService; // Сервіс, що інкапсулює логіку роботи з даними
-        private readonly IProductService _productService;
-        private readonly IProductTypeService _productTypeService;
-        private readonly IProductImageService _productImageService;
-        private readonly IProductColorService _productColorService;
-        private readonly IBrandService _brandService;
+        private readonly DataContext _context;       
 
-
-       
-
-
-
-        public AdvertisementController(IDataService dataService, DataContext context)
+        public AdvertisementController(DataContext context)
         {
-            _dataService = dataService;
+            //_dataService = dataService;
             _context = context;
         }
 
@@ -152,22 +141,36 @@ namespace Rozetka.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateAdvertisement(ProductAdvertisementVM model)
+        public async Task<IActionResult> CreateAdvertisement(ProductAdvertisementVM model, List<IFormFile> ImageData)
         {
             if (ModelState.IsValid)
             {
-                // Припустимо, що у вас є контекст бази даних для доступу до ProductTypes
-        var productType = _context.ProductTypes
+                //  доступ до ProductTypes
+                var productType = _context.ProductTypes
                                    .FirstOrDefault(pt => pt.Title == model.ProductType);
+
+                //  доступ до Brands
+                var productBrand = _context.Brands
+                                   .FirstOrDefault(pt => pt.Title == model.Brand);
 
                 if (productType != null)
                 {
-                    model.ProductTypeId = productType.Id; // Отримуємо ID типу продукту
+                    model.ProductTypeId = productType.Id; // Отримуємо ID типу продукту                   
                 }
                 else
                 {
-                    ModelState.AddModelError("ProductType", "Тип продукту не знайдено.");
-                    return View(model); // Якщо тип не знайдено, повертаємо помилку
+                    TempData["ErrorMessage"] = "Тип товару не знайдено.";
+                    return RedirectToAction("CreateAdvertisement"); // Якщо тип не знайдено, перегружаємо сторінку
+                }
+
+                if (productBrand != null)
+                {                   
+                    model.BrandId = productBrand.Id; // Отримуємо ID бренду
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Бренд товару не знайдено.";
+                    return RedirectToAction("CreateAdvertisement"); // Якщо тип не знайдено, перегружаємо сторінку
                 }
 
 
@@ -181,102 +184,71 @@ namespace Rozetka.Controllers
                     CategoryId = model.CategoryId,
                     ChildcategoryId = model.ChildcategoryId,
                     SubChildCategoryId = model.SubChildCategoryId,
-                    ProductTypeId = model.ProductTypeId
+                    ProductTypeId = model.ProductTypeId,
+                    BrandId = model.BrandId
                 };
 
                 // Додаємо продукт до бази даних
                 _context.Products.Add(product);
-                await _context.SaveChangesAsync();
+                // Перевірка результату збереження продукту
+                int saveResult = await _context.SaveChangesAsync();
 
-                // 2. Обробляємо завантажені зображення
-                if (model.ImageData != null && model.ImageData.Count > 0)
+                if (saveResult > 0) // Якщо зміни успішно збережено
                 {
-                    foreach (var image in model.ImageData)
+                    // Отримання ProductId щойно збереженого продукту
+                    int productId = product.Id;                   
+
+                    // 2. Додавання зображень до таблиці ProductImages
+                    if (ImageData != null && ImageData.Count > 0)
                     {
-                        using (var memoryStream = new MemoryStream())
+                        foreach (var file in ImageData)
                         {
-                            await image.CopyToAsync(memoryStream);
-                            var newImage = new ProductImage
+                            if (file.Length > 0)
                             {
-                                ImageData = memoryStream.ToArray(),
-                                ProductId = product.Id // Прив'язуємо зображення до продукту
-                            };
-                            _context.ProductImages.Add(newImage);
+                                // Конвертація файлу в масив байтів
+                                using (var memoryStream = new MemoryStream())
+                                {
+                                    await file.CopyToAsync(memoryStream);
+                                    var image = new ProductImage
+                                    {
+                                        ProductId = productId, // Зв'язуємо з продуктом
+                                        ImageData = memoryStream.ToArray()
+                                    };
+
+                                    // Додавання зображення до бази даних
+                                    _context.ProductImages.Add(image);
+                                }
+                            }
+                        }
+
+                        // Перевірка результату збереження зображень
+                        saveResult = await _context.SaveChangesAsync();
+
+                        if (saveResult > 0)
+                        {
+                            TempData["SuccessMessage"] = "Товар і зображення успішно додано!";
+                        }
+                        else
+                        {
+                            TempData["ErrorMessage"] = "Товар додано, але не вдалося додати зображення.";
                         }
                     }
+                    else
+                    {
+                        TempData["SuccessMessage"] = "Товар успішно додано!";
+                    }
+
+                    // Повернення на сторінку успішного створення
+                    return RedirectToAction("CreateAdvertisement"); 
+
                 }
-
-                // 3. Додаємо колір товару
-                //if (!string.IsNullOrEmpty(model.ProductColor))
-                //{
-                //    var productColor = new ProductColor
-                //    {
-                //        Title = model.ProductColor,                      
-                //    };
-                //    _context.ProductColors.Add(productColor);
-                //}
-
-                // Зберігаємо всі зміни
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction("SuccessPage");
+                else
+                {
+                    TempData["ErrorMessage"] = "Не вдалося зберегти товар.";
+                }                
             }
-
             // Якщо модель некоректна, повертаємо форму з помилками
-            return View(model);
+            return RedirectToAction("CreateAdvertisement");
         }
-
-
-
-        // Об'єднуючий контролер
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreateAdvertisement(ProductAdvertisementVM viewModel)
-        //{
-        //    // 1. Створення продукту
-        //    var productResult = await _productsController.Create(viewModel.Product);
-
-        //    if (productResult is NotFoundResult || productResult is BadRequestResult)
-        //    {
-        //        // Обробка помилок
-        //        return BadRequest("помилка при створенні оголошення");
-        //    }
-
-        //    // 2. Додавання зображень
-        //    // Приведение типа к OkObjectResult, чтобы получить доступ к объекту
-        //    var createdProduct = (productResult as OkObjectResult)?.Value as Product;
-
-        //    if (createdProduct == null)
-        //    {
-        //        return BadRequest("помилка при отриманні продукта");
-        //    }
-
-        //    var productId = createdProduct.Id;  // Отримання Id нового продукту
-
-        //    var imageResult = await _productImagesController.Create(productId, viewModel.ImageData);
-
-        //    if (imageResult is NotFoundResult || imageResult is BadRequestResult)
-        //    {
-        //        return BadRequest("Ошибка при добавлении изображений");
-        //    }
-
-        //    // 3. Добавление типа товара
-        //    var productTypeResult = await _productTypesController.Create(viewModel.ProductType);
-
-        //    // 4. Добавление цвета
-        //    var productColorResult = await _productColorsController.Create(viewModel.ProductColor);
-
-        //    // 5. Добавление бренда
-        //    var brandResult = await _brandsController.Create(viewModel.Brand, viewModel.BrandImage);
-
-        //    // 6. Добавление подкатегорий
-        //    var childCategoryResult = await _childcategoriesController.Create(viewModel.Childcategory);
-        //    var subChildCategoryResult = await _subChildCategoryController.Create(viewModel.SubChildCategory);
-
-
-
-        //    return RedirectToAction("Index", "Home"); // Перенаправлення після успішного завершення
-        //}
-
     }
 }

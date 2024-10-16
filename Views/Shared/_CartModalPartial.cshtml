@@ -26,23 +26,23 @@
             <tbody>
                 @foreach (var item in Model.CartItems)
                 {
-                    <tr data-product-id="@item.ProductId">
-                        @* <td>
-                            @if (item.Product.ProductImages!.Any())
+                    <tr data-product-id="@item.ProductId">                        
+                        <td>
+                            @* @await Html.PartialAsync("_ProductImagePartial", item.Product!.ProductImages!.FirstOrDefault()?.ImageData) *@
+                            @if (item.Product!.ProductImages != null && item.Product.ProductImages!.Any())
                             {
-                                <img src="data:image/*;base64,@(Convert.ToBase64String(item.Product.ProductImages!.FirstOrDefault()!.ImageData!))" class="card-img-top" alt="@item.Product.Title"
-                                     style="height: 100px;width: auto;object-fit: contain;">
+                                <img src="data:image;base64,@(Convert.ToBase64String(item.Product.ProductImages!.FirstOrDefault()!.ImageData!))" class="card-img-top" alt="Photo"
+                                     style="height: 100px;width: auto;object-fit: contain;">                                
                             }
                             else
                             {
-                                <img src="~/images/No-Image-Placeholder.svg.png" alt="no-image"
-                                     style="height: 100px;width: auto;object-fit: contain;" />
-                            }
-                        </td> *@
-                        <td>@item.Product.ProductType.Title @item.Product.Brand.Title @item.Product.Title</td>
+                                <img src="~/images/photoproducts/no-image.jpg" alt="No Image" style="height: 100px;width: auto;object-fit: contain;" />
+                            }                            
+                        </td>
+                        <td>@item.Product.ProductType!.Title @item.Product.Brand!.Title @item.Product.Title</td>
                         <td>@item.Product.Price.ToString("0") ₴</td>
                         <td>
-                            <input type="number" value="@item.Count" class="form-control quantity-input" min="1" data-product-id="@item.ProductId" style="width: 70px;">
+                            <input type="number" value="@item.Count" class="form-control quantity-input" min="1" max="@item.Product.QuantityInStock" data-product-id="@item.ProductId" style="width: 70px;">
                         </td>
                         <td>@item.TotalPrice?.ToString("0") ₴</td>                        
                         <td>

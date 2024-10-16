@@ -432,18 +432,18 @@ $(document).ready(function () {
 });
 
 //////////////// Сектор изменения и обновления корзины ///////////////////
-$(document).ready(function () {
-    // Получение количества товаров в корзине при загрузке страницы
-    $.get('/Cart/GetCartCount', function (data) {
-        if (data.count > 0) {
-            $('#cart-count').text(data.count).show();
-        } else {
-            $('#cart-count').hide();
-        }
-    }).fail(function (xhr, status, error) {
-        console.error("Ошибка при получении количества товаров в корзине: ", status, error);
-    });
-});
+//$(document).ready(function () {
+//    // Получение количества товаров в корзине при загрузке страницы
+//    $.get('/Cart/GetCartCount', function (data) {
+//        if (data.count > 0) {
+//            $('#cart-count').text(data.count).show();
+//        } else {
+//            $('#cart-count').hide();
+//        }
+//    }).fail(function (xhr, status, error) {
+//        console.error("Ошибка при получении количества товаров в корзине: ", status, error);
+//    });
+//});
 
 function updateCart(productId, action) {
     let url = '/Cart/' + action; // Либо AddToCart, либо RemoveFromCart
@@ -465,13 +465,15 @@ $(document).on('change', '.quantity-input', function () {
     var newCount = $(this).val();
 
     $.post('/Cart/UpdateCartItem', { productId: productId, newCount: newCount }, function (data) {
-        $('tr[data-product-id="' + productId + '"] td:nth-child(4)').text(data.itemTotalPrice.toFixed(0));
+        $('tr[data-product-id="' + productId + '"] td:nth-child(5)').text(data.itemTotalPrice.toFixed(0));
         $('#total-price').text(data.totalPrice.toFixed(0));
         if (data.count > 0) {
             $('#cart-count').show().text(data.count);
         } else {
             $('#cart-count').hide();
         }
+    }).fail(function (xhr, status, error) {
+        alert("Ошибка: " + xhr.responseText);
     });
 });
 
@@ -488,3 +490,4 @@ $(document).on('click', '.remove-item', function () {
         }
     });
 });
+
