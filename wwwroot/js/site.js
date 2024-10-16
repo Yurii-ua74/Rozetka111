@@ -113,39 +113,39 @@ function updateCartSidebar(cartData) {
 
 
 // додавання кількості товару над кошиком
-$(document).ready(function() {
-    // Handle 'Add to Cart' button click
-    $('.btn-add-to-cart').on('click', function (event) {
-        event.preventDefault();
-        var $button = $(this);
-        var url = $button.attr('href');
-        $.ajax({
-            url: url,
-            type: 'POST',
-            success: function (response) {
-                if (response.success) {
-                    // Update cart count
-                    $('#cart-count').text(response.cartCount).show();
-                }
-            },
-            error: function () {
-                alert('Error adding item to cart.');
-            }
-        });
-    });
-});
+//$(document).ready(function() {
+//    // Handle 'Add to Cart' button click
+//    $('.btn-add-to-cart').on('click', function (event) {
+//        event.preventDefault();
+//        var $button = $(this);
+//        var url = $button.attr('href');
+//        $.ajax({
+//            url: url,
+//            type: 'POST',
+//            success: function (response) {
+//                if (response.success) {
+//                    // Update cart count
+//                    $('#cart-count').text(response.cartCount).show();
+//                }
+//            },
+//            error: function () {
+//                alert('Error adding item to cart.');
+//            }
+//        });
+//    });
+//});
 
 
 // для оновлення лічильника
-function updateCartCount() {
-    fetch('/Cart/GetCartCount')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('cart-count').innerText = data.cartCount;
-            document.getElementById('cart-count').style.display = data.cartCount > 0 ? 'block' : 'none';
-        });
-}
-document.addEventListener('DOMContentLoaded', updateCartCount);
+//function updateCartCount() {
+//    fetch('/Cart/GetCartCount')
+//        .then(response => response.json())
+//        .then(data => {
+//            document.getElementById('cart-count').innerText = data.cartCount;
+//            document.getElementById('cart-count').style.display = data.cartCount > 0 ? 'block' : 'none';
+//        });
+//}
+//document.addEventListener('DOMContentLoaded', updateCartCount);
 
 /*  для виводу карти  */
 function getLocationFromSession() {
@@ -324,6 +324,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+
 /* для заповнення списків на сторінці Подати оголошення - метод GetAdvertisement */
 $(document).ready(function () {
     $('#category-select').change(function () {
@@ -393,19 +394,19 @@ $(document).ready(function () {
     });
 });
 
-
-// для тост вікон -повідомлення //
-document.addEventListener('DOMContentLoaded', function () {
-    var successToastEl = document.getElementById('successToast');
-    if (successToastEl) {
-        var successToast = new bootstrap.Toast(successToastEl);
-        successToast.show(); // Ініціалізуємо та показуємо тост успіху
-    }
-
-    var errorToastEl = document.getElementById('errorToast');
-    if (errorToastEl) {
-        var errorToast = new bootstrap.Toast(errorToastEl);
-        errorToast.show(); // Ініціалізуємо та показуємо тост помилки
-    }
+//////////////// Сектор изменения и обновления избранных товаров ///////////////////
+$(document).ready(function () {
+    $('#cartModal').on('show.bs.modal', function () {
+        $.ajax({
+            url: '/Cart/LoadCartModal', // Обращение к методу LoadCartModal
+            type: 'GET',
+            success: function (data) {
+                $('#cartModal .modal-content').html(data); // Заполняем модальное окно содержимым
+            },
+            error: function (xhr, status, error) {
+                console.error("Ошибка при загрузке корзины: ", status, error);
+            }
+        });
+    });
 });
 

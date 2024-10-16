@@ -140,22 +140,6 @@
                             </div>
                             @await Component.InvokeAsync("FavoritesCount") <!-- Вызов ViewComponent для количества избранных -->                                
                         </a>
-
-                        <!-- КОШИК -->
-                        @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
-                        <a type="button" href="" class="nav-link text-black position-relative btn-lg"
-                           data-bs-toggle="modal"
-                           data-bs-target="#cartModal">
-
-                            <div class="text-center">
-                                <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
-                                <p class="menu-link-text-style mb-0">Кошик</p>
-                            </div>
-                            @await Component.InvokeAsync("CartCount")
-                            @* <span id="cart-count" class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger" style="display:none;">
-                                0
-                            </span> *@
-                        </a>
                     }
                     else
                     {
@@ -168,23 +152,23 @@
                                 <i class="bi bi-person fs-4 fs-md-3 fs-sm-3"></i>
                                 <p class="menu-link-text-style mb-0">Увійти</p>
                             </div>
-                        </a>
-                        <!-- КОШИК -->
-                        @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
-                        <a type="button" href="" class="nav-link text-black position-relative btn-lg"
+                        </a>                       
+                    }
+                    <!-- КОШИК -->
+                    @*  Переходить на сторінку з кошиком (метод LoadCartModal в CartController) *@
+                        <a type="button" href="#" class="nav-link text-black position-relative btn-lg"
                            data-bs-toggle="modal"
                            data-bs-target="#cartModal">
 
                             <div class="text-center">
                                 <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
                                 <p class="menu-link-text-style mb-0">Кошик</p>
-                            </div>                              
+                            </div>
+                            @* @await Component.InvokeAsync("CartCount") *@
                             <span id="cart-count" class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger" style="display:none;">
                                 0
                             </span>
                         </a>
-                    }
-                    
                        
 
                     <!-- КОШИК ТЕСТОВИЙ, ТИМЧАСОВИЙ -->
@@ -775,7 +759,7 @@
                 console.log('Форма отправлена.'); // Здесь можно добавить логику обработки
             });
         });
-    </script>
+    </script>   
     
 </body>
 </html>

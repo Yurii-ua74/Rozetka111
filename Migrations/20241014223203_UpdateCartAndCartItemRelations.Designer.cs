@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rozetka.Data;
 
@@ -11,9 +12,11 @@ using Rozetka.Data;
 namespace Rozetka.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241014223203_UpdateCartAndCartItemRelations")]
+    partial class UpdateCartAndCartItemRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,7 +175,7 @@ namespace Rozetka.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands", (string)null);
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.Cart", b =>
@@ -199,7 +202,7 @@ namespace Rozetka.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.CartItem", b =>
@@ -225,7 +228,7 @@ namespace Rozetka.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.Category", b =>
@@ -247,7 +250,7 @@ namespace Rozetka.Migrations
 
                     b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.Childcategory", b =>
@@ -269,7 +272,7 @@ namespace Rozetka.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Childcategories", (string)null);
+                    b.ToTable("Childcategories");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.Favorites", b =>
@@ -293,7 +296,7 @@ namespace Rozetka.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Favorites", (string)null);
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.Product", b =>
@@ -358,7 +361,7 @@ namespace Rozetka.Migrations
 
                     b.HasIndex("SubChildCategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.ProductColor", b =>
@@ -379,7 +382,7 @@ namespace Rozetka.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductColors", (string)null);
+                    b.ToTable("ProductColors");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.ProductImage", b =>
@@ -417,7 +420,7 @@ namespace Rozetka.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductTypes", (string)null);
+                    b.ToTable("ProductTypes");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.Review", b =>
@@ -450,7 +453,7 @@ namespace Rozetka.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.ShoppingList", b =>
@@ -475,7 +478,7 @@ namespace Rozetka.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ShoppingList", (string)null);
+                    b.ToTable("ShoppingList");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.SubChildCategory", b =>
@@ -497,7 +500,7 @@ namespace Rozetka.Migrations
 
                     b.HasIndex("ChildCategoryId");
 
-                    b.ToTable("SubChildCategories", (string)null);
+                    b.ToTable("SubChildCategories");
                 });
 
             modelBuilder.Entity("Rozetka.Data.Entity.User", b =>

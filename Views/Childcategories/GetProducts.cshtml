@@ -177,9 +177,9 @@
                             <div class="product-footer mt-2">
                                 <div class="d-flex align-items-center">
                                     <div class="product-price">@product.Price.ToString("0") ₴</div>
-                                    <a href="@Url.Action("AddToCart", "Cart", new { productId = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">
+                                    <button href="#"onclick="updateCart(@product.Id, 'AddToCart')" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">
                                         <i class="bi bi-cart-plus"></i>
-                                    </a>
+                                    </button>
                                     @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
                                     {
                                         <!-- Кнопка удаления из избранного -->
@@ -190,8 +190,11 @@
                                     else
                                     {
                                         <!-- Кнопка добавления в избранное -->
-                                        <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
+                                        @* <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                             <i class="bi bi-heart"></i> <!-- Иконка пустого сердечка (товар не в избранном) -->
+                                        </a> *@
+                                        <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
+                                            <i class="bi bi-heart"></i>
                                         </a>
                                     }                                   
 

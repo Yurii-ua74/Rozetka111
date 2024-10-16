@@ -5,28 +5,28 @@ using Rozetka.Data.Entity;
 
 namespace Rozetka.ModelBinders
 {
-    public class CartModelBinder : IModelBinder
-    {
-        public Task BindModelAsync(ModelBindingContext bindingContext)
-        {
-            if (bindingContext == null)
-                throw new ArgumentNullException(nameof(bindingContext));
+    //public class CartModelBinder : IModelBinder
+    //{
+    //    public Task BindModelAsync(ModelBindingContext bindingContext)
+    //    {
+    //        if (bindingContext == null)
+    //            throw new ArgumentNullException(nameof(bindingContext));
 
-            string sessionKey = "cart";
-            IEnumerable<CartItem>? cartItems = null;
-            cartItems = bindingContext.
-                HttpContext.Session.Get<IEnumerable<CartItem>>(sessionKey);
+    //        string sessionKey = "cart";
+    //        IEnumerable<CartItem>? cartItems = null;
+    //        cartItems = bindingContext.
+    //            HttpContext.Session.Get<IEnumerable<CartItem>>(sessionKey);
 
-            if (cartItems == null)
-            {
-                cartItems = new List<CartItem>();
-                bindingContext.HttpContext.Session.Set(sessionKey, cartItems);
-            }
-            Cart cart = new Cart(cartItems);
-            bindingContext.Result = ModelBindingResult.Success(cart);
-            return Task.CompletedTask;
-        }
-    }
+    //        if (cartItems == null)
+    //        {
+    //            cartItems = new List<CartItem>();
+    //            bindingContext.HttpContext.Session.Set(sessionKey, cartItems);
+    //        }
+    //        Cart cart = new Cart(cartItems);
+    //        bindingContext.Result = ModelBindingResult.Success(cart);
+    //        return Task.CompletedTask;
+    //    }
+    //}
 }
 
 

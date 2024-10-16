@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,42 +42,15 @@ namespace Rozetka.Controllers
             return View(favorites);
         }
 
-        [Authorize]
+        
         [HttpPost]
-        public async Task<IActionResult> AddToFavoritesAjax(int productId)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-            {
-                return Json(new { success = false, message = "Не удалось определить пользователя." });
-            }
-
-            var existingWish = await _context.Favorites
-                .FirstOrDefaultAsync(w => w.UserId == userId && w.ProductId == productId);
-
-            if (existingWish == null)
-            {
-                var favoritesItem = new Data.Entity.Favorites
-                {
-                    UserId = userId,
-                    ProductId = productId
-                };
-
-                _context.Favorites.Add(favoritesItem);
-                await _context.SaveChangesAsync();
-            }
-
-            return Json(new { success = true, message = "Товар добавлен в избранное." });
-        }
-
-
-        [Authorize]
         public async Task<IActionResult> AddToFavorites(int productId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID пользователя
             if (userId == null)
             {
-                return BadRequest("Не удалось определить пользователя.");
+                // Возвращаем JSON с сообщением об ошибке
+                return Json(new { success = false, message = "Для збереження обраних товарів потрібна авторизація" });
             }
 
             // Проверяем, есть ли уже этот товар в избранном
@@ -94,16 +69,46 @@ namespace Rozetka.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            // Вернемся на предыдущую страницу
-            string refererUrl = Request.Headers["Referer"].ToString();
-            if (!string.IsNullOrEmpty(refererUrl))
-            {
-                return Redirect(refererUrl);
-            }
-
-            // Если заголовок Referer пустой, можно вернуться на главную или другую дефолтную страницу
-            return RedirectToAction("Index", "Home");
+            // Возвращаем успешный ответ
+            return Json(new { success = true, message = "Товар додано до обраного" });
         }
+
+
+        //[Authorize]
+        //public async Task<IActionResult> AddToFavorites(int productId)
+        //{
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID пользователя
+        //    if (userId == null)
+        //    {
+        //        return BadRequest("Не удалось определить пользователя.");
+        //    }
+
+        //    // Проверяем, есть ли уже этот товар в избранном
+        //    var existingWish = await _context.Favorites
+        //        .FirstOrDefaultAsync(w => w.UserId == userId && w.ProductId == productId);
+
+        //    if (existingWish == null)
+        //    {
+        //        var favoritesItem = new Data.Entity.Favorites
+        //        {
+        //            UserId = userId,
+        //            ProductId = productId
+        //        };
+
+        //        _context.Favorites.Add(favoritesItem);
+        //        await _context.SaveChangesAsync();
+        //    }
+
+        //    // Вернемся на предыдущую страницу
+        //    string refererUrl = Request.Headers["Referer"].ToString();
+        //    if (!string.IsNullOrEmpty(refererUrl))
+        //    {
+        //        return Redirect(refererUrl);
+        //    }
+
+        //    // Если заголовок Referer пустой, можно вернуться на главную или другую дефолтную страницу
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         [Authorize]
         public async Task<IActionResult> DeleteFromFavorites(int productId)
@@ -217,7 +222,7 @@ namespace Rozetka.Controllers
             }
         }
 
-        // Метод для получения количества избранных товаров
+        //Метод для получения количества избранных товаров
         public async Task<int> GetFavoritesCount()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID текущего пользователя
@@ -234,5 +239,9 @@ namespace Rozetka.Controllers
 
             return count;
         }
+        //public async Task<IActionResult> GetFavoritesCount()
+        //{
+        //    return ViewComponent("FavoritesCount");
+        //}
     }
 }

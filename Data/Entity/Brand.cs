@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Rozetka.Data.Entity
 {
@@ -8,7 +9,7 @@ namespace Rozetka.Data.Entity
         [Required]
         public string Title { get; set; } = default!;
         public byte[]? ImageData { get; set; }
-        //public string ImageUrl { get; set; } = default!;
+        //public string ImageUrl { get; set; } = default!;        
         public ICollection<Product>? Products { get; set; }
     }
 }

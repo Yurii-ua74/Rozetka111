@@ -30,6 +30,19 @@ namespace Rozetka.Data
                 .Property(p => p.Rating)
                 .HasColumnType("decimal(2, 1)"); // 1 целое и 1 дробное
 
+            // Явно указываем связь между Cart и CartItem
+            builder.Entity<CartItem>()
+                .HasOne(ci => ci.Cart)
+                .WithMany(c => c.Items)
+                .HasForeignKey(ci => ci.CartId)
+                .OnDelete(DeleteBehavior.Cascade);  // Если корзина удаляется, удаляем связанные элементы
+
+            builder.Entity<ShoppingList>()
+                .HasOne(s => s.Cart)
+                .WithOne(c => c.ShoppingList)
+                .HasForeignKey<ShoppingList>(s => s.CartId)
+                .OnDelete(DeleteBehavior.SetNull); // Выбор поведения при удалении
+
             //////////////////////////////////////
 
             builder.Entity<SubChildCategory>()
@@ -49,6 +62,7 @@ namespace Rozetka.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Favorites> Favorites { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
         public DbSet<ShoppingList> ShoppingList { get; set; }
         //public DbSet<LoginJournalItem> LoginJournal { get; set; }
 
