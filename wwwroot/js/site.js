@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-/* для заповнення списків на сторінці Подати оголошення - метод GetAdvertisement */
+/* ///// для заповнення списків на сторінці Подати оголошення - метод GetAdvertisement///// */
 $(document).ready(function () {
     $('#category-select').change(function () {
         var categoryId = $(this).val();
@@ -487,5 +487,22 @@ $(document).on('click', '.remove-item', function () {
             $('#cart-count').hide();
         }
     });
+});
+
+// //////////   для відкриття тост вікон   ///////////// //
+document.addEventListener("DOMContentLoaded", function () {
+    var successToastElement = document.getElementById('successToast');
+    var errorToastElement = document.getElementById('errorToast');
+
+    // Ініціалізація тостів за допомогою Bootstrap Toast
+    if (successToastElement) {
+        var successToast = new bootstrap.Toast(successToastElement);
+        successToast.show();  // Показати тост успіху
+    }
+
+    if (errorToastElement) {
+        var errorToast = new bootstrap.Toast(errorToastElement);
+        errorToast.show();  // Показати тост помилки
+    }
 });
 

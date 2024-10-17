@@ -399,14 +399,6 @@
 <script>
     let currentContainerIndex; // Змінна для відстеження поточного контейнера
 
-    // перевірка загрузки файлів 
-    // document.getElementById('file-input-5').addEventListener('change', function (event) {
-    //     if (this.files.length > 0) {
-    //         console.log(this.files); // Перевірка вибраних файлів в консолі
-    //     }
-    // });
-
-
     function openFileDialog(containerIndex) {
         currentContainerIndex = containerIndex; // Визначаємо контейнер, куди додавати зображення
         document.getElementById(`file-input-${containerIndex}`).click(); // Відкриваємо відповідний input для вибору файлів
