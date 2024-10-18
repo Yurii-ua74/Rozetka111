@@ -5,7 +5,7 @@
     ViewData["Title"] = "Моє обране";
 }
 
-<h2>Моє обране</h2>
+<h2>Обране</h2>
 
 <style>
     .centered-text {
@@ -23,8 +23,8 @@
 }
 else
 {
-    <div class="row">
-        @foreach (var favorite in Model)
+    <div class="row mb-3">
+       @*  @foreach (var favorite in Model)
         {
             <div class="col-md-4">
                 <div class="card mb-3">
@@ -45,6 +45,56 @@ else
                     </div>
                 </div>
             </div>
+        } *@
+        @foreach (var favorite in Model)
+        {            
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12  mb-3">
+                <div style="border: 3px solid #f5f5dc; border-radius: 10px; padding: 3px;">
+                    <a href="@Url.Action("GetProduct", "Products", new { id = favorite.ProductId })">
+                        <div class="product-block">
+                            @if (favorite.Product!.ProductImages != null && favorite.Product!.ProductImages.Any())
+                            {                               
+                                <img src="data:image;base64,@Convert.ToBase64String(favorite.Product!.ProductImages!.FirstOrDefault()!.ImageData!)"
+                                     class="img-fluid"
+                                     style="max-height: 215px; width: auto; max-width: 100%; object-fit: contain;"
+                                     onerror="this.onerror=null;"
+                                     alt="Photo">
+                            }
+                            else
+                            {
+                                <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                            }
+                        </div>
+                    </a>
+                    <div class="mt-2">
+                        <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = favorite.ProductId })">
+                            <div class="product-title">@favorite.Product!.ProductType?.Title @favorite.Product!.Brand?.Title @favorite.Product!.Title</div>
+                            <div style="height: 40px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">@favorite.Product!.Description</div>
+                        </a>
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="product-price">@favorite.Product!.Price ₴</div>
+                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@favorite.ProductId, 'AddToCart')">
+                                <i class="bi bi-cart-plus"></i>
+                            </button>
+                            <!-- Кнопка удаления из избранного -->
+                            @* <a href="@Url.Action("Delete", "Favorites", new { id = favorite.Id })" class="btn btn-outline-purple">
+                                <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
+                            </a> *@
+                            <!-- Кнопка удаления из избранного -->
+                            <a href="@Url.Action("Delete", "Favorites", new { id = favorite.Id })" class="btn btn-outline-purple"
+                               onclick="return confirm('Ви дійсно бажаєте видалити цей товар з обраного?')">
+                                <i class="bi bi-heart-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
     </div>
+
+
+
+
+
+
 }

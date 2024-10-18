@@ -803,8 +803,8 @@ a:hover{
  .product-block, .product-block-products {
      text-align: center;
      position: relative;
-     max-height: 260px; /* максимальна висота дл€ картки */
-     min-height: 260px; /* м≥н≥мальна висота дл€ вир≥внюванн€ */
+     max-height: 220px; /* максимальна висота дл€ картки */
+     min-height: 220px; /* м≥н≥мальна висота дл€ вир≥внюванн€ */
      overflow: hidden; /* якщо контент перевищуЇ висоту, приховати його */
      display: flex;
      flex-direction: column;
