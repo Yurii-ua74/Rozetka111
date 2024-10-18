@@ -64,6 +64,7 @@ namespace Rozetka.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<ShoppingList> ShoppingList { get; set; }
+        public DbSet<MyAdvertisement> MyAdvertisements { get; set; }
         //public DbSet<LoginJournalItem> LoginJournal { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)

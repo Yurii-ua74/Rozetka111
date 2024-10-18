@@ -32,5 +32,6 @@ namespace Rozetka.Data.Entity
         public ICollection<Favorites>? Favorites { get; set; }
         public ICollection<Cart>? Cart { get; set; } // нужно public Cart? Cart { get; set; } 
         public ICollection<ShoppingList>? ShoppingList { get; set; }
+        public virtual ICollection<MyAdvertisement> MyAdvertisements { get; set; }  // Зв'язок з оголошеннями
     }
 }

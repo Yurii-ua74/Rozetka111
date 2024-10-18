@@ -7,21 +7,23 @@ using Microsoft.EntityFrameworkCore;
 using Rozetka.Servises;
 using Microsoft.IdentityModel.Tokens;
 using Rozetka.Migrations;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace Rozetka.Controllers
 {
     public class AdvertisementController : Controller
     {
-        private readonly DataContext _context;       
+        private readonly DataContext _context;
+        // ін'єкція UserManager в контролер
+        private readonly UserManager<User> _userManager;
 
-        public AdvertisementController(DataContext context)
+        public AdvertisementController(UserManager<User> userManager, DataContext context)
         {
-            //_dataService = dataService;
+            _userManager = userManager;
             _context = context;
         }
-
-
-
+        
         // GET: Advertisement
         public ActionResult Index()
         {
@@ -141,10 +143,12 @@ namespace Rozetka.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateAdvertisement(ProductAdvertisementVM model, List<IFormFile> ImageData)
+        public async Task<IActionResult> CreateAdvertisement(ProductAdvertisementVM model)
         {
             if (ModelState.IsValid)
             {
+                var random = new Random(); // генератор випадкових чисел
+
                 //  доступ до ProductTypes
                 var productType = _context.ProductTypes
                                    .FirstOrDefault(pt => pt.Title == model.ProductType);
@@ -185,58 +189,83 @@ namespace Rozetka.Controllers
                     ChildcategoryId = model.ChildcategoryId,
                     SubChildCategoryId = model.SubChildCategoryId,
                     ProductTypeId = model.ProductTypeId,
-                    BrandId = model.BrandId
+                    BrandId = model.BrandId,
+                    QuantityInStock = random.Next(1, 20) 
                 };
 
                 // Додаємо продукт до бази даних
                 _context.Products.Add(product);
                 // Перевірка результату збереження продукту
                 int saveResult = await _context.SaveChangesAsync();
-
+                int productId;
                 if (saveResult > 0) // Якщо зміни успішно збережено
                 {
                     // Отримання ProductId щойно збереженого продукту
-                    int productId = product.Id;                   
-
-                    // 2. Додавання зображень до таблиці ProductImages
-                    if (ImageData != null && ImageData.Count > 0)
+                    productId = product.Id;
+                    try
                     {
-                        foreach (var file in ImageData)
+                        // 2. Додавання зображень до таблиці ProductImages
+                        if (model.ImageData != null && model.ImageData.Count > 0)
                         {
-                            if (file.Length > 0)
+                            foreach (var file in model.ImageData)
                             {
-                                // Конвертація файлу в масив байтів
-                                using (var memoryStream = new MemoryStream())
+                                if (file.Length > 0)
                                 {
-                                    await file.CopyToAsync(memoryStream);
-                                    var image = new ProductImage
+                                    // Конвертація файлу в масив байтів
+                                    using (var memoryStream = new MemoryStream())
                                     {
-                                        ProductId = productId, // Зв'язуємо з продуктом
-                                        ImageData = memoryStream.ToArray()
-                                    };
+                                        await file.CopyToAsync(memoryStream);
+                                        var image = new ProductImage
+                                        {
+                                            ProductId = productId, // Зв'язуємо з продуктом
+                                            ImageData = memoryStream.ToArray()
+                                        };
 
-                                    // Додавання зображення до бази даних
-                                    _context.ProductImages.Add(image);
+                                        // Додавання зображення до бази даних
+                                        _context.ProductImages.Add(image);
+                                    }
                                 }
                             }
-                        }
 
-                        // Перевірка результату збереження зображень
-                        saveResult = await _context.SaveChangesAsync();
+                            // Перевірка результату збереження зображень
+                            saveResult = await _context.SaveChangesAsync();
 
-                        if (saveResult > 0)
-                        {
-                            TempData["SuccessMessage"] = "Товар і зображення успішно додано!";
+                            if (saveResult > 0)
+                            {
+                                // Отримання поточного користувача
+                                var currentUser = await _userManager.GetUserAsync(User);
+
+                                if (currentUser == null)
+                                {
+                                    TempData["ErrorMessage"] = "Не вдалося знайти користувача.";
+                                    return RedirectToAction("CreateAdvertisement");
+                                }
+
+                                // Створення зв'язку - оголошення + юзер
+                                var advertis = new MyAdvertisement
+                                {
+                                    ProductId = productId,
+                                    DatePosted = DateTime.Now,
+                                    UserId = currentUser.Id
+                                };
+
+                                // Додаємо зв'язку до бази даних
+                                _context.MyAdvertisements.Add(advertis);
+                                await _context.SaveChangesAsync();
+
+                                TempData["SuccessMessage"] = "Товар і зображення успішно додано!";
+                            }
+                            else
+                            {
+                                TempData["ErrorMessage"] = "Товар додано, але не вдалося додати зображення.";
+                            }
                         }
                         else
                         {
-                            TempData["ErrorMessage"] = "Товар додано, але не вдалося додати зображення.";
+                            TempData["SuccessMessage"] = "Товар додано! Рекомендуємо додати фотографії";
                         }
                     }
-                    else
-                    {
-                        TempData["SuccessMessage"] = "Товар успішно додано!";
-                    }
+                    catch (Exception ex) { }
 
                     // Повернення на сторінку успішного створення
                     return RedirectToAction("CreateAdvertisement"); 
