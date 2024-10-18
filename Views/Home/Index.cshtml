@@ -90,13 +90,17 @@
         {
             <!-- 6 блоків товарів -->
             <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12  mb-3">
-                <div>
+                <div style="border: 3px solid #f5f5dc; border-radius: 10px; padding: 3px;">
                     <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
                         <div class="product-block">
                             @if (product.ProductImages != null && product.ProductImages.Any())
                             {
                                 @* <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)" class="img-fluid" alt="Photo"> *@
-                                <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.FirstOrDefault().ImageData)" class="img-fluid" alt="Photo">
+                                <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)" 
+                                class="img-fluid"
+                                style="max-height: 255px; width: auto; max-width: 100%; object-fit: contain;"
+                                onerror="this.onerror=null;"
+                                alt="Photo">
                             }
                             else
                             {
@@ -111,8 +115,10 @@
                     </a>
                                         
                     <div class="mt-2">
-                        <div class="product-title">@product.ProductType?.Title @product.Brand?.Title @product.Title</div>
-                        <div class="product-description card-text col-2 text-truncate">@product.Description</div>
+                        <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                            <div class="product-title">@product.ProductType?.Title @product.Brand?.Title @product.Title</div>
+                            <div style="height: 40px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">@product.Description</div>
+                        </a>                        
                         <div class="d-flex align-items-center mt-2">
                             <div class="product-price">@product.Price ₴</div>
                             @* <a href="@Url.Action("AddToCart", "Cart", new { productId = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">

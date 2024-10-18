@@ -76,6 +76,13 @@ a:hover{
     color: #9C12FF; /* Цвет текста при наведении - фиолетовый */
     text-decoration: underline; /* Добавляем подчеркивание при наведении */
 }
+.link-product {
+    color: black;
+}
+.link-product:hover {
+    color: black;
+    text-decoration:none;
+}
 /* список */
 .catalog a {
     /*color: black;*/ /* Цвет текста по умолчанию - синий */
@@ -796,18 +803,18 @@ a:hover{
  .product-block, .product-block-products {
      text-align: center;
      position: relative;
-     max-height: 300px; /* максимальна висота для картки */
-     min-height: 300px; /* мінімальна висота для вирівнювання */
+     max-height: 260px; /* максимальна висота для картки */
+     min-height: 260px; /* мінімальна висота для вирівнювання */
      overflow: hidden; /* Якщо контент перевищує висоту, приховати його */
      display: flex;
      flex-direction: column;
      justify-content: space-between; /* Рівномірний розподіл елементів у картці */
  }
 
-.product-block {
+/*.product-block {
     background-color: #f5f5dc !important;
     padding: 20px;
-}
+}*/
 
 .product-block-products {
     background-color: #fbfaf9 !important;
@@ -816,6 +823,7 @@ a:hover{
 
 .product-title {
     font-weight: bold;
+    min-height: 80px;
 }
 
 .product-price {
