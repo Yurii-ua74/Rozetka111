@@ -104,9 +104,13 @@
 
                         @if (User.IsInRole("Seller"))
                         {
-                            <div class="header-profile-image" style="display: block;">
-                                <img id="headerIconSeller" src="~/images/icon_seller.png" class="img-fluid rounded-circle" alt="Profile Image" />
-                            </div>
+                            <a class="list-none nav-link text-black btn-lg position-relative btn-lg mt-2"
+                            asp-area="" asp-controller="Advertisement" asp-action="Index"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
+                                <div class="header-profile-image" style="display: block;">
+                                    <img id="headerIconSeller" src="~/images/icon_seller.png" class="img-fluid rounded-circle" alt="Profile Image" />
+                                </div>
+                            </a>
                         }                        
 
                         @* Переходить на сторінку з покупками користувача(метод Purchase в HomeController) *@
@@ -776,7 +780,7 @@
             </div>
             <div class="horizontal-line"></div>
             <div class="modal-body">
-                <form id="login-form" method="post" action="/Account/Login">                     @*   ///////////////////////////////////   *@
+                <form id="login-form" method="post" action="/Account/Login">                    
                     @Html.AntiForgeryToken() <!-- Токен захисту від підробки запитів -->
                     <span class="enter-reg-text">Е-пошта</span>
                     <div class="mb-3">
@@ -1319,7 +1323,7 @@
     @if (TempData["ErrorMessage"] != null)
     {
         <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" id="errorToast" data-bs-autohide="false" data-bs-delay="5000">
-            <div class="toast-header">
+            <div class="toast-error-header">
                 <strong class="me-auto">Помилка</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрити"></button>
             </div>
@@ -1329,6 +1333,8 @@
         </div>
     }
 </div>
+
+
 
 
 

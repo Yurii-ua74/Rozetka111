@@ -15,8 +15,9 @@ namespace Rozetka.Models.ViewModels.Products
         public List<IFormFile> ImageData { get; set; }
        
         public string? ProductType { get; set; }
+        public string? ProductColor { get; set; }
 
-       
+
         [Required]
         public string Description { get; set; }
 
