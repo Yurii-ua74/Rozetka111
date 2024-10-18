@@ -23,12 +23,44 @@ namespace Rozetka.Controllers
             _userManager = userManager;
             _context = context;
         }
-        
+
         // GET: Advertisement
-        public ActionResult Index()
+        // ///// шукає та передає список оголошень за Id еористувача ///// //
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            // Отримуємо поточного користувача
+            var user = await _userManager.GetUserAsync(User);
+
+            // Перевіряємо, чи є користувач
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var advertisements = _context.MyAdvertisements
+                 .Where(a => a.UserId == user.Id)
+                 .Include(a => a.Product)
+                 .ThenInclude(p => p.ProductColor)
+                 .Include(a => a.Product.ProductType)
+                 .Include(a => a.Product.Brand)
+                 .Include(a => a.Product.ProductImages)
+                 .Select(a => a.Product) // Вибираємо тільки продукти
+                 .Distinct()
+                 .ToList();
+
+
+
+            // Перевіряємо, чи є оголошення
+            if (advertisements == null || !advertisements.Any())
+            {
+                ViewBag.Message = "У Вас немає поданих оголошень";
+                return View(new List<Product>()); // Передаємо пустий список
+            }
+
+            return View(advertisements); // Передаємо список товарів
         }
+
 
         // GET: Advertisement/Details/5
         public ActionResult Details(int id)
@@ -79,23 +111,58 @@ namespace Rozetka.Controllers
         }
 
         // GET: Advertisement/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
+        public ActionResult Delete()
+        {           
+           return View();
         }
 
         // POST: Advertisement/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var advertisement = _context.MyAdvertisements.FirstOrDefault(a => a.ProductId == id);
+                if (advertisement != null)
+                {
+                    var productId = advertisement.ProductId;
+                    var userId = advertisement.UserId;
+
+                    // Видалення оголошення
+                    _context.MyAdvertisements.Remove(advertisement);
+
+                    // Знайти і видалити продукт
+                    var product = _context.Products.Find(productId);
+
+                    if (product != null)
+                    {
+                        var images = _context.ProductImages
+                            .Where(image => image.ProductId == productId)
+                            .ToList();
+
+                        if (images.Count > 0)
+                        {                           
+                            _context.ProductImages.RemoveRange(images);                            
+                        }
+                        _context.Products.Remove(product);
+                    }
+
+
+                    int changes = _context.SaveChanges(); // Зберегти зміни в базі даних
+                    if (changes > 0)
+                    {
+                        TempData["SuccessMessage"] = "Товар і зображення успішно додано!";
+                        return RedirectToAction("Index"); // Повернути успішний статус
+                    }
+                }
+
+                TempData["ErrorMessage"] = "Такого товару не знайдено.";
+                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 
@@ -141,7 +208,7 @@ namespace Rozetka.Controllers
 
         
 
-
+        // ///// Створення оголошення ///// //
         [HttpPost]
         public async Task<IActionResult> CreateAdvertisement(ProductAdvertisementVM model)
         {
@@ -189,6 +256,7 @@ namespace Rozetka.Controllers
                     ChildcategoryId = model.ChildcategoryId,
                     SubChildCategoryId = model.SubChildCategoryId,
                     ProductTypeId = model.ProductTypeId,
+                    ProductColorId = model.ProductColorId,
                     BrandId = model.BrandId,
                     QuantityInStock = random.Next(1, 20) 
                 };

@@ -1,16 +1,141 @@
-﻿
+﻿@using Rozetka.Data.Entity
+@model IEnumerable<Product>
 
-<style>
-    .centered-text {
-        display: flex;
-        justify-content: center; /* Центрує по горизонталі */       
-        height: 100vh; /* Висота контейнера на всю висоту вікна браузера */
-        text-align: center; /* Центрує текст */
-    }
-</style>
+@{
+    ViewData["Title"] = "MyAdvertisement";
+}
+
+    
 
 <br/>
 
-<h1 class="centered-text">Мої оголошення</h1>
+<div class="container">
+    <h1>Мої оголошення</h1>
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-warning">
+            @ViewBag.Message
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var product in Model)
+                {
+
+                    <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
+                        <!-- Стилізований блок товару -->
+                        <div class="product-card h-100 d-flex flex-column">
+                            <div class="product-image">
+                                
+                                    @if (product.ProductImages != null && product.ProductImages.Any())
+                                    {
+                                        var firstImage = product.ProductImages.FirstOrDefault();
+                                        <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
+                                        class="img-fluid"
+                                        alt="Product Image"
+                                        style="max-height: 255px; width: auto; max-width: 100%;"
+                                        onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';"
+                                        onmouseover="this.src='data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)'"
+                                        onmouseout="this.src='data:image;base64,@Convert.ToBase64String(firstImage.ImageData)'" />
+                                    }
+                                    else
+                                    {
+                                        <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                                    }
+                                
+                            </div>
+
+                            <!-- Обмежений блок опису, якщо багато тексту -->
+                            <div class="mt-2 product-description-block flex-grow-1">
+                                <div class="product-title">@product.ProductType.Title @product.Brand.Title @product.Title</div>
+                                <div class="product-description">@product.Description</div>
+                            </div>
+
+                            <!-- Футер картки з фіксацією до низу -->
+                            <div class="product-footer mt-2">
+                                <div class="conteiner">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div class="d-flex align-items-center">
+                                                <div class="product-price">@product.Price.ToString("0") ₴</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                           
+                                            @* <form method="post" asp-action="Delete" asp-controller="Advertisement">
+                                                <input type="hidden" name="id" value="@product.Id" />
+                                                <button type="submit" class="btn btn-purple"  data-productid="@product.Id">
+                                                    Видалити
+                                                </button>
+                                            </form>  *@
+
+                                            <form id="deleteForm" method="post" asp-action="Delete" asp-controller="Advertisement">
+                                                <input type="hidden" name="id" value="@product.Id" />
+                                                <button type="button" class="btn btn-purple" data-toggle="modal" data-target="#deleteConfirmationModal" data-productid="@product.Id">
+                                                    Видалити
+                                                </button>
+                                            </form>
+
+                                        </div>                                                                                    
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }   
+            }
+        </div>
+    }
+</div>
+
+<!-- Модальне вікно -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Підтвердження видалення</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Ви впевнені, що хочете видалити цей товар?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Скасувати</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Видалити</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
+
+<!-- jQuery (необхідний для Bootstrap JS) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+
+ <script>
+        $(document).ready(function () {
+            var productId;
+
+            // Встановлюємо id продукту з кнопки видалення
+            $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // Кнопка, що викликала модальне вікно
+                productId = button.data('productid'); // Витягуємо id продукту
+            });
+
+            // При натисканні на кнопку підтвердження видалення
+            $('#confirmDeleteButton').on('click', function () {
+                $('#deleteForm').submit(); // Відправляємо форму
+            });
+        });
+</script>
