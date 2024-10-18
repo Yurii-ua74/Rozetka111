@@ -12,6 +12,7 @@ using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Text.Json;
+using Microsoft.AspNetCore.Identity;
 
 namespace Rozetka.Controllers
 {
@@ -20,76 +21,108 @@ namespace Rozetka.Controllers
 
         //Контроллер CartController відповідає за управління кошиком покупок у програмі.
         //Він містить методи для перегляду, додавання, видалення товарів з кошика та інших операцій, пов'язаних з кошиком.
-
+        private readonly UserManager<User> _userManager;
         private readonly DataContext _context;
 
-        public CartController(DataContext context)
+        public CartController(UserManager<User> userManager, DataContext context)
         {
+            _userManager = userManager;
             _context = context;
         }
 
+        // GET: CartController
         public async Task<IActionResult> Index()
         {
-            Cart cart;
+            Cart? cart;
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId != null)
             {
+                var user = await _userManager.FindByIdAsync(userId); // Получаем текущего пользователя
                 try
                 {
                     cart = await _context.Carts
                         .Include(c => c.Items)
-                        .ThenInclude(ci => ci.Product)
+                            .ThenInclude(ci => ci.Product)
+                                .ThenInclude(p => p.Brand)  // Подгружаем информацию из Brand
+                        .Include(c => c.Items)
+                            .ThenInclude(ci => ci.Product)
+                                .ThenInclude(p => p.ProductType)  // Подгружаем информацию из ProductType
+                        .Include(c => c.Items)
+                            .ThenInclude(ci => ci.Product)
+                                .ThenInclude(p => p.ProductImages)  // Подгружаем информацию из ProductImages
                         .FirstOrDefaultAsync(c => c.UserId == userId);
 
+                    //Получаем список избранных товаров для пользователя
                     if (cart == null)
                     {
-                        Console.WriteLine($"Корзина для пользователя {userId} не найдена.");
-                        cart = new Cart { UserId = userId, Items = new List<CartItem>() }; // Инициализация пустого списка Items
+                        cart = new Cart { UserId = userId, Items = new List<CartItem>() };
                         _context.Carts.Add(cart);
                         await _context.SaveChangesAsync();
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Корзина найдена. Количество товаров: {cart.Items.Count}");
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Ошибка при выполнении запроса: {ex.Message}");
-                    cart = new Cart { Items = new List<CartItem>() }; // В случае ошибки возвращаем пустую корзину
+                    cart = new Cart { Items = new List<CartItem>() };
                 }
             }
             else
             {
+                // Логика для работы с сессионной корзиной
                 var cartSession = HttpContext.Session.GetString("Cart");
                 cart = string.IsNullOrEmpty(cartSession) ? new Cart { Items = new List<CartItem>() } : JsonConvert.DeserializeObject<Cart>(cartSession);
+
+                // Загрузка полной информации для товаров в корзине
+                foreach (var item in cart!.Items)
+                {
+                    // Загрузим продукт из базы данных, чтобы получить информацию о Brand, ProductType и ProductImage
+                    var product = await _context.Products
+                        .Include(p => p.Brand)
+                        .Include(p => p.ProductType)
+                        .Include(p => p.ProductImages) // Подгружаем изображения продуктов
+                        .FirstOrDefaultAsync(p => p.Id == item.ProductId);
+
+                    if (product != null)
+                    {
+                        item.Product = product; // Обновляем продукт в корзине полной информацией
+                    }
+                }
             }
 
-            // Убедитесь, что Items не равен null, чтобы избежать ошибок
             if (cart.Items == null)
             {
                 cart.Items = new List<CartItem>();
             }
 
-            // Подсчет общей суммы товаров в корзине
             double totalPrice = cart.Items.Sum(item => item.TotalPrice ?? 0);
 
-            // Подготовка данных для передачи в представление
             var viewModel = new CartViewModel
             {
                 CartItems = cart.Items,
-                TotalPrice = totalPrice
+                TotalPrice = totalPrice                
             };
 
-            // Сохраняем корзину в сессии, если пользователь не авторизован
             if (userId == null)
             {
-                HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+                var settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart, settings));
+                //HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+            }
+            else
+            {
+                var user = await _userManager.FindByIdAsync(userId); // Получаем текущего пользователя
+                viewModel.FirstName = user!.FirstName; 
+                viewModel.LastName = user!.LastName;
+                viewModel.Email = user!.Email;
+                viewModel.PhoneNumber = user!.PhoneNumber;
             }
 
-            // Возвращаем частичное представление с данными корзины
-            return PartialView("_CartModalPartial", viewModel);
+            return View(viewModel);
         }
 
         //Метод добавления товара в корзину
@@ -99,7 +132,7 @@ namespace Rozetka.Controllers
             try
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                Cart cart;
+                Cart? cart;
 
                 if (userId != null)
                 {
@@ -195,7 +228,7 @@ namespace Rozetka.Controllers
         public async Task<IActionResult> RemoveFromCart(int productId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Cart cart;
+            Cart? cart;
 
             if (userId != null)
             {
@@ -247,7 +280,7 @@ namespace Rozetka.Controllers
             try
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                Cart cart;
+                Cart? cart;
 
                 if (userId != null)
                 {
@@ -308,30 +341,23 @@ namespace Rozetka.Controllers
         [HttpGet]
         public async Task<IActionResult> LoadCartModal()
         {
-            Cart cart;
+            Cart? cart;
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId != null)
             {
                 try
-                {
-                    // Загрузка корзины для авторизованного пользователя
-                    //cart = await _context.Carts
-                    //    .Include(c => c.Items)
-                    //    .ThenInclude(ci => ci.Product)
-                    //    .ThenInclude(p => p.Brand)  // Только связь с брендом
-                    //    .FirstOrDefaultAsync(c => c.UserId == userId);
-
+                {                    
                     cart = await _context.Carts
+                        .Include(c => c.Items)                        
+                            .ThenInclude(ci => ci.Product)
+                                .ThenInclude(p => p.Brand)  // Подгружаем информацию из Brand
                         .Include(c => c.Items)
-                        .ThenInclude(ci => ci.Product)
-                        .ThenInclude(p => p.Brand)  // Подгружаем информацию из Brand
+                            .ThenInclude(ci => ci.Product)
+                                .ThenInclude(p => p.ProductType)  // Подгружаем информацию из ProductType
                         .Include(c => c.Items)
-                        .ThenInclude(ci => ci.Product)
-                        .ThenInclude(p => p.ProductType)  // Подгружаем информацию из ProductType
-                        .Include(c => c.Items)
-                        .ThenInclude(ci => ci.Product)
-                        .ThenInclude(p => p.ProductColor)  // Подгружаем информацию из ProductColor
+                            .ThenInclude(ci => ci.Product)
+                                .ThenInclude(p => p.ProductImages)  // Подгружаем информацию из ProductImages
                         .FirstOrDefaultAsync(c => c.UserId == userId);
 
                     //Получаем список избранных товаров для пользователя
@@ -402,7 +428,7 @@ namespace Rozetka.Controllers
         public async Task<IActionResult> GetCartCount()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Cart cart;
+            Cart? cart;
 
             if (userId != null)
             {
