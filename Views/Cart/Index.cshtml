@@ -1,341 +1,78 @@
-﻿@using Rozetka.Models.ViewModels.Cart
-@using Rozetka.Data.Entity
-@model CartViewModel
+﻿@model IEnumerable<Rozetka.Data.Entity.Cart>
+
 @{
-    ViewData["Title"] = "Оформлення замовленняя";
-    int index = 0;
+    ViewData["Title"] = "Index";
 }
 
-<h3 >Оформлення замовлення</h3>
-<br />
-<h5>Ваші контактні дані</h5>
+<h1>Index</h1>
 
-<div class="row">
-    <!-- Левая колонка -->
-    <div class="col-md-4">
-
-        @* <div class="form-check">
-            <input class="form-check-input custom-radio" type="radio" name="otherRecipient" id="forme" checked>
-            <label class="form-check-label" for="otherRecipient">Замовити для себе</label>
-        </div> *@
-        <br />
-        <div class="mb-3">
-            <label for="firstName" class="form-label" style="color:#6B6B6B">Ім’я</label>
-            <input type="text" class="enter-reg" id="firstName" value="@(Model.FirstName ?? String.Empty)">
-        </div>
-
-        
-
-        <div class="mb-3">
-            <label for="phone" class="form-label" style="color:#6B6B6B">Мобільний телефон</label>
-            <input type="tel" class="enter-reg" id="phone" value="@(Model.PhoneNumber ?? String.Empty)">
-        </div>
-
-      
-
-        <div class="mb-3">
-           
-
-            <div>
-                <input class="custom-checkbox" type="checkbox" name="otherRecipient" id="otherRecipient" style="margin: 0px">
-                <label class="form-check-label" for="otherRecipient" style="position: relative; top: -4px;">Інший отримувач</label>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="otherFirstName" class="form-label" style="color:#6B6B6B">Ім’я</label>
-            <input type="text" class="enter-reg" id="otherFirstName">
-        </div>
-
-      
-
-        <div class="mb-3">
-            <label for="otherPhone" class="form-label" style="color:#6B6B6B">Мобільний телефон</label>
-            <input type="tel" class="enter-reg" id="otherPhone">
-        </div>
-
-        <h5>Доставка</h5>
-        <div class="form-check">
-            <input class="form-check-input custom-radio" type="radio" name="delivery" id="pickup" value="pickup">
-            <label class="form-check-label" for="pickup">Самовивіз з наших магазинів</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input custom-radio" type="radio" name="delivery" id="courier" value="courier">
-            <label class="form-check-label" for="courier">Кур'єр на вашу адресу</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input custom-radio" type="radio" name="delivery" id="novaPoshta" value="novaPoshta" checked>
-            <label class="form-check-label" for="novaPoshta">На відділення Нової пошти</label>
-        </div>
-        <br />
-        <div class="mb-3">
-            <label for="city" class="form-label" style="color:#6B6B6B">Місто або населенний пункт</label>
-            <input type="text" class="enter-reg" id="city">
-        </div>
-
-        <div class="mb-3">
-            <label for="postOffice" class="form-label" style="color:#6B6B6B">Відділення</label>
-            <input type="text" class="enter-reg" id="postOffice">
-        </div>
-
-        <h5>Оплата</h5>
-        <div class="form-check">
-            <input class="form-check-input custom-radio" type="radio" name="payment" id="paymentUponReceipt" value="paymentUponReceipt" checked>
-            <label class="form-check-label" for="paymentUponReceipt">Оплата при отримані</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input custom-radio" type="radio" name="payment" id="onlinePayment" value="onlinePayment">
-            <label class="form-check-label" for="onlinePayment">Оплата онлайн</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input custom-radio" type="radio" name="payment" id="sellerCard" value="sellerCard">
-            <label class="form-check-label" for="sellerCard">На картку продавцю</label>
-        </div>
-    </div>
-
-    <!-- Центральная колонка -->
- 
-   
-    <div class="col-md-4">
-       
-        <div class="mb-3" style="margin-top: 25px">
-            <label for="lastName" class="form-label" style="color:#6B6B6B">Прізвище</label>
-            <input type="text" class="enter-reg" id="lastName" value="@(Model.LastName ?? String.Empty)">
-        </div>
-
-        <div class="mb-3">
-            <label for="email" class="form-label" style="color:#6B6B6B">Електронна пошта</label>
-            <input type="email" class="enter-reg" id="email" value="@(Model.Email ?? String.Empty)">
-        </div>
-     
-        <div class="mb-3" style="margin-top: 55px; color:#6B6B6B">
-            <label for="otherLastName" class="form-label">Прізвище</label>
-            <input type="text" class="enter-reg" id="otherLastName">
-        </div>
-
-
-    </div>
-
-    <!-- Правая колонка: Товары -->
-    <div class="col-md-4">
-        <table class="cart-container" style="border-radius: 15px; background-color: #F1F1F1; margin: 2px; padding: 15px;">
-            <thead>
-                <tr>
-                    <th colspan="2" style="padding: 15px;">
-                        <h3 style="padding: 10px;">Разом</h3>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (CartItem cartItem in Model.CartItems)
-                {
-                    
-                    <tr>
-                        <td style="padding: 15px;">
-                            @if (cartItem.Product.ProductImages!.Any())
-                            {
-                                <img src="data:image/*;base64,@(Convert.ToBase64String(cartItem.Product.ProductImages!.FirstOrDefault()!.ImageData!))" 
-                                class="card-img-top" alt="@cartItem.Product.Title" 
-                                style="height: 100px;width: auto;object-fit: contain;">
-                            }
-                            else
-                            {
-                                <img src="~/images/No-Image-Placeholder.svg.png" alt="no-image" style="height: 100px;width: auto;object-fit: contain;" />
-                            }
-                        </td>
-                        <td style="padding: 5px;"> @cartItem.Product.Brand.Title @cartItem.Product.Title 
-                            @if (cartItem.Count > 1)
-                            {
-                                        <span style="color: fuchsia; font-weight: bold;">x @cartItem.Count</span>
-                            }
-                        </td>
-                    </tr>
-                }
-
-                <!--  таблица для бонусов и информации по оплате -->
-                <tr>
-                    <td colspan="2">
-                        <table style="width: 100%;">
-                            <tr>
-                                <td style="padding: 10px;">Використати бонусні кошти</td>
-                                <td style="padding: 10px;">
-                                    <input class="form-check-input custom-radio" type="radio" name="bonus" id="sellerCard2" value="sellerCard2">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px;">Вартість доставки</td>
-                                <td style="padding: 10px;">від 139 грн</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px;">До сплати</td>
-                                <td style="padding: 10px;">@Model.TotalPrice грн</td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-
-                <!-- Кнопка подтверждения заказа -->
-                <tr>
-                    <td colspan="2" style="padding: 15px;">
-                        <button type="button" class="btn btn-purple" style="width: 90%;" onclick="redirectToSuccess()">Замовлення підтверджую</button>
-                    </td>
-                </tr>
-                
-            </tbody>
-        </table>
-    </div>
-
-    <script>
-        function redirectToSuccess() {
-            window.location.href = '/Order/SuccessOrder'; 
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User!.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User!.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User!.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.Count)
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.ShoppingList!.Id)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User!.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User!.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User!.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Items.Count)
+                </td>
+               @*  <td>
+                    @Html.DisplayFor(modelItem => item.ShoppingList!.Id)
+                </td> *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                   @*  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> | *@
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
         }
-    </script>
-
-
-
-@section Scripts {
-    <script type="text/javascript">
-        async function incCount(e, productId) {
-            let resp = await fetch(`/cart/IncCount/${productId}`,
-                {
-                    method: "post",
-                    headers: {
-                        "accept": "application/json"
-                    }
-                }
-            );
-            if (resp.ok === true) {
-                let info = await resp.json();
-                console.log(info);
-                console.log(`Products count: ${info.count}`);
-                let currentSpan = e.target;
-                currentSpan.previousElementSibling.innerText = info.count;
-                let div = document.createElement("div");
-                currentSpan.parentElement.parentElement.nextElementSibling.innerText =
-                    info.totalPrice;
-                await getTotalPrice();
-            }
-        }
-
-        async function decCount(e, productId) {
-            try {
-                let resp = await fetch(`/cart/decCount/${productId}`,
-                    {
-                        method: "post",
-                        headers: {
-                            "accept": "application/json"
-                        }
-                    }
-                );
-                if (resp.ok === true) {
-                    let info = await resp.json();
-                    console.log(info);
-                    console.log(`Products count: ${info.count}`);
-                    let currentSpan = e.target;
-                    if (info.count == 0) {
-                        let currentTd = currentSpan.parentElement.parentElement.parentElement;
-                        currentTd.remove();
-                    }
-                    else {
-                        currentSpan.nextElementSibling.innerText = info.count;
-                        currentSpan.parentElement.parentElement.nextElementSibling.innerText =
-                            info.totalPrice;
-                    }
-                    await getTotalPrice();
-                }
-            }
-            catch {
-
-            }
-        }
-        async function getTotalPrice() {
-            let resp = await fetch("/cart/getTotalPrice", {
-                method: "post",
-                headers: {
-                    "accept": "application/json"
-                }
-            });
-            if (resp.ok === true) {
-                let resData = await resp.json();
-                let totalPriceTd = document.getElementById("totalPrice");
-                totalPriceTd.innerText = resData.totalPrice;
-            }
-        }
-    </script>
-
-
-        <script>
-            // Получаем элементы с конкретными id  
-            document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                // Проверяем id или value радиокнопки
-                if (radio.id === 'otherRecipient' || radio.id === 'sellerCard2') {
-                    radio.addEventListener('click', function () {
-                        // Сбрасываем радиокнопку, если она была выбрана
-                        if (this.wasChecked) {
-                            this.checked = false; // Сброс состояния
-                        }
-                        this.wasChecked = this.checked; // Обновляем состояние
-                    });
-                }
-            });
-        </script>
-
-
-        <script>
-            $(document).ready(function () {
-                // Обработчик события закрытия любого модального окна
-                $('body').on('hidden.bs.modal', '.modal', function () {
-                    console.log("Модальное окно закрыто"); // Проверка, работает ли обработчик
-                    location.reload(); // Обновление страницы
-                });
-            });
-        </script>
-        
-        <script>
-            // Логика заполнения формы заказа
-           
-            const otherRecipientRadio = document.getElementById('otherRecipient');
-
-            const firstNameInput = document.getElementById('firstName');
-            const phoneInput = document.getElementById('phone');
-            const lastnameInput = document.getElementById('lastName');
-            const emailInput = document.getElementById('email');
-
-            const otherFirstNameInput = document.getElementById('otherFirstName');
-            const otherLastNameInput = document.getElementById('otherLastName');
-            const otherPhoneInput = document.getElementById('otherPhone');
-
-           
-
-            // Функция, которая будет вызываться при изменении радиокнопки
-            function toggleInputs() {
-                if (otherRecipientRadio.checked) {
-                    firstNameInput.disabled = true;
-                    phoneInput.disabled = true;
-                    lastnameInput.disabled = true;
-                    emailInput.disabled = true;
-
-                    otherFirstNameInput.disabled = false;
-                    otherLastNameInput.disabled = false;
-                    otherPhoneInput.disabled = false;
-                } 
-                if (!otherRecipientRadio.checked) {
-                    firstNameInput.disabled = false;
-                    phoneInput.disabled = false;
-                    lastnameInput.disabled = false;
-                    emailInput.disabled = false;
-
-                    otherFirstNameInput.disabled = true;
-                    otherLastNameInput.disabled = true;
-                    otherPhoneInput.disabled = true;
-                }
-            }
-
-            // Вешаем обработчик на изменение состояния радиокнопки
-            otherRecipientRadio.addEventListener('change', toggleInputs);
-
-            // Вызываем функцию при загрузке страницы, чтобы учесть текущее состояние
-            toggleInputs();
-        </script>
-
-}
+    </tbody>
+</table>

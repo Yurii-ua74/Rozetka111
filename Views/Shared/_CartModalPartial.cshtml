@@ -71,7 +71,7 @@
             <div class="total-price-text me-3">
                 <h4> <span id="total-price">@Model.TotalPrice.ToString("0")</span> ₴</h4>
             </div>
-            <a class="btn btn-purple w-20 total-price-button" asp-controller="Cart" asp-action="Index">
+            <a class="btn btn-purple w-20 total-price-button" asp-controller="Order" asp-action="CreateOrder">
                 Оформити замовлення
             </a>
         </div>

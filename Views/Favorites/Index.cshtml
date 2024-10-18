@@ -75,11 +75,7 @@ else
                             <div class="product-price">@favorite.Product!.Price ₴</div>
                             <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@favorite.ProductId, 'AddToCart')">
                                 <i class="bi bi-cart-plus"></i>
-                            </button>
-                            <!-- Кнопка удаления из избранного -->
-                            @* <a href="@Url.Action("Delete", "Favorites", new { id = favorite.Id })" class="btn btn-outline-purple">
-                                <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
-                            </a> *@
+                            </button>                            
                             <!-- Кнопка удаления из избранного -->
                             <a href="@Url.Action("Delete", "Favorites", new { id = favorite.Id })" class="btn btn-outline-purple"
                                onclick="return confirm('Ви дійсно бажаєте видалити цей товар з обраного?')">
