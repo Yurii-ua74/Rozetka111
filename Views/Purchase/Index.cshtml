@@ -1,7 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-<style>
+﻿@using Rozetka.Data.Entity
+@model ICollection<ShoppingList>
+@* <style>
     .centered-text {
         display: flex;
         justify-content: center; /* Центрує по горизонталі */
@@ -13,4 +12,76 @@
 @{
     <h2 class="centered-text"> У Вас ще не було замовлень </h2>
 }
+ *@
 
+@{
+    ViewData["Title"] = "Мої покупки";
+}
+
+
+<h1 class="display-4 text-center">Мої покупки</h1>
+@if (!Context.User.Identity?.IsAuthenticated ?? false)
+{
+    <h4><em>Ви не авторизовані, тому ваші замовлення не збережені і при наступному використанні сайту доступ до них буде відсутній.</em></h4>
+}
+<div class="accordion" id="accordionExample">
+    @if (Model != null)
+    {
+        foreach (var itemPurchase in Model)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@(itemPurchase.GetHashCode())" aria-expanded="false" aria-controls="collapse@(itemPurchase.GetHashCode())">
+                        Замовлення # від @itemPurchase.TotalPrice  - до сплати @itemPurchase.TotalPrice ₴
+                    </button>
+                </h2>
+                <div id="collapse@(itemPurchase.GetHashCode())" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <table class="table">
+                            <tbody>
+                                @foreach (var itemProduct in itemPurchase.Cart!.Items)
+                                {
+                                    <tr>
+                                        <td>@itemProduct.Product!.ProductType!.Title</td>
+                                        <td>                                          
+                                            @if (itemProduct.Product.ProductImages != null && itemProduct.Product.ProductImages.Any())
+                                            {
+                                                @* <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)" class="img-fluid" alt="Photo"> *@
+                                                <img src="data:image;base64,@Convert.ToBase64String(itemProduct.Product.ProductImages!.FirstOrDefault()!.ImageData!)"
+                                                     class="img-fluid"
+                                                     style="max-height: 215px; width: auto; max-width: 100%; object-fit: contain;"
+                                                     onerror="this.onerror=null;"
+                                                     alt="Photo">
+                                            }
+                                            else
+                                            {
+                                                <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                                            }
+                                        </td>
+                                        <td>@itemProduct.Product.Brand!.Title</td>
+                                        <td><strong>@itemProduct.Product.Title</strong></td>
+                                        <td>Ціна: @itemProduct.Product.Price ₴</td>
+                                        <td>Кількість: @itemProduct.Count</td>
+                                        <td>@(itemProduct.TotalPrice) ₴</td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Всього:</td>
+                                    <td><strong>@itemPurchase.TotalPrice ₴</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h2>class="display-6 text-center">Ви ще нічого не купили, але завжди можна надолужити:)</h2>
+    }

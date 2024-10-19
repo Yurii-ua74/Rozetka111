@@ -18,20 +18,41 @@ namespace Rozetka.Controllers
             _userManager = userManager;
             _context = context;
         }
-        // GET: PurchaseController
-        public ActionResult Index()
+        // GET: PurchaseController/Index
+        public async Task<IActionResult> Index()
         {
             try
             {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID текущего пользователя
 
-                return View();
+                if (userId == null)
+                {
+                    return RedirectToAction("Login", "Account"); // Перенаправляем на страницу авторизации, если пользователь не авторизован
+                }
+
+                // Загружаем список покупок для текущего пользователя
+                var shoppingLists = await _context.ShoppingList
+                    .Include(s => s.Cart)
+                        .ThenInclude(c => c.Items)
+                            .ThenInclude(i => i.Product)
+                                .ThenInclude(p => p.Brand)  // Подгружаем информацию о бренде
+                    .Include(s => s.Cart)
+                        .ThenInclude(c => c.Items)
+                             .ThenInclude(i => i.Product)
+                                .ThenInclude(p => p.ProductType)  // Подгружаем информацию о типе продукта
+                    .Include(s => s.Cart)
+                        .ThenInclude(c => c.Items)
+                            .ThenInclude(i => i.Product)
+                                .ThenInclude(p => p.ProductImages)  // Подгружаем изображения продуктов
+                    .Where(s => s.UserId == userId)
+                    .ToListAsync();
+
+                return View(shoppingLists); // Возвращаем представление с данными
             }
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message });
             }
-            
         }
 
         public async Task<ActionResult> AddPurchase() //добавление в список покупок
