@@ -6,12 +6,12 @@ namespace Rozetka.Models.ViewModels.Order
     //сторінки кошика покупок. Він представляє модель даних,
     //яку використовують для відображення інформації про товари в кошику,
     //загальну вартість та можливі URL для повернення після взаємодії з кошиком.
-    public class OrderIndexVM
-    {
-        public IEnumerable<CartItem> CartItems { get; set; } = default!;
+    //public class OrderIndexVM
+    //{
+    //    public IEnumerable<CartItem> CartItems { get; set; } = default!;
 
-        public double TotalPrice { get; set; }
+    //    public double TotalPrice { get; set; }
 
-        public string? ReturnUrl { get; set; } = default!;
-    }
+    //    public string? ReturnUrl { get; set; } = default!;
+    //}
 }
