@@ -26,7 +26,7 @@
                 @foreach (var product in Model)
                 {
 
-                    <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-2">
                         <!-- Стилізований блок товару -->
                         <div class="product-card h-100 d-flex flex-column">
                             <div class="product-image">
@@ -50,13 +50,13 @@
                             </div>
 
                             <!-- Обмежений блок опису, якщо багато тексту -->
-                            <div class="mt-2 product-description-block flex-grow-1">
+                            <div class="product-description-block flex-grow-1">
                                 <div class="product-title">@product.ProductType.Title @product.Brand.Title @product.Title</div>
                                 <div class="product-description">@product.Description</div>
                             </div>
 
                             <!-- Футер картки з фіксацією до низу -->
-                            <div class="product-footer mt-2">
+                            <div class="product-footer">
                                 <div class="conteiner">
                                     <div class="row">
                                         <div class="col-7">
@@ -65,14 +65,7 @@
                                             </div>
                                         </div>
                                         <div class="col-5">
-                                           
-                                            @* <form method="post" asp-action="Delete" asp-controller="Advertisement">
-                                                <input type="hidden" name="id" value="@product.Id" />
-                                                <button type="submit" class="btn btn-purple"  data-productid="@product.Id">
-                                                    Видалити
-                                                </button>
-                                            </form>  *@
-
+                                          
                                             <form id="deleteForm" method="post" asp-action="Delete" asp-controller="Advertisement">
                                                 <input type="hidden" name="id" value="@product.Id" />
                                                 <button type="button" class="btn btn-purple" data-toggle="modal" data-target="#deleteConfirmationModal" data-productid="@product.Id">
@@ -107,8 +100,8 @@
                 Ви впевнені, що хочете видалити цей товар?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Скасувати</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Видалити</button>
+                <button type="button" class="btn btn-secondary" style="border-radius: 10px" data-dismiss="modal">Скасувати</button>
+                <button type="button" class="btn btn-purple" id="confirmDeleteButton">Видалити</button>
             </div>
         </div>
     </div>
