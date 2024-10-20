@@ -85,8 +85,51 @@
             <i class="bi bi-emoji-frown" style="font-size: 240px; color: #ccc;"></i>
         </div>
     }
+    <div class="text-center mt-5 empty-cart-message2">
+        <h3>Ваш кошик порожнiй</h3>
+        <p>Додайте товари у кошик, щоб продовжити.</p>
+        <i class="bi bi-emoji-frown" style="font-size: 240px; color: #ccc;"></i>
+    </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+        // Скрываем сообщение о пустом кошике при загрузке страницы
+        $('.empty-cart-message2').hide(); // Скрываем сообщение
+
+       
+    });
+</script>
+
+<script>
+    $(document).on('click', '.remove-from-cart', function (e) {
+        e.preventDefault();
+
+        // Получаем текущее количество товаров в корзине
+        var cartItemCount = $('#cart-count').length ? parseInt($('#cart-count').text()) - 1 : 0;
+
+        // Выводим текущее количество товаров в консоль
+        console.log("Количество товаров в корзине после удаления: " + cartItemCount);
+
+        // Проверяем, если корзина пустая
+        if (cartItemCount === 0) {
+            $('.total-price-button').hide();
+            $('.total-price-text').hide(); // Скрываем общую стоимость
+            $('#cart-count').hide();
+
+            // Задержка перед показом сообщения о пустом кошике
+            setTimeout(function () {
+                $('.empty-cart-message2').show();
+            }, 100); // 100 мс
+            console.log("Корзина теперь пуста.");
+        } else {
+            $('#cart-count').show();
+            $('.total-price-button').show();
+            $('.total-price-text').show();
+            $('.empty-cart-message2').hide();
+        }
+    });
+</script>
 @* <div class="cart-container">
     <!-- Общий контейнер для корзины -->
     @if (Model.CartItems.Any())
@@ -147,57 +190,3 @@
     }
 </div> *@
 
-@* <!-- Блок для пустой корзины, который будет показываться или скрываться -->
-<div class="text-center mt-5 empty-cart-message" style="display: none;">
-    <h3>Ваш кошик порожнiй</h3>
-    <p>Додайте товари у кошик, щоб продовжити.</p>
-    <i class="bi bi-emoji-frown" style="font-size: 240px; color: #ccc;"></i>
-</div> *@
-<!-- Удаление товара из модальной корзины -->
-@* <script>
-    $(document).on('click', '.remove-from-cart', function (e) {
-        e.preventDefault(); // Отменяем стандартное поведение ссылки/кнопки
-
-        const id = $(this).data('id'); // Получаем ID товара
-
-        $.ajax({
-            url: '/Cart/RemoveFromCart', // Укажите правильный URL для действия
-            type: 'POST',
-            data: { id: id }, // Передаем ID товара
-            success: function (response) {
-                if (response.success) {
-                    // Обновляем количество товаров в корзине
-                    $('#cart-count').text(response.cartItemCount); // Обновляем счетчик
-
-                    // Проверяем, если корзина пустая
-                    if (response.cartItemCount === 0) {
-                        // Прячем кнопку "Оформити замовлення" и общую стоимость
-                        $('.total-price-button').hide();
-                        $('#totalPrice').hide();
-
-                        // Скрываем элемент cart-count
-                        $('#cart-count').hide();
-
-                        // Показываем сообщение о пустой корзине
-                        $('.empty-cart-message').show();
-                    } else {
-                        // Если в корзине есть товары, показываем cart-count
-                        $('#cart-count').show();
-                    }
-
-                    // Удаляем строку из таблицы
-                    $('tr[data-row-id="' + id + '"]').remove();
-
-                    // Обновляем общую стоимость
-                    $('#totalPrice').text(response.totalPrice + " ₴");
-                } else {
-                    alert("Ошибка при удалении товара: " + response.message);
-                }
-            },
-            error: function (xhr) {
-                // Выводим более детальное сообщение об ошибке
-                alert("Произошла ошибка при удалении товара: " + xhr.status + ' ' + xhr.statusText);
-            }
-        });
-    });
-</script> *@
