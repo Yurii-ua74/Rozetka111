@@ -1354,3 +1354,7 @@ a:hover{
 .toast-body {
     font-size: 16px; /* «б≥льште шрифт т≥ла */
 }
+
+.empty-cart-message2 {
+    display: none; /* —крываем элемент по умолчанию */
+}

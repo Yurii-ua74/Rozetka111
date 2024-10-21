@@ -236,7 +236,7 @@ namespace Rozetka.Controllers
                 cart = await _context.Carts
                     .Include(c => c.Items)
                     .ThenInclude(ci => ci.Product)
-                    .FirstOrDefaultAsync(c => c.UserId == userId);
+                    .FirstOrDefaultAsync(c => c.UserId == userId && c.IsActive);
             }
             else
             {
@@ -290,7 +290,7 @@ namespace Rozetka.Controllers
                     cart = await _context.Carts
                         .Include(c => c.Items)
                         .ThenInclude(ci => ci.Product)
-                        .FirstOrDefaultAsync(c => c.UserId == userId);
+                        .FirstOrDefaultAsync(c => c.UserId == userId && c.IsActive);
 
                     if (cart == null)
                         return BadRequest("Корзина не найдена");
@@ -310,7 +310,7 @@ namespace Rozetka.Controllers
                 if (cartItem != null)
                 {
                     cartItem.Count = newCount;
-                    cart.TotalPrice = (decimal)cart.TotalCartPrice; //фиксируем общую цену
+                    //cart.TotalPrice = (decimal)cart.TotalCartPrice; //фиксируем общую цену
                 }                
 
                 // Для авторизованных пользователей сохраняем изменения в БД
