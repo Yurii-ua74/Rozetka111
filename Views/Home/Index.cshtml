@@ -49,12 +49,12 @@
             <h3>Рекомендуємо для вас</h3>
         </div>
     </div>
-    <div class="row mb-3">
+     <div class="row mb-3">
         @{
             var randomProducts = Model.OrderBy(x => Guid.NewGuid()).Take(6); // Отбор 6 случайных товаров
         }
         
-        @foreach (var product in randomProducts)
+         @foreach (var product in randomProducts)
         {
             <!-- 6 блоків товарів -->
             <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12  mb-3">
@@ -62,8 +62,7 @@
                     <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
                         <div class="product-block">
                             @if (product.ProductImages != null && product.ProductImages.Any())
-                            {
-                                @* <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)" class="img-fluid" alt="Photo"> *@
+                            {                                
                                 <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)" 
                                 class="img-fluid"
                                 style="max-height: 215px; width: auto; max-width: 100%; object-fit: contain;"
@@ -76,10 +75,7 @@
                             }
                         </div>
                         
-                        @* <div class="card-body">
-                            <h5 class="card-title">@product.ProductType?.Title @product.Brand?.Title @product.Title</h5>
-                            <p class="card-text col-2 text-truncate">@product.Description</p>
-                        </div> *@
+                        
                     </a>
                                         
                     <div class="mt-2">
@@ -89,9 +85,7 @@
                         </a>                        
                         <div class="d-flex align-items-center mt-2">
                             <div class="product-price">@product.Price ₴</div>
-                            @* <a href="@Url.Action("AddToCart", "Cart", new { productId = product.Id })" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">
-                                <i class="bi bi-cart-plus"></i>
-                            </a> *@
+                            
                             <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@product.Id, 'AddToCart')">
                                 <i class="bi bi-cart-plus"></i>
                             </button>
@@ -104,10 +98,8 @@
                             }
                             else
                             {
-                                <!-- Кнопка добавления в избранное -->
-                               @*  <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
-                                    <i class="bi bi-heart"></i> <!-- Иконка пустого сердечка (товар не в избранном) -->
-                                </a> *@
+                                
+                              
                                 <!-- Кнопка добавления в избранное  Тест ajax -->
                                 <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
                                     <i class="bi bi-heart"></i>
@@ -118,8 +110,8 @@
                     </div>
                 </div>
             </div>
-        }
-    </div>
+        } 
+    </div> 
 
     <div class="row mb-3">
         <div class="col-12">
@@ -129,10 +121,10 @@
     
     <div class="row mb-3">
         @{
-            randomProducts = Model.OrderBy(x => Guid.NewGuid()).Take(12); // Отбор 6 случайных товаров
+            randomProducts = Model.OrderBy(x => Guid.NewGuid()).Take(12); 
         }
 
-        @foreach (var product in randomProducts)
+         @foreach (var product in randomProducts)
         {
             <!-- 6 блоків товарів -->
             <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12  mb-3">
@@ -140,8 +132,7 @@
                     <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
                         <div class="product-block">
                             @if (product.ProductImages != null && product.ProductImages.Any())
-                            {
-                                @* <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)" class="img-fluid" alt="Photo"> *@
+                            {                              
                                 <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
                                      class="img-fluid"
                                      style="max-height: 215px; width: auto; max-width: 100%; object-fit: contain;"
@@ -167,7 +158,7 @@
                             <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@product.Id, 'AddToCart')">
                                 <i class="bi bi-cart-plus"></i>
                             </button>
-                            @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
+                            @if (product.IsInFavorites) 
                             {
                                 <!-- Кнопка удаления из избранного -->
                                 <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
@@ -186,7 +177,7 @@
                     </div>
                 </div>
             </div>
-        }
+        } 
     </div>
 
     <div class="row mb-3">

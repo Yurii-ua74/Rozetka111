@@ -59,8 +59,9 @@ namespace Rozetka.Controllers
                 // Логируем ошибку и возвращаем страницу ошибки
                 _logger.LogError(ex, "Ошибка при получении списка продуктов.");
                 return View("Error"); // Отображение страницы ошибки
-            }           
+            }
             return View(products);
+            //return View();
         }
 
         public IActionResult Test()
@@ -75,14 +76,29 @@ namespace Rozetka.Controllers
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
-        {
+        {           
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        
+        //public IActionResult Error()
+        //{
+        //    var errorViewModel = new ErrorViewModel
+        //    {
+        //        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+        //    };
+
+        //    return View(errorViewModel);
+        //}
+
+
         // Відкриття сторінки адміна
         public IActionResult AdminPage()
         {
             return View();
         }
+
+        //public IActionResult TestError()
+        //{
+        //    throw new Exception("Test error");
+        //}
     }
 }

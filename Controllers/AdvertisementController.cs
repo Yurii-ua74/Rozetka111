@@ -250,7 +250,7 @@ namespace Rozetka.Controllers
                 {
                     Title = model.Title,
                     Description = model.Description,
-                    Сharacteristic = model.Characteristic,
+                    Characteristic = model.Characteristic,
                     Price = model.Price,
                     CategoryId = model.CategoryId,
                     ChildcategoryId = model.ChildcategoryId,

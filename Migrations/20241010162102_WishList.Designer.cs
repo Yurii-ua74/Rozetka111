@@ -297,7 +297,7 @@ namespace Rozetka.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Сharacteristic")
+                    b.Property<string>("Characteristic")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

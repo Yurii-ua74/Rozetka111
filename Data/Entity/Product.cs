@@ -7,7 +7,7 @@ namespace Rozetka.Data.Entity
         public int Id { get; set; }
         public string Title { get; set; } = default!;
         public string? Description { get; set; }
-        public string? Сharacteristic { get; set; }
+        public string? Characteristic { get; set; }
         public decimal Price { get; set; }
         public decimal? Rating { get; set; } //середній рейтинг
         public int Amount { get; set; } = 0; //кількість голосів

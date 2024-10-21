@@ -26,7 +26,7 @@ namespace Rozetka.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "Сharacteristic",
+                name: "Characteristic",
                 table: "Products",
                 type: "nvarchar(max)",
                 nullable: true);
@@ -77,7 +77,7 @@ namespace Rozetka.Migrations
                 table: "Products");
 
             migrationBuilder.DropColumn(
-                name: "Сharacteristic",
+                name: "Characteristic",
                 table: "Products");
 
             migrationBuilder.AlterColumn<decimal>(
