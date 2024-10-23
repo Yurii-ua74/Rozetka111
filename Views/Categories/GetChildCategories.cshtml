@@ -1,5 +1,5 @@
-﻿@using Rozetka.Data.Entity
-@model IEnumerable<Childcategory>
+﻿@using Rozetka.Models.ViewModels.ChildCategoriesViewModel
+@model IEnumerable<ChildCategoriesViewModel>
 
 
 @{
@@ -49,7 +49,7 @@
     </div>
 </div>
 
-<div class="row mb-5 mt-5">  
+ @* <div class="row mb-5 mt-5">  
     <div class="row mb-3">
         @foreach (var childcategory in Model)
         {          
@@ -67,6 +67,37 @@
             </div>
         }
     </div>
-</div>
+</div>  *@
 
+<div class="row mb-5 mt-5">
+    <div class="row mb-3">
+        @foreach (var item in Model)
+        {
+            var childCategory = item.ChildCategory;
+            var productImage = item.ProductImage;
+            var imgSrc = productImage != null
+            ? $"data:image/png;base64,{Convert.ToBase64String(productImage)}"
+            : Url.Content("~/images/no-image-icon.png");
+            var altText = childCategory.Name;
+
+            <div class="col-md-2 mb-3">
+                <div>
+                    <a class="f-sz" href="/Childcategories/GetProducts?childcategory=@childCategory.Name">
+                        <div class="product-block">
+                            <img src="@imgSrc" class="img-fluid" alt="@altText">
+                        </div>
+                        <div class="mt-2 f-sz">
+                            @childCategory.Name
+                        </div>
+                       
+                    </a>
+                    @if (productImage == null)
+                    {
+                        <div  style="color:red;">В цій категорії ще немає товарів.</div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
 

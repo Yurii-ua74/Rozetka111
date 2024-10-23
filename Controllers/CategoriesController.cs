@@ -181,6 +181,16 @@ namespace Rozetka.Controllers
 
             var childCategories = await _context.Childcategories
                 .Where(predicate: sc => sc.Category.Name == category)
+                /////
+                .Select(sc => new ChildCategoriesViewModel
+                {
+                    ChildCategory = sc,
+                    ProductImage = sc.Products
+                .SelectMany(p => p.ProductImages)
+                .Select(pi => pi.ImageData)
+                .FirstOrDefault()
+                })
+                /////
                 .ToListAsync();
             return View(childCategories);
         }

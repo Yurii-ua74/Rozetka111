@@ -7,5 +7,8 @@ namespace Rozetka.Models.ViewModels.ChildCategoriesViewModel
         public List<Childcategory>? FirstPart { get; set; }
         public List<Childcategory>? SecondPart { get; set; }
         public List<Childcategory>? ThirdPart { get; set; }
+
+        public Childcategory ChildCategory { get; set; }
+        public byte[]? ProductImage { get; set; }
     }
 }
