@@ -851,9 +851,12 @@
                     </div>
 
                     @* поле вводу файла аватара *@
-                     <div class="mb-3 ms-2">                       
-                        <input class="form-control fs-4" type="file" id="formFile" accept="image/*">
-                     </div>
+                    <div class="mb-3 ms-2">
+                        <label class="fileContainer me-2">
+                            <input class="form-control fs-4" type="file" id="formFile" accept="image/*">
+                            <span>Завантажити аватар</span> 
+                        </label>
+                    </div>
                     
                     <form asp-action="UpdatePersonalData" method="post" class="personal-data-form">
                         <div class="container">

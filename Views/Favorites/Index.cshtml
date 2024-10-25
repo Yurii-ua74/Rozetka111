@@ -10,50 +10,41 @@
 <style>
     .centered-text {
         display: flex;
-        justify-content: center; /* Центрує по горизонталі */
-        align-items: center; /* Центрує по вертикалі */
-        height: 100vh; /* Висота контейнера на всю висоту вікна браузера */
-        text-align: center; /* Центрує текст */
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+    }
+
+    .modal-footer .btn {
+        background-color: #A323FF; /* Цвет кнопок */
+        color: white; /* Цвет текста кнопок */
+    }
+
+        .modal-footer .btn:hover {
+            background-color: #872c9e; /* Темный оттенок при наведении */
+        }
+
+    .modal-content {
+        border-radius: 15px; /* Применяем закругление к углам */
     }
 </style>
 
 @if (!Model.Any())
 {
-    <h2 class="centered-text"> Ваш список обраних товарів порожній </h2>    
+    <h2 class="centered-text"> Ваш список обраних товарів порожній </h2>
 }
 else
 {
     <div class="row mb-3">
-       @*  @foreach (var favorite in Model)
-        {
-            <div class="col-md-4">
-                <div class="card mb-3">
-                    @if (favorite.Product != null && favorite.Product.ProductImages != null && favorite.Product.ProductImages.Any())
-                    {
-                        <img src="data:image;base64,@Convert.ToBase64String(favorite.Product.ProductImages.FirstOrDefault()?.ImageData)" class="card-img-top" alt="Product Image">
-                    }
-                    else
-                    {
-                        <img src="/images/no-image-icon.png" class="img-fluid mb-3" alt="No Product Image">
-                    }
-                    
-                    <div class="card-body">
-                        <h5 class="card-title">@favorite.Product.Title</h5>
-                        <p class="card-text">@favorite.Product.Price ₴</p>
-                        <a href="@Url.Action("GetProduct", "Products", new { id = favorite.ProductId })" class="btn btn-secondary">Переглянути</a>
-                        <a href="@Url.Action("Delete", "Favorites", new { id = favorite.Id })" class="btn btn-dark">Видалити з обраного</a>
-                    </div>
-                </div>
-            </div>
-        } *@
         @foreach (var favorite in Model)
-        {            
-            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12  mb-3">
+        {
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
                 <div style="border: 3px solid #f5f5dc; border-radius: 10px; padding: 3px;">
                     <a href="@Url.Action("GetProduct", "Products", new { id = favorite.ProductId })">
                         <div class="product-block">
                             @if (favorite.Product!.ProductImages != null && favorite.Product!.ProductImages.Any())
-                            {                               
+                            {
                                 <img src="data:image;base64,@Convert.ToBase64String(favorite.Product!.ProductImages!.FirstOrDefault()!.ImageData!)"
                                      class="img-fluid"
                                      style="max-height: 215px; width: auto; max-width: 100%; object-fit: contain;"
@@ -75,10 +66,12 @@ else
                             <div class="product-price">@favorite.Product!.Price ₴</div>
                             <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@favorite.ProductId, 'AddToCart')">
                                 <i class="bi bi-cart-plus"></i>
-                            </button>                            
-                            <!-- Кнопка удаления из избранного -->
-                            <a href="@Url.Action("Delete", "Favorites", new { id = favorite.Id })" class="btn btn-outline-purple"
-                               onclick="return confirm('Ви дійсно бажаєте видалити цей товар з обраного?')">
+                            </button>
+                            <a href="#" class="btn btn-outline-purple"
+                               data-bs-toggle="modal"
+                               data-bs-target="#confirmDeleteModal"
+                               data-product-id="@favorite.Id"
+                               onclick="setDeleteProductId(event)">
                                 <i class="bi bi-heart-fill"></i>
                             </a>
                         </div>
@@ -87,10 +80,37 @@ else
             </div>
         }
     </div>
-
-
-
-
-
-
 }
+
+<!-- Модальное окно подтверждения -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true" style="border-radius: 25px">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Підтвердження видалення</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Ви дійсно бажаєте видалити цей товар з обраного?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-purple" data-bs-dismiss="modal" style="background-color: gray">Скасувати</button>
+                <button type="button" class="btn btn-purple" id="confirmDeleteButton">Видалити</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let productIdToDelete = null;
+
+    function setDeleteProductId(event) {
+        productIdToDelete = event.currentTarget.getAttribute('data-product-id');
+    }
+
+    document.getElementById('confirmDeleteButton').addEventListener('click', function () {
+        if (productIdToDelete) {
+            window.location.href = '@Url.Action("Delete", "Favorites")/' + productIdToDelete;
+        }
+    });
+</script>
