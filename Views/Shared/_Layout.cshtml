@@ -891,7 +891,7 @@
                             <span class="text-danger" id="phone-error"></span>
                         </div>
 
-                        <button type="button" class="btn btn-purple w-100" onclick="nextStep()">Далее</button>
+                        <button type="button" id="nextStepButton" class="btn btn-purple w-100" onclick="nextStep()">Далi</button>
                         <div style="text-align: center; margin-top: 8px; margin-bottom: 8px;">
                             <span class="text-black" style="font-family: 'Inter', sans-serif; font-size: 14px;">Або увійдіть за допомогою:</span>
                         </div>
@@ -919,7 +919,7 @@
                             </a>
                         </div>
                     </div>
-
+               
                     <!-- Второй шаг -->
                     <div id="step-2" class="form-step" style="display: none;">
                         <span class="text-black" style="font-family: 'Inter', sans-serif; font-size: 14px;">Крок 2 з 2</span>
@@ -956,7 +956,7 @@
                             </button>
 
                             <!-- Кнопка "Зареєструватися" -->
-                            <button type="submit" class="btn btn-purple" style="width: 90%;">Зареєструватися</button>
+                            <button type="submit" id="RegistrButton" class="btn btn-purple" style="width: 90%;">Зареєструватися</button>
                         </div>
 
                         <div style="text-align: center; margin-top: 8px; margin-bottom: 8px;">
@@ -990,6 +990,117 @@
         </div>
     </div>
 </div>
+
+<!-- Валидация для ШАГ 1-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const registerModal = document.getElementById('registerModal');
+        const firstNameInput = document.getElementById('_auth-firstname');
+        const lastNameInput = document.getElementById('_auth-lastname');
+        const phoneInput = document.getElementById('_auth-phone');
+        const submitButton = document.getElementById('nextStepButton');
+
+        // Изначально деактивируем кнопку
+        submitButton.disabled = true;
+
+        function validateForm() {
+            const isValid = firstNameInput.value.trim().length >= 2 &&
+                lastNameInput.value.trim().length >= 2 &&
+                /^\d{10}$/.test(phoneInput.value);
+            submitButton.disabled = !isValid;
+        }
+
+        // Добавляем обработчики при открытии модального окна
+        registerModal.addEventListener('shown.bs.modal', function () {
+            validateForm();
+
+            [firstNameInput, lastNameInput, phoneInput].forEach(input => {
+                input.addEventListener('input', validateForm);
+            });
+        });
+
+        // Очищаем поля и деактивируем кнопку при закрытии окна
+        registerModal.addEventListener('hidden.bs.modal', function () {
+            firstNameInput.value = '';
+            lastNameInput.value = '';
+            phoneInput.value = '';
+            submitButton.disabled = true;
+
+            // Удаляем обработчики событий
+            [firstNameInput, lastNameInput, phoneInput].forEach(input => {
+                input.removeEventListener('input', validateForm);
+            });
+        });
+    });
+</script>
+<!-- Валидация для ШАГ 2-->
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const registerModal = document.getElementById('registerModal');
+        const emailInput = document.getElementById('_auth-email');
+        const passwordInput = document.getElementById('_auth-password');
+        const confirmPasswordInput = document.getElementById('_auth-confirm-password');
+        const submitButton = document.getElementById('RegistrButton');
+
+        // Деактивируем кнопку при загрузке страницы
+        submitButton.disabled = true;
+
+        function validateEmail(email) {
+            // Простой email-формат
+            const emailPattern = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+            return emailPattern.test(email);
+        }
+
+        function validatePassword(password) {
+            // Проверка пароля: минимум 6 символов, 1 строчная, 1 заглавная буква, 1 цифра и 1 спецсимвол
+            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
+            return passwordPattern.test(password);
+        }
+
+        function validateForm() {
+            const isEmailValid = validateEmail(emailInput.value.trim());
+            const isPasswordValid = validatePassword(passwordInput.value);
+            const doPasswordsMatch = passwordInput.value === confirmPasswordInput.value;
+
+            // Кнопка активна только если все проверки пройдены
+            submitButton.disabled = !(isEmailValid && isPasswordValid && doPasswordsMatch);
+
+            // Сообщения об ошибках
+            document.getElementById('email-error').textContent = isEmailValid ? '' : 'Невірний формат е-пошти.';
+            document.getElementById('password-error').textContent = isPasswordValid ? '' : 'Пароль повинен містити мінімум 6 символів, велику, малу літеру, цифру та спецсимвол.';
+            document.getElementById('confirm-password-error').textContent = doPasswordsMatch ? '' : 'Паролі не співпадають.';
+        }
+
+        // Обработчики событий при открытии модального окна
+        registerModal.addEventListener('shown.bs.modal', function () {
+            validateForm();
+
+            [emailInput, passwordInput, confirmPasswordInput].forEach(input => {
+                input.addEventListener('input', validateForm);
+            });
+        });
+
+        // Очистка и деактивация при закрытии модального окна
+        registerModal.addEventListener('hidden.bs.modal', function () {
+            emailInput.value = '';
+            passwordInput.value = '';
+            confirmPasswordInput.value = '';
+            submitButton.disabled = true;
+
+            // Очищаем сообщения об ошибках
+            document.getElementById('email-error').textContent = '';
+            document.getElementById('password-error').textContent = '';
+            document.getElementById('confirm-password-error').textContent = '';
+
+            // Убираем обработчики событий
+            [emailInput, passwordInput, confirmPasswordInput].forEach(input => {
+                input.removeEventListener('input', validateForm);
+            });
+        });
+    });
+</script>
+
 
 <script>
     // Закрытие модального окна авторизации при открытии регистрации

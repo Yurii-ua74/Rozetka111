@@ -100,12 +100,12 @@
 
         <div class="mb-3" style="margin-top: 25px">
             <label for="lastName" class="form-label" style="color:#6B6B6B">Прізвище</label>
-            <input type="text" class="enter-reg" id="lastName" value="@(Model.LastName ?? String.Empty)">
+            <input type="text" class="enter-reg" id="lastNameС" value="@(Model.LastName ?? String.Empty)">
         </div>
 
         <div class="mb-3">
             <label for="email" class="form-label" style="color:#6B6B6B">Електронна пошта</label>
-            <input type="email" class="enter-reg" id="email" value="@(Model.Email ?? String.Empty)">
+            <input type="email" class="enter-reg" id="emailС" value="@(Model.Email ?? String.Empty)">
         </div>
 
         <div class="mb-3" style="margin-top: 55px; color:#6B6B6B">
@@ -179,7 +179,7 @@
                 <tr>
                     <td colspan="2" style="padding: 15px;">
                         <form action="@Url.Action("ConfirmOrder", "Order")" method="post">
-                            <button type="submit" class="btn btn-purple" style="width: 90%;">Замовлення підтверджую</button>
+                            <button type="submit" id="OrderCompleteButton" class="btn btn-purple" style="width: 90%;">Замовлення підтверджую</button>
                         </form>
                         @* <button type="button" class="btn btn-purple" style="width: 90%;" onclick="redirectToSuccess()">Замовлення підтверджую</button> *@
                     </td>
@@ -189,157 +189,127 @@
         </table>
     </div>
 
-    @*  <script>
-    function redirectToSuccess() {
-    window.location.href = '/Order/SuccessOrder';
-    }
-    </script> *@
 
 
 
-    @* @section Scripts {
-    <script type="text/javascript">
-    async function incCount(e, productId) {
-    let resp = await fetch(`/cart/IncCount/${productId}`,
-    {
-    method: "post",
-    headers: {
-    "accept": "application/json"
-    }
-    }
-    );
-    if (resp.ok === true) {
-    let info = await resp.json();
-    console.log(info);
-    console.log(`Products count: ${info.count}`);
-    let currentSpan = e.target;
-    currentSpan.previousElementSibling.innerText = info.count;
-    let div = document.createElement("div");
-    currentSpan.parentElement.parentElement.nextElementSibling.innerText =
-    info.totalPrice;
-    await getTotalPrice();
-    }
-    }
 
-    async function decCount(e, productId) {
-    try {
-    let resp = await fetch(`/cart/decCount/${productId}`,
-    {
-    method: "post",
-    headers: {
-    "accept": "application/json"
-    }
-    }
-    );
-    if (resp.ok === true) {
-    let info = await resp.json();
-    console.log(info);
-    console.log(`Products count: ${info.count}`);
-    let currentSpan = e.target;
-    if (info.count == 0) {
-    let currentTd = currentSpan.parentElement.parentElement.parentElement;
-    currentTd.remove();
-    }
-    else {
-    currentSpan.nextElementSibling.innerText = info.count;
-    currentSpan.parentElement.parentElement.nextElementSibling.innerText =
-    info.totalPrice;
-    }
-    await getTotalPrice();
-    }
-    }
-    catch {
-
-    }
-    }
-    async function getTotalPrice() {
-    let resp = await fetch("/cart/getTotalPrice", {
-    method: "post",
-    headers: {
-    "accept": "application/json"
-    }
-    });
-    if (resp.ok === true) {
-    let resData = await resp.json();
-    let totalPriceTd = document.getElementById("totalPrice");
-    totalPriceTd.innerText = resData.totalPrice;
-    }
-    }
-    </script> *@
-
+    <!-- Переключение чекбокса "Другой получатель" -->
 
     <script>
-        // Получаем элементы с конкретными id
-        document.querySelectorAll('input[type="radio"]').forEach(radio => {
-            // Проверяем id или value радиокнопки
-            if (radio.id === 'otherRecipient' || radio.id === 'sellerCard2') {
-                radio.addEventListener('click', function () {
-                    // Сбрасываем радиокнопку, если она была выбрана
-                    if (this.wasChecked) {
-                        this.checked = false; // Сброс состояния
-                    }
-                    this.wasChecked = this.checked; // Обновляем состояние
+        document.addEventListener("DOMContentLoaded", function () {
+            const otherRecipientCheckbox = document.getElementById('otherRecipient');
+            const otherFields = [
+                document.getElementById('otherFirstName'),
+                document.getElementById('otherPhone'),
+                document.getElementById('otherLastName')
+            ];
+
+            const mainFields = [
+                document.getElementById('firstName'),
+                document.getElementById('phone'),
+                document.getElementById('lastNameС'),
+                document.getElementById('emailС')
+            ];
+
+            const orderCompleteButton = document.getElementById('OrderCompleteButton');
+
+            // Функция для проверки состояния кнопки
+            function validateForm() {
+                // Проверяем заполненность полей
+                const isMainFieldsValid = mainFields.every(field => field.value.trim().length > 0);
+                const isOtherFieldsValid = otherFields.every(field => field.value.trim().length > 0);
+
+                // Активируем кнопку, если хотя бы одни поля заполнены
+                orderCompleteButton.disabled = !(isMainFieldsValid || isOtherFieldsValid);
+            }
+
+            // Функция для обновления состояния полей
+            function toggleFields() {
+                const isChecked = otherRecipientCheckbox.checked;
+
+                // Включаем или отключаем поля для другого получателя
+                otherFields.forEach(field => {
+                    field.disabled = !isChecked;
+                    if (!isChecked) field.value = ''; // Очищаем значения, если поля отключены
                 });
+
+                // Отключаем поля основного получателя
+                mainFields.forEach(field => {
+                    field.disabled = isChecked;
+                    if (isChecked) field.value = ''; // Очищаем значения, если поля отключены
+                });
+
+                // Проверяем заполненность после изменения состояния полей
+                validateForm();
             }
-        });
-    </script>
 
+            // Добавляем обработчик события на чекбокс
+            otherRecipientCheckbox.addEventListener('change', toggleFields);
 
-    <script>
-        $(document).ready(function () {
-            // Обработчик события закрытия любого модального окна
-            $('body').on('hidden.bs.modal', '.modal', function () {
-                console.log("Модальное окно закрыто"); // Проверка, работает ли обработчик
-                location.reload(); // Обновление страницы
+            // Добавляем обработчики событий на все поля для валидации
+            [...mainFields, ...otherFields].forEach(field => {
+                field.addEventListener('input', validateForm);
             });
+
+            // Начальная установка полей
+            toggleFields(); // Вызываем для установки начального состояния
         });
     </script>
 
-    <script>
-        // Логика заполнения формы заказа
+    <!--  для валидации и активации кнопкм -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fields = {
+            firstName: document.getElementById('firstName'),
+            phone: document.getElementById('phone'),
+            otherFirstName: document.getElementById('otherFirstName'),
+            otherPhone: document.getElementById('otherPhone'),
+            city: document.getElementById('city'),
+            postOffice: document.getElementById('postOffice'),
+            lastName: document.getElementById('lastNameС'),
+            email: document.getElementById('emailС'),
+            otherLastName: document.getElementById('otherLastName')
+        };
+        const submitButton = document.getElementById('OrderCompleteButton');
 
-        const otherRecipientRadio = document.getElementById('otherRecipient');
+        function isFieldValid(field) {
+            if (field.disabled) return true; // Игнорируем отключенные поля
+            const value = field.value.trim();
 
-        const firstNameInput = document.getElementById('firstName');
-        const phoneInput = document.getElementById('phone');
-        const lastnameInput = document.getElementById('lastName');
-        const emailInput = document.getElementById('email');
-
-        const otherFirstNameInput = document.getElementById('otherFirstName');
-        const otherLastNameInput = document.getElementById('otherLastName');
-        const otherPhoneInput = document.getElementById('otherPhone');
-
-
-
-        // Функция, которая будет вызываться при изменении радиокнопки
-        function toggleInputs() {
-            if (otherRecipientRadio.checked) {
-                firstNameInput.disabled = true;
-                phoneInput.disabled = true;
-                lastnameInput.disabled = true;
-                emailInput.disabled = true;
-
-                otherFirstNameInput.disabled = false;
-                otherLastNameInput.disabled = false;
-                otherPhoneInput.disabled = false;
-            }
-            if (!otherRecipientRadio.checked) {
-                firstNameInput.disabled = false;
-                phoneInput.disabled = false;
-                lastnameInput.disabled = false;
-                emailInput.disabled = false;
-
-                otherFirstNameInput.disabled = true;
-                otherLastNameInput.disabled = true;
-                otherPhoneInput.disabled = true;
+            // Проверяем по ID поля
+            switch (field.id) {
+                case 'firstName':
+                case 'lastNameС':
+                case 'otherFirstName':
+                case 'otherLastName':
+                case 'city':
+                    return value.length >= 2;
+                case 'phone':
+                case 'otherPhone':
+                    return /^\d{10}$/.test(value);
+                case 'emailС':
+                        return /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/.test(value);
+                case 'postOffice':
+                    return /^\d{1,3}$/.test(value) && Number(value) >= 1 && Number(value) <= 999;
+                default:
+                    return true;
             }
         }
 
-        // Вешаем обработчик на изменение состояния радиокнопки
-        otherRecipientRadio.addEventListener('change', toggleInputs);
+        function validateForm() {
+            // Активируем кнопку только если все активные поля валидны
+            submitButton.disabled = !Object.values(fields).every(isFieldValid);
+        }
 
-        // Вызываем функцию при загрузке страницы, чтобы учесть текущее состояние
-        toggleInputs();
-    </script>
+        // Добавляем обработчик ко всем полям
+        Object.values(fields).forEach(field => {
+            field.addEventListener('input', validateForm);
+            field.addEventListener('change', validateForm); // для учёта переключений
+        });
+
+        // Начальная проверка состояния кнопки
+        validateForm();
+    });
+</script>
 
     
