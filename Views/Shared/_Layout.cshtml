@@ -105,7 +105,7 @@
 
                         @if (User.IsInRole("Seller"))
                         {
-                            <a class="list-none nav-link text-black btn-lg position-relative btn-lg mt-2"
+                            <a class="list-none nav-link text-black btn-lg position-relative btn-lg"
                             asp-area="" asp-controller="Advertisement" asp-action="Index"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
                                 <div class="header-profile-image" style="display: block;">
@@ -115,7 +115,7 @@
                         }                        
 
                         @* Переходить на сторінку з покупками користувача(метод Purchase в HomeController) *@
-                        <a class="list-none nav-link text-black btn-lg position-relative btn-lg mt-2"
+                        <a class="list-none nav-link text-black btn-lg position-relative btn-lg"
                            asp-area="" asp-controller="Purchase" asp-action="Index"
                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
                             <div class="text-center">
@@ -136,7 +136,7 @@
                             <img src="~/icons/balance_icon.png" alt="Balance Icon" class="icon-img-white">
                         </a> *@
 
-                        <a class="d-none d-md-block nav-link text-black position-relative btn-lg mt-2"
+                        <a class="d-none d-md-block nav-link text-black position-relative btn-lg"
                         asp-area="" asp-controller="Favorites" asp-action="Index"
                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Обране">
                             <div class="text-center">
@@ -159,6 +159,15 @@
                             </div>
                         </a>                       
                     }
+                    <!-- АКЦІЇ -->
+                    <a class="d-none d-md-block nav-link text-black position-relative btn-lg"
+                       asp-area="" asp-controller="Actions" asp-action="Index"
+                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">
+                        <div class="text-center">
+                            <i class="bi bi-bell fs-4 fs-md-3 fs-sm-3"></i>
+                            <p class="menu-link-text-style mb-0">Акції</p>
+                        </div>                        
+                    </a>
                     <!-- КОШИК -->
                     @*  Переходить на сторінку з кошиком (метод LoadCartModal в CartController) *@
                         <a type="button" href="#" class="nav-link text-black position-relative btn-lg"
