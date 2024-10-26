@@ -32,6 +32,9 @@ namespace Rozetka.Data.Entity
 
         [NotMapped]
         public bool IsInFavorites { get; set; } // Булево поле для отслеживания состояния избранного
+
+        [NotMapped]
+        public bool IsInActions { get; set; } // Булево поле для отслеживания акции
     }
 
 }
