@@ -299,6 +299,7 @@
                        </div>
                        <p class="shop-cart-title">Кошик</p>
                    </a>
+
                    @*  <a type="button" href="#" class="nav-link text-black position-relative btn-lg"
                        data-bs-toggle="modal"
                        data-bs-target="#cartModal">
@@ -313,7 +314,7 @@
                     </a> *@
                </div>                 
                <div class="shop-cart-container">
-                   <a asp-area="" asp-controller="Home" asp-action="Test"
+                   @* <a asp-area="" asp-controller="Home" asp-action="Test"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Списки порівнян" style="display: flex; align-items: center;">
                         <div class="svg-contnr2">
                             <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -323,8 +324,33 @@
                             </svg>
                         </div>
                        <p class="shop-cart-title">Списки порівнянь</p>
-                   </a>
-               </div>
+                   </a> *@
+
+
+                    @* <div class="svg-contnr2">
+                         <a class="d-none d-md-block nav-link text-black position-relative btn-lg"
+                            asp-area="" asp-controller="Actions" asp-action="Index"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">
+                             <div class="text-center">
+                                 <i class="bi bi-bell fs-4 fs-md-3 fs-sm-3"></i>                           
+                             </div>
+                             <p class="shop-cart-title">А к ц і ї</p>
+                         </a>
+                    </div> *@
+
+                    <a asp-area="" asp-controller="Actions" asp-action="Index"
+                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції" style="display: flex; align-items: center;" class="cart-itm">
+                        <div class="svg-contnr2">
+                            <svg class="icon" viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="Basket" data-node-id="37:1994" xmlns="http://www.w3.org/2000/svg">
+                                    <i class="bi bi-bell-fill fs-2 fs-md-3 fs-sm-3 "></i>
+                                </g>
+                            </svg>
+                        </div>
+                        <p class="shop-cart-title pt-3">А к ц і ї</p>
+                    </a>
+
+                </div>
                @if (User.IsInRole("Seller"))
                {
                    <div class="shop-cart-container">
