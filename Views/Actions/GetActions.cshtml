@@ -12,7 +12,7 @@
         <div class="col-xxl-4 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
             <div class="mycard p-3" style="border: 6px solid #f5f5dc; border-radius: 10px; padding: 3px;">
                 <a href="@Url.Action("GetProduct", "Products", new { id = item.ProductId })">
-                    <div class="product-block-action">
+                    <div class="text-center">
                         @if (item.Product!.ProductImages != null && item.Product!.ProductImages.Any())
                         {
                             <img src="data:image;base64,@Convert.ToBase64String(item.Product!.ProductImages!.FirstOrDefault()!.ImageData!)"
