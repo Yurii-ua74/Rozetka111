@@ -988,27 +988,27 @@ a:hover{
     margin-left: 10px;
 }
 
-reg-bl {
-   width: 96%;
-   height: 150px;
-   background-color: #F6F6F6;
-   border-radius: 5px;
-   margin: 10px;
+           .reg-bl {
+               width: 96%;
+               height: 150px;
+               background-color: #F6F6F6;
+               border-radius: 5px;
+               margin: 10px;
+           }
 
-
-.entr-btn {
-    background-color: #e8daf4;
-    border-radius: 10px;
-    border: 1px solid #9C12FF;
-}
-/* для іконки порівняння */
-.comp-list-container {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-}
+            .entr-btn {
+                background-color: #e8daf4;
+                border-radius: 10px;
+                border: 1px solid #9C12FF;
+            }
+            /* для іконки порівняння */
+            .comp-list-container {
+                display: flex;
+                flex: 0 0 auto;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+            }
 
 .shop-cart-title {
     flex: 0 0 auto;
