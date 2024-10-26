@@ -51,6 +51,7 @@ namespace Rozetka.Data
             .HasForeignKey(s => s.ChildCategoryId);
         }
 
+        public DbSet<Actions> Actions { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Childcategory> Childcategories{ get; set; }
         public DbSet<SubChildCategory> SubChildCategories { get; set; }
