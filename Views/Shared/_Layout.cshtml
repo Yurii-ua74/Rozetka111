@@ -176,19 +176,6 @@
                         </a>
                        
 
-                    <!-- КОШИК ТЕСТОВИЙ, ТИМЧАСОВИЙ -->
-                    @*  Переходить на сторінку з кошиком (метод Index в CartController) *@
-
-
-                   @*  <a type="button" href="" class="d-none d-md-block nav-link text-black btn-lg"
-                       data-bs-toggle="modal"
-                       data-bs-target="#cartModal">
-                        <div class="me-3 text-center">
-                            <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
-                            <p class="menu-link-text-style mb-0">ТЕСТ</p>
-                        </div>
-                    </a> *@
-
                     @if (Context.User.Identity?.IsAuthenticated ?? false)
                     {
                         @if (User.IsInRole("Admin"))
