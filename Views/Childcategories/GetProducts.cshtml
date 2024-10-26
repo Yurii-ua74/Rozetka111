@@ -83,9 +83,9 @@
                             @foreach (var subchildcategory in Model.SubChildCategories)
                             {
                                 <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input subCategoryCheckbox" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id" class="subCategoryCheckbox">
-                                        <label class="form-check-label f-sz" for="subchildcategory_@subchildcategory.Id">
+                                    <div class="form-check d-flex align-items-center">
+                                        <input class="subCategoryCheckbox custom-checkbox flex-shrink-0" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id">
+                                        <label class="form-check-label f-sz ms-2" for="subchildcategory_@subchildcategory.Id">
                                             @subchildcategory.Name
                                         </label>
                                     </div>
@@ -107,10 +107,10 @@
                         <div class="row g-3 accordion-body">
                             
                             <div class="col-md-5">
-                                <input class="form-control" type="text" placeholder="Від" aria-label="Від" id="minPrice" value="@minPrice">
+                                <input class="form-control" type="text" placeholder="Від" aria-label="Від" id="minPrice" value="@minPrice" style="border-radius: 15px">
                             </div>
                             <div class="col-md-5">
-                                <input class="form-control" type="text" placeholder="До" aria-label="До" id="maxPrice" value="@maxPrice">
+                                <input class="form-control" type="text" placeholder="До" aria-label="До" id="maxPrice" value="@maxPrice" style="border-radius: 15px">
                             </div>
 
                         </div>
