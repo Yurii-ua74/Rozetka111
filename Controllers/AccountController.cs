@@ -83,7 +83,9 @@ namespace Rozetka.Controllers
         public IActionResult Login(string? returnUrl)
         {
             LoginViewModel viewModel = new LoginViewModel() { ReturnUrl = returnUrl };
-            return View(viewModel);
+            //return View(viewModel);
+            return RedirectToAction("Index", "Home");
+
         }
         //Відображає форму входу.
         //Викликається при переході до сторінки за URL Account/Login.
