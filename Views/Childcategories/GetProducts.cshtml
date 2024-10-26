@@ -81,21 +81,23 @@
                     </h2>
                     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionPanelsStayOpen">
                         <div class="horizontal-line"></div>
-                        <div class="col-md-2">
-                            <ul class="list-unstyled">
-                                @foreach (var subchildcategory in Model.SubChildCategories)
-                                {
-                                    <li>
-                                        <div class="form-check d-flex align-items-center">
-                                            <input class="subCategoryCheckbox custom-checkbox flex-shrink-0" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id">
-                                            <label class="form-check-label f-sz ms-2" for="subchildcategory_@subchildcategory.Id">
-                                                @subchildcategory.Name
-                                            </label>
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
+
+                        <ul class="list-unstyled">
+                            @foreach (var subchildcategory in Model.SubChildCategories)
+                            {
+
+
+                                <li>
+                                    <div class="form-check d-flex align-items-center w-100">
+                                        <input class="subCategoryCheckbox custom-checkbox flex-shrink-0" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id">
+                                        <label class="form-check-label f-sz ms-2" for="subchildcategory_@subchildcategory.Id">
+                                            @subchildcategory.Name
+                                        </label>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+
                     </div>
                 </div>
 
