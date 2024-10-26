@@ -29,7 +29,7 @@
 <div class="sticky-top">
     <ul class="list-group list-group-horizontal">
 
-        <li class="list-group-item">
+        <li class="list-group-item" style="border-radius: 15px">
             Знайдено @Model.Products.Count() товарів
         </li>
         @if (!string.IsNullOrEmpty(Context.Session.GetString("selectedSubChildCategories")) || !string.IsNullOrEmpty(Context.Session.GetString("minPrice")) || !string.IsNullOrEmpty(Context.Session.GetString("maxPrice")))
@@ -63,56 +63,60 @@
 
     </ul>
 </div>
-
+<br />
 <div class="row">
     <div class="col-sm-3 text-start border-end border-2" style="min-width: 300px">
         @if (Model.Products.Any())
         {
-            <div class="accordion" id="accordionPanelsStayOpenExample">
-                
+            <div class="accordion" id="accordionPanelsStayOpen">
+
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                           Фільтр
+                        <button class="accordion-button" type="button"
+                                style="background-color: #A323FF; color: white;"
+                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo"
+                                aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                            Фільтр
                         </button>
                     </h2>
-                   @* чекбокси для вибору субпідкатегорій  *@
-                    <div class="col-md-2">                       
-                        <hr>
-                        <ul class="list-unstyled">
-                            @foreach (var subchildcategory in Model.SubChildCategories)
-                            {
-                                <li>
-                                    <div class="form-check d-flex align-items-center">
-                                        <input class="subCategoryCheckbox custom-checkbox flex-shrink-0" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id">
-                                        <label class="form-check-label f-sz ms-2" for="subchildcategory_@subchildcategory.Id">
-                                            @subchildcategory.Name
-                                        </label>
-                                    </div>
-
-                                </li>
-                            }
-                        </ul>
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionPanelsStayOpen">
+                        <div class="horizontal-line"></div>
+                        <div class="col-md-2">
+                            <ul class="list-unstyled">
+                                @foreach (var subchildcategory in Model.SubChildCategories)
+                                {
+                                    <li>
+                                        <div class="form-check d-flex align-items-center">
+                                            <input class="subCategoryCheckbox custom-checkbox flex-shrink-0" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id">
+                                            <label class="form-check-label f-sz ms-2" for="subchildcategory_@subchildcategory.Id">
+                                                @subchildcategory.Name
+                                            </label>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                        <button class="accordion-button" type="button"
+                                style="background-color: #A323FF; color: white;"
+                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree"
+                                aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                             Ціна
                         </button>
                     </h2>
-                    фільтри по цінам 
-                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">
+                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionPanelsStayOpen">
+                        <div class="horizontal-line"></div>
                         <div class="row g-3 accordion-body">
-                            
                             <div class="col-md-5">
-                                <input class="form-control" type="text" placeholder="Від" aria-label="Від" id="minPrice" value="@minPrice" style="border-radius: 15px">
+                                <input class="form-control" type="text" placeholder="Від" aria-label="Від" id="minPrice" value="@minPrice">
                             </div>
                             <div class="col-md-5">
-                                <input class="form-control" type="text" placeholder="До" aria-label="До" id="maxPrice" value="@maxPrice" style="border-radius: 15px">
+                                <input class="form-control" type="text" placeholder="До" aria-label="До" id="maxPrice" value="@maxPrice">
                             </div>
-
                         </div>
                     </div>
                 </div>
