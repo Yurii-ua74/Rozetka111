@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,8 +22,47 @@ namespace Rozetka.Controllers
 
         public async Task<IActionResult> GetActions()
         {
-            var dataContext = _context.Actions.Include(a => a.Product);
-            return View(await dataContext.ToListAsync());
+            // Получаем текущую дату и время
+            var currentDateTime = DateTime.Now;
+
+            // Выбираем только акционные товары, у которых акции активны
+            var actions = await _context.Actions
+                .Include(a => a.Product)
+                    .ThenInclude(p => p.ProductType)
+                .Include(a => a.Product)
+                    .ThenInclude(p => p.Brand)
+                .Include(a => a.Product)
+                    .ThenInclude(p => p.Childcategory)
+                .Include(a => a.Product)
+                    .ThenInclude(p => p.ProductImages)
+                .Include(a => a.Product)
+                    .ThenInclude(p => p.ProductColor)
+                .Include(a => a.Product)
+                    .ThenInclude(p => p.Reviews)
+                .Where(a => a.StartDate <= currentDateTime && a.EndDate >= currentDateTime) // Фильтрация по датам начала и окончания
+                .ToListAsync();
+
+            // Получаем ID текущего пользователя для избранных товаров, если пользователь авторизован
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Если пользователь авторизован, добавляем информацию об избранных продуктах
+            if (userId != null)
+            {
+                var favoriteProductIds = await _context.Favorites
+                    .Where(f => f.UserId == userId)
+                    .Select(f => f.ProductId)
+                    .ToListAsync();
+
+                foreach (var action in actions)
+                {
+                    if (action.Product != null)
+                    {
+                        action.Product.IsInFavorites = favoriteProductIds.Contains(action.Product.Id);
+                    }
+                }
+            }
+            
+            return View(actions);
         }
 
         // GET: Actions

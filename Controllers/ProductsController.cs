@@ -301,6 +301,17 @@ namespace Rozetka.Controllers
                 return NotFound();
             }
 
+            // Проверка на наличие активной акции для продукта
+            var activeAction = await _context.Actions
+                .Where(a => a.ProductId == id && a.StartDate <= DateTime.Now && a.EndDate >= DateTime.Now)
+                .Select(a => a.NewPrice)
+                .FirstOrDefaultAsync();
+
+            if (activeAction.HasValue)
+            {
+                product.ActionPrice = activeAction.Value; // Устанавливаем цену акции
+            }
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID пользователя
             if (userId != null)
             {

@@ -38,6 +38,21 @@ namespace Rozetka.Controllers
                 .ThenInclude(p => p.ProductImages)
                 .ToListAsync();
 
+            // Загружаем все активные акции
+            var activeActions = await _context.Actions
+                .Where(a => a.StartDate <= DateTime.Now && a.EndDate >= DateTime.Now) // Только активные акции
+                .ToListAsync();
+
+            // Присваиваем цену акции, если продукт имеет активную акцию
+            foreach (var item in favorites)
+            {
+                var action = activeActions.FirstOrDefault(a => a.ProductId == item.ProductId);
+                if (action != null)
+                {
+                    item.Product!.ActionPrice = action.NewPrice; // Устанавливаем цену акции
+                }
+            }
+
             // Возвращаем представление с данными
             return View(favorites);
         }

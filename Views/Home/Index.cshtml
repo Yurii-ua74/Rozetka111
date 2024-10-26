@@ -51,15 +51,13 @@
     </div>
     <div class="row mb-3">
         @foreach (var product in Model.GetProductsRating!)
-
         {
             <!-- 6 блоків товарів -->
-            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12  mb-3">
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-2">
                 <div class="mycard" style="border: 3px solid #f5f5dc; border-radius: 10px; padding: 3px;">
-                    <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
-                        <div class="product-block">
+                    <div class="product-block">
+                        <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
                             @if (product.ProductImages != null && product.ProductImages.Any())
-
                             {
                                 @* <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)" class="img-fluid" alt="Photo"> *@
                                 <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
@@ -68,14 +66,13 @@
                                      onerror="this.onerror=null;"
                                      alt="Photo">
                             }
-
                             else
-
                             {
                                 <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
                             }
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+
 
                     <div class="mt-2">
                         <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
@@ -83,21 +80,26 @@
                             <div class="product-description">@product.Description</div>
                         </a>
                         <div class="d-flex align-items-center mt-2">
-                            <div class="product-price">@product.Price ₴</div>
-                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@product.Id, 'AddToCart')">
+                            @if (product.ActionPrice == null)
+                            {
+                                <div class="product-price">@product.Price ₴</div>
+                            }
+                            else
+                            {
+                                <div class="text-decoration-line-through fs-6 fw-light">@product.Price</div>
+                                <div class="product-price-red p-1">@product.ActionPrice?.ToString("0") ₴</div>
+                            }
+                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-1" onclick="updateCart(@product.Id, 'AddToCart')">
                                 <i class="bi bi-cart-plus"></i>
                             </button>
                             @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
-
                             {
                                 <!-- Кнопка удаления из избранного -->
                                 <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                     <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
                                 </a>
                             }
-
                             else
-
                             {
                                 <!-- Кнопка добавления в избранное  Тест ajax -->
                                 <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
@@ -128,7 +130,6 @@
                     <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
                         <div class="product-block">
                             @if (product.ProductImages != null && product.ProductImages.Any())
-
                             {
                                 @* <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)" class="img-fluid" alt="Photo"> *@
                                 <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
@@ -137,9 +138,7 @@
                                      onerror="this.onerror=null;"
                                      alt="Photo">
                             }
-
                             else
-
                             {
                                 <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
                             }
@@ -152,21 +151,26 @@
                             <div class="product-description">@product.Description</div>
                         </a>
                         <div class="d-flex align-items-center mt-2">
-                            <div class="product-price">@product.Price ₴</div>
-                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@product.Id, 'AddToCart')">
+                            @if (product.ActionPrice == null)
+                            {
+                                <div class="product-price">@product.Price ₴</div>
+                            }
+                            else
+                            {
+                                <div class="text-decoration-line-through fs-6 fw-light">@product.Price</div>
+                                <div class="product-price-red p-1">@product.ActionPrice?.ToString("0") ₴</div>
+                            }
+                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-1" onclick="updateCart(@product.Id, 'AddToCart')">
                                 <i class="bi bi-cart-plus"></i>
                             </button>
                             @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
-
                             {
                                 <!-- Кнопка удаления из избранного -->
                                 <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                     <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
                                 </a>
                             }
-
                             else
-
                             {
                                 <!-- Кнопка добавления в избранное  Тест ajax -->
                                 <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
@@ -197,7 +201,6 @@
                     <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
                         <div class="product-block">
                             @if (product.ProductImages != null && product.ProductImages.Any())
-
                             {
                                 @* <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)" class="img-fluid" alt="Photo"> *@
                                 <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
@@ -206,9 +209,7 @@
                                      onerror="this.onerror=null;"
                                      alt="Photo">
                             }
-
                             else
-
                             {
                                 <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
                             }
@@ -221,21 +222,26 @@
                             <div class="product-description">@product.Description</div>
                         </a>
                         <div class="d-flex align-items-center mt-2">
-                            <div class="product-price">@product.Price ₴</div>
-                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@product.Id, 'AddToCart')">
+                            @if (product.ActionPrice == null)
+                            {
+                                <div class="product-price">@product.Price ₴</div>
+                            }
+                            else
+                            {
+                                <div class="text-decoration-line-through fs-6 fw-light">@product.Price</div>
+                                <div class="product-price-red p-1">@product.ActionPrice?.ToString("0") ₴</div>
+                            }
+                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-1" onclick="updateCart(@product.Id, 'AddToCart')">
                                 <i class="bi bi-cart-plus"></i>
                             </button>
                             @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
-
                             {
                                 <!-- Кнопка удаления из избранного -->
                                 <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                     <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
                                 </a>
                             }
-
                             else
-
                             {
                                 <!-- Кнопка добавления в избранное  Тест ajax -->
                                 <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
@@ -265,7 +271,6 @@
                     <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
                         <div class="product-block">
                             @if (product.ProductImages != null && product.ProductImages.Any())
-
                             {
                                 @* <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)" class="img-fluid" alt="Photo"> *@
                                 <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
@@ -274,9 +279,7 @@
                                      onerror="this.onerror=null;"
                                      alt="Photo">
                             }
-
                             else
-
                             {
                                 <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
                             }
@@ -289,21 +292,26 @@
                             <div class="product-description">@product.Description</div>
                         </a>
                         <div class="d-flex align-items-center mt-2">
-                            <div class="product-price">@product.Price ₴</div>
-                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@product.Id, 'AddToCart')">
+                            @if (product.ActionPrice == null)
+                            {
+                                <div class="product-price">@product.Price ₴</div>
+                            }
+                            else
+                            {
+                                <div class="text-decoration-line-through fs-6 fw-light">@product.Price</div>
+                                <div class="product-price-red p-1">@product.ActionPrice?.ToString("0") ₴</div>
+                            }
+                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-1" onclick="updateCart(@product.Id, 'AddToCart')">
                                 <i class="bi bi-cart-plus"></i>
                             </button>
                             @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
-
                             {
                                 <!-- Кнопка удаления из избранного -->
                                 <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                     <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
                                 </a>
                             }
-
                             else
-
                             {
                                 <!-- Кнопка добавления в избранное  Тест ajax -->
                                 <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
@@ -333,18 +341,14 @@
                     <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
                         <div class="product-block">
                             @if (product.ProductImages != null && product.ProductImages.Any())
-
                             {
-                                @* <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)" class="img-fluid" alt="Photo"> *@
                                 <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
                                      class="img-fluid"
                                      style="max-height: 215px; width: auto; max-width: 100%; object-fit: contain;"
                                      onerror="this.onerror=null;"
                                      alt="Photo">
                             }
-
                             else
-
                             {
                                 <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
                             }
@@ -357,21 +361,26 @@
                             <div class="product-description">@product.Description</div>
                         </a>
                         <div class="d-flex align-items-center mt-2">
-                            <div class="product-price">@product.Price ₴</div>
-                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@product.Id, 'AddToCart')">
+                            @if (product.ActionPrice == null)
+                            {
+                                <div class="product-price">@product.Price ₴</div>
+                            }
+                            else
+                            {
+                                <div class="text-decoration-line-through fs-6 fw-light">@product.Price</div>
+                                <div class="product-price-red p-1">@product.ActionPrice?.ToString("0") ₴</div>
+                            }
+                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-1" onclick="updateCart(@product.Id, 'AddToCart')">
                                 <i class="bi bi-cart-plus"></i>
                             </button>
                             @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
-
                             {
                                 <!-- Кнопка удаления из избранного -->
                                 <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                     <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
                                 </a>
                             }
-
                             else
-
                             {
                                 <!-- Кнопка добавления в избранное  Тест ajax -->
                                 <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
@@ -456,7 +465,6 @@
 
     <div class="row mb-3">
         @foreach (var product in Model.GetProductsShopping!)
-
         {
             <!-- 6 блоків товарів -->
             <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12  mb-3">
@@ -464,18 +472,14 @@
                     <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
                         <div class="product-block">
                             @if (product.ProductImages != null && product.ProductImages.Any())
-
                             {
-                                @* <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)" class="img-fluid" alt="Photo"> *@
                                 <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
                                      class="img-fluid"
                                      style="max-height: 215px; width: auto; max-width: 100%; object-fit: contain;"
                                      onerror="this.onerror=null;"
                                      alt="Photo">
                             }
-
                             else
-
                             {
                                 <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
                             }
@@ -488,21 +492,26 @@
                             <div class="product-description">@product.Description</div>
                         </a>
                         <div class="d-flex align-items-center mt-2">
-                            <div class="product-price">@product.Price ₴</div>
-                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@product.Id, 'AddToCart')">
+                            @if (product.ActionPrice == null)
+                            {
+                                <div class="product-price">@product.Price ₴</div>
+                            }
+                            else
+                            {
+                                <div class="text-decoration-line-through fs-6 fw-light">@product.Price</div>
+                                <div class="product-price-red p-1">@product.ActionPrice?.ToString("0") ₴</div>
+                            }
+                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-1" onclick="updateCart(@product.Id, 'AddToCart')">
                                 <i class="bi bi-cart-plus"></i>
                             </button>
                             @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
-
                             {
                                 <!-- Кнопка удаления из избранного -->
                                 <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                     <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
                                 </a>
                             }
-
                             else
-
                             {
                                 <!-- Кнопка добавления в избранное  Тест ajax -->
                                 <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">

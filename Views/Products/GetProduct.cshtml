@@ -2,7 +2,7 @@
 @model Product
 @{
     string? category = Context.Session.GetString("Category");
-    string? childcategory = Context.Session.GetString("ChildCategory");    
+    string? childcategory = Context.Session.GetString("ChildCategory");
     // string? subchildcategory = Context.Session.GetString("SubChildCategory");
     string? product = Context.Session.GetString("Product");
 }
@@ -50,8 +50,8 @@
 
 </style>
 
-<div class="row">    
-    <div class="col-md-6">       
+<div class="row">
+    <div class="col-md-6">
         <div class="row">
             <div class="col-3 text-center">
                 <!-- Галерея миниатюр (thumbs) -->
@@ -61,10 +61,10 @@
                         @foreach (var image in Model.ProductImages)
                         {
                             <div class="p-2 g-col-3">
-                                <img src="data:image;base64,@Convert.ToBase64String(image.ImageData!)" 
-                                class="img-thumbnail thumbnail rounded-5"
-                                alt="Product Thumbnail"
-                                style="max-height: 150px; width: auto; max-width: 100%; object-fit: contain;">
+                                <img src="data:image;base64,@Convert.ToBase64String(image.ImageData!)"
+                                     class="img-thumbnail thumbnail rounded-5"
+                                     alt="Product Thumbnail"
+                                     style="max-height: 150px; width: auto; max-width: 100%; object-fit: contain;">
                             </div>
                         }
                     }
@@ -72,12 +72,12 @@
             </div>
             <div class="col-9 text-center">
                 <!-- Основное изображение продукта -->
-                <img id="main-image" src="data:image;base64,@Convert.ToBase64String(Model.ProductImages!.FirstOrDefault()?.ImageData!)" 
-                class="img-fluid mb-3" 
-                alt="Main Product Image"
-                style="max-height: 600px; width: auto; max-width: 100%; object-fit: contain;">
-            </div>  
-            
+                <img id="main-image" src="data:image;base64,@Convert.ToBase64String(Model.ProductImages!.FirstOrDefault()?.ImageData!)"
+                     class="img-fluid mb-3"
+                     alt="Main Product Image"
+                     style="max-height: 600px; width: auto; max-width: 100%; object-fit: contain;">
+            </div>
+
         </div>
     </div>
     @* class="img-thumbnail me-2 thumbnail" *@
@@ -93,7 +93,7 @@
             {
                 <p>Для визначення рейтингу недостатньо оцінок</p>
             }
-            
+
             <p>Артикул: @Model.Id</p>
         </div>
         @if (Model.ProductColorId != null && Model.ProductColor != null)
@@ -105,7 +105,7 @@
                 <button class="btn me-2" style="background-color: @Model.ProductColor.HexCode;"></button>
             </div>
         }
-       
+
 
         <div class="p-3 mb-3 bg-secondary-subtle text-secondary-emphasis rounded-3">
             <h4>Пропозиції</h4>
@@ -114,13 +114,25 @@
         </div>
 
         <div class="row">
-            <div class="col-md-auto">
-                <h4 class="price">@Model.Price ₴</h4>
-            </div>
+            @if (Model.ActionPrice == null)
+            {
+                <div class="col-md-auto">
+                    <div class="fs-3 fw-bold">@Model.Price ₴</div>
+                </div>
+            }
+            else
+            {
+                <div class="col-2">
+                    <div class="text-decoration-line-through fs-5 fw-light">@Model.Price ₴</div>
+                </div>
+                <div class="col-md-auto">
+                    <div class="product-price-red p-1 fs-3 fw-bold">@Model.ActionPrice?.ToString("0") ₴</div>
+                </div>
+            }
             <div class="col">
                 <button class="btn btn-purple btn-add-to-cart btn-lg w-100" href="#" onclick="updateCart(@Model.Id, 'AddToCart')">Додати до кошика</button>
             </div>
-            <div class="col col-lg-1">               
+            <div class="col col-lg-1">
                 @if (Model.IsInFavorites) // Проверяем, находится ли товар в избранном
                 {
                     <!-- Кнопка удаления из избранного -->
@@ -132,8 +144,8 @@
                 {
                     <!-- Кнопка добавления в избранное -->
                     @* <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = Model.Id })" class="btn btn-purple btn-outline-purple btn-lg">
-                        <i class="bi bi-heart"></i> <!-- Иконка пустого сердечка (товар не в избранном) -->
-                    </a> *@
+                <i class="bi bi-heart"></i> <!-- Иконка пустого сердечка (товар не в избранном) -->
+                </a> *@
                     <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites btn-lg" data-product-id="@Model.Id">
                         <i class="bi bi-heart"></i>
                     </a>
@@ -142,7 +154,7 @@
         </div>
         <p>Доставка:</p>
         @* <div class="col">
-           
+
         </div> *@
         <svg width="auto" height="44" viewBox="0 0 654 44" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect width="654" height="44" rx="12" fill="#F6F6F6" />
@@ -206,15 +218,15 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844l2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565l6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" /></svg> Залишити відгук
                 </button>
             }
-            
-        </div>        
+
+        </div>
         <div class="row">
             @if (Model.Reviews != null && Model.Reviews.Any())
             {
                 @foreach (var reviews in Model.Reviews)
                 {
                     <div class="col-md-4">
-                        <div class="border p-3 mb-3">                            
+                        <div class="border p-3 mb-3">
                             <!-- Защита от null для пользователя -->
                             @if (reviews.User != null)
                             {
@@ -235,20 +247,20 @@
                 <div class="col-md-12">
                     <div class="border p-3 mb-3">
                         <h4>Будьте першими, залиште відгук про товар</h4>
-                    </div>                    
+                    </div>
                 </div>
             }
             @* <div class="col-md-4">
-                <div class="border p-3 mb-3">
-                    <h5>Руслан Павлов <span class="rating"><i class="bi bi-star-fill"></i> 5</span></h5>
-                    <p>Чудові навушники! Якість звуку на висоті.</p>
-                </div>
+            <div class="border p-3 mb-3">
+            <h5>Руслан Павлов <span class="rating"><i class="bi bi-star-fill"></i> 5</span></h5>
+            <p>Чудові навушники! Якість звуку на висоті.</p>
+            </div>
             </div>
             <div class="col-md-4">
-                <div class="border p-3 mb-3">
-                    <h5>Яна Дмитрієва <span class="rating"><i class="bi bi-star-fill"></i> 4.5</span></h5>
-                    <p>Класно виглядають і зручно сидять на голові!</p>
-                </div>
+            <div class="border p-3 mb-3">
+            <h5>Яна Дмитрієва <span class="rating"><i class="bi bi-star-fill"></i> 4.5</span></h5>
+            <p>Класно виглядають і зручно сидять на голові!</p>
+            </div>
             </div> *@
             <!-- Add more reviews -->
         </div>
@@ -351,7 +363,7 @@
 
 
 <!-- Кнопка для відкриття кошика -->
-@* <div class="product-item">        
+@* <div class="product-item">
     <!-- Кнопка для додавання товару в кошик -->
     <button class="btn btn-primary"
             onclick="addToCartAndOpenSidebar('@Model.Id', '@Model.Title', '@Model.ProductImages', '@Model.Price')">
