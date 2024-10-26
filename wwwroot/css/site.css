@@ -789,6 +789,8 @@ a:hover{
      justify-content: space-between; /* Рівномірний розподіл елементів у картці */
  }
 
+    
+
 /*.product-block {
     background-color: #f5f5dc !important;
     padding: 20px;
@@ -1390,4 +1392,33 @@ a:hover{
         text-align: right;
         top: 0;
         border: none;
+    }
+
+    /* до  GetChildCategories  карьочки фото категорій */
+.product-block-im {
+    text-align: center;
+    position: relative;
+    max-height: 220px;
+    min-height: 220px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Внутрішній контейнер для зображення */
+.image-cont-r {
+    width: 90%;
+    height: 90%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    /* Зображення з обмеженням об'єкта */
+    .image-cont-r img {
+        max-width: 200px;
+        max-height: 200px;
+        object-fit: cover; /* Заповнює контейнер, адаптуючи зображення */
     }
