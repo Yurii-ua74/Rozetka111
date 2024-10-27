@@ -395,12 +395,14 @@
                        <p class="shop-cart-title mt-3 ml-5">Вакансії</p>
                    </a>
                </div>
-               <div class="shop-cart-container">
-                   <a asp-area="" asp-controller="Home" asp-action="Test"
-                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Контакти" style="display: flex; align-items: center;" class="cart-itm">
-                       <p class="shop-cart-title mt-3 ml-5">Контакти</p>
-                   </a>
-               </div>
+                <div class="shop-cart-container">
+                    <a href="@Url.Action("Index", "OurContacts")"
+                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Контакти"
+                       style="display: flex; align-items: center;" class="cart-itm">
+                        <p class="shop-cart-title mt-3 ml-5">Контакти</p>
+                    </a>
+                </div>
+               
                <div class="shop-cart-container">
                     <a asp-area="" asp-controller="SubChildCategory" asp-action="AllCategoriesList"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Всі категорії" style="display: flex; align-items: center;">
@@ -605,7 +607,7 @@
                         <li><a href="#" class="text-muted">Умови використання сайту</a></li>
                         <li><a href="#" class="text-muted">Про нас</a></li>
                         <li><a href="#" class="text-muted">Вакансії</a></li>
-                        <li><a href="#" class="text-muted">Контакти</a></li>
+                        <li><a href="@Url.Action("Index", "OurContacts")" class="text-muted">Контакти</a></li>
                     </ul>
                 </div>
                 

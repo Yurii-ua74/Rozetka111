@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Sertification"] = "Sertification";
+}
+<h2>Контакти</h2>
+<br />
+<div class="container mt-5 mb-5">
+    <!-- Заголовок страницы -->
+    
+    <h2 class="text-center">Зв'яжіться з нами або завітайте до нашого офісу – будемо раді допомогти!</h2>
+
+    <!-- Блок с контактной информацией -->
+    <div class="row mt-5">
+        <!-- Адрес -->
+        <div class="col-md-4 text-center">
+            <h5 style="color: #2F2F2F;">Адреса</h5>
+            <p style="color: #828282;">м. Київ, вул. Шевченка, 12</p>
+        </div>
+        <!-- Телефон -->
+        <div class="col-md-4 text-center">
+            <h5 style="color: #2F2F2F;">Телефон</h5>
+            <p style="color: #828282;">+38 (095) 123-45-67</p>
+        </div>
+        <!-- Email -->
+        <div class="col-md-4 text-center">
+            <h5 style="color: #2F2F2F;">Електронна пошта</h5>
+            <p style="color: #828282;">contact@shvydkobay.com</p>
+        </div>
+    </div>
+
+    <!-- Блок с формой обратной связи -->
+    <div class="contact-form mt-5">
+        <h4 class="text-center" style="color: #2F2F2F;">Залиште нам повідомлення</h4>
+        <p class="text-center" style="color: #828282;">Ми зв'яжемося з вами якнайшвидше!</p>
+
+        <form class="mt-4" action="/send-message" method="POST">
+            <div class="contact-info">
+                <!-- Поля ввода с измененными метками и стилями -->
+                <div class="mb-3">
+                    <label for="name" class="form-label" style="color: #6B6B6B;">Ім’я</label>
+                    <input type="text" class="enter-reg" id="name">
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label" style="color: #6B6B6B;">Електронна пошта</label>
+                    <input type="email" class="enter-reg" id="email">
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label" style="color: #6B6B6B;">Телефон</label>
+                    <input type="tel" class="enter-reg" id="phone">
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="message" style="color: #2F2F2F;">Ваше повідомлення</label>
+                    <textarea class="form-control" style="border-radius: 15px; border: 1px solid #C9C9C9;" id="message" name="message" rows="5" placeholder="Напишіть ваше повідомлення" required></textarea>
+                </div>
+                <br />
+
+                <button type="submit" class="btn btn-purple" style="background-color: #9C12FF; border-radius: 15px" disabled>Надіслати</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Блок с картой -->
+    <div class="map mt-5">
+        <h4 class="text-center" style="color: #2F2F2F;">Ми знаходимося тут</h4>
+        <div class="map-container mt-3">
+            <!-- Сюда можно вставить iframe с картой Google -->
+          
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2543.49431731065!2d30.428470292426887!3d50.39462461811458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4c96cb3a9c9ff%3A0x4db99a50a53e69d!2z0YPQuy4g0KjQtdCy0YfQtdC90LrQviwg0JrQuNC10LIsINCj0LrRgNCw0LjQvdCwLCAwMjAwMA!5e0!3m2!1sru!2sse!4v1730063267318!5m2!1sru!2sse"
+                    width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</div>
+
+<!-- Стили для страницы -->
+<style>
+    /* Оформление заголовков */
+    h2, h4, h5 {
+        font-weight: 600;
+    }
+
+    /* Оформление формы */
+    .contact-form .form-control {
+        border-color: #828282;
+    }
+
+    .contact-form .btn {
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+
+    /* Оформление карты */
+    .map-container iframe {
+        border-radius: 10px;
+    }
+</style>
