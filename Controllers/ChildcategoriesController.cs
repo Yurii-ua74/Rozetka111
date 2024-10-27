@@ -169,30 +169,6 @@ namespace Rozetka.Controllers
         }
 
 
-        //public async Task<IActionResult> GetSubChildCategories(string childcategory)
-        //{
-        //    if (string.IsNullOrEmpty(childcategory))
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    // Знайти Id категорії за назвою
-        //    var childcategoryEntity = _context.Childcategories
-        //        .FirstOrDefault(c => c.Name == childcategory);
-        //    if (childcategoryEntity == null)
-        //    {
-        //        // Якщо категорія не знайдена
-        //        return NotFound();
-        //    }
-        //    HttpContext.Session.SetString("ChildCategory", childcategoryEntity.Name);
-
-        //    var subchildCategories = await _context.SubChildCategories
-        //        .Where(predicate: sc => sc.Childcategory.Name == childcategory)
-        //        .ToListAsync();
-        //    return View(subchildCategories);
-        //}
-
-
 
         /* //////////////////////////////// ///////////////////////////////// */
         /*    викликається по кліку на childcategory на сторінці    */
@@ -233,7 +209,8 @@ namespace Rozetka.Controllers
                 .ToListAsync();
             if (subchildCategories == null || !subchildCategories.Any())
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "В цьому розділі ще немає товарів!";
+                return RedirectToAction("AllCategoriesList", "SubChildCategory");
             }
 
             // Об'єднати всі товари з субпідкатегорій в один список

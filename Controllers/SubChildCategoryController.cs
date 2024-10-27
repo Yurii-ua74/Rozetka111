@@ -163,7 +163,9 @@ namespace Rozetka.Controllers
         {
             if (subchildcategoryId <= 0)
             {
-                return BadRequest("Не знайдено такої SubChildCategory");
+                TempData["ErrorMessage"] = "В цьому розділі ще немає товарів!";
+                return RedirectToAction("AllCategoriesList", "SubChildCategory");
+                //return BadRequest("Не знайдено такої SubChildCategory");
                 //return NotFound();
             }
 
@@ -182,7 +184,8 @@ namespace Rozetka.Controllers
 
             if (products == null || !products.Any())
             {
-                return NotFound("No products found for the given subchildcategory.");
+                TempData["ErrorMessage"] = "В цьому розділі ще немає товарів!";
+                return RedirectToAction("AllCategoriesList", "SubChildCategory");
             }
 
             return View(products);
