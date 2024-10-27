@@ -127,10 +127,7 @@
 
     @*///////////////////////////////////////////////////////*@
     <div class="col-sm-8">
-        <!-- Блок для виведення товарів -->
-        @* <div id="products-block" class="row">
-            <!-- Товари будуть додаватися сюди через AJAX -->
-        </div> *@
+        
         <div id="productsPartial" class="row">
 
         </div>
@@ -150,59 +147,52 @@
                 {
                     <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
                         <!-- Стилізований блок товару -->
-                        <div>
-                            <div class="product-block-products">
+                        <div class="mycard" style="border: 3px solid #f5f5dc; border-radius: 10px; padding: 3px;">
                                 <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                                <div class="product-block">
                                     @if (product.ProductImages != null && product.ProductImages.Any())
                                     {
-                                        var firstImage = product.ProductImages.FirstOrDefault();
-                                        <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
+                                        <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
                                              class="img-fluid"
-                                             alt="Product Image"
-                                             style="max-height: 255px; width: auto; max-width: 100%;"
-                                             onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';"
-                                             onmouseover="this.src='data:image;base64,@Convert.ToBase64String(product.ProductImages.LastOrDefault().ImageData)'"
-                                             onmouseout="this.src='data:image;base64,@Convert.ToBase64String(firstImage.ImageData)'" />
-                                    }
+                                             style="max-height: 215px; width: auto; max-width: 100%; object-fit: contain;"
+                                             onerror="this.onerror=null;"
+                                             alt="Photo">
+                                     }
                                     else
                                     {
                                         <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
                                     }
+                                    </div>
                                 </a>
-                            </div>
-
-                            <!-- Обмежений блок опису, якщо багато тексту -->
-                            <div class="mt-2 product-description-block flex-grow-1">
-                                <div class="product-title">@product.ProductType.Title @product.Brand.Title @product.Title</div>
-                                <div class="product-description">@product.Description</div>
-                            </div>
-
-                            <!-- Футер картки з фіксацією до низу -->
-                            <div class="product-footer mt-2">
-                                <div class="d-flex align-items-center">
-                                    <div class="product-price">@product.Price.ToString("0") ₴</div>
-                                    <button href="#"onclick="updateCart(@product.Id, 'AddToCart')" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3">
+                            <div class="mt-2">
+                                <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                                    <div class="product-title">@product.ProductType?.Title @product.Brand?.Title @product.Title</div>
+                                    <div class="product-description">@product.Description</div>
+                                </a>
+                                <div class="d-flex align-items-center mt-2">
+                                    <div class="product-price">@product.Price ₴</div>
+                                    <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@product.Id, 'AddToCart')">
                                         <i class="bi bi-cart-plus"></i>
                                     </button>
                                     @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
+
                                     {
                                         <!-- Кнопка удаления из избранного -->
                                         <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                             <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
                                         </a>
                                     }
+
                                     else
+
                                     {
-                                        <!-- Кнопка добавления в избранное -->
-                                        @* <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
-                                            <i class="bi bi-heart"></i> <!-- Иконка пустого сердечка (товар не в избранном) -->
-                                        </a> *@
+                                        <!-- Кнопка добавления в избранное  Тест ajax -->
                                         <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
                                             <i class="bi bi-heart"></i>
                                         </a>
-                                    }                                   
-
+                                    }
                                 </div>
+
                             </div>
                         </div>
                     </div>

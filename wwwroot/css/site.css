@@ -806,7 +806,7 @@ a:hover{
 }
 
 
-/* налаштування збільшення карти товару при наведенні*/
+/* налаштування збільшення карток товару при наведенні*/
 .mycard {
     transition: transform 0.3s, box-shadow 0.3s, z-index 0.3s;
     position: relative; /* Для коректного відображення збільшеної карти над іншими */
@@ -825,6 +825,11 @@ a:hover{
     text-overflow: ellipsis;
     white-space: nowrap; /* Обрезка текста при первоначальном отображении */
     position: relative; /* Начальная позиция для описания */
+    transition: all 0.3s ease; /* Плавна анімація  */
+}
+
+.column-height {  /* висота карток з товаром (крім головної сторінки) */
+    height: 550px;
 }
 
 .mycard:hover .product-description {
@@ -1184,14 +1189,14 @@ a:hover{
 
 
  /*  для футера карток з товарами  */
- .product-card {
-     display: flex;
-     flex-direction: column;
-     justify-content: space-between;
-     border: 1px solid #ddd;
-     padding: 15px;
-     height: 100%;
- }
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    padding: 15px;
+    height: 100%;     
+}
 
  .product-description-block {
      overflow: hidden;
@@ -1394,11 +1399,12 @@ a:hover{
     color: white; /* Білий текст */
 }
 
-/*  колір для тіла тосту, якщо потрібно */
+/*  колір для тіла тосту */
 .toast-body {
     font-size: 16px; /* Збільште шрифт тіла */
 }
 
+/* ??? */
 .empty-cart-message2 {
     display: none; /* Скрываем элемент по умолчанию */
 }
