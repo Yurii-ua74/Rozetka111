@@ -797,14 +797,18 @@ a:hover{
 
 .product-title {
     font-weight: bold;
-    min-height: 80px;
+    min-height: 70px;
 }
 
 .product-price {
-    color: red;
+    color: darkmagenta;
     font-size: 1.2rem;
 }
 
+.product-price-red {
+    color: red;
+    font-size: 1.2rem;
+}
 
 /* налаштування збільшення карток товару при наведенні*/
 .mycard {

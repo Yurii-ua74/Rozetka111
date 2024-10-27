@@ -60,11 +60,19 @@ else
                     <div class="mt-2">
                         <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = favorite.ProductId })">
                             <div class="product-title">@favorite.Product!.ProductType?.Title @favorite.Product!.Brand?.Title @favorite.Product!.Title</div>
-                            <div style="height: 40px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">@favorite.Product!.Description</div>
+                            <div class="product-description">@favorite.Product!.Description</div>
                         </a>
-                        <div class="d-flex align-items-center mt-2">
-                            <div class="product-price">@favorite.Product!.Price ₴</div>
-                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@favorite.ProductId, 'AddToCart')">
+                        <div class="d-flex align-items-center mt-2">                            
+                            @if (@favorite.Product.ActionPrice == null)
+                            {
+                                <div class="product-price">@favorite.Product.Price ₴</div>
+                            }
+                            else
+                            {
+                                <div class="text-decoration-line-through fs-6 fw-light">@favorite.Product.Price</div>
+                                <div class="product-price-red p-1">@favorite.Product.ActionPrice?.ToString("0") ₴</div>
+                            }
+                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-1" onclick="updateCart(@favorite.ProductId, 'AddToCart')">
                                 <i class="bi bi-cart-plus"></i>
                             </button>
                             <a href="#" class="btn btn-outline-purple"

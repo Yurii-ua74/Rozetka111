@@ -82,6 +82,22 @@ namespace Rozetka.Controllers
                     .Include(p => p.ProductColor)
                     .Include(p => p.Reviews)
                     .ToListAsync();
+
+                // Загружаем все активные акции
+                var activeActions = await _context.Actions
+                    .Where(a => a.StartDate <= DateTime.Now && a.EndDate >= DateTime.Now) // Только активные акции
+                    .ToListAsync();
+
+                // Присваиваем цену акции, если продукт имеет активную акцию
+                foreach (var product in products)
+                {
+                    var action = activeActions.FirstOrDefault(a => a.ProductId == product.Id);
+                    if (action != null)
+                    {
+                        product.ActionPrice = action.NewPrice; // Устанавливаем цену акции
+                    }
+                }
+
                 // 1. Получаем 6 товаров с наибольшим рейтингом
                 model.GetProductsRating = products
                     .Where(p => p.Rating.HasValue)
@@ -95,8 +111,9 @@ namespace Rozetka.Controllers
                     .Take(6)
                     .ToList();
 
-                // 3. Получаем 6 случайных товаров для акций (пока как случайные товары)
+                // 3. Получаем 6 случайных товаров для акций
                 model.GetProductsActions = products
+                    .Where(p => p.ActionPrice.HasValue) // Берем только продукты с акциями
                     .OrderBy(p => Guid.NewGuid())
                     .Take(6)
                     .ToList();

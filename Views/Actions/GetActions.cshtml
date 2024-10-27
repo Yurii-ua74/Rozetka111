@@ -1,60 +1,61 @@
 ﻿@model IEnumerable<Rozetka.Data.Entity.Actions>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Акційні товари";
 }
 
-<h1>Index</h1>
+<h2>Акційні товари</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NewPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Discount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NewPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Discount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Id)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row mb-3">
+    @foreach (var item in Model)
+    {
+        <div class="col-xxl-4 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
+            <div class="mycard p-3" style="border: 6px solid #f5f5dc; border-radius: 10px; padding: 3px;">
+                <a href="@Url.Action("GetProduct", "Products", new { id = item.ProductId })">
+                    <div class="text-center">
+                        @if (item.Product!.ProductImages != null && item.Product!.ProductImages.Any())
+                        {
+                            <img src="data:image;base64,@Convert.ToBase64String(item.Product!.ProductImages!.FirstOrDefault()!.ImageData!)"
+                                 class="img-fluid"
+                                 style="max-height: 250px; width: auto; max-width: 100%; object-fit: contain;"
+                                 onerror="this.onerror=null;"
+                                 alt="Photo">
+                        }
+                        else
+                        {
+                            <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                        }
+                    </div>
+                </a>
+                <div class="mt-2">
+                    <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = item.ProductId })">
+                        <div class="product-price-red p-1"><span class="fw-medium fst-italic">Поспішайте, Акція діє до: @item.EndDate</span></div>
+                        <div class="fw-bold fs-4" style="height: 72px;">@item.Product!.ProductType?.Title @item.Product!.Brand?.Title @item.Product!.Title</div>
+                        <div style="height: 75px; overflow: hidden; text-overflow: ellipsis; white-space: normal;">@item.Product!.Description</div>
+                    </a>
+                    <div class="d-flex align-items-center mt-2">
+                        <div class="text-decoration-line-through"> @item.Product!.Price ₴</div>
+                        <div class="product-price-red p-2 fs-3 fw-bold">  @item.NewPrice?.ToString("0") ₴ </div>
+                        <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-3" onclick="updateCart(@item.ProductId, 'AddToCart')">
+                            <i class="bi bi-cart-plus"></i>
+                        </button>
+                        @if (item.Product.IsInFavorites) // Проверяем, находится ли товар в избранном
+                        {
+                            <!-- Кнопка удаления из избранного -->
+                            <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = item.Product.Id })" class="btn btn-outline-purple">
+                                <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
+                            </a>
+                        }
+                        else
+                        {
+                            <!-- Кнопка добавления в избранное  Тест ajax -->
+                            <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@item.Product.Id">
+                                <i class="bi bi-heart"></i>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
