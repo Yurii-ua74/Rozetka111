@@ -323,6 +323,30 @@ namespace Rozetka.Controllers
             return View(user);
         }
 
+        public async Task<IActionResult> BonusPage()
+        {
+            // Отримуємо ім'я користувача
+            var userName = User.Identity.Name;
+
+            if (userName == null)
+            {
+                return NotFound(); // Якщо користувач не знайдений, повертаємо 404
+            }
+
+            // Знаходимо користувача за його UserName
+            var user = await _userManager.FindByNameAsync(userName);
+
+            if (user == null)
+            {
+                TempData["Message"] = "користувача не знайдено!";
+                return RedirectToAction("BonusPage"); // або на іншу сторінку
+                //return NotFound(); // Якщо користувача немає в базі даних, повертаємо 404
+            }
+
+            // Передаємо дані користувача до вьюшки
+            return View(user);
+        }
+
 
         //public IActionResult Profile()  // для передачі повідомлень в тост вікно
         //{
