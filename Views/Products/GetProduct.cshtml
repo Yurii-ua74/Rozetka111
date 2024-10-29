@@ -1,22 +1,29 @@
-﻿@using Rozetka.Data.Entity
-@model Product
-@{
+﻿@using Rozetka.Models.ViewModels.Products
+@model GetProductViewModel
+@* @{
     string? category = Context.Session.GetString("Category");
     string? childcategory = Context.Session.GetString("ChildCategory");
     // string? subchildcategory = Context.Session.GetString("SubChildCategory");
     string? product = Context.Session.GetString("Product");
-}
+} *@
+
 @{
     ViewData["Title"] = "Товар";
 }
 
 <nav aria-label="breadcrumb">
+    @* <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/"><i class="bi bi-house"></i></a></li>
+    <li class="breadcrumb-item"><a href="/Categories/GetChildCategories?category=@category">@category</a></li>
+    <li class="breadcrumb-item"><a href="/Childcategories/GetProducts?childcategory=@childcategory">@childcategory</a></></li>
+
+    <li class="breadcrumb-item active" aria-current="page">@Model.Brand!.Title</li>
+    </ol> *@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/"><i class="bi bi-house"></i></a></li>
-        <li class="breadcrumb-item"><a href="/Categories/GetChildCategories?category=@category">@category</a></li>
-        <li class="breadcrumb-item"><a href="/Childcategories/GetProducts?childcategory=@childcategory">@childcategory</a></></li>
-        @* <li class="breadcrumb-item"><a href="/SubChildCategory/GetProducts?subchildcategory=@subchildcategory">@subchildcategory</a></></li> *@
-        <li class="breadcrumb-item active" aria-current="page">@Model.Brand!.Title</li>
+        <li class="breadcrumb-item"><a href="/Categories/GetChildCategories?category=@Model.Product!.Category!.Name">@Model.Product.Category.Name</a></li>
+        <li class="breadcrumb-item"><a href="/Childcategories/GetProducts?childcategory=@Model.Product!.Childcategory!.Name">@Model.Product.Childcategory.Name</a></></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Product.Brand!.Title</li>
     </ol>
 </nav>
 
@@ -56,9 +63,9 @@
             <div class="col-3 text-center">
                 <!-- Галерея миниатюр (thumbs) -->
                 <div class="grid gap-3">
-                    @if (Model.ProductImages != null)
+                    @if (Model.Product.ProductImages != null)
                     {
-                        @foreach (var image in Model.ProductImages)
+                        @foreach (var image in Model.Product.ProductImages)
                         {
                             <div class="p-2 g-col-3">
                                 <img src="data:image;base64,@Convert.ToBase64String(image.ImageData!)"
@@ -72,7 +79,7 @@
             </div>
             <div class="col-9 text-center">
                 <!-- Основное изображение продукта -->
-                <img id="main-image" src="data:image;base64,@Convert.ToBase64String(Model.ProductImages!.FirstOrDefault()?.ImageData!)"
+                <img id="main-image" src="data:image;base64,@Convert.ToBase64String(Model.Product.ProductImages!.FirstOrDefault()?.ImageData!)"
                      class="img-fluid mb-3"
                      alt="Main Product Image"
                      style="max-height: 600px; width: auto; max-width: 100%; object-fit: contain;">
@@ -83,70 +90,95 @@
     @* class="img-thumbnail me-2 thumbnail" *@
     <!-- Right Column: Product Details -->
     <div class="col-md-6">
-        <h4>@Model.ProductType!.Title @Model.Brand.Title @Model.Title</h4>
+        <h4>@Model.Product.ProductType!.Title @Model.Product.Brand.Title @Model.Product.Title</h4>
         <div class="d-flex justify-content-between align-items-center mb-2">
-            @if (Model.Reviews?.Count() > 2)
+            @if (Model.Product.Reviews?.Count() > 2)
             {
-                <p><i class="bi bi-star-fill rating"></i> @Model.Rating Рейтинг</p>
+                <p><i class="bi bi-star-fill rating"></i> @Model.Product.Rating Рейтинг</p>
             }
             else
             {
                 <p>Для визначення рейтингу недостатньо оцінок</p>
             }
 
-            <p>Артикул: @Model.Id</p>
+            <p>Артикул: @Model.Product.Id</p>
         </div>
-        @if (Model.ProductColorId != null && Model.ProductColor != null)
+        @if (Model.Product.ProductColorId != null && Model.Product.ProductColor != null)
         {
-            <h5>Колір: @Model.ProductColor.Title</h5> <!-- Отображение названия цвета -->
+            <h5>Колір: @Model.Product.ProductColor.Title</h5> <!-- Отображение названия цвета -->
 
             <div class="d-flex mb-3">
                 <!-- Отображение кнопки с цветом фона на основе HexCode -->
-                <button class="btn me-2" style="background-color: @Model.ProductColor.HexCode;"></button>
+                <button class="btn me-2" style="background-color: @Model.Product.ProductColor.HexCode;"></button>
             </div>
         }
 
 
-        <div class="p-3 mb-3 bg-secondary-subtle text-secondary-emphasis rounded-3">
-            <h4>Пропозиції</h4>
-            <p>Чохол для навушників Marshall Major III - 499₴</p>
-            <p>Подушки для навушників - 269₴</p>
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/images_advertising/im1_product.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/im2_product.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/im3_product.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/im4_product.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/im5_product.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/im6_product.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/im7_product.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
 
-        <div class="row">
-            @if (Model.ActionPrice == null)
+        <div class="row mt-5">
+            @if (Model.Product.ActionPrice == null)
             {
                 <div class="col-md-auto">
-                    <div class="fs-3 fw-bold">@Model.Price ₴</div>
+                    <div class="fs-3 fw-bold">@Model.Product.Price ₴</div>
                 </div>
             }
             else
             {
                 <div class="col-2">
-                    <div class="text-decoration-line-through fs-5 fw-light">@Model.Price ₴</div>
+                    <div class="text-decoration-line-through fs-5 fw-light">@Model.Product.Price ₴</div>
                 </div>
                 <div class="col-md-auto">
-                    <div class="product-price-red p-1 fs-3 fw-bold">@Model.ActionPrice?.ToString("0") ₴</div>
+                    <div class="product-price-red p-1 fs-3 fw-bold">@Model.Product.ActionPrice?.ToString("0") ₴</div>
                 </div>
             }
             <div class="col">
-                <button class="btn btn-purple btn-add-to-cart btn-lg w-100" href="#" onclick="updateCart(@Model.Id, 'AddToCart')">Додати до кошика</button>
+                <button class="btn btn-purple btn-add-to-cart btn-lg w-100" href="#" onclick="updateCart(@Model.Product.Id, 'AddToCart')">Додати до кошика</button>
             </div>
             <div class="col col-lg-1">
-                @if (Model.IsInFavorites) // Проверяем, находится ли товар в избранном
+                @if (Model.Product.IsInFavorites) // Проверяем, находится ли товар в избранном
                 {
                     <!-- Кнопка удаления из избранного -->
-                    <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = Model.Id })" class="btn btn-purple btn-outline-purple btn-lg">
+                    <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = Model.Product.Id })" class="btn btn-purple btn-outline-purple btn-lg">
                         <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
                     </a>
                 }
                 else
                 {
-                    <!-- Кнопка добавления в избранное -->
-                    @* <a href="@Url.Action("AddToFavorites", "Favorites", new { productId = Model.Id })" class="btn btn-purple btn-outline-purple btn-lg">
-                <i class="bi bi-heart"></i> <!-- Иконка пустого сердечка (товар не в избранном) -->
-                </a> *@
-                    <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites btn-lg" data-product-id="@Model.Id">
+
+                    <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites btn-lg" data-product-id="@Model.Product.Id">
                         <i class="bi bi-heart"></i>
                     </a>
                 }
@@ -186,17 +218,18 @@
 <div class="row mt-5">
     <div class="col-md-6">
         <h3>Опис товару</h3>
-        <p>@Model.Description</p>
+        <p>@Model.Product.Description</p>
     </div>
     <div class="col-md-6">
         <h3>Характеристики</h3>
-        <ul class="list-unstyled">
-            <li><strong>Тип навушників:</strong> Накладні</li>
-            <li><strong>Тип підключення:</strong> Бездротові</li>
-            <li><strong>Інтерфейс підключення:</strong> 3.5 мм</li>
-            <li><strong>Колір:</strong> Чорний</li>
-            <!-- Add more characteristics as needed -->
-        </ul>
+        @* <ul class="list-unstyled">
+        <li><strong>Тип навушників:</strong> Накладні</li>
+        <li><strong>Тип підключення:</strong> Бездротові</li>
+        <li><strong>Інтерфейс підключення:</strong> 3.5 мм</li>
+        <li><strong>Колір:</strong> Чорний</li>
+        <!-- Add more characteristics as needed -->
+        </ul> *@
+        <div>@Model.Product.Characteristic</div>
     </div>
 </div>
 
@@ -204,7 +237,7 @@
 <div class="row mt-5">
     <div class="col-md-12">
         <div class="d-flex justify-content-between">
-            <h3>Відгуки (@Model.Reviews?.Count())</h3>
+            <h3>Відгуки (@Model.Product.Reviews?.Count())</h3>
             @if (Context.User.Identity?.IsAuthenticated ?? false)
             {
                 <!-- Button trigger modal -->
@@ -221,9 +254,9 @@
 
         </div>
         <div class="row">
-            @if (Model.Reviews != null && Model.Reviews.Any())
+            @if (Model.Product.Reviews != null && Model.Product.Reviews.Any())
             {
-                @foreach (var reviews in Model.Reviews)
+                @foreach (var reviews in Model.Product.Reviews)
                 {
                     <div class="col-md-4">
                         <div class="border p-3 mb-3">
@@ -250,19 +283,7 @@
                     </div>
                 </div>
             }
-            @* <div class="col-md-4">
-            <div class="border p-3 mb-3">
-            <h5>Руслан Павлов <span class="rating"><i class="bi bi-star-fill"></i> 5</span></h5>
-            <p>Чудові навушники! Якість звуку на висоті.</p>
-            </div>
-            </div>
-            <div class="col-md-4">
-            <div class="border p-3 mb-3">
-            <h5>Яна Дмитрієва <span class="rating"><i class="bi bi-star-fill"></i> 4.5</span></h5>
-            <p>Класно виглядають і зручно сидять на голові!</p>
-            </div>
-            </div> *@
-            <!-- Add more reviews -->
+
         </div>
     </div>
     <script>
@@ -280,14 +301,51 @@
     <div class="col-md-12">
         <h3>Схожі товари</h3>
         <div class="row">
-            <div class="col-md-2">
-                <img src="https://via.placeholder.com/150" class="img-fluid" alt="Product Image">
-                <p>Marshall Major III - 3200₴</p>
-            </div>
-            <div class="col-md-2">
-                <img src="https://via.placeholder.com/150" class="img-fluid" alt="Product Image">
-                <p>Marshall Major II - 3599₴</p>
-            </div>
+            @foreach (var product in Model.AdvertisingProducts!
+            .Where(p => p.QuantityInStock > 0)
+            .OrderBy(p => Guid.NewGuid()) // случайная сортировка
+            .Take(4)) // ограничение до 4 товаров
+            {
+                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <!-- Стилізований блок товару -->
+                    <div style="border: 3px solid #f5f5dc; border-radius: 10px; padding: 3px;">
+                        <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                            <div class="product-block">
+                                @if (product.ProductImages != null && product.ProductImages.Any())
+                                {
+                                    <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
+                                         class="img-fluid"
+                                         style="max-height: 215px; width: auto; max-width: 100%; object-fit: contain;"
+                                         onerror="this.onerror=null;"
+                                         alt="Photo">
+                                }
+                                else
+                                {
+                                    <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                                }
+                            </div>
+                            <div class="mt-2">
+                                <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                                    <div class="product-title">@product.ProductType?.Title @product.Brand?.Title @product.Title</div>
+                                    <div class="product-description">@product.Description</div>
+                                </a>
+                                <div class="d-flex align-items-center mt-2">
+                                    @if (product.ActionPrice == null)
+                                    {
+                                        <div class="product-price">@product.Price ₴</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="text-decoration-line-through fs-6 fw-light">@product.Price</div>
+                                        <div class="product-price-red p-1">@product.ActionPrice?.ToString("0") ₴</div>
+                                    }
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
             <!-- Add more products -->
         </div>
     </div>
@@ -305,7 +363,7 @@
             </div>
             <form asp-action="NewReview" method="post">
                 <div class="modal-body">
-                    <input type="hidden" name="review-idproduct" value="@Model.Id" />
+                    <input type="hidden" name="review-idproduct" value="@Model.Product.Id" />
                     <div class="mb-3">
                         <label for="review-rating" class="form-label">Рейтинг</label>
 

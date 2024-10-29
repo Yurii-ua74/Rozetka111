@@ -286,41 +286,66 @@ namespace Rozetka.Controllers
             {
                 return BadRequest();
             }
-            // Найти продукт по Id и загрузить связанные данные
-            var product = await _context.Products
-                                        .Include(p => p.ProductType)
-                                        .Include(p => p.Brand)
-                                        .Include(p => p.Childcategory)
-                                        .Include(p => p.ProductImages)
-                                        .Include(p => p.ProductColor)
-                                        .Include(p => p.Reviews)
-                                        .ThenInclude(r => r.User) // Загружаем связанные данные пользователя
-                                        .FirstOrDefaultAsync(p => p.Id == id);
-            if (product == null)
+
+            GetProductViewModel model = new GetProductViewModel();
+
+            // Загружаем основной продукт и связанные данные
+            model.Product = await _context.Products
+                .Include(p => p.ProductType)
+                .Include(p => p.Brand)
+                .Include(p => p.Category)
+                .Include(p => p.Childcategory)
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductColor)
+                .Include(p => p.Reviews)
+                    .ThenInclude(r => r.User)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (model.Product == null)
             {
                 return NotFound();
             }
 
-            // Проверка на наличие активной акции для продукта
-            var activeAction = await _context.Actions
-                .Where(a => a.ProductId == id && a.StartDate <= DateTime.Now && a.EndDate >= DateTime.Now)
-                .Select(a => a.NewPrice)
-                .FirstOrDefaultAsync();
-
-            if (activeAction.HasValue)
-            {
-                product.ActionPrice = activeAction.Value; // Устанавливаем цену акции
-            }
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID пользователя
+            // Получаем ID пользователя и проверяем наличие в избранном
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId != null)
             {
-                // Проверяем, есть ли товар в избранном
-                product.IsInFavorites = await _context.Favorites
+                //проверяем есть ли товар в избранном
+                model.Product.IsInFavorites = await _context.Favorites
                     .AnyAsync(w => w.UserId == userId && w.ProductId == id);
             }
-            HttpContext.Session.SetString("Product", product.Title);
-            return View(product);
+            HttpContext.Session.SetString("Product", model.Product.Title);
+
+            // Выбираем рекламные товары той же категории
+            model.AdvertisingProducts = await _context.Products
+                .Where(c => c.ChildcategoryId == model.Product.ChildcategoryId)
+                .Include(p => p.ProductType)
+                .Include(p => p.Brand)
+                .Include(p => p.ProductImages)
+                .ToListAsync();
+
+            // Извлекаем активные акции для продуктов в списке `AdvertisingProducts` и текущего продукта
+            var productIds = model.AdvertisingProducts.Select(p => p.Id).Append(model.Product.Id).ToList();
+            var activeActions = await _context.Actions
+                .Where(a => productIds.Contains(a.ProductId) && a.StartDate <= DateTime.Now && a.EndDate >= DateTime.Now)
+                .ToDictionaryAsync(a => a.ProductId, a => a.NewPrice);
+
+            // Устанавливаем цену акции для основного продукта
+            if (activeActions.TryGetValue(model.Product.Id, out var actionPrice))
+            {
+                model.Product.ActionPrice = actionPrice;
+            }
+
+            // Присваиваем цену акции рекламным продуктам, если есть активная акция
+            foreach (var product in model.AdvertisingProducts)
+            {
+                if (activeActions.TryGetValue(product.Id, out actionPrice))
+                {
+                    product.ActionPrice = actionPrice;
+                }
+            }
+
+            return View(model);
         }
 
 
