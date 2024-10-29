@@ -85,8 +85,7 @@ namespace Rozetka.Controllers
                 }
 
                 return RedirectToAction("Index");
-            }
-
+            }            
             return View();
         }
 
