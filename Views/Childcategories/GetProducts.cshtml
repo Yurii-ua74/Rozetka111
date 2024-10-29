@@ -143,6 +143,7 @@
         }
         else
         {
+            <h2>Знайдені товари категорії @childcategory</h2>
             <div class="row mb-3">
                 @foreach (var product in Model.Products.Where(p => p.QuantityInStock > 0))
                 {
