@@ -1,7 +1,20 @@
 
 
+/* Стиль для основних елементів, щоб вони масштабувались під екран */
+html, body {
+    margin: 0; /* Видаляємо зовнішні відступи */
+    padding: 0; /* Видаляємо внутрішні відступи */    
+    width: 100%; /* Встановлюємо ширину на 100% */
+    height: 100%; /* Встановлюємо висоту на 100% */
+    box-sizing: border-box; /* Враховуємо padding та border в загальній ширині та висоті */    
+    display: flex;
+    flex-direction: column;
+}
+
+/* /////// */
+
  body {
-    padding-top: 110px; /* Налаштуйте цей відступ відповідно до висоти вашого хедера */
+    padding-top: 110px; /*  відступ відповідно до висоти вашого хедера */
 }
 
 /* Определение стиля для кнопки с классом btn-purple */
@@ -457,8 +470,9 @@ a:hover{
 @media (max-width: 1654px) {
     .logo-large {
         display: none;
-    }
+    }    
 }
+
 
 @media (max-width: 1654px) {
     .logo-small {
@@ -467,9 +481,24 @@ a:hover{
     }
 }
 
+/* Приховати для ширин екрану більше ніж 1655px */
 @media (min-width: 1655px) {
     .logo-small {
         display: none;
+    }
+}
+
+/* Приховати для ширин екрану менше ніж 765px */
+@media (max-width: 765px) {
+    .logo-small {
+        display: none;
+    }
+    .kosh p {
+        display: none;
+    }
+    .kosh {        
+     
+       
     }
 }
 /* іконка адмін панелі */

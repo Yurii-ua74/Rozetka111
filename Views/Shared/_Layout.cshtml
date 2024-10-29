@@ -23,29 +23,27 @@
 
 </head>
 
-<body>    
-   @* ///////////////////// *@
+
+<body>
+   
+    
+    @* ///////////////////// *@
     <header class="header bg-light py-3  d-flex align-items-center fixed-header">
         <nav class="container-fluid">            
-
-            @* розгортання або згортання навігаційної панелі на мобільних пристроях. *@
-            @* <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" style="color: white"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="bi bi-list"></span>
-            </button> *@
+   
             <div class="d-flex justify-content-between align-items-center w-100">
             
                 <!-- Гамбургер та Лого -->
                  <div class="d-flex justify-content-between align-items-center">
-                  
-                       <div class="col-auto">
-                           <!-- Гамбургер меню -->  
-                           <a class="nav-link btn-lg ms-5 text-black"
+
+                    <!-- Гамбургер меню -->
+                       <div class="col-auto">                            
+                           <a class="nav-link btn-lg ms-3 text-black"
                               data-bs-toggle="offcanvas"
                               href="#offcanvasExample"
                               role="button"
                               aria-controls="offcanvasExample">
-                               <i class="bi bi-list fs-2" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Бокова панель"></i>
+                               <i class="bi bi-list fs-3"></i>
                            </a>
                        </div>
                        <!-- Логотип -->
@@ -56,7 +54,7 @@
                                <path d="M198.347 31V1.34639H212.603C220.302 1.34639 224.293 3.91257 224.293 9.33006C224.293 14.1773 219.731 15.3178 219.731 15.3178V15.6029C219.731 15.6029 225.149 16.7435 225.149 22.4461C225.149 28.1487 221.442 31 213.458 31H198.347ZM212.603 18.4542H206.33V25.2974H213.173C215.74 25.2974 217.165 24.1569 217.165 21.8758C217.165 19.5948 215.454 18.4542 212.603 18.4542ZM206.33 13.3219H212.033C214.884 13.3219 216.31 12.1814 216.31 10.1855C216.31 8.18954 215.169 7.04901 212.603 7.04901H206.33V13.3219ZM255.074 1.34639V31H247.376V26.1528H247.091C247.091 26.1528 244.524 31.8554 237.966 31.8554C229.698 31.8554 227.416 26.4379 227.416 19.5948V1.34639H235.4V17.884C235.4 23.0163 236.826 25.2974 240.533 25.2974C244.809 25.2974 247.091 22.7312 247.091 16.7435V1.34639H255.074ZM287.303 1.34639L276.753 31.8554C274.415 38.6415 271.336 42.1201 265.348 42.1201C262.497 42.1201 260.215 41.2647 260.215 41.2647V34.7067C260.215 34.7067 261.926 35.277 263.922 35.277C266.773 35.277 267.914 33.7373 269.055 31L257.079 1.34639H265.633L272.875 20.9064L278.749 1.34639H287.303Z" fill="#2F2F2F" />
                            </svg>
                            </div>
-                       
+
                            <div class="logo-small">
                            <svg width="88" height="43" viewBox="0 0 88 43" xmlns="http://www.w3.org/2000/svg">
                                <path d="M25.8023 1.34639V17.884C25.8023 23.0163 26.8288 25.2974 29.9652 25.2974C33.3868 25.2974 35.2116 22.7312 35.2116 16.7435V1.34639H43.1953V31H35.4967V26.1528H35.2116C35.2116 26.1528 33.2157 31.8554 27.228 31.8554C22.4378 31.8554 19.9286 29.6314 18.7311 26.1528H18.3889C18.3889 26.1528 15.8227 31.8554 9.83497 31.8554C2.42157 31.8554 0.425654 26.4379 0.425654 19.5948V1.34639H8.40932V17.884C8.40932 23.0163 9.43579 25.2974 12.5722 25.2974C15.9938 25.2974 17.8186 22.7312 17.8186 16.7435V1.34639H25.8023Z" fill="#9C12FF" />
@@ -123,18 +121,7 @@
                                 <p class="menu-link-text-style mb-0">Покупки</p>
                             </div>
                         </a>
-                        @*  Переходить на сторінку з акціями(метод Shares в HomeController) *@
-                        @* <a class="nav-link text-black btn-lg"
-                           asp-area="" asp-controller="Home" asp-action="Shares"
-                           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">
-                            <i class="bi bi-bell fs-4 fs-md-3 fs-sm-3"></i>
-                        </a> *@
-                        @* Переходить на сторінку з порівняннями(метод Compare в HomeController) *@
-                        @* <a type="button" class="d-none d-md-block nav-link text-black btn-lg"
-                           asp-area="" asp-controller="Home" asp-action="Compare"
-                           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Список порівнянь">
-                            <img src="~/icons/balance_icon.png" alt="Balance Icon" class="icon-img-white">
-                        </a> *@
+                        
 
                         <a class="d-none d-md-block nav-link text-black position-relative btn-lg"
                         asp-area="" asp-controller="Favorites" asp-action="Index"
@@ -299,33 +286,9 @@
                        </div>
                        <p class="shop-cart-title">Кошик</p>
                    </a>
-
-                   @*  <a type="button" href="#" class="nav-link text-black position-relative btn-lg"
-                       data-bs-toggle="modal"
-                       data-bs-target="#cartModal">
-
-                        <div class="text-center">
-                            <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
-                            <p class="menu-link-text-style mb-0">Кошик</p>
-                        </div>                        
-                        <span id="cart-count" class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger" style="display:none;">
-                            0
-                        </span>
-                    </a> *@
-               </div>                 
-               <div class="shop-cart-container">
-                   @* <a asp-area="" asp-controller="Home" asp-action="Test"
-                      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Списки порівнян" style="display: flex; align-items: center;">
-                        <div class="svg-contnr2">
-                            <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g id="Scales" data-node-id="37:2008" xmlns="http://www.w3.org/2000/svg">
-                                    <path id="Vector_465" data-node-id="37:2009" d="M15,12c0,0.995 0.3951,1.948 1.0983,2.652c0.7033,0.703 1.6571,1.098 2.6517,1.098c0.9946,0 1.9484,-0.395 2.6516,-1.098c0.7033,-0.704 1.0984,-1.657 1.0984,-2.652c0.0001,-0.116 -0.0269,-0.231 -0.0788,-0.335l-2.9992,-5.998c-0.0103,-0.021 -0.0216,-0.041 -0.0337,-0.061c-0.0672,-0.109 -0.1611,-0.199 -0.2728,-0.261c-0.1118,-0.062 -0.2376,-0.095 -0.3655,-0.095h-4.6335c-0.1134,-0.314 -0.2948,-0.598 -0.531,-0.834c-0.2362,-0.235 -0.5215,-0.416 -0.8355,-0.528v-1.638c0,-0.414 -0.3358,-0.75 -0.75,-0.75c-0.4142,0 -0.75,0.336 -0.75,0.75v1.638c-0.314,0.112 -0.5993,0.293 -0.8355,0.528c-0.2362,0.236 -0.4176,0.52 -0.531,0.834h-4.6335c-0.1392,0 -0.2757,0.039 -0.3941,0.112c-0.1185,0.073 -0.2142,0.178 -0.2764,0.303l-3,6c-0.0522,0.104 -0.0794,0.219 -0.0795,0.335c0,0.995 0.3951,1.948 1.0983,2.652c0.7033,0.703 1.6571,1.098 2.6517,1.098c0.9946,0 1.9484,-0.395 2.6517,-1.098c0.7032,-0.704 1.0983,-1.657 1.0983,-2.652c0.0001,-0.116 -0.0269,-0.231 -0.0787,-0.335l-2.4578,-4.915h3.42c0.1135,0.313 0.2949,0.598 0.5311,0.833c0.2362,0.236 0.5215,0.416 0.8354,0.528v12.889h-6c-0.4142,0 -0.75,0.336 -0.75,0.75c0,0.414 0.3358,0.75 0.75,0.75h13.5c0.4142,0 0.75,-0.336 0.75,-0.75c0,-0.414 -0.3358,-0.75 -0.75,-0.75h-6v-12.888c0.314,-0.112 0.5993,-0.293 0.8355,-0.528c0.2362,-0.236 0.4176,-0.52 0.531,-0.834h3.42l-2.4578,4.915c-0.0518,0.104 -0.0788,0.219 -0.0787,0.335zM5.25,14.25c-0.4636,-0.002 -0.9152,-0.147 -1.2931,-0.416c-0.3779,-0.268 -0.6636,-0.647 -0.8182,-1.084h4.2225c-0.1545,0.437 -0.4402,0.816 -0.8181,1.084c-0.3779,0.269 -0.8295,0.414 -1.2931,0.416zM7.0365,11.25h-3.573l1.7865,-3.573zM12,6.75c-0.1483,0 -0.2933,-0.044 -0.4167,-0.126c-0.1233,-0.083 -0.2194,-0.2 -0.2762,-0.337c-0.0568,-0.137 -0.0716,-0.288 -0.0427,-0.433c0.029,-0.146 0.1004,-0.279 0.2053,-0.384c0.1049,-0.105 0.2385,-0.177 0.384,-0.206c0.1455,-0.029 0.2963,-0.014 0.4333,0.043c0.1371,0.057 0.2542,0.153 0.3366,0.276c0.0824,0.124 0.1264,0.269 0.1264,0.417c0,0.199 -0.079,0.39 -0.2197,0.53c-0.1406,0.141 -0.3314,0.22 -0.5303,0.22zM18.75,14.25c-0.4636,-0.002 -0.9152,-0.147 -1.2931,-0.416c-0.3779,-0.268 -0.6636,-0.647 -0.8181,-1.084h4.2224c-0.1545,0.437 -0.4402,0.816 -0.8181,1.084c-0.3779,0.269 -0.8295,0.414 -1.2931,0.416zM18.75,7.677l1.7865,3.573h-3.573z" fill="currentColor" />
-                                </g>
-                            </svg>
-                        </div>
-                       <p class="shop-cart-title">Списки порівнянь</p>
-                   </a> *@
-
+               </div> 
+               
+               <div class="shop-cart-container">                  
                     <a asp-area="" asp-controller="Actions" asp-action="GetActions"
                        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції" style="display: flex; align-items: center;" class="cart-itm">
                         <div class="svg-contnr2">
@@ -355,7 +318,7 @@
                <hr>
 
                 <div class="shop-cart-container">
-                    <a asp-area="" asp-controller="Location" asp-action="Index"
+                   <a asp-area="" asp-controller="Location" asp-action="Index"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик" style="display: flex; align-items: center;" class="cart-itm"> 
                        <div class="svg-contnr2">
                            <svg viewBox="0 0 24 24" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -486,7 +449,9 @@
                     </a>
 
                 </div>
+
             </div>
+
         </div>
     </div>
 
@@ -497,7 +462,7 @@
         </main>
     </div> 
 
-   @*  малий навігаційний рядок *@                           
+   @*  малий (нижній) навігаційний рядок *@                           
     <div class="d-md-none fixed-bottom bg-light shadow-sm">
         <div class="container-fluid">
             <div class="row text-center py-2">
