@@ -47,6 +47,11 @@
                 <span asp-validation-for="Product.ProductColorId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Product.CategoryId" class="control-label">Category</label>
+                <select asp-for="Product.CategoryId" class="form-control" asp-items="Model.Categories"></select>
+                <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Product.ChildcategoryId" class="control-label">Childcategory</label>
                 <select asp-for="Product.ChildcategoryId" class="form-control" asp-items="Model.Childcategories"></select>
                 <span asp-validation-for="Product.ChildcategoryId" class="text-danger"></span>

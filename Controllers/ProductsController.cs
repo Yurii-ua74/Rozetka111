@@ -67,6 +67,7 @@ namespace Rozetka.Controllers
             var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
             var colors = await _context.ProductColors.ToListAsync();
+            var categories = await _context.Categories.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
             var subchildcategories = await _context.SubChildCategories.ToListAsync();
 
@@ -75,7 +76,8 @@ namespace Rozetka.Controllers
                 ProductTypes = new SelectList(type, "Id", "Title"),
                 Brands = new SelectList(brands, "Id", "Title"),
                 ProductColors = new SelectList(colors, "Id", "Title"),
-                Childcategories = new SelectList(childcategories, "Id", "Name"),
+                Categories = new SelectList(categories, "Id", "Name"),
+                Childcategories = new SelectList(childcategories, "Id", "Name"),                
                 SubChildCategories = new SelectList(subchildcategories, "Id", "Name")
                 //Product = new Product()
             };
@@ -100,6 +102,7 @@ namespace Rozetka.Controllers
             var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
             var colors = await _context.ProductColors.ToListAsync();
+            var categories = await _context.Categories.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
             var subchildcategories = await _context.SubChildCategories.ToListAsync();
             
@@ -107,6 +110,7 @@ namespace Rozetka.Controllers
             viewModel.ProductTypes = new SelectList(type, "Id", "Title");
             viewModel.Brands = new SelectList(brands, "Id", "Title");
             viewModel.ProductColors = new SelectList(colors, "Id", "Title");
+            viewModel.Categories = new SelectList(categories, "Id", "Name");
             viewModel.Childcategories = new SelectList(childcategories, "Id", "Name");
             viewModel.SubChildCategories = new SelectList(subchildcategories, "Id", "Name");
 
@@ -130,6 +134,7 @@ namespace Rozetka.Controllers
             var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
             var colors = await _context.ProductColors.ToListAsync();
+            var categories = await _context.Categories.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
             var viewModel = new CreateProductVM
             {
@@ -137,6 +142,7 @@ namespace Rozetka.Controllers
                 ProductTypes = new SelectList(type, "Id", "Title"),
                 Brands = new SelectList(brands, "Id", "Title"),
                 ProductColors = new SelectList(colors, "Id", "Title"),
+                Categories = new SelectList(categories, "Id", "Name"),
                 Childcategories = new SelectList(childcategories, "Id", "Name")
             };
             //ViewData["ChildcategoryId"] = new SelectList(_context.Childcategories, "Id", "Id", product.ChildcategoryId);
@@ -188,11 +194,13 @@ namespace Rozetka.Controllers
             var type = await _context.ProductTypes.ToListAsync();
             var brands = await _context.Brands.ToListAsync();
             var colors = await _context.ProductColors.ToListAsync();
+            var categories = await _context.Categories.ToListAsync();
             var childcategories = await _context.Childcategories.ToListAsync();
 
             viewModel.ProductTypes = new SelectList(type, "Id", "Title");
             viewModel.Brands = new SelectList(brands, "Id", "Title");
             viewModel.ProductColors = new SelectList(colors, "Id", "Title");
+            viewModel.Categories = new SelectList(categories, "Id", "Name");
             viewModel.Childcategories = new SelectList(childcategories, "Id", "Name");
 
             return View(viewModel);
@@ -231,45 +239,6 @@ namespace Rozetka.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-
-        //// GET: /Products/Searching
-        //public async Task<IActionResult> Searching(string inputSearching)
-        //{
-        //    if (string.IsNullOrEmpty(inputSearching))  // Якщо inputSearching є порожнім або null, 
-        //    {
-        //        //  метод повертає порожню модель ProductSearchViewModel до стандартного представлення
-        //        return View(new ProductSearchViewModel());
-        //    }
-        //    if (inputSearching.Length < 2)
-        //    {
-        //        return View(new ProductSearchViewModel());
-        //    }
-
-        //    // Якщо inputSearching не порожній, метод використовує контекст бази даних _context для виконання пошуку продуктів.
-        //    // Він здійснює запит до таблиці Products, щоб знайти продукти, у яких заголовок (Title) містить текст, який ввів користувач
-        //    var products = await _context.Products
-        //        .Include(p => p.Childcategory) 
-        //        .Where(p => p.Title.Contains(inputSearching))
-        //        .Select(p => new ProductSearchResult
-        //        {
-        //            Id = p.Id,
-        //            Title = p.Title,
-        //            Description = p.Description,
-        //            Price = p.Price,
-        //            CategoryName = p.Childcategory != null ? p.Childcategory.Name : "No Category" 
-        //        })
-        //        .ToListAsync();
-        //    // Результати пошуку (список продуктів) зберігаються у властивості Products об'єкта ProductSearchViewModel,
-        //    // який створюється для передачі даних у представлення
-        //    var viewModel = new ProductSearchViewModel
-        //    {
-        //        Products = products
-        //    };
-        //    // повертає представлення з назвою "Details", передаючи в нього модель viewModel, яка містить результати пошуку
-        //    return View("Details", viewModel); //
-        //}
-
 
         private bool ProductExists(int id)
         {
