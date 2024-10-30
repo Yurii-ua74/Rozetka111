@@ -322,7 +322,7 @@ a:hover{
     align-items: center;
     justify-content: space-between;
     padding-left: 17px;
-    margin-left: 20px;
+    /*margin-left: 20px;*/
     background: #fbfbfb;
     border: 1px solid #9c12ff;
     border-radius: 12px;
@@ -489,18 +489,20 @@ a:hover{
 }
 
 /* Приховати для ширин екрану менше ніж 765px */
+
+
 @media (max-width: 765px) {
     .logo-small {
         display: none;
     }
-    .kosh p {
-        display: none;
+    .kosh {
+        margin-left: -25px;
     }
-    .kosh {        
-     
-       
+    .gamburg {        
+        margin-left: -25px;      
     }
 }
+
 /* іконка адмін панелі */
 @media (max-width: 1654px) {
     .admin-non {

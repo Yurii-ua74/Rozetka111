@@ -25,8 +25,9 @@
 
 
 <body>
-   
     
+
+
     @* ///////////////////// *@
     <header class="header bg-light py-3  d-flex align-items-center fixed-header">
         <nav class="container-fluid">            
@@ -37,7 +38,7 @@
                  <div class="d-flex justify-content-between align-items-center">
 
                     <!-- Гамбургер меню -->
-                       <div class="col-auto">                            
+                       <div class="gamburg">                            
                            <a class="nav-link btn-lg ms-3 text-black"
                               data-bs-toggle="offcanvas"
                               href="#offcanvasExample"
@@ -66,7 +67,7 @@
 
                 <!-- Пошук та Каталог -->
                 <!-- Каталог -->
-                 <div class="d-flex mx-3 p-2 flex-fill">
+                 <div class="d-flex flex-fill kosh">
                     <!-- Кнопка для відкриття панелі -->
                     <button class="d-none quick-find-button btn btn-outline-secondary me-2 d-lg-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
                         <i class="bi bi-grid"></i> Каталог
@@ -77,13 +78,13 @@
                         <input type="search" class="ms-negetive" placeholder="Знайти на ШвидкоBuy" name="inputSearching" id="searchInput">
 
                         <div class="quick-search-container1">
-                            <div class="vertical-divider"></div>
+                            @* <div class="vertical-divider"></div> *@
                             <!-- Кнопка голосового поиска -->
                             <div class="svg-container1" type="button" id="voiceSearchButton">
                                 <i class="bi bi-mic" id="micIcon"></i>
                             </div>
                             <!-- Кнопка для пошуку -->
-                            <button type="submit" class="btn btn-link purple-box-with-text" aria-label="Search">
+                            <button type="submit" class="btn btn-link purple-box-with-text d-none d-sm-block" aria-label="Search">
                                 <div class="svg-container2">
                                     <i class="bi bi-search fs-5 white-icon"></i>
                                 </div>
@@ -163,7 +164,7 @@
 
                             <div class="text-center">
                                 <i class="bi bi-cart2 fs-4 fs-md-3 fs-sm-3"></i>
-                                <p class="menu-link-text-style mb-0">Кошик</p>
+                            <p class="menu-link-text-style mb-0 d-none d-sm-block">Кошик</p>
                             </div>
                             @* @await Component.InvokeAsync("CartCount") *@
                             <span id="cart-count" class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger" style="display:none;">
@@ -456,7 +457,8 @@
     </div>
 
     @* основний контент сторінки, що буде динамічно вставлений в шаблон за допомогою @RenderBody(). *@
-    <div class="container-fluid slider-container">       
+    <div class="container-fluid slider-container">
+        
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
