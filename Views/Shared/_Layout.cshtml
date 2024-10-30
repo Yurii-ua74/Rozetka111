@@ -978,8 +978,10 @@
     </div>
 </div>
 
-<!-- Валидация для ШАГ 1-->
+<!-- Валидация для Шаг 1 -->
 <script>
+
+
     document.addEventListener("DOMContentLoaded", function () {
         const registerModal = document.getElementById('registerModal');
         const firstNameInput = document.getElementById('_auth-firstname');
@@ -987,33 +989,44 @@
         const phoneInput = document.getElementById('_auth-phone');
         const submitButton = document.getElementById('nextStepButton');
 
-        // Изначально деактивируем кнопку
+        // Деактивируем кнопку при загрузке
         submitButton.disabled = true;
 
         function validateForm() {
-            const isValid = firstNameInput.value.trim().length >= 2 &&
-                lastNameInput.value.trim().length >= 2 &&
-                /^\d{10}$/.test(phoneInput.value);
-            submitButton.disabled = !isValid;
+            const isFirstNameValid = firstNameInput.value.trim().length >= 2;
+            const isLastNameValid = lastNameInput.value.trim().length >= 2;
+            const isPhoneValid = /^\d{10}$/.test(phoneInput.value.trim());
+
+            // Активируем кнопку только если все поля валидны
+            submitButton.disabled = !(isFirstNameValid && isLastNameValid && isPhoneValid);
+
+            // Сообщения об ошибках
+            document.getElementById('firstname-error').textContent = isFirstNameValid ? '' : 'Ім\'я має містити мінімум 2 символи.';
+            document.getElementById('lastname-error').textContent = isLastNameValid ? '' : 'Прізвище має містити мінімум 2 символи.';
+            document.getElementById('phone-error').textContent = isPhoneValid ? '' : 'Телефон має складатися з 10 цифр.';
         }
 
-        // Добавляем обработчики при открытии модального окна
+        // Обработчики при открытии модального окна
         registerModal.addEventListener('shown.bs.modal', function () {
             validateForm();
-
             [firstNameInput, lastNameInput, phoneInput].forEach(input => {
                 input.addEventListener('input', validateForm);
             });
         });
 
-        // Очищаем поля и деактивируем кнопку при закрытии окна
+        // Очистка при закрытии модального окна
         registerModal.addEventListener('hidden.bs.modal', function () {
             firstNameInput.value = '';
             lastNameInput.value = '';
             phoneInput.value = '';
             submitButton.disabled = true;
 
-            // Удаляем обработчики событий
+            // Убираем сообщения об ошибках
+            document.getElementById('firstname-error').textContent = '';
+            document.getElementById('lastname-error').textContent = '';
+            document.getElementById('phone-error').textContent = '';
+
+            // Удаляем обработчики
             [firstNameInput, lastNameInput, phoneInput].forEach(input => {
                 input.removeEventListener('input', validateForm);
             });
