@@ -6,7 +6,9 @@ using Rozetka.Data;
 using Rozetka.Data.Entity;
 using Rozetka.Extensions;
 using Rozetka.Models.ViewModels.ProductAndSubChildCategory;
+using Rozetka.Models.ViewModels.Products;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace Rozetka.Controllers
 {
@@ -172,115 +174,191 @@ namespace Rozetka.Controllers
 
         /* //////////////////////////////// ///////////////////////////////// */
         /*    викликається по кліку на childcategory на сторінці    */
-
         public async Task<IActionResult> GetProducts(string childcategory)
         {
-            // Якщо параметр childcategory порожній, спробую отримати його з сесії
+            GetProductsFilterViewModelcs viewModel = new GetProductsFilterViewModelcs();
+
+            // Получение или сохранение childcategory
             if (string.IsNullOrEmpty(childcategory))
             {
-                childcategory = HttpContext.Session.GetString("ChildCategory");
+                childcategory = HttpContext.Session.GetString("ChildCategory") ?? "";
                 if (string.IsNullOrEmpty(childcategory))
                 {
-                    return NotFound(); // Якщо значення все ще порожнє, повертаємо NotFound
+                    return NotFound();
                 }
             }
             else
             {
-                // Зберігаємо значення childcategory в сесії
-                HttpContext.Session.SetString("ChildCategory", childcategory);
-            }
+                string? oldCategory = HttpContext.Session.GetString("ChildCategory");
+                if (!string.IsNullOrEmpty(oldCategory)) {
+                    if(oldCategory != childcategory)
+                    {
+                        // Удаляем сохраненные данные выбранных брендов из сессии
+                        HttpContext.Session.Remove("SelectedTypes");
+                        // Удаляем сохраненные данные выбранных брендов из сессии
+                        HttpContext.Session.Remove("SelectedBrands");
 
-            // Знайти підкатегорію за назвою
-            var childcategoryEntity = await _context.Childcategories
-                .FirstOrDefaultAsync(c => c.Name == childcategory);
+                        HttpContext.Session.Remove("MinPrice");
+                        HttpContext.Session.Remove("MaxPrice");
+                    }
+                }                
+            }
+            HttpContext.Session.SetString("ChildCategory", childcategory);
+
+            // Загрузка подкатегории
+            var childcategoryEntity = await _context.Childcategories.FirstOrDefaultAsync(c => c.Name == childcategory);
             if (childcategoryEntity == null)
             {
-                // Якщо підкатегорія не знайдена
                 return NotFound();
             }
-            //HttpContext.Session.SetString("ChildCategory", childcategoryEntity.Name);
 
-            // Зберегти ID підкатегорії в сесії
-            HttpContext.Session.SetInt32("ChildCategoryId", childcategoryEntity.Id);
+            // Получение продуктов по подкатегории
+            var productsQuery = _context.Products
+                .Where(p => p.ChildcategoryId == childcategoryEntity.Id)
+                .Include(p => p.ProductType)
+                .Include(p => p.Brand)
+                .Include(p => p.Category)
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductColor)
+                .Include(p => p.Reviews)
+                .AsQueryable();
 
-            // Знайти субпідкатегорії, пов'язані з підкатегорією
-            var subchildCategories = await _context.SubChildCategories
-                .Where(sc => sc.ChildCategoryId == childcategoryEntity.Id)
-                .ToListAsync();
-            if (subchildCategories == null || !subchildCategories.Any())
+            // Применение фильтра по типу продукта
+            string? typesJson = HttpContext.Session.GetString("SelectedTypes");
+            if (!string.IsNullOrEmpty(typesJson))
             {
-                TempData["ErrorMessage"] = "В цьому розділі ще немає товарів!";
-                return RedirectToAction("AllCategoriesList", "SubChildCategory");
+                viewModel.IsFilterTypes = true;
+                string[] selectedTypes = JsonSerializer.Deserialize<string[]>(typesJson);
+                productsQuery = productsQuery.Where(p => selectedTypes!.Contains(p.ProductType!.Title));
             }
 
-            // Об'єднати всі товари з субпідкатегорій в один список
-            var products = new List<Product>();
-            
-            foreach (var subchildCategory in subchildCategories)
+            // Применение фильтра по бренду
+            string? brandsJson = HttpContext.Session.GetString("SelectedBrands");
+            if (!string.IsNullOrEmpty(brandsJson))
             {
-                var subProducts = await _context.Products
-                    .Where(p => p.SubChildCategoryId == subchildCategory.Id)
-                    .Include(p => p.ProductType)
-                    .Include(p => p.Brand)
-                    .Include(p => p.Childcategory)
-                    .Include(p => p.ProductImages)
-                    .Include(p => p.ProductColor)
-                    .Include(p => p.Reviews)
-                    .Take(6) // Обмеження до 6 товарів
-                    .ToListAsync();
+                viewModel.IsFilterBrands = true;
+                string[] selectedBrands = JsonSerializer.Deserialize<string[]>(brandsJson);
+                productsQuery = productsQuery.Where(p => selectedBrands!.Contains(p.Brand!.Title));
+            }
 
-                products.AddRange(subProducts);
+            // Применение фильтра по цене
+            int? minPrice = HttpContext.Session.GetInt32("MinPrice");
+            int? maxPrice = HttpContext.Session.GetInt32("MaxPrice");
+            if (minPrice.HasValue && maxPrice.HasValue)
+            {
+                viewModel.IsFilterPrace = true;
+                productsQuery = productsQuery.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
+            }
 
-                // Загружаем все активные акции
-                var activeActions = await _context.Actions
-                    .Where(a => a.StartDate <= DateTime.Now && a.EndDate >= DateTime.Now) // Только активные акции
-                    .ToListAsync();
+            // Выполнение запроса и получение продуктов
+            var products = await productsQuery.ToListAsync();
 
-                // Присваиваем цену акции, если продукт имеет активную акцию
-                foreach (var product in products)
+            // Применение активных акций
+            var activeActions = await _context.Actions
+                .Where(a => a.StartDate <= DateTime.Now && a.EndDate >= DateTime.Now)
+                .ToListAsync();
+
+            foreach (var product in products)
+            {
+                var action = activeActions.FirstOrDefault(a => a.ProductId == product.Id);
+                if (action != null)
                 {
-                    var action = activeActions.FirstOrDefault(a => a.ProductId == product.Id);
-                    if (action != null)
-                    {
-                        product.ActionPrice = action.NewPrice; // Устанавливаем цену акции
-                    }
+                    product.ActionPrice = action.NewPrice;
                 }
             }
 
-            // Получаем идентификатор текущего пользователя
+            // Проверка избранных товаров
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             if (userId != null)
             {
-                // Получаем список товаров, которые находятся в избранном для этого пользователя
                 var favoriteProductIds = await _context.Favorites
                     .Where(f => f.UserId == userId)
                     .Select(f => f.ProductId)
                     .ToListAsync();
 
-                // Для каждого продукта проверяем, находится ли он в избранном
                 foreach (var product in products)
                 {
                     product.IsInFavorites = favoriteProductIds.Contains(product.Id);
                 }
             }
 
-            // Створити ViewModel та передати його у View
-            var viewModel = new ProductAndSubChildCategoryViewModel
-            {
-                Products = products,
-                SubChildCategories = subchildCategories
-            };
+            // Подготовка фильтров и модели представления
+            viewModel.Products = products;
+            viewModel.Category = products.Select(p => p.Category).FirstOrDefault();
+            viewModel.ChildCategory = childcategoryEntity;
+            viewModel.FilterTypes = products.Where(p => p.ProductType != null).Select(p => p.ProductType!.Title).Distinct().ToList();
+            viewModel.FilterBrands = products.Where(p => p.Brand != null).Select(p => p.Brand!.Title).Distinct().ToList();
+            viewModel.StartPrace = products.Min(p => p.Price);
+            viewModel.EndPrace = products.Max(p => p.Price);
 
-            // Передати список продуктів у View
             return View(viewModel);
+        }
+       
+        [HttpPost]
+        public IActionResult FilterByBuyer(string[] selectedbuyers)
+        {
+
+
+            return RedirectToAction(nameof(GetProducts));
+        }
+
+        [HttpPost]
+        public IActionResult FilterByType(string[] selectedTypes)
+        {
+            // Сериализуем массив в JSON-строку
+            string typesJson = JsonSerializer.Serialize(selectedTypes);
+
+            // Сохраняем JSON-строку в сессии
+            HttpContext.Session.SetString("SelectedTypes", typesJson);
+
+            return RedirectToAction(nameof(GetProducts));
+        }
+        public IActionResult ClearSelectedTypes()
+        {
+            // Удаляем сохраненные данные выбранных брендов из сессии
+            HttpContext.Session.Remove("SelectedTypes");
+
+            return RedirectToAction(nameof(GetProducts));
+        }
+        [HttpPost]
+        public IActionResult FilterByBrand(string[] selectedBrands)
+        {
+
+            // Сериализуем массив в JSON-строку
+            string brandsJson = JsonSerializer.Serialize(selectedBrands);
+
+            // Сохраняем JSON-строку в сессии
+            HttpContext.Session.SetString("SelectedBrands", brandsJson);
+
+            return RedirectToAction(nameof(GetProducts));
+        }
+        public IActionResult ClearSelectedBrands()
+        {
+            // Удаляем сохраненные данные выбранных брендов из сессии
+            HttpContext.Session.Remove("SelectedBrands");
             
+            return RedirectToAction(nameof(GetProducts));
+        }
+
+        [HttpPost]
+        public IActionResult FilterByPrice(int minPrice, int maxPrice)
+        {
+            // Сериализуем значения minPrice и maxPrice и сохраняем их в сессии
+            HttpContext.Session.SetInt32("MinPrice", minPrice);
+            HttpContext.Session.SetInt32("MaxPrice", maxPrice);
+
+            return RedirectToAction(nameof(GetProducts));
+        }
+        public IActionResult ClearPriceFilter()
+        {
+            HttpContext.Session.Remove("MinPrice");
+            HttpContext.Session.Remove("MaxPrice");
+
+            return RedirectToAction(nameof(GetProducts));
         }
 
 
 
-
-       
         [HttpPost]
         public IActionResult GetProductsByFilter(List<int> subChildCategoryIds, decimal? minPrice, decimal? maxPrice)
         {           

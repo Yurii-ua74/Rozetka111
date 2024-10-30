@@ -1,66 +1,99 @@
 ﻿@using Rozetka.Data.Entity
-@using Rozetka.Models.ViewModels.ProductAndSubChildCategory
-@model ProductAndSubChildCategoryViewModel
+@using Rozetka.Models.ViewModels.Products
+@model GetProductsFilterViewModelcs
 
-
+@* 
 @{
     string? category = Context.Session.GetString("Category");
-    string? childcategory = Context.Session.GetString("ChildCategory");
+    // string? childcategory = Context.Session.GetString("ChildCategory");
     // string? subchildcategory = Context.Session.GetString("SubChildCategory");
 
     decimal? minPrice = Model.Products.Any() ? Model.Products.Min(p => p.Price) : null;
     decimal? maxPrice = Model.Products.Any() ? Model.Products.Max(p => p.Price) : null;
-}
+} *@
 @{
-    ViewData["Title"] = childcategory;
+    ViewData["Title"] = Model.ChildCategory!.Name;
 }
+@* <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href=".."><i class="bi bi-house"></i></a></li>
+        <li class="breadcrumb-item"><a href="/Categories/GetChildCategories?category=@category">@category</a></li>        
+        <li class="breadcrumb-item active" aria-current="page">@childcategory</li>
+    </ol>
+</nav> *@
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href=".."><i class="bi bi-house"></i></a></li>
-        <li class="breadcrumb-item"><a href="/Categories/GetChildCategories?category=@category">@category</a></li>
-        @* <li class="breadcrumb-item"><a href="/Childcategories/GetSubChildCategories?childcategory=@childcategory">@childcategory</a></li>  *@
-        <li class="breadcrumb-item active" aria-current="page">@childcategory</li>
+        <li class="breadcrumb-item"><a href="/Categories/GetChildCategories?category=@Model.Category!.Name">@Model.Category.Name</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.ChildCategory!.Name</li>
     </ol>
 </nav>
 
-<h1 class="display-5 f-st">@childcategory</h1>
+<style>
+    /* Изменение цвета фона и галочки при выборе чекбокса */
+    .form-check-input:checked {
+        background-color: blueviolet; /* Цвет для фона */
+        border-color: #8a2be2; /* Цвет границы */
+    }
+
+    /* Цвет галочки в чекбоксе */
+    .form-check-input:checked::before {
+        color: white; /* Цвет галочки */
+    }
+</style>
+
+<h1 class="display-5 f-st">@Model.ChildCategory!.Name</h1>
 
 <div class="sticky-top">
-    <ul class="list-group list-group-horizontal">
+    <ul class="list-group list-group-horizontal p-1">
 
         <li class="list-group-item" style="border-radius: 15px">
-            Знайдено @Model.Products.Count() товарів
+            Знайдено @Model.Products!.Count() товарів
         </li>
-        @if (!string.IsNullOrEmpty(Context.Session.GetString("selectedSubChildCategories")) || !string.IsNullOrEmpty(Context.Session.GetString("minPrice")) || !string.IsNullOrEmpty(Context.Session.GetString("maxPrice")))
+        @if(Model.IsFilterBuyers == true)
         {
-            <li class="list-group-item">
-                <form asp-action="FullDeleteFilters" method="post">
-                    <button type="submit" class="btn btn-danger">
-                        Скинути
-                    </button>
-                </form>
+            <li class="list-group-item" style="border-radius: 15px; background-color: plum; margin-left: 20px;">
+                Продавець:
+                @foreach (var item in Model.FilterBuyers!)
+                {
+                    <span> @item! </span>
+                }
+                <a asp-action="ClearSelectedBuyers" class="btn-close" style="margin-left: 5px; padding: 5px" aria-label="Close"></a>
             </li>
-            @if (!string.IsNullOrEmpty(Context.Session.GetString("selectedSubChildCategories")))
-            {
-                <li class="list-group-item">
-                    Бренды: @Context.Session.GetString("selectedSubChildCategories")
-                    <form asp-action="DeleteFilterBrand" method="post">
-                        <button type="submit" class="btn-close" aria-label="Close"></button>
-                    </form>
-                </li>
-            }
-            @if (!string.IsNullOrEmpty(Context.Session.GetString("maxPrice")))
-            {
-                <li class="list-group-item">
-                    @Context.Session.GetString("minPrice") - @Context.Session.GetString("maxPrice") грн
-                    <form asp-action="DeleteFilterPrice" method="post">
-                        <button type="submit" class="btn-close" aria-label="Close"></button>
-                    </form>
-                </li>
-            }
         }
-
+        @if (Model.IsFilterTypes == true)
+        {
+            <li class="list-group-item" style="border-radius: 15px; background-color:plum; margin-left: 20px;">
+                Тип:
+                @foreach (var item in Model.FilterTypes!)
+                {
+                    <span> @item! </span>
+                }
+                <a asp-action="ClearSelectedTypes" class="btn-close" style="margin-left: 5px; padding: 5px" aria-label="Close"></a>
+            </li>
+        }
+        @if (Model.IsFilterBrands == true)
+        {
+            <li class="list-group-item" style="border-radius: 15px; background-color:plum; margin-left: 20px;">
+                Бренд:
+                @foreach (var item in Model.FilterBrands!)
+                {
+                    <span> @item! </span>
+                }
+                <a asp-action="ClearSelectedBrands" class="btn-close" style="margin-left: 5px; padding: 5px" aria-label="Close"></a>
+            </li>
+        }
+        @if (Model.IsFilterPrace == true)
+        {
+            <li class="list-group-item" style="border-radius: 15px; background-color:plum; margin-left: 20px;">
+                Ціна:
+                <span> @Model.StartPrace </span>
+                <span> - </span>
+                <span> @Model.EndPrace </span>
+                <a asp-action="ClearPriceFilter" class="btn-close" style="margin-left: 5px; padding: 5px" aria-label="Close"></a>
+            </li>
+        }        
     </ul>
 </div>
 <br />
@@ -68,57 +101,138 @@
     <div class="col-sm-3 text-start border-end border-2" style="min-width: 300px">
         @if (Model.Products.Any())
         {
-            <div class="accordion" id="accordionPanelsStayOpen">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
 
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button" type="button"
-                                style="background-color: #A323FF; color: white;"
-                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo"
-                                aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-                            Фільтр
+                        <button class="accordion-button collapsed" type="button"
+                                style="background-color: #A323FF; color: white; border-radius: 15px;"
+                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour"
+                                aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
+                            Продавець
                         </button>
                     </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionPanelsStayOpen">
-                        <div class="horizontal-line"></div>
-
-                        <ul class="list-unstyled">
-                            @foreach (var subchildcategory in Model.SubChildCategories)
-                            {
-
-
-                                <li>
-                                    <div class="form-check d-flex align-items-center w-100">
-                                        <input class="subCategoryCheckbox custom-checkbox flex-shrink-0" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id">
-                                        <label class="form-check-label f-sz ms-2" for="subchildcategory_@subchildcategory.Id">
-                                            @subchildcategory.Name
-                                        </label>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-
+                    <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            <form method="post" asp-action="FilterByBuyer">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="ШвидкоBUY" id="flexCheckDefault_BUY" name="selectedbuyers">
+                                            <label class="form-check-label" for="flexCheckDefault_BUY">
+                                                ШвидкоBUY
+                                            </label>
+                                        </div>
+                                    </li>
+                                    @if (Model.FilterBuyers!.Any())
+                                    {
+                                        <li class="list-group-item">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="Інші продавці" id="flexCheckDefault_Others" name="selectedbuyers">
+                                                <label class="form-check-label" for="flexCheckDefault_Others">
+                                                    Інші продавці
+                                                </label>
+                                            </div>
+                                        </li>
+                                    }                                    
+                                </ul>
+                                <button type="submit" class="btn btn-purple">Ok</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button" type="button"
-                                style="background-color: #A323FF; color: white;"
+                        <button class="accordion-button collapsed" type="button"
+                                style="background-color: #A323FF; color: white; border-radius: 15px;"
+                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
+                                aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            Тип товару
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            <form method="post" asp-action="FilterByType">
+                                <ul class="list-group list-group-flush">
+                                    @foreach (var type in Model.FilterTypes!)
+                                    {
+                                        <li class="list-group-item">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="@type" id="flexCheckDefault_@type" name="selectedTypes">
+                                                <label class="form-check-label" for="flexCheckDefault_@type">
+                                                    @type
+                                                </label>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                                <button type="submit" class="btn btn-purple">Ok</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button"
+                                style="background-color: #A323FF; color: white; border-radius: 15px;"
+                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo"
+                                aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                            Бренд
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            <form method="post" asp-action="FilterByBrand">
+                                <ul class="list-group list-group-flush">
+                                    @foreach (var brand in Model.FilterBrands!)
+                                    {
+                                        <li class="list-group-item">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="@brand" id="flexCheckDefault_@brand" name="selectedBrands">
+                                                <label class="form-check-label" for="flexCheckDefault_@brand">
+                                                    @brand
+                                                </label>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                                <button type="submit" class="btn btn-purple">Ok</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button"
+                                style="background-color: #A323FF; color: white; border-radius: 15px;"
                                 data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree"
                                 aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                             Ціна
                         </button>
                     </h2>
-                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionPanelsStayOpen">
-                        <div class="horizontal-line"></div>
-                        <div class="row g-3 accordion-body">
-                            <div class="col-md-5">
-                                <input class="form-control" type="text" placeholder="Від" aria-label="Від" id="minPrice" value="@minPrice">
-                            </div>
-                            <div class="col-md-5">
-                                <input class="form-control" type="text" placeholder="До" aria-label="До" id="maxPrice" value="@maxPrice">
-                            </div>
+                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">                       
+                        <div class="accordion-body">
+                            <form method="post" class="row g-3" asp-action="FilterByPrice">                                
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" 
+                                            placeholder="Від" aria-label="Від" id="startPrace" name="minPrice"
+                                            value="@Model.StartPrace" min="@Model.StartPrace" max="@Model.EndPrace">
+
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control"
+                                           placeholder="До" aria-label="До" id="endPrace" name="maxPrice" 
+                                           value="@Model.EndPrace" min="@Model.StartPrace" max="@Model.EndPrace">
+
+                                </div>
+                                <div class="col-2">
+                                    <button type="submit" class="btn btn-purple">Ok</button>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -142,8 +256,7 @@
             </div>
         }
         else
-        {
-            <h2>Знайдені товари категорії @childcategory</h2>
+        {            
             <div class="row mb-3">
                 @foreach (var product in Model.Products.Where(p => p.QuantityInStock > 0))
                 {
@@ -185,16 +298,13 @@
                                         <i class="bi bi-cart-plus"></i>
                                     </button>
                                     @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
-
                                     {
                                         <!-- Кнопка удаления из избранного -->
                                         <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
                                             <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
                                         </a>
                                     }
-
                                     else
-
                                     {
                                         <!-- Кнопка добавления в избранное  Тест ajax -->
                                         <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
