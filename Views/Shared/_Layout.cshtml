@@ -274,7 +274,7 @@
             <hr>
            
            <div class="shopping-list-container">
-                <div class="shop-cart-container">
+                <div class="shop-menu-container">
                     <a asp-area="" asp-controller="Order" asp-action="CreateOrder"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик" style="display: flex; align-items: center;" class="cart-itm">
                        <div class="svg-contnr2">
@@ -286,9 +286,9 @@
                        </div>
                        <p class="shop-cart-title">Кошик</p>
                    </a>
-               </div> 
-               
-               <div class="shop-cart-container">                  
+               </div>
+
+                <div class="shop-menu-container">
                     <a asp-area="" asp-controller="Actions" asp-action="GetActions"
                        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції" style="display: flex; align-items: center;" class="cart-itm">
                         <div class="svg-contnr2">
@@ -301,7 +301,7 @@
                 </div>
                @if (User.IsInRole("Seller"))
                {
-                   <div class="shop-cart-container">
+                    <div class="shop-menu-container">
                         <a asp-area="" asp-controller="Advertisement" asp-action="CreateAdvertisement"
                           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Списки порівнян" style="display: flex; align-items: center;">
                            <div class="svg-contnr2">
@@ -317,7 +317,7 @@
                }
                <hr>
 
-                <div class="shop-cart-container">
+                <div class="shop-menu-container">
                    <a asp-area="" asp-controller="Location" asp-action="Index"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Кошик" style="display: flex; align-items: center;" class="cart-itm"> 
                        <div class="svg-contnr2">
@@ -340,33 +340,33 @@
                <div class="shop-cart-container">                            
                    <p class="shop-cart-title ml-5 f-st">Інформація про компанію</p>                  
                </div>
-               <div class="shop-cart-container">
+                <div class="shop-menu-container">
                     <a asp-area="" asp-controller="Info" asp-action="AboutUs"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Про нас" style="display: flex; align-items: center;">               
                        <p class="shop-cart-title mt-3 ml-5">Про нас</p>
                    </a>
                </div>
-               <div class="shop-cart-container">
+                <div class="shop-menu-container">
                     <a asp-area="" asp-controller="Info" asp-action="Index"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Умови використання сайту" style="display: flex; align-items: center;" class="cart-itm">
                        <p class="shop-cart-title mt-3 ml-5">Умови використання сайту</p>
                    </a>
                </div>
-               <div class="shop-cart-container">
+                <div class="shop-menu-container">
                    <a asp-area="" asp-controller="Info" asp-action="Vacantions"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Вакансії" style="display: flex; align-items: center;">
                        <p class="shop-cart-title mt-3 ml-5">Вакансії</p>
                    </a>
                </div>
-                <div class="shop-cart-container">
+                <div class="shop-menu-container">
                     <a href="@Url.Action("Index", "OurContacts")"
                        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Контакти"
                        style="display: flex; align-items: center;" class="cart-itm">
                         <p class="shop-cart-title mt-3 ml-5">Контакти</p>
                     </a>
                 </div>
-               
-               <div class="shop-cart-container">
+
+                <div class="shop-menu-container">
                     <a asp-area="" asp-controller="SubChildCategory" asp-action="AllCategoriesList"
                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Всі категорії" style="display: flex; align-items: center;">
                        <p class="shop-cart-title mt-3 ml-5">Всі категорії</p>
@@ -374,17 +374,23 @@
                </div>
                <hr>                                  
            </div>
-       
-           <div class="container-fluid">
-               <div class="dropdown d-flex justify-content-between align-items-center" id="servicesContainer">
-                   <span class="services-text">Сервіси</span>
-                   <i id="dropdownIcon" class="bi bi-chevron-down"></i> <!-- Клікабельна стрілка -->
+
+            <div class="shop-menu-container">
+                <div class="dropdown d-flex justify-content-between align-items-center" id="servicesContainer">
+                    <p class="shop-cart-title ml-5 f-st" style="margin-bottom: 10px">Сервіси</p>
+                    <br />
+                    <i id="dropdownIcon" class="bi bi-chevron-down"></i> <!-- Клікабельна стрілка -->
                </div>
-               <ul id="servicesList" style="display: none;">
-                    <li><a class="dropdown-item drop-dn-it" href="@Url.Action("BonusPage", "Account")">Бонусний рахунок</a></li>
-                    <li><a class="dropdown-item drop-dn-it" href="@Url.Action("Index","Sertification")">Подарункові сертифікати</a></li>
-                  <li><a class="dropdown-item drop-dn-it" href="@Url.Action("Test", "Home")">ШвидкоBuy обмін</a></li>
-                  <li><a class="dropdown-item drop-dn-it" href="@Url.Action("Test", "Home")">Корпоративним клієнтам</a></li>
+                <ul id="servicesList" style="display: none;">
+                    @if (User.Identity.IsAuthenticated) // Проверяем, авторизован ли пользователь
+                    {
+                        <li class="li-left-menu">
+                            <a href="@Url.Action("BonusPage", "Account")">Бонусний рахунок</a>
+                        </li>
+                    }
+                    <li class="li-left-menu"><a href="@Url.Action("Index","Sertification")">Подарункові сертифікати</a></li>
+                    <li class="li-left-menu"><a href="@Url.Action("Test", "Home")">ШвидкоBuy обмін</a></li>
+                    <li class="li-left-menu"><a href="@Url.Action("Test", "Home")">Корпоративним клієнтам</a></li>
                </ul>             
            </div>
            <hr>
