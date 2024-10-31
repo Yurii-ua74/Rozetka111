@@ -174,7 +174,7 @@ namespace Rozetka.Controllers
 
         /* //////////////////////////////// ///////////////////////////////// */
         /*    викликається по кліку на childcategory на сторінці    */
-        public async Task<IActionResult> GetProducts(string childcategory)
+        public async Task<IActionResult> GetProducts(string childcategory, string sortOrder)
         {
             GetProductsFilterViewModelcs viewModel = new GetProductsFilterViewModelcs();
 
@@ -249,9 +249,32 @@ namespace Rozetka.Controllers
                 viewModel.IsFilterPrace = true;
                 productsQuery = productsQuery.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
             }
+                        
 
             // Выполнение запроса и получение продуктов
             var products = await productsQuery.ToListAsync();
+
+            // Применяем сортировку в зависимости от выбранного значения
+            switch (sortOrder)
+            {
+                case "price-asc":
+                    products = products.OrderBy(p => p.Price).ToList();
+                    break;
+                case "price-desc":
+                    products = products.OrderByDescending(p => p.Price).ToList();
+                    break;
+                case "popular":
+                    products = products.OrderByDescending(p => p.Reviews.Count).ToList(); // или по количеству заказов
+                    break;
+                case "relevance":
+                    break;
+                default:                    
+                    break;
+            }
+            if(sortOrder != null)
+            {
+                viewModel.SortOrder = sortOrder;
+            }
 
             // Применение активных акций
             var activeActions = await _context.Actions

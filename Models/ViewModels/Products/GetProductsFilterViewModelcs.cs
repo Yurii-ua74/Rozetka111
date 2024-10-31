@@ -18,5 +18,7 @@ namespace Rozetka.Models.ViewModels.Products
         public bool? IsFilterTypes { get; set; } = false;
         public bool? IsFilterBrands { get;set; } = false;
         public bool? IsFilterPrace { get;set; } = false;
+
+        public string? SortOrder { get; set; }
     }
 }
