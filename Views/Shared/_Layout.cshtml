@@ -475,23 +475,20 @@
         <div class="container">
             <div class="row text-center py-2">
 
-                <div class="col-2">                                     
-                    <button  class="mb-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+                <div class="col-2 mt-1">                                     
+                    <button  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
                         <i class="bi bi-grid"></i>
                     </button>
                 </div>
                 
-                <div class="col-2 mb-4">                                       
-                    <a class="nav-link text-black position-relative btn-lg"
-                       asp-area="" asp-controller="Actions" asp-action="GetActions"
-                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">
-                        <div class="text-center">
-                            <i class="bi bi-bell fs-4 fs-md-3 fs-sm-3"></i>                            
-                        </div>
+                <div class="col-2">
+                    <a asp-area="" asp-controller="Actions" asp-action="GetActions"
+                       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">                       
+                        <i class="bi bi-bell fs-1"></i>                                                   
                     </a>
                 </div> 
 
-                <div class="col-2 mb-3 ms-2">
+                <div class="col-2 mt-2">
                     <a class="logo-link" asp-area="" asp-controller="Home" asp-action="Index">
                         <svg width="88" height="43" viewBox="0 0 88 43" xmlns="http://www.w3.org/2000/svg">
                             <path d="M25.8023 1.34639V17.884C25.8023 23.0163 26.8288 25.2974 29.9652 25.2974C33.3868 25.2974 35.2116 22.7312 35.2116 16.7435V1.34639H43.1953V31H35.4967V26.1528H35.2116C35.2116 26.1528 33.2157 31.8554 27.228 31.8554C22.4378 31.8554 19.9286 29.6314 18.7311 26.1528H18.3889C18.3889 26.1528 15.8227 31.8554 9.83497 31.8554C2.42157 31.8554 0.425654 26.4379 0.425654 19.5948V1.34639H8.40932V17.884C8.40932 23.0163 9.43579 25.2974 12.5722 25.2974C15.9938 25.2974 17.8186 22.7312 17.8186 16.7435V1.34639H25.8023Z" fill="#9C12FF" />
@@ -500,10 +497,15 @@
                     </a>
                 </div>
 
-                <div class="col-4 mb-4">
-                    @if (Context.User.Identity?.IsAuthenticated ?? false)
+                <div class="col-2">
+                    <a type="button" href="" class="nav-link text-black btn-lg"
+                       data-bs-toggle="modal"
+                       data-bs-target="#authModal">                       
+                        <i class="bi bi-person fs-1"></i>                        
+                    </a>
+                    @* @if (Context.User.Identity?.IsAuthenticated ?? false)
                     {                                            
-                        @* Переходить на сторінку з покупками користувача(метод Purchase в HomeController) *@
+                        
                         <a class="list-none nav-link text-black btn-lg position-relative btn-lg"
                            asp-area="" asp-controller="Purchase" asp-action="Index"
                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
@@ -523,7 +525,7 @@
                     }
                     else
                     {
-                        @* Відкриває модальне вікно для авторизації(модальне вікно з ID authModal) *@
+                        
                         <!-- ВХІД РЕЄСТРАЦІЯ -->
                         <a type="button" href="" class="nav-link text-black btn-lg"
                            data-bs-toggle="modal"
@@ -532,7 +534,7 @@
                                 <i class="bi bi-person fs-4 fs-md-3 fs-sm-3"></i>                                
                             </div>
                         </a>
-                    }
+                    } *@
 
                 </div>
                  @* <div class="col-2">
