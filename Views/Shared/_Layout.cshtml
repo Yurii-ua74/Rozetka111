@@ -574,10 +574,10 @@
                     <h5>Покупцям</h5>
                     <ul class="list-unstyled">
                         <li><a href="@Url.Action("QuestionsAndAnswers", "Info")" " class="text-muted">Запитання та відповіді</a></li>
-                       
-                        <li><a href="#" class="text-muted">Юридична інформація</a></li>
-                        <li><a href="#" class="text-muted">Способи оплати</a></li>
-                        <li><a href="#" class="text-muted">Доставка</a></li>
+                        <li><a href="@Url.Action("Legalinformation", "Info")" " class="text-muted">Юридична інформація</a></li>
+                        <li><a href="@Url.Action("Paymentmethods", "Info")" " class="text-muted">Способи оплати</a></li>
+                        <li><a href="@Url.Action("Delivery", "Info")" " class="text-muted">Доставка</a></li>
+                     
                     </ul>
                     <div class="row mt-4">
                         <div class="col ">
@@ -607,29 +607,65 @@
                 <div class="col-lg-2 col-md-3">
                     <h5>Продавцям та партнерам</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-muted">Продавати товари</a></li>
-                        <li><a href="#" class="text-muted">Відкрити пункт видачі</a></li>
-                        <li><a href="#" class="text-muted">Запропонувати приміщення</a></li>
-                        <li><a href="#" class="text-muted">Доставляти замовлення</a></li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <a href="#" class="text-muted" data-bs-toggle="modal" data-bs-target="#sellerModal">
+                                    Продавати товари
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+
+                            <li>
+                                <a href="#" class="text-muted" data-bs-toggle="modal" data-bs-target="#authModal">
+                                    Продавати товари
+                                </a>
+                            </li>
+                        }
+                        <li><a href="@Url.Action("OpenPickupPoint", "Info")" " class="text-muted">Відкрити пункт видачі</a></li>
+                        <li><a href="@Url.Action("OfferWarehouse", "Info")" " class="text-muted">Запропонувати приміщення</a></li>
+                        <li><a href="@Url.Action("DeliverOrders", "Info")" " class="text-muted">Доставляти замовлення</a></li>
+                       
+                        
                     </ul>
                 </div>
                 
                 <div class="col-lg-2 col-md-3">
                     <h5>Допомога</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-muted">Доставка та оплата</a></li>
-                        <li><a href="#" class="text-muted">Кредит</a></li>
-                        <li><a href="#" class="text-muted">Гарантія</a></li>
-                        <li><a href="#" class="text-muted">Повернення товару</a></li>
-                    </ul>
+                            @*<li><a href="#" class="text-muted">Доставка та оплата</a></li>*@
+                        <li><a href="@Url.Action("CreditPage", "Info")" " class="text-muted">Кредит</a></li>
+                        <li><a href="@Url.Action("GuaranteePage", "Info")" " class="text-muted">Гарантія</a></li>
+                        <li><a href="@Url.Action("RefundPage", "Info")" " class="text-muted">Повернення товару</a></li>
+                      
                 </div>
                 
                 <div class="col-lg-2 col-md-3">
                     <h5>Інформація про компанію</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-muted">Умови використання сайту</a></li>
-                        <li><a href="#" class="text-muted">Про нас</a></li>
-                        <li><a href="#" class="text-muted">Вакансії</a></li>
+                        <li>
+                            <a asp-area="" asp-controller="Info" asp-action="Index"
+                               data-bs-toggle="tooltip" data-bs-placement="bottom"
+                               data-bs-title="Умови використання сайту"
+                               style="display: flex; align-items: center;"
+                               class="text-muted cart-itm">
+                                Умови використання сайту
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Info" asp-action="AboutUs" class="text-muted">Про нас</a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Info" asp-action="Vacantions"
+                               data-bs-toggle="tooltip" data-bs-placement="bottom"
+                               data-bs-title="Вакансії" style="display: flex; align-items: center;"
+                               class="text-muted">
+                                Вакансії
+                            </a>
+                        </li>
                         <li><a href="@Url.Action("Index", "OurContacts")" class="text-muted">Контакти</a></li>
                     </ul>
                 </div>

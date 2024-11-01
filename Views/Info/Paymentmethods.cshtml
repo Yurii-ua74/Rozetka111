@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Paymentmethods"] = "Paymentmethods";
+}
+<h3>Способи оплати</h3>
+<br />
+<div class="row">
+    <div class="col-12 col-md-12" style="min-width: 320px; min-height: 150px;">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" style="border-radius: 15px;">
+                <div class="carousel-item">
+                    <img src="~/images_advertising/447355013.jpg" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/446107905.png" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/450027107.jpg" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+                <div class="carousel-item active">
+                    <img src="~/images_advertising/CetSummer.png" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/BlackFriday.png" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/ForFPV.png" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+   
+    <br />
+
+    <div class="payment-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/credit_card_icon.png" alt="Кредитна картка" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Оплата карткою Visa або Mastercard</h4>
+            <p style="color: gray;">Зручний і безпечний спосіб оплатити покупку через інтернет-банкінг або додаток вашого банку. Приймаються картки будь-яких українських банків.</p>
+        </div>
+    </div>
+
+    <div class="payment-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/cash_icon.png" alt="Готівка" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Оплата готівкою</h4>
+            <p style="color: gray;">Ви можете оплатити товар готівкою при отриманні у відділенні або кур'єру при доставці.</p>
+        </div>
+    </div>
+
+    <div class="payment-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/paypal_icon.png" alt="PayPal" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Оплата через PayPal</h4>
+            <p style="color: gray;">Міжнародна платіжна система для швидких та безпечних платежів. Зручно для іноземних покупців.</p>
+        </div>
+    </div>
+
+    <div class="payment-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/installment_icon.png" alt="Оплата частинами" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Оплата частинами</h4>
+            <p style="color: gray;">Можливість розділити оплату на кілька частин за допомогою послуг банків-партнерів (ПриватБанк, Monobank).</p>
+        </div>
+    </div>
+
+    <div class="payment-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/wire_transfer_icon.png" alt="Банківський переказ" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Банківський переказ</h4>
+            <p style="color: gray;">Ви можете здійснити оплату через банківський переказ. Деталі для переказу будуть надані після оформлення замовлення.</p>
+        </div>
+    </div>
+
+    <div class="payment-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/apple_pay_icon.png" alt="Apple Pay" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Apple Pay</h4>
+            <p style="color: gray;">Для власників пристроїв Apple є можливість швидко оплатити за допомогою Apple Pay.</p>
+        </div>
+    </div>
+
+    <div class="payment-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/google_pay_icon.png" alt="Google Pay" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Google Pay</h4>
+            <p style="color: gray;">Користувачі пристроїв Android можуть оплатити товари через Google Pay.</p>
+        </div>
+    </div>
+</div>
