@@ -1,129 +1,292 @@
 ﻿@using Rozetka.Data.Entity
-@using Rozetka.Models.ViewModels.ProductAndSubChildCategory
-@model ProductAndSubChildCategoryViewModel
-
-
+@using Rozetka.Models.ViewModels.Products
+@model GetProductsFilterViewModelcs
 @{
-    string? category = Context.Session.GetString("Category");
-    string? childcategory = Context.Session.GetString("ChildCategory");
-    // string? subchildcategory = Context.Session.GetString("SubChildCategory");
-
-    decimal? minPrice = Model.Products.Any() ? Model.Products.Min(p => p.Price) : null;
-    decimal? maxPrice = Model.Products.Any() ? Model.Products.Max(p => p.Price) : null;
+    string? category = Model.Category != null ? Model.Category!.Name : Context.Session.GetString("Category");
+    string? childcategory = Model.ChildCategory != null ? Model.ChildCategory!.Name : Context.Session.GetString("ChildCategory");
 }
 @{
     ViewData["Title"] = childcategory;
 }
 
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href=".."><i class="bi bi-house"></i></a></li>
         <li class="breadcrumb-item"><a href="/Categories/GetChildCategories?category=@category">@category</a></li>
-        @* <li class="breadcrumb-item"><a href="/Childcategories/GetSubChildCategories?childcategory=@childcategory">@childcategory</a></li>  *@
         <li class="breadcrumb-item active" aria-current="page">@childcategory</li>
     </ol>
 </nav>
 
-<h1 class="display-5 f-st">@childcategory</h1>
+<style>
+    /* Изменение цвета фона и галочки при выборе чекбокса */
+    .form-check-input:checked {
+        background-color: blueviolet; /* Цвет для фона */
+        border-color: #8a2be2; /* Цвет границы */
+    }
+
+    /* Цвет галочки в чекбоксе */
+    .form-check-input:checked::before {
+        color: white; /* Цвет галочки */
+    }   
+
+    .nav-pills .nav-link.active {
+        background-color: blueviolet !important; /* Измените на нужный цвет фона */
+        color: white !important; /* Цвет текста */
+        border-color: #007bff !important; /* Измените на нужный цвет рамки, если нужно */
+    }
+
+    .nav-pills .nav-link {
+        background-color: thistle !important;
+        color: #000 !important; /* Цвет текста для неактивных кнопок */        
+    }
+
+    .nav-pills .nav-link:hover {
+        background-color: #e0e0e0 !important; /* Цвет фона при наведении */
+        color: #000 !important;
+    }
+</style>
+
+<h1 class="display-5 f-st">@Model.ChildCategory!.Name</h1>
 
 <div class="sticky-top">
-    <ul class="list-group list-group-horizontal">
+    <div class="row" style="justify-content: space-evenly">
+        <div class="col-7">
+            <ul class="list-group list-group-horizontal p-1">
 
-        <li class="list-group-item" style="border-radius: 15px">
-            Знайдено @Model.Products.Count() товарів
-        </li>
-        @if (!string.IsNullOrEmpty(Context.Session.GetString("selectedSubChildCategories")) || !string.IsNullOrEmpty(Context.Session.GetString("minPrice")) || !string.IsNullOrEmpty(Context.Session.GetString("maxPrice")))
-        {
-            <li class="list-group-item">
-                <form asp-action="FullDeleteFilters" method="post">
-                    <button type="submit" class="btn btn-danger">
-                        Скинути
-                    </button>
-                </form>
-            </li>
-            @if (!string.IsNullOrEmpty(Context.Session.GetString("selectedSubChildCategories")))
-            {
-                <li class="list-group-item">
-                    Бренды: @Context.Session.GetString("selectedSubChildCategories")
-                    <form asp-action="DeleteFilterBrand" method="post">
-                        <button type="submit" class="btn-close" aria-label="Close"></button>
-                    </form>
+                <li class="list-group-item" style="border-radius: 15px">
+                    Знайдено @Model.Products!.Count() товарів
                 </li>
-            }
-            @if (!string.IsNullOrEmpty(Context.Session.GetString("maxPrice")))
-            {
-                <li class="list-group-item">
-                    @Context.Session.GetString("minPrice") - @Context.Session.GetString("maxPrice") грн
-                    <form asp-action="DeleteFilterPrice" method="post">
-                        <button type="submit" class="btn-close" aria-label="Close"></button>
-                    </form>
-                </li>
-            }
-        }
+                @if (Model.IsFilterBuyers == true)
+                {
+                        <li class="list-group-item" style="border-radius: 15px; background-color: plum; margin-left: 20px;">
+                            Продавець:
+                        @foreach (var item in Model.SelectedBuyers!)
+                        {
+                                    <span> @item! </span>
+                        }
+                            <a asp-action="ClearSelectedBuyers" class="btn-close" style="margin-left: 5px; padding: 5px" aria-label="Close"></a>
+                        </li>
+                }
+                @if (Model.IsFilterTypes == true)
+                {
+                        <li class="list-group-item" style="border-radius: 15px; background-color:plum; margin-left: 20px;">
+                            Тип:
+                        @foreach (var item in Model.SelectedTypes!)
+                        {
+                                    <span> @item! </span>
+                        }
+                            <a asp-action="ClearSelectedTypes" class="btn-close" style="margin-left: 5px; padding: 5px" aria-label="Close"></a>
+                        </li>
+                }
+                @if (Model.IsFilterBrands == true)
+                {
+                        <li class="list-group-item" style="border-radius: 15px; background-color:plum; margin-left: 20px;">
+                            Бренд:
+                        @foreach (var item in Model.SelectedBrands!)
+                        {
+                                    <span> @item! </span>
+                        }
+                            <a asp-action="ClearSelectedBrands" class="btn-close" style="margin-left: 5px; padding: 5px" aria-label="Close"></a>
+                        </li>
+                }
+                @if (Model.IsFilterPrace == true)
+                {
+                        <li class="list-group-item" style="border-radius: 15px; background-color:plum; margin-left: 20px;">
+                            Ціна:
+                            <span> @Model.StartPrice </span>
+                            <span> - </span>
+                            <span> @Model.EndPrice </span>
+                            <span> грн </span>
+                            <a asp-action="ClearPriceFilter" class="btn-close" style="margin-left: 5px; padding: 5px" aria-label="Close"></a>
+                        </li>
+                }
+            </ul>
+        </div>
+        <div class="col-5">
+            <div class="d-flex justify-content-end mb-3">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item me-5" role="presentation">
+                        <div class="sort-filter-container">
+                            <form id="sortForm" asp-action="GetProducts" asp-controller="Childcategories">
+                                <input type="hidden" name="childcategory" value="@Model.ChildCategory.Name" />
+                                <select class="form-select" name="sortOrder" id="sortDropdown" onchange="document.getElementById('sortForm').submit();">                                   
+                                    <option value="relevance" selected="@(Model.SortOrder == "relevance" ? "selected" : null)">За релевантністю</option>                                    
+                                    <option value="price-asc" selected="@(Model.SortOrder == "price-asc" ? "selected" : null)">Від дешевих до дорогих</option>
+                                    <option value="price-desc" selected="@(Model.SortOrder == "price-desc" ? "selected" : null)">Від дорогих до дешевих</option>
+                                    <option value="popular" selected="@(Model.SortOrder == "popular" ? "selected" : null)">Популярні</option>
+                                </select>
+                            </form>
+                        </div>                        
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-small-tab" data-bs-toggle="pill" data-bs-target="#pills-small"
+                                type="button" role="tab" aria-controls="pills-small" aria-selected="true">
+                            <i class="bi bi-grid-3x3-gap"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item me-5" role="presentation">
+                        <button class="nav-link" id="pills-large-tab" data-bs-toggle="pill" data-bs-target="#pills-large"
+                                type="button" role="tab" aria-controls="pills-large" aria-selected="false">
+                            <i class="bi bi-grid"></i>
+                        </button>
+                    </li>
 
-    </ul>
+
+                </ul>
+
+            </div>            
+        </div>
+    </div>         
 </div>
 <br />
 <div class="row">
     <div class="col-sm-3 text-start border-end border-2" style="min-width: 300px">
         @if (Model.Products.Any())
         {
-            <div class="accordion" id="accordionPanelsStayOpen">
+                <div class="accordion" id="accordionPanelsStayOpenExample">
 
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button"
-                                style="background-color: #A323FF; color: white;"
-                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo"
-                                aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-                            Фільтр
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionPanelsStayOpen">
-                        <div class="horizontal-line"></div>
-
-                        <ul class="list-unstyled">
-                            @foreach (var subchildcategory in Model.SubChildCategories)
-                            {
-
-
-                                <li>
-                                    <div class="form-check d-flex align-items-center w-100">
-                                        <input class="subCategoryCheckbox custom-checkbox flex-shrink-0" type="checkbox" value="@subchildcategory.Id" id="subchildcategory_@subchildcategory.Id">
-                                        <label class="form-check-label f-sz ms-2" for="subchildcategory_@subchildcategory.Id">
-                                            @subchildcategory.Name
-                                        </label>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button"
-                                style="background-color: #A323FF; color: white;"
-                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree"
-                                aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                            Ціна
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionPanelsStayOpen">
-                        <div class="horizontal-line"></div>
-                        <div class="row g-3 accordion-body">
-                            <div class="col-md-5">
-                                <input class="form-control" type="text" placeholder="Від" aria-label="Від" id="minPrice" value="@minPrice">
-                            </div>
-                            <div class="col-md-5">
-                                <input class="form-control" type="text" placeholder="До" aria-label="До" id="maxPrice" value="@maxPrice">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button"
+                                    style="background-color: #A323FF; color: white; border-radius: 15px;"
+                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour"
+                                    aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
+                                Продавець
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                <form id="filterFormBuyers" method="post" asp-action="FilterByBuyer">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="ШвидкоBUY" id="flexCheckDefault_BUY" name="selectedbuyers"
+                                                       onchange="document.getElementById('filterFormBuyers').submit();"
+                                            @(Model.SelectedBuyers!.Contains("ШвидкоBUY") ? "checked" : "")>
+                                                <label class="form-check-label" for="flexCheckDefault_BUY">
+                                                    ШвидкоBUY
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="Інші продавці" id="flexCheckDefault_Others" name="selectedbuyers"
+                                                       onchange="document.getElementById('filterFormBuyers').submit();"
+                                            @(Model.SelectedBuyers!.Contains("Інші продавці") ? "checked" : "")>
+                                                <label class="form-check-label" for="flexCheckDefault_Others">
+                                                    Інші продавці
+                                                </label>
+                                            </div>
+                                        </li>
+                                    </ul>                               
+                                </form>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button"
+                                    style="background-color: #A323FF; color: white; border-radius: 15px;"
+                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
+                                    aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                Тип товару
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                <form id="filterFormTypes" method="post" asp-action="FilterByType">
+                                    <ul class="list-group list-group-flush">
+                                    @foreach (var type in Model.FilterTypes!)
+                                    {
+                                                <li class="list-group-item">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="@type" 
+                                                               id="flexCheckDefault_@type" name="selectedTypes"
+                                                               onchange="document.getElementById('filterFormTypes').submit();"
+                                                @(Model.SelectedTypes!.Contains(type) ? "checked" : "")>
+                                                        <label class="form-check-label" for="flexCheckDefault_@type">
+                                                    @type
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                    }
+                                    </ul>                                
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button"
+                                    style="background-color: #A323FF; color: white; border-radius: 15px;"
+                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo"
+                                    aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                                Бренд
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                <form id="filterFormBrands" method="post" asp-action="FilterByBrand">
+                                    <ul class="list-group list-group-flush">
+                                    @foreach (var brand in Model.FilterBrands!)
+                                    {
+                                                <li class="list-group-item">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="@brand"
+                                                               id="flexCheckDefault_@brand" name="selectedBrands"
+                                                               onchange="document.getElementById('filterFormBrands').submit();"
+                                                @(Model.SelectedBrands!.Contains(brand) ? "checked" : "")>
+                                                        <label class="form-check-label" for="flexCheckDefault_@brand">
+                                                    @brand
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                    }
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button"
+                                    style="background-color: #A323FF; color: white; border-radius: 15px;"
+                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree"
+                                    aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                Ціна
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">                       
+                            <div class="accordion-body">
+                                <form method="post" class="row g-3" asp-action="FilterByPrice">                                
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" 
+                                                placeholder="Від" aria-label="Від" id="startPrace" name="minPrice"
+                                                value="@Model.StartPrice" min="@Model.StartPrice" max="@Model.EndPrice">
+
+                                    </div>
+                                    <div class="col-md-1">-</div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control"
+                                               placeholder="До" aria-label="До" id="endPrace" name="maxPrice" 
+                                               value="@Model.EndPrice" min="@Model.StartPrice" max="@Model.EndPrice">
+
+                                    </div>
+                                    <div class="col-md-1">грн</div>
+                                    <div class="col-2">
+                                        <button type="submit" class="btn btn-purple">Ok</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
         }
     </div>
 
@@ -137,110 +300,273 @@
 
         @if (!Model.Products.Any())
         {
-            <div class="container d-flex align-items-center justify-content-center">
-                <h4><em>В зв'язку з тим, що сайт знаходиться в розробці, товари даної категорії ще відсутні! Але, якщо ви маєте права адміністратора, ви можете це виправити!:)</em></h4>
-            </div>
+                <div class="container d-flex align-items-center justify-content-center">
+                    <h4><em>Товари, з обраними параметрами, відсутні :)</em></h4>
+                </div>
         }
         else
         {
-            <h2>Знайдені товари категорії @childcategory</h2>
-            <div class="row mb-3">
-                @foreach (var product in Model.Products.Where(p => p.QuantityInStock > 0))
-                {
-                    <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
-                        <!-- Стилізований блок товару -->
-                        <div class="mycard" style="border: 3px solid #f5f5dc; border-radius: 10px; padding: 3px;">
-                            <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
-                                <div class="product-block">
-                                    @if (product.ProductImages != null && product.ProductImages.Any())
-                                    {
-                                        <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
-                                             class="img-fluid"
-                                             style="max-height: 215px; width: auto; max-width: 100%; object-fit: contain;"
-                                             onerror="this.onerror=null;"
-                                             alt="Photo">
-                                    }
-                                    else
-                                    {
-                                        <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
-                                    }
+                <div class="container" id="pills-tabContent">
+                    <div class="row mb-3 tab-pane fade show active" id="pills-small" role="tabpanel" aria-labelledby="pills-small-tab" tabindex="0">
+                    @foreach (var product in Model.Products.Where(p => p.QuantityInStock > 0))
+                    {
+                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-8 col-sm-10 col-12 mb-3">
+                                    <!-- Стилізований блок товару -->
+                                    <div class="mycard" style="border: 3px solid #f5f5dc; border-radius: 10px; padding: 3px;">
+                                        <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                                            <div class="product-block">
+                                        @if (product.ProductImages != null && product.ProductImages.Any())
+                                        {
+                                                        <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
+                                                             class="img-fluid"
+                                                             style="max-height: 215px; width: auto; max-width: 100%; object-fit: contain;"
+                                                             onerror="this.onerror=null;"
+                                                             alt="Photo">
+                                        }
+                                        else
+                                        {
+                                                        <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                                        }
+                                            </div>
+                                        </a>
+                                        <div class="mt-2">
+                                            <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                                                <div class="product-title">@product.ProductType?.Title @product.Brand?.Title @product.Title</div>
+                                                <div class="product-description">@product.Description</div>
+                                            </a>
+                                            <div class="d-flex align-items-center mt-2">
+                                        @if (product.ActionPrice == null)
+                                        {
+                                                        <div class="product-price">@product.Price ₴</div>
+                                        }
+                                        else
+                                        {
+                                                        <div class="text-decoration-line-through fs-6 fw-light">@product.Price</div>
+                                                        <div class="product-price-red p-1">@product.ActionPrice?.ToString("0") ₴</div>
+                                        }
+                                                <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-1" onclick="updateCart(@product.Id, 'AddToCart')">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </button>
+                                        @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
+                                        {
+                                                        <!-- Кнопка удаления из избранного -->
+                                                        <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
+                                                            <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
+                                                        </a>
+                                        }
+                                        else
+                                        {
+                                                        <!-- Кнопка добавления в избранное  Тест ajax -->
+                                                        <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
+                                                            <i class="bi bi-heart"></i>
+                                                        </a>
+                                        }
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
-                            </a>
-                            <div class="mt-2">
-                                <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
-                                    <div class="product-title">@product.ProductType?.Title @product.Brand?.Title @product.Title</div>
-                                    <div class="product-description">@product.Description</div>
-                                </a>
-                                <div class="d-flex align-items-center mt-2">
+                    }
+
+                    @foreach (var product in Model.Products.Where(p => p.QuantityInStock <= 0))
+                    {
+                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
+                                    <!-- Стилізований блок товару для товарів без наявності -->
+                                    <div style="opacity: 0.7;">
+                                        <div class="product-block">
+                                            <a href="/Products/GetProduct?id=@product.Id">
+                                        @if (product.ProductImages != null && product.ProductImages.Any())
+                                        {
+                                            var firstImage = product.ProductImages.FirstOrDefault();
+                                                        <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
+                                                             class="img-fluid"
+                                                             alt="Product Image"
+                                                             style="max-height: 155px; width: auto; max-width: 100%;"
+                                                             onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';" />
+                                        }
+                                        else
+                                        {
+                                                        <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                                        }
+                                            </a>
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <div class="product-title">@product.ProductType.Title @product.Brand.Title @product.Title</div>
+                                            <div class="product-description">Немає в наявності</div>
+                                        </div>
+                                    </div>
+                                </div>
+                    }
+
+                    </div>
+                    <div class="row mb-1 tab-pane fade" id="pills-large" role="tabpanel" aria-labelledby="pills-large-tab" tabindex="0">
+                    @foreach (var product in Model.Products.Where(p => p.QuantityInStock > 0))
+                    {
+                                <div class="col-xxl-4 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
+                                    <!-- Стилізований блок товару -->
+                                    <div class="mycard p-3 h-100 d-flex flex-column" style="border: 6px solid #f5f5dc; border-radius: 10px; padding: 3px;">
+                                        <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                                            <div class="text-center">
+                                        @if (product.ProductImages != null && product.ProductImages.Any())
+                                        {
+                                                        <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
+                                                             class="img-fluid"
+                                                             style="max-height: 250px; width: auto; max-width: 100%; object-fit: contain;"
+                                                             onerror="this.onerror=null;"
+                                                             alt="Photo">
+                                        }
+                                        else
+                                        {
+                                                        <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                                        }
+                                            </div>
+                                        </a>
+                                        <div class="mt-2 flex-grow-1">
+                                            <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                                                <div class="fw-bold fs-4" style="max-height: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                            @product.ProductType?.Title @product.Brand?.Title @product.Title
+                                                </div>
+                                                <div style="max-height: 70px; overflow: hidden; text-overflow: ellipsis; white-space: normal;">@product.Description</div>
+                                            </a>
+                                        </div>
+                                        <div class="d-flex align-items-center mt-2">
                                     @if (product.ActionPrice == null)
                                     {
-                                        <div class="product-price">@product.Price ₴</div>
+                                                    <div class="product-price">@product.Price ₴</div>
                                     }
                                     else
                                     {
-                                        <div class="text-decoration-line-through fs-6 fw-light">@product.Price</div>
-                                        <div class="product-price-red p-1">@product.ActionPrice?.ToString("0") ₴</div>
+                                                    <div class="text-decoration-line-through">@product.Price ₴</div>
+                                                    <div class="product-price-red p-2 fs-5 fw-bold">@product.ActionPrice?.ToString("0") ₴</div>
                                     }
-                                    <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-1" onclick="updateCart(@product.Id, 'AddToCart')">
-                                        <i class="bi bi-cart-plus"></i>
-                                    </button>
-                                    @if (product.IsInFavorites) // Проверяем, находится ли товар в избранном
-
+                                            <button type="button" class="btn btn-primary btn-add-to-cart ms-auto btn-purple me-1" onclick="updateCart(@product.Id, 'AddToCart')">
+                                                <i class="bi bi-cart-plus"></i>
+                                            </button>
+                                    @if (product.IsInFavorites)
                                     {
-                                        <!-- Кнопка удаления из избранного -->
-                                        <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
-                                            <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
-                                        </a>
+                                                    <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
+                                                        <i class="bi bi-heart-fill"></i>
+                                                    </a>
                                     }
-
                                     else
-
                                     {
-                                        <!-- Кнопка добавления в избранное  Тест ajax -->
-                                        <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
-                                            <i class="bi bi-heart"></i>
-                                        </a>
+                                                    <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
+                                                        <i class="bi bi-heart"></i>
+                                                    </a>
                                     }
+                                        </div>
+                                    </div>
                                 </div>
-
-                            </div>
-                        </div>
-                    </div>
-                }
-
-                @foreach (var product in Model.Products.Where(p => p.QuantityInStock <= 0))
-                {
-                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
-                        <!-- Стилізований блок товару для товарів без наявності -->
-                        <div style="opacity: 0.7;">
-                            <div class="product-block">
-                                <a href="/Products/GetProduct?id=@product.Id">
-                                    @if (product.ProductImages != null && product.ProductImages.Any())
+                    }
+                    @foreach (var product in Model.Products.Where(p => p.QuantityInStock <= 0))
+                    {
+                                <div class="col-xxl-4 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
+                                    <!-- Стилізований блок товару -->
+                                    <div class="mycard p-3 h-100 d-flex flex-column" style="opacity: 0.7; border: 6px solid #f5f5dc; border-radius: 10px; padding: 3px;">
+                                        <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                                            <div class="text-center">
+                                        @if (product.ProductImages != null && product.ProductImages.Any())
+                                        {
+                                                        <img src="data:image;base64,@Convert.ToBase64String(product.ProductImages!.FirstOrDefault()!.ImageData!)"
+                                                             class="img-fluid"
+                                                             style="max-height: 250px; width: auto; max-width: 100%; object-fit: contain;"
+                                                             onerror="this.onerror=null;"
+                                                             alt="Photo">
+                                        }
+                                        else
+                                        {
+                                                        <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                                        }
+                                            </div>
+                                        </a>
+                                        <div class="mt-2 flex-grow-1">
+                                            <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                                                <div class="fw-bold fs-4" style="max-height: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                            @product.ProductType?.Title @product.Brand?.Title @product.Title
+                                                </div>
+                                                <div style="max-height: 70px; overflow: hidden; text-overflow: ellipsis; white-space: normal;">@product.Description</div>
+                                            </a>
+                                        </div>
+                                        <div class="d-flex align-items-center mt-2">
+                                            <div class="fst-italic">Немає в наявності</div>
+                                    @if (product.IsInFavorites)
                                     {
-                                        var firstImage = product.ProductImages.FirstOrDefault();
-                                        <img src="data:image;base64,@Convert.ToBase64String(firstImage.ImageData)"
-                                             class="img-fluid"
-                                             alt="Product Image"
-                                             style="max-height: 155px; width: auto; max-width: 100%;"
-                                             onerror="this.onerror=null; this.src='/photoproducts/no-image.jpg';" />
+                                                    <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = product.Id })" class="btn btn-outline-purple">
+                                                        <i class="bi bi-heart-fill"></i>
+                                                    </a>
                                     }
                                     else
                                     {
-                                        <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
+                                                    <a href="javascript:void(0)" class="btn btn-outline-purple add-to-favorites" data-product-id="@product.Id">
+                                                        <i class="bi bi-heart"></i>
+                                                    </a>
                                     }
-                                </a>
-                            </div>
-
-                            <div class="mt-2">
-                                <div class="product-title">@product.ProductType.Title @product.Brand.Title @product.Title</div>
-                                <div class="product-description">Немає в наявності</div>
-                            </div>
-                        </div>
+                                        </div>
+                                    </div>
+                                </div>                        
+                    }
                     </div>
-                }
-            </div>
+
+                </div>           
         }
 
-    </div>
+    </div> 
+    @* <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sortOrder = "@ViewData["SortOrder"]";
+            document.getElementById("sortDropdown").value = sortOrder;
+        });
+    </script> *@
+    <script>
+        // Сохранение выбранной вкладки
+        document.querySelectorAll('[data-bs-toggle="pill"]').forEach(button => {
+            button.addEventListener('click', () => {
+                localStorage.setItem('activeTab', button.id);
+            });
+        });
+
+        // Установка активной вкладки при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            const activeTab = localStorage.getItem('activeTab');
+            if (activeTab) {
+                const tabButton = document.getElementById(activeTab);
+                if (tabButton) {
+                    new bootstrap.Tab(tabButton).show();
+                }
+            }
+        });
+    </script>
+    <script>        
+        document.addEventListener('DOMContentLoaded', function () {
+            const smallTabButton = document.getElementById('pills-small-tab');
+            const largeTabButton = document.getElementById('pills-large-tab');
+            const smallTabContent = document.getElementById('pills-small');
+            const largeTabContent = document.getElementById('pills-large');
+
+            smallTabButton.addEventListener('click', function () {
+                smallTabContent.classList.add('show', 'active');
+                largeTabContent.classList.remove('show', 'active');
+                smallTabContent.classList.remove('d-none'); // Показываем вкладку маленьких карточек
+                largeTabContent.classList.add('d-none');    // Скрываем вкладку больших карточек
+            });
+
+            largeTabButton.addEventListener('click', function () {
+                largeTabContent.classList.add('show', 'active');
+                smallTabContent.classList.remove('show', 'active');
+                largeTabContent.classList.remove('d-none'); // Показываем вкладку больших карточек
+                smallTabContent.classList.add('d-none');    // Скрываем вкладку маленьких карточек
+            });
+
+            // Инициализация для начального состояния
+            if (smallTabButton.classList.contains('active')) {
+                smallTabContent.classList.remove('d-none');
+                largeTabContent.classList.add('d-none');
+            } else {
+                smallTabContent.classList.add('d-none');
+                largeTabContent.classList.remove('d-none');
+            }
+        });
+    </script>
 </div>
 

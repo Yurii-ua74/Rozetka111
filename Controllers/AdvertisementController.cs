@@ -212,6 +212,9 @@ namespace Rozetka.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAdvertisement(ProductAdvertisementVM model)
         {
+            // Отримуємо поточного користувача
+            var user = await _userManager.GetUserAsync(User);
+
             if (ModelState.IsValid)
             {
                 var random = new Random(); // генератор випадкових чисел
@@ -258,7 +261,8 @@ namespace Rozetka.Controllers
                     ProductTypeId = model.ProductTypeId,
                     ProductColorId = model.ProductColorId,
                     BrandId = model.BrandId,
-                    QuantityInStock = random.Next(1, 20) 
+                    QuantityInStock = random.Next(1, 20),
+                    SellerId = user!.Id
                 };
 
                 // Додаємо продукт до бази даних

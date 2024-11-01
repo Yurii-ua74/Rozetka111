@@ -27,8 +27,8 @@ namespace Rozetka.Data.Entity
         public ICollection<Review>? Reviews { get; set; }
         public int SubChildCategoryId { get; set; }
         public SubChildCategory? SubChildCategory { get; set; }
-       
 
+        public string? SellerId { get; set; }
 
         [NotMapped]
         public bool IsInFavorites { get; set; } // Булево поле для отслеживания состояния избранного
