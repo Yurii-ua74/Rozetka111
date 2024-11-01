@@ -592,13 +592,15 @@ namespace Rozetka.Controllers
             {
                 await _roleManager.CreateAsync(new IdentityRole("Seller"));
             }
-
+            // додаємо користувача до ролі
             var addRoleResult = await _userManager.AddToRoleAsync(user, "Seller");
             if (!addRoleResult.Succeeded)
             {
                 TempData["ErrorMessage"] = "Не вдала спроба. Спробуйте пізніше ще раз.";
                 return RedirectToAction("Index", "Home");
             }
+            // Оновлення автентифікації, щоб роль була доступна без повторного входу
+            await _signInManager.RefreshSignInAsync(user);
 
             TempData["SuccessMessage"] = "Вітаю! Ви стали продавцем. Тепер можете додати свої товари.";
             return RedirectToAction("Index", "Home");
