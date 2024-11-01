@@ -354,18 +354,6 @@ namespace Rozetka.Controllers
         }
 
 
-        //public IActionResult Profile()  // для передачі повідомлень в тост вікно
-        //{
-        //    // Передаємо дані з TempData до представлення
-        //    // TempData автоматично зберігає дані для наступного запиту, як у вашому випадку після редиректу.
-        //    ViewBag.SuccessMessage = TempData["SuccessMessage"];
-        //    ViewBag.ErrorMessage = TempData["ErrorMessage"];
-
-        //    // Повертаємо представлення Profile.cshtml
-        //    return View();
-        //}
-
-
         // /////////  метод для зміни Email  ///////// //
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -576,13 +564,15 @@ namespace Rozetka.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new { message = "Неправильні дані." });
+                TempData["ErrorMessage"] = "Дані не вірні.";
+                return RedirectToAction("Index", "Home");
             }
 
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Такого користувача не знайдено.";
+                return RedirectToAction("Index", "Home");
             }
 
             // Оновлюємо ім'я користувача (UserName) на введену назву продавця
@@ -592,7 +582,8 @@ namespace Rozetka.Controllers
 
             if (!updateResult.Succeeded)
             {
-                return StatusCode(500, new { message = "Не вдалося оновити користувача." });
+                TempData["ErrorMessage"] = "Не вдалося оновити користувача.";
+                return RedirectToAction("Index", "Home");
             }
 
             // Додаємо роль "Seller" користувачу
@@ -605,10 +596,12 @@ namespace Rozetka.Controllers
             var addRoleResult = await _userManager.AddToRoleAsync(user, "Seller");
             if (!addRoleResult.Succeeded)
             {
-                return StatusCode(500, new { message = "Не вдалося додати роль продавця." });
+                TempData["ErrorMessage"] = "Не вдала спроба. Спробуйте пізніше ще раз.";
+                return RedirectToAction("Index", "Home");
             }
 
-            return Ok(new { message = "Ви стали продавцем!" });
+            TempData["SuccessMessage"] = "Вітаю! Ви стали продавцем. Тепер можете додати свої товари.";
+            return RedirectToAction("Index", "Home");
         }
 
         // ///// викликається із сторінки редагування даних кнопкою ///// //
