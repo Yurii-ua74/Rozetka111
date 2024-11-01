@@ -152,7 +152,7 @@ namespace Rozetka.Controllers
                     int changes = _context.SaveChanges(); // Зберегти зміни в базі даних
                     if (changes > 0)
                     {
-                        TempData["SuccessMessage"] = "Товар і зображення успішно додано!";
+                        TempData["SuccessMessage"] = "Товар і зображення успішно видалено!";
                         return RedirectToAction("Index"); // Повернути успішний статус
                     }
                 }

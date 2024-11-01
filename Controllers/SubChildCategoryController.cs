@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Rozetka.Data;
 using Rozetka.Data.Entity;
+using Rozetka.Models.ViewModels.Products;
 
 namespace Rozetka.Controllers
 {
@@ -165,8 +166,19 @@ namespace Rozetka.Controllers
             {
                 TempData["ErrorMessage"] = "В цьому розділі ще немає товарів!";
                 return RedirectToAction("AllCategoriesList", "SubChildCategory");
-                //return BadRequest("Не знайдено такої SubChildCategory");
-                //return NotFound();
+                
+            }
+
+            // Знайти підкатегорію за ID
+            var subChildCategory = await _context.SubChildCategories
+                .Include(scc => scc.Childcategory)
+                    .ThenInclude(cc => cc.Category)
+                .FirstOrDefaultAsync(scc => scc.Id == subchildcategoryId);
+
+            if (subChildCategory == null)
+            {
+                TempData["ErrorMessage"] = "В цьому розділі ще немає товарів!";
+                return RedirectToAction("AllCategoriesList", "SubChildCategory");
             }
 
             // Знайти товари за назвою SubChildCategory
@@ -188,7 +200,16 @@ namespace Rozetka.Controllers
                 return RedirectToAction("AllCategoriesList", "SubChildCategory");
             }
 
-            return View(products);
+            // Створюємо модель, яка міститиме продукти та інформацію для Breadcrumbs навігації
+            var viewModel = new ProductsViewModel
+            {
+                Products = products,
+                Category = subChildCategory.Childcategory.Category.Name,
+                ChildCategory = subChildCategory.Childcategory.Name,
+                SubChildCategory = subChildCategory.Name
+            };
+
+            return View(viewModel);
 
         }
 
