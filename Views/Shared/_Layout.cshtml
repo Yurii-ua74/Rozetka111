@@ -626,20 +626,21 @@
                             </li>
                         }
                         <li><a href="@Url.Action("OpenPickupPoint", "Info")" " class="text-muted">Відкрити пункт видачі</a></li>
+                        <li><a href="@Url.Action("OfferWarehouse", "Info")" " class="text-muted">Запропонувати приміщення</a></li>
+                        <li><a href="@Url.Action("DeliverOrders", "Info")" " class="text-muted">Доставляти замовлення</a></li>
                        
-                        <li><a href="#" class="text-muted">Запропонувати приміщення</a></li>
-                        <li><a href="#" class="text-muted">Доставляти замовлення</a></li>
+                        
                     </ul>
                 </div>
                 
                 <div class="col-lg-2 col-md-3">
                     <h5>Допомога</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-muted">Доставка та оплата</a></li>
-                        <li><a href="#" class="text-muted">Кредит</a></li>
-                        <li><a href="#" class="text-muted">Гарантія</a></li>
-                        <li><a href="#" class="text-muted">Повернення товару</a></li>
-                    </ul>
+                            @*<li><a href="#" class="text-muted">Доставка та оплата</a></li>*@
+                        <li><a href="@Url.Action("CreditPage", "Info")" " class="text-muted">Кредит</a></li>
+                        <li><a href="@Url.Action("GuaranteePage", "Info")" " class="text-muted">Гарантія</a></li>
+                        <li><a href="@Url.Action("RefundPage", "Info")" " class="text-muted">Повернення товару</a></li>
+                      
                 </div>
                 
                 <div class="col-lg-2 col-md-3">
