@@ -527,51 +527,41 @@
                     </a>
                 </div>
 
-                <div class="col-2 ms-3 mb-5  pb-5">
-                    <a type="button" href="" class="nav-link text-black btn-lg"
-                       data-bs-toggle="modal"
-                       data-bs-target="#authModal">                       
-                        <i class="bi bi-person fs-1"></i>                        
-                    </a>
-                    @* @if (Context.User.Identity?.IsAuthenticated ?? false)
-                    {                                            
-                        
-                        <a class="list-none nav-link text-black btn-lg position-relative btn-lg"
-                           asp-area="" asp-controller="Purchase" asp-action="Index"
-                           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
-                            <div class="text-center">
-                                <i class="bi bi-card-list fs-4 fs-md-3 fs-sm-3"></i>                               
-                            </div>
-                        </a>
 
-                        <a class="nav-link text-black position-relative btn-lg"
-                           asp-area="" asp-controller="Favorites" asp-action="Index"
-                           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Обране">
-                            <div class="text-center">
-                                <i class="bi bi-heart fs-4 fs-md-3 fs-sm-3"></i>                                
-                            </div>
-                            @await Component.InvokeAsync("FavoritesCount") <!-- Вызов ViewComponent для количества избранных -->
-                        </a>
+                <div class="col-2 ms-3 mb-5  pb-5">
+                    @if (Context.User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <div class="d-flex justify-content-start align-items-center">
+                             <a class="nav-link text-black position-relative btn-lg"
+                                asp-area="" asp-controller="Purchase" asp-action="Index"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Покупки">
+                                 <div class="text-center">
+                                     <i class="bi bi-card-list fs-4 fs-md-3 fs-sm-3"></i>                               
+                                 </div>
+                             </a>
+                             
+                             <a class="nav-link text-black position-relative btn-lg"
+                                asp-area="" asp-controller="Favorites" asp-action="Index"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Обране">
+                                 <div class="text-center">
+                                     <i class="bi bi-heart fs-4 fs-md-3 fs-sm-3"></i>                                
+                                 </div>
+                                 @await Component.InvokeAsync("FavoritesCount") <!-- Вызов ViewComponent для количества избранных -->
+                             </a> 
+                        </div>
                     }
                     else
                     {
-                        
                         <!-- ВХІД РЕЄСТРАЦІЯ -->
                         <a type="button" href="" class="nav-link text-black btn-lg"
                            data-bs-toggle="modal"
                            data-bs-target="#authModal">
-                            <div class="text-center">
-                                <i class="bi bi-person fs-4 fs-md-3 fs-sm-3"></i>                                
-                            </div>
+                            <i class="bi bi-person fs-1"></i>
                         </a>
-                    } *@
+                    } 
 
                 </div>
-                 @* <div class="col-2">
-                    <a href="#favorites" class="text-dark">
-                        
-                    </a>
-                </div>  *@
+                 
             </div>
         </div>
     </div>
