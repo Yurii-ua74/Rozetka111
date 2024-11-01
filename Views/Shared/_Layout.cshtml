@@ -1485,7 +1485,7 @@
 
     @if (TempData["ErrorMessage"] != null)
     {
-        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" id="errorToast" data-bs-autohide="false" data-bs-delay="5000">
+        @* <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" id="errorToast" data-bs-autohide="false" data-bs-delay="5000">
             <div class="toast-error-header">
                 <strong class="ms-3">Помилка</strong>
                 <button type="button" class="btn-close ms-5" data-bs-dismiss="toast" aria-label="Закрити"></button>
@@ -1493,7 +1493,16 @@
             <div class="toast-body">
                 @TempData["ErrorMessage"]
             </div>
-        </div>
+        </div> *@
+        <div class="toast align-items-center text-bg-primary border-1" style="background-color: darkorchid; border-radius: 10px; color: white;" 
+            role="alert" id="errorToast" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @TempData["ErrorMessage"]
+                </div>
+               @*  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button> *@
+            </div>
+        </div>       
     }
 </div>
 
