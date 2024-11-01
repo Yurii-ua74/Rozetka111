@@ -9,5 +9,7 @@ namespace Rozetka.Controllers
         public IActionResult AboutUs() { return View(); }
 
         public IActionResult Vacantions() { return View(); }
+
+        public IActionResult FastBuyChange() { return View(); }
     }
 }

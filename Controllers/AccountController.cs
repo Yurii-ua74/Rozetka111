@@ -160,28 +160,34 @@ namespace Rozetka.Controllers
 
         // POST: Account/Logout
         [HttpPost]
-        [ValidateAntiForgeryToken]   // захищений від CSRF атак
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             Console.WriteLine("Logout called");
-            //await _signInManager.SignOutAsync();
+
             await _signInManager.SignOutAsync();
-            HttpContext.Session.Clear(); // Очистка сесії
-            // Очистка кукі
+            HttpContext.Session.Clear(); // Очистка сессии
+
+            // Очистка cookies
             var authProperties = new AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(-1),
                 IsPersistent = false
             };
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme, authProperties);
-            // Вернемся на предыдущую страницу
+
+            // Получаем URL предыдущей страницы
             string refererUrl = Request.Headers["Referer"].ToString();
-            if (!string.IsNullOrEmpty(refererUrl))
+
+            // Проверяем, что предыдущая страница - это BonusPage
+            if (!string.IsNullOrEmpty(refererUrl) && refererUrl.Contains("/Account/BonusPage"))
             {
-                return Redirect(refererUrl);
+                // Перенаправляем на главную страницу, если пользователь был на BonusPage
+                return RedirectToAction("Index", "Home");
             }
-            // Если заголовок Referer пустой, можно вернуться на главную или другую дефолтную страницу
-            return RedirectToAction("Index", "Home");
+
+            // Перенаправляем на предыдущую страницу, если она есть; иначе - на главную
+            return !string.IsNullOrEmpty(refererUrl) ? Redirect(refererUrl) : RedirectToAction("Index", "Home");
         }
 
 

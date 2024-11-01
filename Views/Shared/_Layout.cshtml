@@ -389,9 +389,39 @@
                             <a href="@Url.Action("BonusPage", "Account")">Бонусний рахунок</a>
                         </li>
                     }
+                    else
+                    {
+
+                        <li class="li-left-menu">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#authModal">
+                                Бонусний рахунок
+                            </a>
+                        </li>
+
+                      
+                    }
                     <li class="li-left-menu"><a href="@Url.Action("Index","Sertification")">Подарункові сертифікати</a></li>
-                    <li class="li-left-menu"><a href="@Url.Action("Test", "Home")">ШвидкоBuy обмін</a></li>
-                    <li class="li-left-menu"><a href="@Url.Action("Test", "Home")">Корпоративним клієнтам</a></li>
+                    <li class="li-left-menu"><a href="@Url.Action("FastBuyChange", "Info")">ШвидкоBuy обмін</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="li-left-menu">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#sellerModal">
+                                Корпоративним клієнтам
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                       
+                        <li class="li-left-menu">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#authModal">
+                                Корпоративним клієнтам
+                            </a>
+                        </li>
+                    }
+
+                        
+
                </ul>             
            </div>
            <hr>
