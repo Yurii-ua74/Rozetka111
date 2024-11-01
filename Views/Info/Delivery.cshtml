@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Delivery"] = "Delivery";
+}
+<h3>Доставка</h3>
+<br />
+<div class="row">
+    <div class="col-12 col-md-12" style="min-width: 320px; min-height: 150px;">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" style="border-radius: 15px;">
+                <div class="carousel-item">
+                    <img src="~/images_advertising/447355013.jpg" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/446107905.png" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/450027107.jpg" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+                <div class="carousel-item active">
+                    <img src="~/images_advertising/CetSummer.png" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/BlackFriday.png" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images_advertising/ForFPV.png" class="d-block w-100 slider-img" alt="..." style="border-radius: 15px;">
+                </div>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <h2 style="text-align: center; color: #000;">Способи доставки</h2>
+    <br />
+
+    <!-- Доставка кур'єром -->
+    <div class="delivery-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/courier_icon.png" alt="Доставка кур'єром" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Доставка кур'єром</h4>
+            <p style="color: gray;">Доставка товарів по місту нашим кур'єром до дверей. Зручно і швидко, можливість вибору часу доставки.</p>
+        </div>
+    </div>
+
+    <!-- Доставка до відділення пошти -->
+    <div class="delivery-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/post_office_icon.png" alt="Відділення пошти" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Доставка до відділення пошти</h4>
+            <p style="color: gray;">Отримання товарів у найближчому відділенні "Нова Пошта", "Укрпошта", або іншого кур'єрського сервісу.</p>
+        </div>
+    </div>
+
+    <!-- Самовивіз із магазину -->
+    <div class="delivery-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/pickup_icon.png" alt="Самовивіз" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Самовивіз із магазину</h4>
+            <p style="color: gray;">Ви можете забрати замовлення самостійно в одному з наших магазинів без додаткової оплати.</p>
+        </div>
+    </div>
+
+    <!-- Доставка на вихідних -->
+    <div class="delivery-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/weekend_delivery_icon.png" alt="Доставка на вихідних" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Доставка на вихідних</h4>
+            <p style="color: gray;">Ми пропонуємо доставку у вихідні дні для вашої зручності.</p>
+        </div>
+    </div>
+
+    <!-- Експрес-доставка -->
+    <div class="delivery-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/express_delivery_icon.png" alt="Експрес-доставка" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Експрес-доставка</h4>
+            <p style="color: gray;">Термінова доставка для тих, хто цінує свій час. Можливість отримати товар вже сьогодні.</p>
+        </div>
+    </div>
+
+    <!-- Міжнародна доставка -->
+    <div class="delivery-method" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="~/images/international_delivery_icon.png" alt="Міжнародна доставка" style="width: 50px; height: 50px; margin-right: 20px;">
+        <div>
+            <h4 style="color: #9C12FF; margin: 0;">Міжнародна доставка</h4>
+            <p style="color: gray;">Доставка товарів за кордон через міжнародні поштові сервіси.</p>
+        </div>
+    </div>
+</div>
+<br />

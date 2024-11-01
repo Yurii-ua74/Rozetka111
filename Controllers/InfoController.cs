@@ -13,5 +13,9 @@ namespace Rozetka.Controllers
         public IActionResult FastBuyChange() { return View(); }
 
         public IActionResult QuestionsAndAnswers() { return View(); }
+        public IActionResult Legalinformation() { return View(); }
+        public IActionResult Paymentmethods() { return View(); }
+        public IActionResult Delivery() { return View(); }
+        public IActionResult OpenPickupPoint() { return View(); }
     }
 }
