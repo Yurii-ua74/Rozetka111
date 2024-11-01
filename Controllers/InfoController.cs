@@ -11,5 +11,7 @@ namespace Rozetka.Controllers
         public IActionResult Vacantions() { return View(); }
 
         public IActionResult FastBuyChange() { return View(); }
+
+        public IActionResult QuestionsAndAnswers() { return View(); }
     }
 }
