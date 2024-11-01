@@ -35,6 +35,9 @@ namespace Rozetka.Data.Entity
 
         [NotMapped]
         public decimal? ActionPrice { get; set; }
+
+        [NotMapped]
+        public bool IsInSeller { get; set; } 
     }
 
 }

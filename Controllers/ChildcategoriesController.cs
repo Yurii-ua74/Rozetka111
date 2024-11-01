@@ -223,6 +223,30 @@ namespace Rozetka.Controllers
                 .Include(p => p.Reviews)
                 .AsQueryable();
 
+            //для определения продавца
+            var productIds = productsQuery.Select(p => p.Id).ToList();
+            var advertisedProductIds = await _context.MyAdvertisements
+                .Where(a => productIds.Contains(a.ProductId))
+                .Select(a => a.ProductId)
+                .Distinct()
+                .ToListAsync();
+            foreach (var product in productsQuery)
+            {
+                product.IsInSeller = advertisedProductIds.Contains(product.Id);
+            }
+
+            // Подготовка фильтров и модели представления
+            viewModel.FilterTypes = productsQuery.Where(p => p.ProductType != null).Select(p => p.ProductType!.Title).Distinct().ToList();
+            viewModel.FilterBrands = productsQuery.Where(p => p.Brand != null).Select(p => p.Brand!.Title).Distinct().ToList();
+
+            // Применение фильтра по продавцу
+            string? buyersJson = HttpContext.Session.GetString("SelectedBuyers");
+            if (!string.IsNullOrEmpty(buyersJson))
+            {
+                viewModel.IsFilterBuyers = true;
+                string[] selectedBuyers = JsonSerializer.Deserialize<string[]>(buyersJson);               
+            }
+
             // Применение фильтра по типу продукта
             string? typesJson = HttpContext.Session.GetString("SelectedTypes");
             if (!string.IsNullOrEmpty(typesJson))
@@ -230,6 +254,7 @@ namespace Rozetka.Controllers
                 viewModel.IsFilterTypes = true;
                 string[] selectedTypes = JsonSerializer.Deserialize<string[]>(typesJson);
                 productsQuery = productsQuery.Where(p => selectedTypes!.Contains(p.ProductType!.Title));
+                viewModel.SelectedTypes = productsQuery.Where(p => p.ProductType != null).Select(p => p.ProductType!.Title).Distinct().ToList();
             }
 
             // Применение фильтра по бренду
@@ -239,6 +264,7 @@ namespace Rozetka.Controllers
                 viewModel.IsFilterBrands = true;
                 string[] selectedBrands = JsonSerializer.Deserialize<string[]>(brandsJson);
                 productsQuery = productsQuery.Where(p => selectedBrands!.Contains(p.Brand!.Title));
+                viewModel.SelectedBrands = productsQuery.Where(p => p.Brand != null).Select(p => p.Brand!.Title).Distinct().ToList();
             }
 
             // Применение фильтра по цене
@@ -305,14 +331,15 @@ namespace Rozetka.Controllers
                 }
             }
 
-            // Подготовка фильтров и модели представления
+            // Добавление товаров в модель представления
             viewModel.Products = products;
             viewModel.Category = products.Select(p => p.Category).FirstOrDefault();
             viewModel.ChildCategory = childcategoryEntity;
-            viewModel.FilterTypes = products.Where(p => p.ProductType != null).Select(p => p.ProductType!.Title).Distinct().ToList();
-            viewModel.FilterBrands = products.Where(p => p.Brand != null).Select(p => p.Brand!.Title).Distinct().ToList();
-            viewModel.StartPrace = products.Min(p => p.Price);
-            viewModel.EndPrace = products.Max(p => p.Price);
+            // Выполняем запрос к базе данных и приводим к списку для выполнения на клиентской стороне
+            var prices = products.Select(p => p.Price).ToList();
+            // Находим минимальное значение на клиентской стороне с DefaultIfEmpty
+            viewModel.StartPrice = prices.Any() ? (int)prices.Min() : 0;
+            viewModel.EndPrice = prices.Any() ? (int)prices.Max() : 0;
 
             return View(viewModel);
         }
@@ -320,14 +347,58 @@ namespace Rozetka.Controllers
         [HttpPost]
         public IActionResult FilterByBuyer(string[] selectedbuyers)
         {
+            // Извлекаем JSON-строку из сессии и десериализуем её в массив строк
+            var selectedBuyersJson = HttpContext.Session.GetString("SelectedBuyers");
+            var Buyer = selectedBuyersJson != null
+                         ? JsonSerializer.Deserialize<List<string>>(selectedBuyersJson)
+                         : new List<string>();
 
+            // Очищаем список типов и добавляем выбранные в текущем запросе
+            Buyer.Clear();
+            if (selectedbuyers != null && selectedbuyers.Length > 0)
+            {
+                Buyer.AddRange(selectedbuyers);
+            }
+            else
+            {
+                return RedirectToAction(nameof(ClearSelectedBuyers));
+            }
+
+            // Сериализуем массив в JSON-строку
+            string typesJson = JsonSerializer.Serialize(selectedbuyers);
+
+            // Сохраняем JSON-строку в сессии
+            HttpContext.Session.SetString("SelectedBuyers", typesJson);
 
             return RedirectToAction(nameof(GetProducts));
         }
+        public IActionResult ClearSelectedBuyers()
+        {
+            // Удаляем сохраненные данные выбранных брендов из сессии
+            HttpContext.Session.Remove("SelectedBuyers");
 
+            return RedirectToAction(nameof(GetProducts));
+        }
         [HttpPost]
         public IActionResult FilterByType(string[] selectedTypes)
-        {
+        {   
+            // Извлекаем JSON-строку из сессии и десериализуем её в массив строк
+            var selectedTypesJson = HttpContext.Session.GetString("SelectedTypes");
+            var Types = selectedTypesJson != null
+                         ? JsonSerializer.Deserialize<List<string>>(selectedTypesJson)
+                         : new List<string>();
+
+            // Очищаем список типов и добавляем выбранные в текущем запросе
+            Types.Clear();
+            if (selectedTypes != null && selectedTypes.Length > 0)
+            {
+                Types.AddRange(selectedTypes);
+            }
+            else
+            {
+                return RedirectToAction(nameof(ClearSelectedTypes));
+            }
+
             // Сериализуем массив в JSON-строку
             string typesJson = JsonSerializer.Serialize(selectedTypes);
 
@@ -346,9 +417,24 @@ namespace Rozetka.Controllers
         [HttpPost]
         public IActionResult FilterByBrand(string[] selectedBrands)
         {
+            // Извлекаем JSON-строку из сессии и десериализуем её в массив строк
+            var selectedBrandsJson = HttpContext.Session.GetString("SelectedBrands");
+            var Brands = selectedBrandsJson != null
+                         ? JsonSerializer.Deserialize<List<string>>(selectedBrandsJson)
+                         : new List<string>();
+            
+            // Очищаем список брендов и добавляем выбранные в текущем запросе
+            Brands.Clear();
+            if (selectedBrands != null && selectedBrands.Length > 0)
+            {
+                Brands.AddRange(selectedBrands);
+            }
+            else {
+                return RedirectToAction(nameof(ClearSelectedBrands));
+            }
 
             // Сериализуем массив в JSON-строку
-            string brandsJson = JsonSerializer.Serialize(selectedBrands);
+            string brandsJson = JsonSerializer.Serialize(Brands);
 
             // Сохраняем JSON-строку в сессии
             HttpContext.Session.SetString("SelectedBrands", brandsJson);
@@ -379,66 +465,5 @@ namespace Rozetka.Controllers
 
             return RedirectToAction(nameof(GetProducts));
         }
-
-
-
-        [HttpPost]
-        public IActionResult GetProductsByFilter(List<int> subChildCategoryIds, decimal? minPrice, decimal? maxPrice)
-        {           
-            // Отримуємо Name ChildCategory з сессії
-            var childcategory = HttpContext.Session.GetString("ChildCategory");
-            var childcategoryId = HttpContext.Session.GetInt32("ChildCategoryId");
-
-            // Отримуємо всі продукти відповідної підкатегорії
-            var products = _context.Products
-                .Where(p => p.SubChildCategory.ChildCategoryId == childcategoryId)
-                .AsQueryable();
-
-            // Перевіряємо, чи є обрані підкатегорії та чи задано діапазон цін
-            bool hasSelectedSubCategories = subChildCategoryIds != null && subChildCategoryIds.Any();
-            bool hasMinPrice = minPrice.HasValue;
-            bool hasMaxPrice = maxPrice.HasValue;
-
-            if (!hasSelectedSubCategories && (!hasMinPrice || !hasMaxPrice))
-            {                                
-                // Передаємо змінну у View, щоб визначити, чи були застосовані фільтри
-                ViewBag.FiltersApplied = hasSelectedSubCategories || hasMinPrice || hasMaxPrice;
-                return new EmptyResult();
-            }
-            else
-            {
-                // Фільтруємо продукти за субкатегоріями
-                if (hasSelectedSubCategories)
-                {
-                    products = products.Where(p => subChildCategoryIds.Contains(p.SubChildCategoryId));
-                }
-
-                // Фільтруємо продукти за ціною
-                if (hasMinPrice)
-                {
-                    products = products.Where(p => p.Price >= minPrice.Value);
-                }
-
-                if (hasMaxPrice)
-                {
-                    products = products.Where(p => p.Price <= maxPrice.Value);
-                }
-            }
-
-            // Підключаємо необхідні пов'язані дані
-            var filteredProducts = products
-                .Include(p => p.ProductType)
-                .Include(p => p.Brand)
-                .Include(p => p.ProductImages)
-                .Include(p => p.Reviews)
-                .ToList();
-
-            // Повертаємо часткове представлення з відфільтрованими продуктами
-            return PartialView("_ProductsPartial", filteredProducts);
-        }
-
-
     }
-
-
 }
