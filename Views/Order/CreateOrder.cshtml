@@ -257,59 +257,59 @@
     </script>
 
     <!--  для валидации и активации кнопкм -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const fields = {
-            firstName: document.getElementById('firstName'),
-            phone: document.getElementById('phone'),
-            otherFirstName: document.getElementById('otherFirstName'),
-            otherPhone: document.getElementById('otherPhone'),
-            city: document.getElementById('city'),
-            postOffice: document.getElementById('postOffice'),
-            lastName: document.getElementById('lastNameС'),
-            email: document.getElementById('emailС'),
-            otherLastName: document.getElementById('otherLastName')
-        };
-        const submitButton = document.getElementById('OrderCompleteButton');
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fields = {
+                firstName: document.getElementById('firstName'),
+                phone: document.getElementById('phone'),
+                otherFirstName: document.getElementById('otherFirstName'),
+                otherPhone: document.getElementById('otherPhone'),
+                city: document.getElementById('city'),
+                postOffice: document.getElementById('postOffice'),
+                lastName: document.getElementById('lastNameС'),
+                email: document.getElementById('emailС'),
+                otherLastName: document.getElementById('otherLastName')
+            };
+            const submitButton = document.getElementById('OrderCompleteButton');
 
-        function isFieldValid(field) {
-            if (field.disabled) return true; // Игнорируем отключенные поля
-            const value = field.value.trim();
+            function isFieldValid(field) {
+                if (field.disabled) return true; // Игнорируем отключенные поля
+                const value = field.value.trim();
 
-            // Проверяем по ID поля
-            switch (field.id) {
-                case 'firstName':
-                case 'lastNameС':
-                case 'otherFirstName':
-                case 'otherLastName':
-                case 'city':
-                    return value.length >= 2;
-                case 'phone':
-                case 'otherPhone':
-                    return /^\d{10}$/.test(value);
-                case 'emailС':
+                // Проверяем по ID поля
+                switch (field.id) {
+                    case 'firstName':
+                    case 'lastNameС':
+                    case 'otherFirstName':
+                    case 'otherLastName':
+                    case 'city':
+                        return value.length >= 2;
+                    case 'phone':
+                    case 'otherPhone':
+                        return /^\d{10}$/.test(value);
+                    case 'emailС':
                         return /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/.test(value);
-                case 'postOffice':
-                    return /^\d{1,3}$/.test(value) && Number(value) >= 1 && Number(value) <= 999;
-                default:
-                    return true;
+                    case 'postOffice':
+                        return /^\d{1,3}$/.test(value) && Number(value) >= 1 && Number(value) <= 999;
+                    default:
+                        return true;
+                }
             }
-        }
 
-        function validateForm() {
-            // Активируем кнопку только если все активные поля валидны
-            submitButton.disabled = !Object.values(fields).every(isFieldValid);
-        }
+            function validateForm() {
+                // Активируем кнопку только если все активные поля валидны
+                submitButton.disabled = !Object.values(fields).every(isFieldValid);
+            }
 
-        // Добавляем обработчик ко всем полям
-        Object.values(fields).forEach(field => {
-            field.addEventListener('input', validateForm);
-            field.addEventListener('change', validateForm); // для учёта переключений
+            // Добавляем обработчик ко всем полям
+            Object.values(fields).forEach(field => {
+                field.addEventListener('input', validateForm);
+                field.addEventListener('change', validateForm); // для учёта переключений
+            });
+
+            // Начальная проверка состояния кнопки
+            validateForm();
         });
+    </script>
 
-        // Начальная проверка состояния кнопки
-        validateForm();
-    });
-</script>
 
-    
