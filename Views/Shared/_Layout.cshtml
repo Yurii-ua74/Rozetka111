@@ -8,9 +8,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    @* <title>@ViewData["Title"] - Rozetka</title> *@
-    <title>Rozetka - @ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+    <title> @ViewData["Title"]</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Rozetka.styles.css" asp-append-version="true" />
@@ -237,7 +237,7 @@
              </div>
             <hr style="border: 2px solid #e3d3d3;">
 
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity!.IsAuthenticated)
             {
                 <!-- Якщо користувач авторизований, показуємо блок з іконкою чоловічка та nik користувача -->
                 <div class="d-flex align-items-center" style="font-size: 24px;">
@@ -642,7 +642,6 @@
                         <li><a href="@Url.Action("CreditPage", "Info")" " class="text-muted">Кредит</a></li>
                         <li><a href="@Url.Action("GuaranteePage", "Info")" " class="text-muted">Гарантія</a></li>
                         <li><a href="@Url.Action("RefundPage", "Info")" " class="text-muted">Повернення товару</a></li>
-                        <li><a href="@Url.Action("Presentation", "Info")" " class="text-muted">Презентацiя</a></li>
                       
                 </div>
                 
@@ -1229,7 +1228,7 @@
 
 <!-- Верхня випадаюча панель -->
 <div class="offcanvas offcanvas-top " tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-    <div class="offcanvas-header" style="color: FFFFFF;">
+    <div class="offcanvas-header" style="color: #FFFFFF;">
         <h5 class="offcanvas-title" id="offcanvasTopLabel">Каталог товарів</h5>       
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>        
     </div>
