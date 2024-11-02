@@ -11,6 +11,7 @@ using Rozetka.Migrations;
 using Rozetka.Models.ReviewModel;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using System.Linq;
 
 
 namespace Rozetka.Controllers
@@ -273,6 +274,19 @@ namespace Rozetka.Controllers
             if (model.Product == null)
             {
                 return NotFound();
+            }
+
+            if (model.Product.SellerId == null)
+            {
+                model.SellerName = "ШвидкоBUY";
+            }
+            else {               
+                // Получаем email пользователя по его Id
+                string? userEmail = await _context.Users
+                    .Where(u => u.Id == model.Product.SellerId)
+                    .Select(u => u.Email)
+                    .FirstOrDefaultAsync();
+                model.SellerName = userEmail;
             }
 
             // Получаем ID пользователя и проверяем наличие в избранном
