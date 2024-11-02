@@ -17,6 +17,38 @@ html, body {
     padding-top: 110px; /*  відступ відповідно до висоти вашого хедера */
 }
 
+ /* ///// для прогресс бару ///// */
+.bar_progress {
+    z-index: 2550;
+    height: 4px;
+    background-color: #f0f0f0; /* Колір фону контейнера */
+    overflow: hidden; /* Запобігає виходу бігунка за межі контейнера */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Ширина контейнера */
+    display: none; /* Сховати за замовчуванням */
+}
+
+/* Стилі для бігунка прогресс бару */
+.progress-bar {
+    width: 100%; /* Зменшена ширина бігунка до чверті контейнера */
+    height: 100%; /* Висота бігунка заповнює весь контейнер */
+    background-color: #9C12FF; /* Колір бігунка */
+    animation: progressMove 2s linear infinite; /* Анімація для руху */
+}
+
+/* Анімація для плавного руху зліва направо */
+@keyframes progressMove {
+    0% {
+        transform: translateX(-100%); /* Початок за межами контейнера зліва */
+    }
+
+    100% {
+        transform: translateX(100%); /* Кінець за межами контейнера справа */
+    }
+}
+
 /* Определение стиля для кнопки с классом btn-purple */
 .btn-purple {
     background-color: #9C12FF; /* Цвет фона фиолетовый */
@@ -531,7 +563,7 @@ a:hover{
 
     .ms-negetive {
         margin-left: 0;        
-        padding-left: 1px;                                  /* //////////////////////////////// */
+        padding-left: 1px;                                  
         padding-right: 1px;
         font-size: 12px;        
         border-radius: 5px;
@@ -712,97 +744,99 @@ a:hover{
     }
 
     /*<-- випадаюче верхнє вікно КАТАЛОГ-->*/
-    .offcanvas-top {
-        width: calc(100% - 350px); /* ширина з кожного боку */
+.offcanvas-top {
+    width: calc(100% - 350px); /* ширина з кожного боку */
+    margin-left: auto;
+    margin-right: auto;
+    height: auto; /* висотa панелі */
+    max-height: 80vh; /* Максимум висоти екрану */
+    top: 100px; /* Зміщення на висоту хедера */
+    border-radius: 10px;
+}
+
+.offcanvas-backdrop { /*Кастомне затінення для offcanvas */
+    position: fixed;
+    top: 100px; /* Висота хедера */
+    width: 100%;
+    height: calc(100vh - 100px); /* Покриває всю сторінку, крім хедера*/
+    background-color: rgba(0, 0, 0, 0.5); /*Напівпрозоре чорне тіло */
+    z-index: 1040; /*Нижче хедера, але вище контенту сторінки */
+}
+
+.offcanvas-top { /* Відступ для верхнього випадаючого вікна */
+    top: 100px; /* Рівно під хедером */
+}
+
+.font-sz {
+    font-weight: 1000;
+}
+
+/* Вирівнювання іконок */
+.category-title-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.category-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* прибрати з лінка підкреслення */
+    width: 100%;
+}
+
+    .category-link .bi-chevron-right {
         margin-left: auto;
-        margin-right: auto;
-        height: auto; /* висотa панелі */
-        max-height: 80vh; /* Максимум висоти екрану */
-        top: 100px; /* Зміщення на висоту хедера */
-        border-radius: 10px;
+        margin-right: 5px;
     }
 
-    .offcanvas-backdrop { /* Кастомне затінення для offcanvas */
-        position: fixed;
-        top: 100px; /* Висота хедера */
-        width: 100%;
-        height: calc(100vh - 100px); /* Покриває всю сторінку, крім хедера */
-        background-color: rgba(0, 0, 0, 0.5); /* Напівпрозоре чорне тло */
-        z-index: 1040; /* Нижче хедера, але вище контенту сторінки */
+.catalog a, .category-link {
+    color: black; /* Чорний колір тексту та іконок */
+}
+
+    .catalog a:hover, .category-link:hover {
+        color: #9c12ff; /* Фіолетовий колір при наведенні */
     }
 
-    .offcanvas-top { /* Відступ для верхнього випадаючого вікна */
-        top: 100px; /* Рівно під хедером */
-    }
+/*виведення підкатегорій та субпідкатегорій*/
+#subcategory-container {
+    display: none; /* Спочатку приховуємо контейнер */
+}
 
-    .font-sz {
-        font-weight: 1000;
-    }
+.category-link:hover + #subcategory-container {
+    display: block; /* Відображаємо при наведенні */
+}
 
-    /* Вирівнювання іконок */
-    .category-title-wrapper {
-        display: flex;
-        align-items: center;
-    }
+.child-category {
+    font-weight: bold;
+}
 
-    .category-link {
-        display: flex;
-        align-items: center;
-        text-decoration: none; /* прибрати з лінка підкреслення */
-        width: 100%;
-    }
+.subchild-category {
+    margin-left: 20px; /* Робимо відступ для субпідкатегорій */
+}
 
-        .category-link .bi-chevron-right {
-            margin-left: auto;
-            margin-right: 5px;
-        }
-
-    .catalog a, .category-link {
-        color: black; /* Чорний колір тексту та іконок */
-    }
-
-        .catalog a:hover, .category-link:hover {
-            color: #9c12ff; /* Фіолетовий колір при наведенні */
-        }
-
-    /*виведення підкатегорій та субпідкатегорій*/
-    #subcategory-container {
-        display: none; /* Спочатку приховуємо контейнер */
-    }
-
-    .category-link:hover + #subcategory-container {
-        display: block; /* Відображаємо при наведенні */
-    }
-
-    .child-category {
-        font-weight: bold;
-    }
-
-    .subchild-category {
-        margin-left: 20px; /* Робимо відступ для субпідкатегорій */
-    }
-
-    /*<--  права частина каталогу  -->*/
-    .text-block {
-        width: 100%;
-        max-width: 1200px; /* Максимальна ширина блоку */
-        height: auto; /* Висота блоку */
-        column-count: 3; /* Максимум три колонки */
-        column-gap: 20px; /* Відступи між колонками */
-        padding: 20px;
-        overflow: hidden; /* Приховати текст, який виходить за межі блоку */
-        /*border: 1px solid #ccc;*/ /* Додаємо рамку для стилізації */
-        box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
-    }
+/*<--  права частина каталогу  -->*/
+.text-block {
+    width: 100%;
+    max-width: 1200px; /* Максимальна ширина блоку */
+    height: auto; /* Висота блоку */
+    column-count: 3; /* Максимум три колонки */
+    column-gap: 20px; /* Відступи між колонками */
+    padding: 20px;
+    overflow: hidden; /* Приховати текст, який виходить за межі блоку */
+    /*border: 1px solid #ccc;*/ /* Додаємо рамку для стилізації */
+    box-sizing: border-box; /* Включаємо padding і border у розрахунок ширини/висоти */
+}
 
     .text-block p {
         margin: 0;
     }
-    @media (max-width: 768px) {
-        .offcanvas.offcanvas-top {       
-            width: 100vw; /* Повна ширина */
-        }
+
+@media (max-width: 768px) {
+    .offcanvas.offcanvas-top {
+        width: 100vw; /* Повна ширина */
     }
+}
+
 
 
     /* нижній банер на головній сторінці */    
@@ -1445,12 +1479,14 @@ a:hover{
 
 
     /* -- тост вікна -- */
-    .toast-style {
-        position: fixed;
-        top: 250px;
-        right: 250px;
-        z-index: 2550;
-    }
+.toast-style {
+    position: fixed;
+    top: 250px;
+    right: 250px;
+    z-index: 2550;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
 @media (max-width: 768px) {
     .toast-style {
         top: 25px;
@@ -1461,15 +1497,15 @@ a:hover{
     /* -- стилі для тост вікон -- */
     .toast {
         /* Збільшення розміру тостового вікна */
-        width: 300px; /* Задайте бажану ширину */
-        font-size: 16px; /* Збільште шрифт для тіла */
+        width: 300px; 
+        font-size: 16px; /* шрифт для тіла */
     }
 
     .toast-header {
         /* Задання кольору для успіху */
         background-color: #28a745; /* Зелений для успіху */
         color: white; /* Білий текст */
-        font-size: 18px; /* Збільште шрифт заголовка */
+        font-size: 18px; /* шрифт заголовка */
     }
 
     .toast-error-header {
@@ -1480,10 +1516,10 @@ a:hover{
 
     /*  колір для тіла тосту */
     .toast-body {
-        font-size: 16px; /* Збільште шрифт тіла */
+        font-size: 16px; /* шрифт тіла */
     }
 
-    /* ??? */
+    /* ... */
     .empty-cart-message2 {
         display: none; /* Скрываем элемент по умолчанию */
     }

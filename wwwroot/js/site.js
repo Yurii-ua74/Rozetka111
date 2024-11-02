@@ -27,6 +27,7 @@ $(document).ready(function () {
 
 
 
+
 /*  для виводу карти  */
 function getLocationFromSession() {
     // запит на сервер для отримання локації з сесії
@@ -205,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-/* ///// для заповнення списків на сторінці Подати оголошення - метод GetAdvertisement///// */
+/* ///// для заповнення списків на сторінці Подати оголошення - метод GetAdvertisement ///// */
 $(document).ready(function () {
     $('#category-select').change(function () {
         var categoryId = $(this).val();
@@ -394,5 +395,24 @@ document.addEventListener("DOMContentLoaded", function () {
         var errorToast = new bootstrap.Toast(errorToastElement);
         errorToast.show();  // Показати тост помилки
     }
+});
+
+
+// ///// Функція для показу прогрес-бару ///// //
+// Показати прогрес-бар
+function showProgressBar() {
+    document.getElementById('progressBar').style.display = 'block';
+}
+// Сховати прогрес-бар
+function hideProgressBar() {
+    document.getElementById('progressBar').style.display = 'none';
+}
+// Показати прогрес-бар при переході на нову сторінку
+window.addEventListener('beforeunload', function () {
+    showProgressBar();
+});
+// Сховати прогрес-бар після завантаження сторінки
+window.addEventListener('load', function () {
+    hideProgressBar();
 });
 
