@@ -22,5 +22,6 @@ namespace Rozetka.Controllers
         public IActionResult CreditPage() { return View(); }
         public IActionResult GuaranteePage() { return View(); }
         public IActionResult RefundPage() { return View(); }
+        public IActionResult Presentation() { return View(); }
     }
 }
