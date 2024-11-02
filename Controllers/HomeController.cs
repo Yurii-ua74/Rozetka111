@@ -111,7 +111,7 @@ namespace Rozetka.Controllers
                     .Take(6)
                     .ToList();
 
-                // 3. Получаем 6 случайных товаров для акций
+                // 3. Выбираем только акционные товары, у которых акции активны                
                 model.GetProductsActions = products
                     .Where(p => p.ActionPrice.HasValue) // Берем только продукты с акциями
                     .OrderBy(p => Guid.NewGuid())
