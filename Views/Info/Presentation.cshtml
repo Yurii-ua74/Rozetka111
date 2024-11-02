@@ -1,0 +1,159 @@
+﻿@{
+    ViewData["Presentation"] = "Presentation";
+}
+
+
+<div class="container">
+
+
+    <!-- Блок со стрелками и слайдером -->
+    <div class="navigation" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <button id="prevBtn" onclick="showPrevious()" disabled class="btn btn-purple" style="font-size: 24px;">&lt;</button>
+
+        <span id="blockTitle" style="font-size: 48px; color: #9C12FF; text-align: center; width: 100%;">Название блока</span>
+
+        <button id="nextBtn" onclick="showNext()" class="btn btn-purple" style="font-size: 24px;">&gt;</button>
+    </div>
+
+    <!-- Блок слайдера для пакетов -->
+    <div id="packagesContainer" class="packages-list" style="margin-top: 20px; overflow: hidden;">
+       
+        <!-- Первая часть списка пакетов -->
+        <div class="packages-slide">
+            
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 style="color: #9C12FF; margin: 0;">
+                    <img src="~/images/AutoMapper.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    AutoMapper (v13.0.1)
+                </h3>
+                <p style="color: gray;">Бібліотека для автоматичного відображення даних між об’єктами різних типів. Зручна для спрощення коду, особливо в проєктах з великою кількістю DTO-об’єктів.</p>
+            </div>
+
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 style="color: #9C12FF; margin: 0;">
+                    <img src="~/images/MailKit.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    MailKit (v4.8.0)
+                </h3>
+                <p style="color: gray;">Бібліотека для роботи з електронною поштою. Дозволяє надсилати й отримувати листи через SMTP, POP3, IMAP.</p>
+            </div>
+
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 style="color: #9C12FF; margin: 0;">
+                    <img src="~/images/GoogleLogin.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    Microsoft.AspNetCore.Authentication.Facebook (v8.0.10)
+                </h3>
+                <p style="color: gray;">Пакет для автентифікації користувачів через Facebook у додатках ASP.NET Core.</p>
+            </div>
+
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 style="color: #9C12FF; margin: 0;">
+                    <img src="~/images/GoogleLogin.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    Microsoft.AspNetCore.Authentication.Google (v8.0.10)
+                </h3>
+                <p style="color: gray;">Бібліотека для автентифікації через Google-акаунт.</p>
+            </div>
+
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 style="color: #9C12FF; margin: 0;">
+                    <img src="~/images/GoogleLogin.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    Microsoft.AspNetCore.Identity.EntityFrameworkCore (v8.0.10)
+                </h3>
+                <p style="color: gray;">Пакет для керування користувачами та автентифікацією через Entity Framework Core.</p>
+            </div>
+        </div>
+
+        <!-- Вторая часть списка пакетов -->
+        <div class="packages-slide" style="display: none;">
+          
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 style="color: #9C12FF; margin: 0;">
+                    <img src="~/images/GoogleLogin.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    Microsoft.AspNetCore.Mvc.NewtonsoftJson (v8.0.10)
+                </h3>
+                <p style="color: gray;">Підтримка роботи з JSON у форматі Newtonsoft.Json у проєктах ASP.NET Core MVC.</p>
+            </div>
+
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 style="color: #9C12FF; margin: 0;">
+                    <img src="~/images/GoogleLogin.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    Microsoft.EntityFrameworkCore (v8.0.10)
+                </h3>
+                <p style="color: gray;">Основний пакет ORM для роботи з базами даних через .NET об'єкти.</p>
+            </div>
+
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 style="color: #9C12FF; margin: 0;">
+                    <img src="~/images/GoogleLogin.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    Microsoft.EntityFrameworkCore.SqlServer (v8.0.10)
+                </h3>
+                <p style="color: gray;">Постачальник SQL Server для Entity Framework Core.</p>
+            </div>
+
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 style="color: #9C12FF; margin: 0;">
+                    <img src="~/images/Jsonpng.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    Newtonsoft.Json (v13.0.3)
+                </h3>
+                <p style="color: gray;">Бібліотека для серіалізації та десеріалізації JSON-даних у .NET.</p>
+            </div>
+
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 style="color: #9C12FF; margin: 0;">
+                    <img src="~/images/Pomelo.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    Pomelo.EntityFrameworkCore.MySql (v8.0.2)
+                </h3>
+                <p style="color: gray;">Постачальник MySQL для Entity Framework Core, що підтримує MySQL та MariaDB.</p>
+            </div>
+        </div>
+
+        <!-- Третья часть списка пакетов -->
+        <div class="packages-slide" style="display: none;">
+          
+            <br />
+            <img src="~/images/DB.jpg" alt="" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+        </div>
+
+<script>
+            let currentIndex = 0;
+            const slides = document.querySelectorAll('.packages-slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const titles = [
+                "NuGet-пакети та фреймворки",
+                "NuGet-пакети та фреймворки",
+                "Структура бази данних"
+            ];
+
+            function updateButtons() {
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === slides.length - 1;
+            }
+
+            function updateBlockTitle() {
+                document.getElementById('blockTitle').textContent = titles[currentIndex];
+            }
+
+            function showSlide(index) {
+                slides[currentIndex].style.display = 'none'; // Скрыть текущий слайд
+                currentIndex = index; // Обновить индекс текущего слайда
+                slides[currentIndex].style.display = 'block'; // Показать новый слайд
+                updateButtons(); // Обновить состояние кнопок
+                updateBlockTitle(); // Обновить заголовок
+            }
+
+            function showPrevious() {
+                if (currentIndex > 0) {
+                    showSlide(currentIndex - 1); // Показать предыдущий слайд
+                }
+            }
+
+            function showNext() {
+                if (currentIndex < slides.length - 1) {
+                    showSlide(currentIndex + 1); // Показать следующий слайд
+                }
+            }
+
+            // Инициализация
+            showSlide(currentIndex);
+</script>
+
