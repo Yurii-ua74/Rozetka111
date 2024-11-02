@@ -324,25 +324,27 @@
                                     <img src="/photoproducts/no-image.jpg" class="img-fluid" alt="Photo" />
                                 }
                             </div>
+                        </a>
                             <div class="mt-2">
                                 <a class="link-product" href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
                                     <div class="product-title">@product.ProductType?.Title @product.Brand?.Title @product.Title</div>
                                     <div class="product-description">@product.Description</div>
                                 </a>
-                                <div class="d-flex align-items-center mt-2">
-                                    @if (product.ActionPrice == null)
-                                    {
-                                        <div class="product-price">@product.Price ₴</div>
-                                    }
-                                    else
-                                    {
-                                        <div class="text-decoration-line-through fs-6 fw-light">@product.Price</div>
-                                        <div class="product-price-red p-1">@product.ActionPrice?.ToString("0") ₴</div>
-                                    }
-                                </div>
-
+                                <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
+                                    <div class="d-flex align-items-center mt-2">
+                                        @if (product.ActionPrice == null)
+                                        {
+                                            <div class="product-price">@product.Price ₴</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="text-decoration-line-through fs-6 fw-light">@product.Price</div>
+                                            <div class="product-price-red p-1">@product.ActionPrice?.ToString("0") ₴</div>
+                                        }
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                        
                     </div>
                 </div>
             }

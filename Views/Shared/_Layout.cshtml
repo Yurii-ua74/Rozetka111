@@ -237,7 +237,7 @@
              </div>
             <hr style="border: 2px solid #e3d3d3;">
 
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity!.IsAuthenticated)
             {
                 <!-- Якщо користувач авторизований, показуємо блок з іконкою чоловічка та nik користувача -->
                 <div class="d-flex align-items-center" style="font-size: 24px;">
@@ -1228,7 +1228,7 @@
 
 <!-- Верхня випадаюча панель -->
 <div class="offcanvas offcanvas-top " tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-    <div class="offcanvas-header" style="color: FFFFFF;">
+    <div class="offcanvas-header" style="color: #FFFFFF;">
         <h5 class="offcanvas-title" id="offcanvasTopLabel">Каталог товарів</h5>       
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>        
     </div>
