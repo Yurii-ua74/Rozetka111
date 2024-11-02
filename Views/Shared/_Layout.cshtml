@@ -178,7 +178,7 @@
 
                     @if (Context.User.Identity?.IsAuthenticated ?? false)
                     {
-                        @if (User.IsInRole("Admin") || User.IsInRole("ADMIN"))
+                        @if (User.IsInRole("Admin"))
                         {
                             @* <!-- АДМІНКА --> *@
                             <a class="nav-link text-black btn-lg admin-non"
