@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Rozetka.Data;
 using Rozetka.Data.Entity;
 using System.Security.Claims;
@@ -27,7 +28,16 @@ namespace Rozetka.Controllers
 
                 if (userId == null)
                 {
-                    return RedirectToAction("Login", "Account"); // Перенаправляем на страницу авторизации, если пользователь не авторизован
+                    ShoppingList shopping = new ShoppingList();
+                    var shoppingSession = HttpContext.Session.GetString("ShoppingList");
+                    shopping = string.IsNullOrEmpty(shoppingSession) ? new ShoppingList() : JsonConvert.DeserializeObject<ShoppingList>(shoppingSession);
+
+                    // Помещаем `ShoppingList` в коллекцию
+                    var shoppingListCollection = new List<ShoppingList> { shopping };
+
+                    // Передаем коллекцию в представление
+                    return View(shoppingListCollection);
+                    //return RedirectToAction("Login", "Account"); // Перенаправляем на страницу авторизации, если пользователь не авторизован
                 }
 
                 // Загружаем список покупок для текущего пользователя

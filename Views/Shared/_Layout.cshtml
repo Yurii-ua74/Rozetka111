@@ -496,7 +496,7 @@
     </div>
     @* // ///////////////////////////////////////////////////// // *@
     @* основний контент сторінки, що буде динамічно вставлений в шаблон за допомогою @RenderBody(). *@
-    <div class="container-fluid slider-container">
+    <div class="container-fluid slider-container" style="padding-left:180px; padding-right:180px;">
         
         <main role="main" class="pb-3">
             @RenderBody()
@@ -643,7 +643,7 @@
                         <li><a href="@Url.Action("GuaranteePage", "Info")"  class="text-muted">Гарантія</a></li>
                         <li><a href="@Url.Action("RefundPage", "Info")"  class="text-muted">Повернення товару</a></li>
                         <li><a href="@Url.Action("Presentation", "Info")"  class="text-muted">Презентацiя</a></li>
-                      
+                    </ul>
                 </div>
                 
                 <div class="col-lg-2 col-md-3">
