@@ -49,7 +49,7 @@
 
 <h1 class="display-5 f-st">@Model.ChildCategory!.Name</h1>
 
-<div class="sticky-top">
+<div class="container sticky-top">
     <div class="row" style="justify-content: space-evenly">
         <div class="col-7">
             <ul class="list-group list-group-horizontal p-1">
@@ -139,7 +139,8 @@
         </div>
     </div>         
 </div>
-<br />
+
+
 <div class="row">
     <div class="col-sm-3 text-start border-end border-2" style="min-width: 300px">
         @if (Model.Products.Any())
@@ -310,7 +311,7 @@
                     <div class="row mb-3 tab-pane fade show active" id="pills-small" role="tabpanel" aria-labelledby="pills-small-tab" tabindex="0">
                     @foreach (var product in Model.Products.Where(p => p.QuantityInStock > 0))
                     {
-                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-8 col-sm-10 col-12 mb-3">
+                                <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
                                     <!-- Стилізований блок товару -->
                                     <div class="mycard" style="border: 3px solid #f5f5dc; border-radius: 10px; padding: 3px;">
                                         <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
@@ -370,7 +371,8 @@
 
                     @foreach (var product in Model.Products.Where(p => p.QuantityInStock <= 0))
                     {
-                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
+                       
+                                <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
                                     <!-- Стилізований блок товару для товарів без наявності -->
                                     <div style="opacity: 0.7;">
                                         <div class="product-block">
@@ -403,7 +405,7 @@
                     <div class="row mb-1 tab-pane fade" id="pills-large" role="tabpanel" aria-labelledby="pills-large-tab" tabindex="0">
                     @foreach (var product in Model.Products.Where(p => p.QuantityInStock > 0))
                     {
-                                <div class="col-xxl-4 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
+                                <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
                                     <!-- Стилізований блок товару -->
                                     <div class="mycard p-3 h-100 d-flex flex-column" style="border: 6px solid #f5f5dc; border-radius: 10px; padding: 3px;">
                                         <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
@@ -461,7 +463,8 @@
                     }
                     @foreach (var product in Model.Products.Where(p => p.QuantityInStock <= 0))
                     {
-                                <div class="col-xxl-4 col-xl-6 col-lg-8 col-md-10 col-sm-12 mb-3">
+                       
+                                <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
                                     <!-- Стилізований блок товару -->
                                     <div class="mycard p-3 h-100 d-flex flex-column" style="opacity: 0.7; border: 6px solid #f5f5dc; border-radius: 10px; padding: 3px;">
                                         <a href="@Url.Action("GetProduct", "Products", new { id = product.Id })">
