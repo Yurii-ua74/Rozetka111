@@ -571,6 +571,12 @@ a:hover{
    
 }
 
+    /* бейджик селлера */
+    @media (min-wsdth: 1654) {      /* //////////////////////////////////////// */
+        .seller-none {
+            display: block;        
+        }
+    }
     /* іконка адмін панелі */
     @media (max-width: 1654px) {
         .admin-non {
@@ -578,7 +584,7 @@ a:hover{
         }
     }
     /* іконка список покупок */
-    @media (max-width: 965px) {
+    @media (max-width: 1654px) {
         .list-none {
             display: none;
         }
@@ -1562,9 +1568,9 @@ a:hover{
         text-decoration: none !important;        
     }
 
-        .shop-menu-container a:hover {
-            color: #9C12FF !important;           
-        }
+    .shop-menu-container a:hover {
+        color: #9C12FF !important;           
+    }
 
     .li-left-menu {
         font-size: 22px !important; /* Размер текста */
@@ -1577,8 +1583,19 @@ a:hover{
         transition: color 0.3s ease; /* Плавное изменение цвета при наведении */
     }
 
-        .li-left-menu:hover {
-            color: #9C12FF; /* Изменение цвета текста при наведении */
-            background-color: transparent; /* Убирает фон при наведении */
-        }
+    .li-left-menu:hover {
+        color: #9C12FF; /* Изменение цвета текста при наведении */
+        background-color: transparent; /* Убирает фон при наведении */
+    }
+
+@media (max-width: 768px) {
+    .quick-find-button {
+        font-size: 1.25rem; /* Збільшити розмір тексту */
+        padding: 0.75rem 1.25rem; /* Налаштувати відступи */
+    }
+
+    .quick-find-button .bi {
+        font-size: 1.5rem; /* Збільшити розмір іконки */
+    }
+}
 

@@ -40,8 +40,8 @@ namespace Rozetka.Models.ViewModels.Products
         public int ChildcategoryId { get; set; }
         public int SubChildCategoryId { get; set; }
 
-      
 
+        public List<Brand>? Brands { get; set; }
         public List<ProductType>? ProductTypes { get; set; } // Список типів продукту
         public List<ProductColor>? ProductColors { get; set; } 
         public List<Category>? Categories { get; set; }

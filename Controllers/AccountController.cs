@@ -163,7 +163,10 @@ namespace Rozetka.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            Console.WriteLine("Logout called");
+            //Console.WriteLine("Logout called");
+
+            // Видаляємо значення з ключем "ProfileImage" із сесії
+            //HttpContext.Session.Remove("ProfileImage");
 
             await _signInManager.SignOutAsync();
             HttpContext.Session.Clear(); // Очистка сессии
@@ -181,6 +184,11 @@ namespace Rozetka.Controllers
 
             // Проверяем, что предыдущая страница - это BonusPage
             if (!string.IsNullOrEmpty(refererUrl) && refererUrl.Contains("/Account/BonusPage"))
+            {
+                // Перенаправляем на главную страницу, если пользователь был на BonusPage
+                return RedirectToAction("Index", "Home");
+            }
+            if (!string.IsNullOrEmpty(refererUrl) && refererUrl.Contains("/Account/Edit"))
             {
                 // Перенаправляем на главную страницу, если пользователь был на BonusPage
                 return RedirectToAction("Index", "Home");
@@ -307,6 +315,9 @@ namespace Rozetka.Controllers
         // /////  сторінка редагування даних користувача  ///// //
         public async Task<IActionResult> Edit()
         {
+            var profileImage = HttpContext.Session.GetString("ProfileImage") ?? Url.Content("~/images/no_avatar.png");
+            ViewData["ProfileImage"] = profileImage;
+          
             // Отримуємо ім'я користувача
             var userName = User.Identity.Name;
 
@@ -321,16 +332,37 @@ namespace Rozetka.Controllers
             if (user == null)
             {
                 TempData["Message"] = "користувача не знайдено!";
-                return RedirectToAction("Edit"); // або на іншу сторінку
+                return RedirectToAction("Index", "Home"); 
                 //return NotFound(); // Якщо користувача немає в базі даних, повертаємо 404
             }  
 
-            // Передаємо дані користувача до вьюшки
+            // Передаємо дані користувача до в`юшки
             return View(user);
+        }
+
+        // ///// збереження зображення аватара ///// //
+        [HttpPost]
+        public IActionResult SaveImageToSession([FromBody] ImageModel model)
+        {
+            if (model?.Image != null)
+            {
+                // Зберігаємо зображення в сесії
+                HttpContext.Session.SetString("ProfileImage", model.Image);
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
+    
+
+        public class ImageModel
+        {
+            public string Image { get; set; }
         }
 
         public async Task<IActionResult> BonusPage()
         {
+            var profileImage = HttpContext.Session.GetString("ProfileImage") ?? Url.Content("~/images/no_avatar.png");
+            ViewData["ProfileImage"] = profileImage;
             // Отримуємо ім'я користувача
             var userName = User.Identity.Name;
 
@@ -607,24 +639,86 @@ namespace Rozetka.Controllers
         }
 
         // ///// викликається із сторінки редагування даних кнопкою ///// //
+        //[HttpPost]
+        //public async Task<IActionResult> UpdatePersonalData()
+        //{
+        //    // Отримуємо поточного користувача
+        //    var user = await _userManager.GetUserAsync(User);
+
+
+        //    if (user == null)
+        //    {
+        //        TempData["ErrorMessage"] = "Користувач не знайдений.";
+        //        return RedirectToAction("Index", "Home");  // Редірект на головну сторінку
+        //    }
+
+        //    TempData["SuccessMessage"] = "Вітаю! Ваша заявка на зміну даних успішно оформлена, після перевірки модератором дані будуть змінені";
+
+        //    //return RedirectToAction("Edit"); 
+        //    return RedirectToAction("Edit", "Account");
+        //}
+
+        // ///// для зміни даних користувача - сторінка коригування ///// //
         [HttpPost]
-        public async Task<IActionResult> UpdatePersonalData()
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdatePersonalData(UpdatePersonalDataModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "Введені не корректні дані.";
+                return RedirectToAction("Edit", "Account");  // Редірект на головну сторінку
+            }
+
             // Отримуємо поточного користувача
             var user = await _userManager.GetUserAsync(User);
-
-            
             if (user == null)
             {
                 TempData["ErrorMessage"] = "Користувач не знайдений.";
-                return RedirectToAction("Index", "Home");  // Редірект на головну сторінку
+                return RedirectToAction("Index", "Home");
             }
 
-            TempData["SuccessMessage"] = "Вітаю! Ваша заявка на зміну даних успішно оформлена, після перевірки модератором дані будуть змінені";
+            // Перевіряємо, чи змінилися значення
+            bool isUpdated = false;
 
-            //return RedirectToAction("Edit"); 
-            return RedirectToAction("Edit", "Account");
+            if (user.FirstName != model.FirstName)
+            {
+                user.FirstName = model.FirstName;
+                isUpdated = true;
+            }
+
+            if (user.LastName != model.LastName)
+            {
+                user.LastName = model.LastName;
+                isUpdated = true;
+            }
+
+            if (user.UserName != model.UserName)
+            {
+                user.UserName = model.UserName;
+                isUpdated = true;
+            }
+
+            // Оновлюємо дані, якщо є зміни
+            if (isUpdated)
+            {
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    // Повторний вхід після зміни імені користувача (якщо потрібно)
+                    await _signInManager.RefreshSignInAsync(user);
+                    TempData["SuccessMessage"] = "Ваша заявка на зміну даних виконана";
+                    return RedirectToAction("Edit", "Account");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(model);
         }
-    }
 
+    }
 }

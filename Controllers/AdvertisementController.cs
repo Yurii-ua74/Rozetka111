@@ -174,6 +174,8 @@ namespace Rozetka.Controllers
 
             var model = new ProductAdvertisementVM
             {         
+                ProductTypes = _context.ProductTypes.ToList(),
+                Brands = _context.Brands.ToList(),
                 ProductColors = _context.ProductColors.ToList(),
                 Categories = _context.Categories.ToList(),
                 Childcategories = _context.Childcategories.ToList(),

@@ -730,7 +730,8 @@
 
             <div class="flex-row-with-content ms-1">
                 <div class="profile-image-container-wrapper">
-                    <img id="profileImage" src="~/images/no_avatar.png" class="profile-image-container" />
+                    @* <img id="profileImage" src="~/images/no_avatar.png" class="profile-image-container" /> *@
+                    <img id="profileImage" src="@ViewData["ProfileImage"]" class="profile-image-container" />
                     <div class="status-indicator"></div> <!-- Зелена крапка -->
                 </div>
                 <div class="contact-info-container4" data-toggle="modal" data-target="#bonusAccountModal">

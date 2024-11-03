@@ -732,7 +732,8 @@
 
             <div class="flex-row-with-content ms-1">
                 <div class="profile-image-container-wrapper">
-                    <img id="profileImage" src="~/images/no_avatar.png" class="profile-image-container" />
+                    @* <img id="profileImage" src="~/images/no_avatar.png" class="profile-image-container" /> *@
+                    <img id="profileImage" src="@ViewData["ProfileImage"]" class="profile-image-container" />
                     <div class="status-indicator"></div> <!-- Зелена крапка -->
                 </div>
                 <div class="contact-info-container4" data-toggle="modal" data-target="#bonusAccountModal">
@@ -810,7 +811,7 @@
                         </div>
                     </a>
                 </div>
-
+                
                 <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout">
                     <button type="submit" class="entr-btn opacity-75 d-flex align-items-center" id="auth-signout-button-nav"
                             style="transform: translateX(-40px); width: 350px;" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Вихід">
@@ -818,8 +819,9 @@
                             <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Vector_406" data-node-id="41:2846" fill-rule="evenodd" clip-rule="evenodd" d="M20.3751,2.8745c0.1915,0 0.3812,0.038 0.5581,0.111c0.1769,0.074 0.3377,0.181 0.4731,0.317c0.1354,0.135 0.2429,0.296 0.3161,0.473c0.0733,0.177 0.1111,0.366 0.1111,0.558c0,0.191 -0.0378,0.381 -0.1111,0.558c-0.0732,0.177 -0.1807,0.338 -0.3161,0.473c-0.1354,0.135 -0.2962,0.243 -0.4731,0.316c-0.1769,0.073 -0.3666,0.111 -0.5581,0.111h-13.125v18.958c0,0.387 0.1537,0.758 0.4272,1.032c0.2734,0.273 0.6444,0.427 1.0312,0.427h11.6666c0.3868,0 0.7577,0.153 1.0312,0.427c0.2735,0.273 0.4272,0.644 0.4272,1.031c0,0.387 -0.1537,0.758 -0.4272,1.031c-0.2735,0.274 -0.6444,0.427 -1.0312,0.427h-11.6666c-1.1604,0 -2.2732,-0.46 -3.0936,-1.281c-0.8205,-0.82 -1.2814,-1.933 -1.2814,-3.094v-20.416c0,-0.387 0.1536,-0.758 0.4271,-1.031c0.2735,-0.274 0.6444,-0.428 1.0312,-0.428zM22.8645,10.5935c-0.2039,-0.203 -0.4636,-0.342 -0.7463,-0.398c-0.2827,-0.057 -0.5757,-0.028 -0.8421,0.082c-0.2664,0.11 -0.4941,0.297 -0.6545,0.537c-0.1604,0.239 -0.2461,0.521 -0.2465,0.809v2.917h-8.75c-0.3868,0 -0.7577,0.153 -1.0312,0.427c-0.2735,0.273 -0.4271,0.644 -0.4271,1.031c0,0.387 0.1536,0.758 0.4271,1.031c0.2735,0.274 0.6444,0.427 1.0312,0.427h8.75v2.917c0.0001,0.288 0.0856,0.57 0.2459,0.81c0.1602,0.24 0.388,0.427 0.6544,0.537c0.2665,0.11 0.5596,0.139 0.8425,0.083c0.2828,-0.056 0.5426,-0.195 0.7466,-0.399l4.375,-4.375c0.2734,-0.273 0.427,-0.644 0.427,-1.031c0,-0.387 -0.1536,-0.758 -0.427,-1.031z" fill="currentColor" xmlns="http://www.w3.org/2000/svg" /></svg>
                         </div>
                         <div class="text-center w-100">
-                            <p class="it-ed m-0 fs-4" style="transform: translateX(-20px);">Вихiд</p>
+                            <i class="it-ed m-0 fs-4" style="transform: translateX(-20px);">Вихiд</i>
                         </div>
+
                         @* entr-btn btn-sz opacity-75 btn btn-outline-secondary mr-top *@    
                     </button>
                     @Html.AntiForgeryToken()               
@@ -839,7 +841,6 @@
                 <input type="range" class="form-range" min="0" max="10" value="0" id="customRange2">
             </div>
        
-
 
             @* вікно personal-data-window *@
             <div class="container personal-info-section2 moove-left-if-small-screens" id="personal-data-window">           
@@ -1379,7 +1380,9 @@
                // headerProfileImage.src = e.target.result;
                 // Оновлюємо зображення на сторінці редагування
                     profileImage.src = e.target.result;
-                
+
+                        // Відправляємо зображення на сервер для збереження у сесії
+                        saveImageToSession(e.target.result);
                 };
                 reader.readAsDataURL(file);
             } else {
@@ -1389,6 +1392,29 @@
             }
         }
     });
+
+        // Функція для відправлення зображення на сервер
+        function saveImageToSession(imageData) {
+            fetch('/Account/SaveImageToSession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ image: imageData })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Помилка при збереженні зображення у сесії');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Зображення успішно збережено у сесії');
+                })
+                .catch(error => {
+                    console.error('Помилка:', error);
+                });
+        }
 
 </script>
 }

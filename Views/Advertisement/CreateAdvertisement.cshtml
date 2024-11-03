@@ -43,18 +43,6 @@
         width: 100%;
     }
 
-     /* .small-input {
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #007bff; 
-        color: white;
-        border: none;
-        border-radius: 5px;
-    }  */
-
         .small-input i {
             font-size: 20px; 
         }
@@ -283,15 +271,11 @@
                  
                                      <div class="col-8">
                                           <div class="mb-3">
-                                                 @*   <span class="enter-reg-text">Назва</span>
-                                              <label for="name_product" class="form-label"></label>
-                                              <input type="text" class="enter-reg" id="name_product" name="NameProduct" minlength="2" maxlength="20" required>
-                                              <span class="text-danger" id="name_product_error"></span> *@
-                 
+                                                
                                                  <div class="form-group">
                                                      <span class="enter-reg-text">Назва товару</span>
                                                      <label for="name_product" class="form-label"></label>
-                                                     <input type="text" asp-for="Title" class="enter-reg" id="name_product" minlength="2" maxlength="20" required />
+                                                     <input type="text" asp-for="Title" class="enter-reg" id="name_product" minlength="2" maxlength="50" required />
                                                      <span asp-validation-for="Title" class="text-danger"></span>
                                                  </div>
                                           </div>
@@ -302,8 +286,12 @@
                                                <div class="form-group">
                                                    <span class="enter-reg-text">Тип товару</span>
                                                    <label for="type_product" class="form-label"></label>
-                                                   <input type="text" asp-for="ProductType" class="enter-reg" id="type_product"  minlength="2" maxlength="20" required />
-                                                   <span asp-validation-for="ProductType" class="text-danger" id="type_product_error"></span>
+                                                  @*  <input type="text" asp-for="ProductType" class="enter-reg" id="type_product"  minlength="2" maxlength="28" required /> *@
+                                                   <select asp-for="ProductTypeId" class="form-control" id="product_type" asp-items="@(new SelectList(Model.ProductTypes, "Id", "Title"))">
+                                                      <option value="">Оберіть тип товару</option>
+                                                   </select>
+                                                   <span asp-validation-for="ProductTypeId" class="text-danger" id="type_product_error"></span>
+                                              
                                                </div>
                                           </div>
                                      </div>
@@ -312,8 +300,11 @@
                                  <div class="mb-3">
                                      <span class="enter-reg-text">Бренд</span>
                                      <label for="brand_product" class="form-label"></label>
-                                      <input type="text" asp-for="Brand" class="enter-reg" id="brand_product"  minlength="2" maxlength="20" required>
-                                      <span asp-validation-for="Brand" class="text-danger" id="brand_product-error"></span>
+                                      @* <input type="text" asp-for="Brand" class="enter-reg" id="brand_product"  minlength="2" maxlength="30" required> *@
+                                     <select asp-for="BrandId" class="form-control" id="brand_product" asp-items="@(new SelectList(Model.Brands, "Id", "Title"))">
+                                        <option value="">Оберіть бренд</option>
+                                     </select>
+                                      <span asp-validation-for="BrandId" class="text-danger" id="brand_product-error"></span>
                                  </div>
                  
                                  <div class="mb-3">
