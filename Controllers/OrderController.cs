@@ -126,55 +126,100 @@ namespace Rozetka.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
             {
-                return BadRequest("Пользователь не авторизован.");
-            }
-
-            // Находим корзину пользователя
-            var cart = await _context.Carts
-                .Include(c => c.Items)
-                .ThenInclude(ci => ci.Product)
-                .FirstOrDefaultAsync(c => c.UserId == userId && c.IsActive); // Только активная корзина
-
-            if (cart == null)
-            {
-                return NotFound("Корзина не найдена или она уже была закрыта.");
-            }
-
-            // Проверяем наличие товаров на складе
-            foreach (var cartItem in cart.Items)
-            {
-                if (cartItem.Product!.QuantityInStock < cartItem.Count)
+                Cart? cart;
+                // Работа с сессионной корзиной для неавторизованного пользователя
+                var cartSession = HttpContext.Session.GetString("Cart");
+                if (string.IsNullOrEmpty(cartSession))
                 {
-                    return BadRequest($"Недостаточно товара на складе: {cartItem.Product.Title}");
+                    cart = new Cart();
                 }
+                else
+                {
+                    cart = JsonConvert.DeserializeObject<Cart>(cartSession);
+                }
+                // Проверяем наличие товаров на складе
+                foreach (var cartItem in cart.Items)
+                {
+                    if (cartItem.Product!.QuantityInStock < cartItem.Count)
+                    {
+                        return BadRequest($"Недостаточно товара на складе: {cartItem.Product.Title}");
+                    }
+                }
+                // Обновляем количество товаров на складе
+                foreach (var cartItem in cart.Items)
+                {
+                    cartItem.Product!.QuantityInStock -= cartItem.Count;
+                }
+                // Создаем новый список покупок
+                var shoppingList = new ShoppingList
+                {
+                    CartId = cart.Id,
+                    Cart = cart,
+                    DatePurchase = DateTime.Now,
+                    TotalPrice = (decimal)cart.TotalCartPrice                   
+                };
+                
+                // Сохраняем изменения в сессии для неавторизованного пользователя
+                var settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                                
+                HttpContext.Session.SetString("ShoppingList", JsonConvert.SerializeObject(shoppingList, settings));
+                HttpContext.Session.Remove("Cart");
+                
+                return RedirectToAction("SuccessOrder");
+                //return BadRequest("Пользователь не авторизован.");
             }
-
-            // Обновляем количество товаров на складе
-            foreach (var cartItem in cart.Items)
+            else
             {
-                cartItem.Product!.QuantityInStock -= cartItem.Count;
-            }
+                // Находим корзину пользователя
+                var cart = await _context.Carts
+                    .Include(c => c.Items)
+                    .ThenInclude(ci => ci.Product)
+                    .FirstOrDefaultAsync(c => c.UserId == userId && c.IsActive); // Только активная корзина
 
-            // Создаем новый список покупок
-            var shoppingList = new ShoppingList
-            {
-                CartId = cart.Id,
-                Cart = cart,
-                DatePurchase = DateTime.Now,
-                TotalPrice = (decimal)cart.TotalCartPrice,
-                UserId = userId
-            };
+                if (cart == null)
+                {
+                    return NotFound("Корзина не найдена или она уже была закрыта.");
+                }
 
-            // Добавляем список покупок в базу данных
-            _context.ShoppingList.Add(shoppingList);
+                // Проверяем наличие товаров на складе
+                foreach (var cartItem in cart.Items)
+                {
+                    if (cartItem.Product!.QuantityInStock < cartItem.Count)
+                    {
+                        return BadRequest($"Недостаточно товара на складе: {cartItem.Product.Title}");
+                    }
+                }
 
-            // Делаем корзину неактивной
-            cart.IsActive = false;
+                // Обновляем количество товаров на складе
+                foreach (var cartItem in cart.Items)
+                {
+                    cartItem.Product!.QuantityInStock -= cartItem.Count;
+                }
 
-            // Сохраняем изменения в базе данных
-            await _context.SaveChangesAsync();
+                // Создаем новый список покупок
+                var shoppingList = new ShoppingList
+                {
+                    CartId = cart.Id,
+                    Cart = cart,
+                    DatePurchase = DateTime.Now,
+                    TotalPrice = (decimal)cart.TotalCartPrice,
+                    UserId = userId
+                };
 
-            return RedirectToAction("SuccessOrder"); // Перенаправляем на страницу успешного оформления заказа
+                // Добавляем список покупок в базу данных
+                _context.ShoppingList.Add(shoppingList);
+
+                // Делаем корзину неактивной
+                cart.IsActive = false;
+
+                // Сохраняем изменения в базе данных
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("SuccessOrder"); // Перенаправляем на страницу успешного оформления заказа
+            }            
         }
     }
 }
