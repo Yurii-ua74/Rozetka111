@@ -158,7 +158,7 @@
                             <i class="bi bi-bell fs-4 fs-md-3 fs-sm-3"></i>
                             <p class="menu-link-text-style mb-0">Акції</p>
                         </div>                        
-                    </a>                                                                      @* /* ////////////////////////////////////////// */ *@
+                    </a>                                                                     
                     <!-- КОШИК -->
                     @*  Переходить на сторінку з кошиком (метод LoadCartModal в CartController) *@
                         <a type="button" href="#" class="nav-link text-black position-relative btn-lg"
@@ -415,16 +415,12 @@
                     }
                     else
                     {
-                       
                         <li class="li-left-menu">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#authModal">
                                 Корпоративним клієнтам
                             </a>
                         </li>
                     }
-
-                        
-
                </ul>             
            </div>
            <hr>
@@ -557,7 +553,7 @@
                     }
                     else
                     {
-                        <div class="d-flex justify-content-center align-items-center w-100">
+                        <div class="d-flex justify-content-center align-items-center w-100 gap-3">
                             <!-- ВХІД РЕЄСТРАЦІЯ -->
                             <a type="button" href="" class="nav-link text-black btn-lg"
                                data-bs-toggle="modal"
@@ -565,7 +561,7 @@
                                 <i class="bi bi-person fs-1"></i>
                             </a>
 
-                           <a asp-area="" asp-controller="Actions" asp-action="GetActions"
+                           <a asp-area="" asp-controller="Home" asp-action="Index"
                                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Акції">  
                                 <i class="bi bi-x-square fs-3 ms-2"></i>
                            </a>
