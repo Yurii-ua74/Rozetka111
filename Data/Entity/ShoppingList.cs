@@ -9,7 +9,7 @@
         public int CartId { get; set; } = default!;
         public Cart? Cart { get; set; } //public ICollection<Cart>? Cart { get; set; }
 
-        public string UserId { get; set; } = default!;
+        public string? UserId { get; set; }
         public User? User { get; set; }        
     }
 }
