@@ -252,8 +252,8 @@ a:hover{
 
 /*<-- Layout головна частина екрану -->*/
 .slider-container {
-    padding-left: 200px;
-    padding-right: 200px;
+    padding-left: 180px;
+    padding-right: 180px;
 }
 @media (max-width: 768px) {
     .slider-container {
