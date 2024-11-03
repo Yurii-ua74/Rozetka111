@@ -9,13 +9,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
-    <title>Rozetka @ViewData["Title"]</title>
+    <title> @ViewData["Title"]</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Rozetka.styles.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="icon" href="~/logo/hello_smile_icon.png" />
+    <link rel="icon" href="~/logo/logo-smail.png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -237,7 +237,7 @@
              </div>
             <hr style="border: 2px solid #e3d3d3;">
 
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity!.IsAuthenticated)
             {
                 <!-- Якщо користувач авторизований, показуємо блок з іконкою чоловічка та nik користувача -->
                 <div class="d-flex align-items-center" style="font-size: 24px;">
@@ -496,7 +496,12 @@
     </div>
     @* // ///////////////////////////////////////////////////// // *@
     @* основний контент сторінки, що буде динамічно вставлений в шаблон за допомогою @RenderBody(). *@
+<<<<<<< HEAD
     <div class="container-fluid slider-container">        
+=======
+    <div class="container-fluid slider-container" style="padding-left:180px; padding-right:180px;">
+        
+>>>>>>> 02651ba30708bdd067d43ffb983cfcb1e785d8c4
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -584,10 +589,10 @@
                 <div class="col-lg-2 offset-lg-1 col-md-3">
                     <h5>Покупцям</h5>
                     <ul class="list-unstyled">
-                        <li><a href="@Url.Action("QuestionsAndAnswers", "Info")" " class="text-muted">Запитання та відповіді</a></li>
-                        <li><a href="@Url.Action("Legalinformation", "Info")" " class="text-muted">Юридична інформація</a></li>
-                        <li><a href="@Url.Action("Paymentmethods", "Info")" " class="text-muted">Способи оплати</a></li>
-                        <li><a href="@Url.Action("Delivery", "Info")" " class="text-muted">Доставка</a></li>                     
+                        <li><a href="@Url.Action("QuestionsAndAnswers", "Info")"  class="text-muted">Запитання та відповіді</a></li>
+                        <li><a href="@Url.Action("Legalinformation", "Info")"  class="text-muted">Юридична інформація</a></li>
+                        <li><a href="@Url.Action("Paymentmethods", "Info")"  class="text-muted">Способи оплати</a></li>
+                        <li><a href="@Url.Action("Delivery", "Info")"  class="text-muted">Доставка</a></li>                     
                     </ul>
                     <div class="row mt-4">
                         <div class="col ">
@@ -635,9 +640,9 @@
                                 </a>
                             </li>
                         }
-                        <li><a href="@Url.Action("OpenPickupPoint", "Info")" " class="text-muted">Відкрити пункт видачі</a></li>
-                        <li><a href="@Url.Action("OfferWarehouse", "Info")" " class="text-muted">Запропонувати приміщення</a></li>
-                        <li><a href="@Url.Action("DeliverOrders", "Info")" " class="text-muted">Доставляти замовлення</a></li>
+                        <li><a href="@Url.Action("OpenPickupPoint", "Info")"  class="text-muted">Відкрити пункт видачі</a></li>
+                        <li><a href="@Url.Action("OfferWarehouse", "Info")"  class="text-muted">Запропонувати приміщення</a></li>
+                        <li><a href="@Url.Action("DeliverOrders", "Info")"  class="text-muted">Доставляти замовлення</a></li>
                        
                         
                     </ul>
@@ -647,10 +652,11 @@
                     <h5>Допомога</h5>
                     <ul class="list-unstyled">
                             @*<li><a href="#" class="text-muted">Доставка та оплата</a></li>*@
-                        <li><a href="@Url.Action("CreditPage", "Info")" " class="text-muted">Кредит</a></li>
-                        <li><a href="@Url.Action("GuaranteePage", "Info")" " class="text-muted">Гарантія</a></li>
-                        <li><a href="@Url.Action("RefundPage", "Info")" " class="text-muted">Повернення товару</a></li>
-                      
+                        <li><a href="@Url.Action("CreditPage", "Info")"  class="text-muted">Кредит</a></li>
+                        <li><a href="@Url.Action("GuaranteePage", "Info")"  class="text-muted">Гарантія</a></li>
+                        <li><a href="@Url.Action("RefundPage", "Info")"  class="text-muted">Повернення товару</a></li>
+                        <li><a href="@Url.Action("Presentation", "Info")"  class="text-muted">Презентацiя</a></li>
+                    </ul>
                 </div>
                 
                 <div class="col-lg-2 col-md-3">
@@ -1236,7 +1242,7 @@
 
 <!-- Верхня випадаюча панель -->
 <div class="offcanvas offcanvas-top " tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-    <div class="offcanvas-header" style="color: FFFFFF;">
+    <div class="offcanvas-header" style="color: #FFFFFF;">
         <h5 class="offcanvas-title" id="offcanvasTopLabel">Каталог товарів</h5>       
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>        
     </div>
