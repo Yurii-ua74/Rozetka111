@@ -164,15 +164,29 @@
                     <div class="product-price-red p-1 fs-3 fw-bold">@Model.Product.ActionPrice?.ToString("0") ₴</div>
                 </div>
             }
-            <div class="col">
-                <button class="btn btn-purple btn-add-to-cart btn-lg w-100" href="#" onclick="updateCart(@Model.Product.Id, 'AddToCart')">Додати до кошика</button>
-            </div>
+            @if (Model.Product.QuantityInStock > 0)
+            {
+                <div class="col">
+                    <button class="btn btn-purple btn-add-to-cart btn-lg w-100" href="#" onclick="updateCart(@Model.Product.Id, 'AddToCart')">Додати до кошика</button>
+                </div>
+            }
+            else
+            {
+                <div class="col">
+                    <span class="fs-4 fst-italic">Товару немає в наявності</span>
+                </div>
+            }
+            
             <div class="col col-lg-1">
                 @if (Model.Product.IsInFavorites) // Проверяем, находится ли товар в избранном
                 {
-                    <!-- Кнопка удаления из избранного -->
+                    @* <!-- Кнопка удаления из избранного -->
                     <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = Model.Product.Id })" class="btn btn-purple btn-outline-purple btn-lg">
                         <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
+                    </a> *@
+                    <!-- Кнопка удаления из избранного  Тест ajax -->
+                    <a href="javascript:void(0)" class="btn btn-outline-purple delete-from-favorites btn-lg" data-product-id="@Model.Product.Id">
+                        <i class="bi bi-heart-fill"></i>
                     </a>
                 }
                 else

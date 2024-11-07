@@ -41,9 +41,13 @@
                         </button>
                         @if (item.Product.IsInFavorites) // Проверяем, находится ли товар в избранном
                         {
-                            <!-- Кнопка удаления из избранного -->
+                            @* <!-- Кнопка удаления из избранного -->
                             <a href="@Url.Action("DeleteFromFavorites", "Favorites", new { productId = item.Product.Id })" class="btn btn-outline-purple">
                                 <i class="bi bi-heart-fill"></i> <!-- Иконка заполненного сердечка (товар в избранном) -->
+                            </a> *@
+                            <!-- Кнопка удаления из избранного  Тест ajax -->
+                            <a href="javascript:void(0)" class="btn btn-outline-purple delete-from-favorites" data-product-id="@item.Product.Id">
+                                <i class="bi bi-heart-fill"></i>
                             </a>
                         }
                         else

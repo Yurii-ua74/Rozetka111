@@ -458,6 +458,22 @@ namespace Rozetka.Controllers
                     product.ActionPrice = action.NewPrice; // Устанавливаем цену акции
                 }
             }
+
+            // Проверка избранных товаров
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId != null)
+            {
+                var favoriteProductIds = await _context.Favorites
+                    .Where(f => f.UserId == userId)
+                    .Select(f => f.ProductId)
+                    .ToListAsync();
+
+                foreach (var product in query)
+                {
+                    product.IsInFavorites = favoriteProductIds.Contains(product.Id);
+                }
+            }
+
             // Выполняем запрос
             productViewModel.SearchingResults = await query.ToListAsync();
 
