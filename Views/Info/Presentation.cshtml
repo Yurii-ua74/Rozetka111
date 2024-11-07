@@ -1,7 +1,29 @@
 ﻿@{
     ViewData["Presentation"] = "Presentation";
 }
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #4a148c;
+    }
 
+    .container {
+        margin-top: 50px;
+    }
+
+    h1, h2 {
+        color: #6a1b9a;
+    }
+
+    .list-group-item {
+        background-color: #f8f9fa;
+        color: #4a148c;
+    }
+
+    .icon {
+        color: #6a1b9a;
+    }
+</style>
 
 <div class="container">
 
@@ -16,10 +38,56 @@
     </div>
 
     <!-- Блок слайдера для пакетов -->
-    <div id="packagesContainer" class="packages-list" style="margin-top: 20px; overflow: hidden;">
-       
+     
+       <!-- Сторінка мови та технології -->
+
+    <div class="container packages-slide">
+        @* style="margin-top: 20px; overflow: hidden;" *@
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 class="text-center" style="color: #9C12FF; margin: 0;">
+                    Команда розробників
+                    <ul class="list-group mb-5 text-start">
+                        <li class="list-group-item"><i class="bi bi-person-circle icon"></i> Білий Андрій</li>
+                        <li class="list-group-item"><i class="bi bi-person-circle icon"></i> Постоєнко Юрій</li>
+                        <li class="list-group-item"><i class="bi bi-person-circle icon"></i> Стулій Владислав</li>
+                    </ul>
+                </h3>                
+            </div>
+
+                <h2>Використані мови та технології</h2>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item"><strong>Серверна частина:</strong> ASP.NET Core та патерн MVC</li>
+                    <li class="list-group-item"><strong>Керування користувачами:</strong> ASP.NET Core Identity</li>
+                    <li class="list-group-item"><strong>Мова програмування, серверна частина:</strong> C# (.NET)</li>
+                    <li class="list-group-item"><strong>Клієнтська частина:</strong> JavaScript</li>
+                    <li class="list-group-item"><strong>Розмітка сторінок:</strong> HTML</li>
+                    <li class="list-group-item"><strong>Стилізація:</strong> CSS</li>
+                </ul>
+
+                <h2>Зовнішні бібліотеки та фреймворки</h2>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item"><strong>jQuery</strong></li>
+                    <li class="list-group-item"><strong>Bootstrap & Bootstrap-icons</strong> — сітка, іконки</li>
+                    <li class="list-group-item"><strong>Google APIs</strong> — інтеграція з сервісами Google</li>
+                    <li class="list-group-item"><strong>Leaflet</strong> — для відображення карт</li>
+                </ul>
+
+                <h2>База даних та інструменти розробки</h2>
+                
+
+            <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                <h3 style="color: #9C12FF; margin: 0;">
+                    <img src="~/images/icon-mysql.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    <img src="~/images/icon-github.png" alt="" style="width: 50px; height: 50px; margin-right: 20px;">
+                    <li class="list-group-item"><strong>База даних:</strong> MySQL</li>
+                    <li class="list-group-item"><strong>Керування версіями:</strong> GitHub</li>                    
+                </h3>
+            </div>
+       </div>
+
+
         <!-- Первая часть списка пакетов -->
-        <div class="packages-slide">
+        <div class="packages-slide" style="display: none;">
             
             <div class="package-item" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
                 <h3 style="color: #9C12FF; margin: 0;">
@@ -119,9 +187,10 @@
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             const titles = [
+                "Мови та технології",
                 "NuGet-пакети та фреймворки",
                 "NuGet-пакети та фреймворки",
-                "Структура бази данних"
+                "Структура бази данних - 24 таблиці"
             ];
 
             function updateButtons() {
