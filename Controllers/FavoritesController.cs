@@ -88,6 +88,29 @@ namespace Rozetka.Controllers
             return Json(new { success = true, message = "Товар додано до обраного" });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteFromFavorites(int productId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID пользователя
+            if (userId == null)
+            {
+                // Возвращаем JSON с сообщением об ошибке
+                return Json(new { success = false, message = "Неможливо визначити користувача" });                
+            }
+
+            // Ищем товар в избранном
+            var favoritesItem = await _context.Favorites
+                .FirstOrDefaultAsync(w => w.UserId == userId && w.ProductId == productId);
+
+            if (favoritesItem != null)
+            {
+                _context.Favorites.Remove(favoritesItem);
+                await _context.SaveChangesAsync();
+            }
+
+            // Возвращаем успешный ответ
+            return Json(new { success = true, message = "Товар видалено з обраного" });
+        }
 
         //[Authorize]
         //public async Task<IActionResult> AddToFavorites(int productId)
@@ -125,35 +148,35 @@ namespace Rozetka.Controllers
         //    return RedirectToAction("Index", "Home");
         //}
 
-        [Authorize]
-        public async Task<IActionResult> DeleteFromFavorites(int productId)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID пользователя
-            if (userId == null)
-            {
-                return BadRequest("Не удалось определить пользователя.");
-            }
+        //[Authorize]
+        //public async Task<IActionResult> DeleteFromFavorites(int productId)
+        //{
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Получаем ID пользователя
+        //    if (userId == null)
+        //    {
+        //        return BadRequest("Не удалось определить пользователя.");
+        //    }
 
-            // Ищем товар в избранном
-            var favoritesItem = await _context.Favorites
-                .FirstOrDefaultAsync(w => w.UserId == userId && w.ProductId == productId);
+        //    // Ищем товар в избранном
+        //    var favoritesItem = await _context.Favorites
+        //        .FirstOrDefaultAsync(w => w.UserId == userId && w.ProductId == productId);
 
-            if (favoritesItem != null)
-            {
-                _context.Favorites.Remove(favoritesItem);
-                await _context.SaveChangesAsync();
-            }
+        //    if (favoritesItem != null)
+        //    {
+        //        _context.Favorites.Remove(favoritesItem);
+        //        await _context.SaveChangesAsync();
+        //    }
 
-            // Вернемся на предыдущую страницу
-            string refererUrl = Request.Headers["Referer"].ToString();
-            if (!string.IsNullOrEmpty(refererUrl))
-            {
-                return Redirect(refererUrl);
-            }
+        //    // Вернемся на предыдущую страницу
+        //    string refererUrl = Request.Headers["Referer"].ToString();
+        //    if (!string.IsNullOrEmpty(refererUrl))
+        //    {
+        //        return Redirect(refererUrl);
+        //    }
 
-            // Если заголовок Referer пустой, можно вернуться на главную или другую дефолтную страницу
-            return RedirectToAction("Index", "Home");
-        }
+        //    // Если заголовок Referer пустой, можно вернуться на главную или другую дефолтную страницу
+        //    return RedirectToAction("Index", "Home");
+        //}
 
 
 

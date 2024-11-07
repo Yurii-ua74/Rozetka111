@@ -297,6 +297,27 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    // Обработчик для добавления в избранное
+    $('.delete-from-favorites').on('click', function () {
+        var productId = $(this).data('product-id');
+
+        $.post('/Favorites/DeleteFromFavorites', { productId: productId }, function (data) {
+            if (data.success) {
+                // Показать сообщение об успехе
+                window.location.reload();
+                //alert(data.message);
+            } else {
+                // Показать сообщение об ошибке
+                alert(data.message);
+            }
+        }).fail(function () {
+            // Обработка ошибок при AJAX запросе
+            alert('Сталася помилка при видаленні товару з обраного.');
+        });
+    });
+});
+
 //////////////// Сектор изменения и обновления корзины ///////////////////
 $(document).ready(function () {
     $('#cartModal').on('show.bs.modal', function () {
