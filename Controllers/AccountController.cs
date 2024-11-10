@@ -47,7 +47,7 @@ namespace Rozetka.Controllers
         // POST: Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model, string? returnUrl = null)
         {
             if (ModelState.IsValid)
             {
@@ -64,14 +64,24 @@ namespace Rozetka.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    TempData["SuccessMessage"] = "реєстрація успішна";
+                    // return RedirectToAction("Index", "Home");
+                    // Перевірка значення returnUrl
+                    return Redirect(!string.IsNullOrEmpty(returnUrl) ? returnUrl : Url.Action("Index", "Home"));
+                    
                 }
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-            return View(model);
+            // Повертаємось на попередню сторінку, якщо реєстрація не вдалася
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                TempData["ErrorMessage"] = "реєстрація не вдала";
+                return Redirect(!string.IsNullOrEmpty(returnUrl) ? returnUrl : Url.Action("Index", "Home"));
+            }
+            return RedirectToAction("Index", "Home");
         }
         //Обробляє дані реєстрації, створює нового користувача і виконує вхід.
         //Викликається при відправці форми реєстрації (метод POST) за URL Account/Register.

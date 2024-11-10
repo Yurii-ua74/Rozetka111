@@ -27,8 +27,9 @@ namespace Rozetka.Models.ViewModels.Products
         [Required]
         public decimal Price { get; set; }
 
+        
+        public string? Brand { get; set; }
         [Required]
-        public string Brand { get; set; }
         public int BrandId { get; set; }
 
         public int QuantityInStock { get; set; }

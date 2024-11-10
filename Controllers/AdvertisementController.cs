@@ -25,7 +25,7 @@ namespace Rozetka.Controllers
         }
 
         // GET: Advertisement
-        // ///// шукає та передає список оголошень за Id еористувача ///// //
+        // ///// шукає та передає список оголошень за Id користувача ///// //
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -222,32 +222,32 @@ namespace Rozetka.Controllers
                 var random = new Random(); // генератор випадкових чисел
 
                 //  доступ до ProductTypes
-                var productType = _context.ProductTypes
-                                   .FirstOrDefault(pt => pt.Title == model.ProductType);
+                //var productType = _context.ProductTypes
+                                   ///.FirstOrDefault(pt => pt.Title == model.ProductType);
 
                 //  доступ до Brands
-                var productBrand = _context.Brands
-                                   .FirstOrDefault(pt => pt.Title == model.Brand);
+                //var productBrand = _context.Brands
+                                   //.FirstOrDefault(pt => pt.Title == model.Brand);
 
-                if (productType != null)
-                {
-                    model.ProductTypeId = productType.Id; // Отримуємо ID типу продукту                   
-                }
-                else
-                {
-                    TempData["ErrorMessage"] = "Тип товару не знайдено.";
-                    return RedirectToAction("CreateAdvertisement"); // Якщо тип не знайдено, перегружаємо сторінку
-                }
+                //if (productType != null)
+                //{
+                //    model.ProductTypeId = productType.Id; // Отримуємо ID типу продукту                   
+                //}
+                //else
+               // {
+                //    TempData["ErrorMessage"] = "Тип товару не знайдено.";
+                //    return RedirectToAction("CreateAdvertisement"); // Якщо тип не знайдено, перегружаємо сторінку
+                //}
 
-                if (productBrand != null)
-                {                   
-                    model.BrandId = productBrand.Id; // Отримуємо ID бренду
-                }
-                else
-                {
-                    TempData["ErrorMessage"] = "Бренд товару не знайдено.";
-                    return RedirectToAction("CreateAdvertisement"); // Якщо тип не знайдено, перегружаємо сторінку
-                }
+                //if (productBrand != null)
+                //{                   
+                //    model.BrandId = productBrand.Id; // Отримуємо ID бренду
+                //}
+               // else
+                //{
+                //    TempData["ErrorMessage"] = "Бренд товару не знайдено.";
+                //    return RedirectToAction("CreateAdvertisement"); // Якщо тип не знайдено, перегружаємо сторінку
+                //}
 
 
                 // 1. Створюємо новий продукт
@@ -311,7 +311,7 @@ namespace Rozetka.Controllers
 
                                 if (currentUser == null)
                                 {
-                                    TempData["ErrorMessage"] = "Не вдалося знайти користувача.";
+                                    TempData["ErrorMessage"] = "Не вдалося знайти продавця.";
                                     return RedirectToAction("CreateAdvertisement");
                                 }
 
@@ -351,6 +351,7 @@ namespace Rozetka.Controllers
                 }                
             }
             // Якщо модель некоректна, повертаємо форму з помилками
+            TempData["ErrorMessage"] = "Не вдалося створити оголошення.";
             return RedirectToAction("CreateAdvertisement");
         }
     }

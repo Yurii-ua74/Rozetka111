@@ -930,9 +930,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="register-form" method="post" action="/Account/Register">                       @*    //////////////////////////////   *@
+                <form id="register-form" method="post" action="/Account/Register">                      
                     @Html.AntiForgeryToken()
-
+                    <input type="hidden" name="rreturnUrl" id="rreturnUrl" />
                     <!-- Первый шаг -->
                   
                     <div id="step-1" class="form-step">
@@ -1189,6 +1189,7 @@
 
 
 <script>
+    
     // Закрытие модального окна авторизации при открытии регистрации
     document.getElementById('openRegisterModal').addEventListener('click', function () {
         var authModal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
@@ -1211,6 +1212,16 @@
         document.body.classList.remove('modal-open');
         document.body.style.overflow = ''; // Разрешаем прокрутку страницы
     });
+
+    // для отримання поточного URL
+    document.addEventListener('DOMContentLoaded', function () {
+        const registerModal = document.getElementById('registerModal');
+        registerModal.addEventListener('show.bs.modal', function () {
+            // Задаємо поточний URL у приховане поле returnUrl
+            document.getElementById('rreturnUrl').value = window.location.href;
+        });
+    });
+
 </script>
 
 <!-- Модальне вікно для кошика -->
