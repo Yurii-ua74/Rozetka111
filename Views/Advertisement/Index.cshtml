@@ -66,9 +66,11 @@
                                         </div>
                                         <div class="col-5">
                                           
-                                            <form id="deleteForm" method="post" asp-action="Delete" asp-controller="Advertisement">
+                                            <form  method="post" asp-action="Delete" asp-controller="Advertisement">
+                                                @Html.AntiForgeryToken() <!-- Додаємо анти-CSRF токен -->
                                                 <input type="hidden" name="id" value="@product.Id" />
-                                                <button type="button" class="btn btn-purple" data-toggle="modal" data-target="#deleteConfirmationModal" data-productid="@product.Id">
+                                                <button type="submit" class="btn btn-purple" onclick="return confirmDelete()">
+                                                    @* data-toggle="modal" data-target="#deleteConfirmationModal" data-productid="@product.Id" *@
                                                     Видалити
                                                 </button>
                                             </form>
@@ -86,49 +88,10 @@
     }
 </div>
 
-<!-- Модальне вікно -->
-<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteConfirmationModalLabel">Підтвердження видалення</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Ви впевнені, що хочете видалити цей товар?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" style="border-radius: 10px" data-dismiss="modal">Скасувати</button>
-                <button type="button" class="btn btn-purple" id="confirmDeleteButton">Видалити</button>
-            </div>
-        </div>
-    </div>
-</div>
+ <script>       
 
+    function confirmDelete() {
+        return confirm("Ви впевнені, що хочете видалити цей товар?");
+    }
 
-
-<!-- jQuery (необхідний для Bootstrap JS) -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-
- <script>
-        $(document).ready(function () {
-            var productId;
-
-            // Встановлюємо id продукту з кнопки видалення
-            $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // Кнопка, що викликала модальне вікно
-                productId = button.data('productid'); // Витягуємо id продукту
-            });
-
-            // При натисканні на кнопку підтвердження видалення
-            $('#confirmDeleteButton').on('click', function () {
-                $('#deleteForm').submit(); // Відправляємо форму
-            });
-        });
 </script>
