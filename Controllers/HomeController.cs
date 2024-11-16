@@ -160,10 +160,10 @@ namespace Rozetka.Controllers
                     .FirstOrDefaultAsync();
 
                 // Если категория найдена, выбираем продукты
-                if (garmentsCategoryId != 0)
+                if (garmentsCategoryId != 0)                         
                 {
                     model.GetProductsGarments = await _context.Products
-                        .Where(p => p.CategoryId == garmentsCategoryId || p.Childcategory.CategoryId == garmentsCategoryId)
+                        .Where(p => p.CategoryId == garmentsCategoryId)      // || p.Childcategory.CategoryId == garmentsCategoryId
                         .OrderBy(r => Guid.NewGuid()) // Случайный порядок
                         .Take(6)
                         .Include(p => p.ProductType)
