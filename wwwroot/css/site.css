@@ -867,13 +867,13 @@ a:hover{
     }
 
     @media (max-width: 1768px) {
-        .txt_baner_non {
+        .txt_content_non {
             display: none;
         }
     }
 
     @media (max-width: 1150px) {
-        .txt_title_baner_non {
+        .txt_title_content_non {
             display: none;
         }
     }
